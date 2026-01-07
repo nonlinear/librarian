@@ -102,54 +102,54 @@ graph TD
 
 ## TODO
 
-[x] Implement `test_gemini_rag.py` with EpubReader
-[x] Test indexing: 2 EPUBs (Seeing Like a State, How Forests Think)
-[x] Persist in JSON (docstore.json + default\_\_vector_store.json)
-[x] Persist in JSON (docstore.json + default\_\_vector_store.json)
+- [x] ~~Implement `test_gemini_rag.py` with EpubReader~~
+- [x] ~~Test indexing: 2 EPUBs (Seeing Like a State, How Forests Think)~~
+- [x] ~~Persist in JSON (docstore.json + default\_\_vector_store.json)~~
+- [x] ~~Persist in JSON (docstore.json + default\_\_vector_store.json)~~
 
 ### ✅ Phase 2: Queries & CLI
 
-[x] CLI query_book.py with book name + question
-[x] Answers with source citations (snippets + relevance scores)
-[x] Test: "What is legibility?", "How do societies evade legibility?"
-[x] Validate retrieval working, "How do societies evade legibility?"
-[x] Validate retrieval working
+- [x] ~~CLI query_book.py with book name + question~~
+- [x] ~~Answers with source citations (snippets + relevance scores)~~
+- [x] ~~Test: "What is legibility?", "How do societies evade legibility?"~~
+- [x] ~~Validate retrieval working, "How do societies evade legibility?"~~
+- [x] ~~Validate retrieval working~~
 
 ### ✅ Phase 3: Organização Temática com Keywords
 
-[x] Folder structure: `urbanism/`, `anthropocene/`
-[x] Format `.rag-topics` (robots.txt style)
-[x] Manual keywords: `legibility, state, urban planning...`
-[x] Auto-detection: question → match keywords → search in the correct folder
-[x] Automatic keywords: Gemini LLM extracts when indexing the correct folder
-[x] Automatic keywords: Gemini LLM extracts when indexing
+- [x] ~~Folder structure: `urbanism/`, `anthropocene/`~~
+- [x] ~~Format `.rag-topics` (robots.txt style)~~
+- [x] ~~Manual keywords: `legibility, state, urban planning...`~~
+- [x] ~~Auto-detection: question → match keywords → search in the correct folder~~
+- [x] ~~Automatic keywords: Gemini LLM extracts when indexing the correct folder~~
+- [x] ~~Automatic keywords: Gemini LLM extracts when indexing~~
 
 ### ✅ Phase 4: Auto-Indexing Completo
 
-[x] `literature_watchdog.py`: monitors files + extracts keywords + updates `.rag-topics`
-[x] `literature_rag.lua`: Hammerspoon with macOS notifications + updates `.rag-topics`
-[x] Test: add EPUB → auto-index with keywords
-[x] Test: remove EPUB → clean from index with keywords
-[x] Validate: keywords appear in `.rag-topics` automatically
-[x] Tools: query_literature, list_books, get_literature_costs
-[ ] **Test: reload VS Code + ask directly in Copilot**
-[ ] **Validate: sources with markdown links working**
+- [x] ~~`literature_watchdog.py`: monitors files + extracts keywords + updates `.rag-topics`~~
+- [x] ~~`literature_rag.lua`: Hammerspoon with macOS notifications + updates `.rag-topics`~~
+- [x] ~~Test: add EPUB → auto-index with keywords~~
+- [x] ~~Test: remove EPUB → clean from index with keywords~~
+- [x] ~~Validate: keywords appear in `.rag-topics` automatically~~
+- [x] ~~Tools: query_literature, list_books, get_literature_costs~~
+- [ ] **Test: reload VS Code + ask directly in Copilot**
+- [ ] **Validate: sources with markdown links working**
 
 ### ⏳ Phase 6: VS Code Copilot Integration (MCP)
 
-[x] MCP server implemented (literature_mcp_server.py)
-[x] Configured in `~/Library/.../mcp.json`
-[x] Tools: query_literature, list_books, get_literature_costs
-[ ] **Test: reload VS Code + ask directly in Copilot**
-[ ] **Validate: sources with markdown links working**
+- [x] ~~MCP server implemented (literature_mcp_server.py)~~
+- [x] ~~Configured in `~/Library/.../mcp.json`~~
+- [x] ~~Tools: query_literature, list_books, get_literature_costs~~
+- [ ] **Test: reload VS Code + ask directly in Copilot**
+- [ ] **Validate: sources with markdown links working**
 
 ### 🔮 Next steps
 
-[ ] PDF support (besides EPUB)
-[ ] EPUB metadata (author, year) in answers
-[ ] Automatic cross-book queries (search in multiple folders)
-[ ] OpenAI fallback if Gemini fails
-[x] Prompt `literature_use.prompt.md` to facilitate queries
+- [ ] PDF support (besides EPUB)
+- [ ] EPUB metadata (author, year) in answers
+- [ ] Automatic cross-book queries (search in multiple folders)
+- [ ] OpenAI fallback if Gemini fails
+- [x] ~~Prompt `literature_use.prompt.md` to facilitate queries~~
 
 ```
 
