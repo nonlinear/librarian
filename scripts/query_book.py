@@ -10,6 +10,34 @@ from pathlib import Path
 from dotenv import load_dotenv
 from llama_index.core import StorageContext, load_index_from_storage, Settings
 
+# MCP server check and auto-start
+import psutil
+import subprocess
+
+def is_mcp_server_running():
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+        try:
+            if (
+                proc.info['name'] in ['python3.11', 'python3'] and
+                any('literature_mcp_server.py' in str(arg) for arg in proc.info['cmdline'])
+            ):
+                return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            continue
+    return False
+
+def start_mcp_server():
+    subprocess.Popen([
+        '/opt/homebrew/bin/python3.11',
+        '/Users/nfrota/Documents/literature/scripts/literature_mcp_server.py'
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+# Ensure MCP server is running before query
+if not is_mcp_server_running():
+    print("[INFO] MCP server not running. Starting MCP server...")
+    start_mcp_server()
+    import time; time.sleep(2)  # Wait briefly to ensure server starts
+
 # Load environment variables
 load_dotenv()
 
@@ -26,13 +54,13 @@ def setup_models():
     USE_GEMINI = os.getenv("GOOGLE_API_KEY") is not None
 
     if USE_GEMINI:
-        from llama_index.embeddings.gemini import GeminiEmbedding
+        from llama_index.embeddings.google_genai import GoogleGenAIEmbedding
         from llama_index.llms.google_genai import GoogleGenAI
 
         api_key = os.getenv("GOOGLE_API_KEY")
-        embed_model = GeminiEmbedding(
+        embed_model = GoogleGenAIEmbedding(
             model_name="models/embedding-001",
-            api_key=api_key
+            api_key=api_key,
         )
         llm = GoogleGenAI(model="models/gemini-2.5-flash", api_key=api_key)
         Settings.embed_model = embed_model

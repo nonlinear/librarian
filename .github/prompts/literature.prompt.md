@@ -42,8 +42,6 @@ When this prompt is activated:
 - List available folders and their topics
 - Suggest how to rephrase the question
 
----
-
 ## Advanced MCP Arguments
 
 You can use these arguments in your MCP JSON requests for more control:
@@ -60,21 +58,9 @@ You can use these arguments in your MCP JSON requests for more control:
 ```json
 {
   "method": "tools/call",
-  "params": {
-    "name": "query_literature",
     "arguments": {
-      "question": "What is legibility?",
-      "book_context": "urbanism",
-      "auto_detect": false,
-      "max_sources": 3,
       "return_snippets": true,
       "return_metadata": true
-    }
-  }
-}
-```
-
----
 
 ---
 
@@ -92,17 +78,7 @@ Current indexed folders and keywords:
 - **usability:** content strategy, validation, writing, UX
 
 ---
-
 ## Debug Commands
-
-Show detailed RAG status:
-
-```bash
-# View usage stats
-python3 ~/Documents/literature/scripts/view_detailed_costs.py
-
-# Check indexed books
-ls ~/Documents/literature/books/*/
 
 # View keywords for a folder
 cat ~/Documents/literature/books/AI/.rag-topics
@@ -114,19 +90,8 @@ cat ~/Documents/literature/books/AI/.rag-topics
 
 **To ensure RAG activates:**
 
-- Use specific keywords from `.rag-topics`
 - Mention topics explicitly (e.g., "according to I Ching")
 - Ask conceptual questions rather than generic ones
-
-**Examples that trigger RAG:**
-
 - "What is legibility?" → urbanism/
-- "Explain hexagram 55" → oracles/
-- "How do gradients work?" → system theory/
-- "What is generative design?" → art direction/
-
 **Examples that might NOT trigger:**
-
-- "Tell me about cities" (too generic)
-- "What's a good book?" (meta question)
 - "How are you today?" (social, not knowledge-based)

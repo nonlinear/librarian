@@ -10,13 +10,33 @@
       "embedding_cost": 0.0,
       "embedding_tokens": 1226861,
       "embedding_date": "2026-01-08T19:55:15.521303",
-      "queries": []
+      "queries": [
+        {
+          "date": "2026-01-08T20:56:22.884024",
+          "tokens": 15,
+          "cost": 0.0,
+          "month": "2026-01"
+        }
+      ]
     },
     "Foundations of Computer Vision": {
       "embedding_cost": 0.0,
       "embedding_tokens": 0,
       "embedding_date": "2026-01-08T19:57:20.637773",
-      "queries": []
+      "queries": [
+        {
+          "date": "2026-01-08T20:59:09.657809",
+          "tokens": 74,
+          "cost": 0.0,
+          "month": "2026-01"
+        },
+        {
+          "date": "2026-01-08T21:01:47.200958",
+          "tokens": 74,
+          "cost": 0.0,
+          "month": "2026-01"
+        }
+      ]
     },
     "Philosophy and Simulation": {
       "embedding_cost": 0.0,
@@ -155,7 +175,44 @@
       "embedding_tokens": 145947,
       "embedding_date": "2026-01-08T20:36:55.214153",
       "queries": []
+    },
+    "Marx in the Anthropocene": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 600964,
+      "embedding_date": "2026-01-08T21:05:03.836366",
+      "queries": []
+    },
+    "How Infrastructure Works": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 582350,
+      "embedding_date": "2026-01-08T21:06:53.311676",
+      "queries": []
+    },
+    "Psychopolitics": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 105099,
+      "embedding_date": "2026-01-08T21:08:01.184366",
+      "queries": []
+    },
+    "Molecular Red": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 539652,
+      "embedding_date": "2026-01-08T21:09:51.036456",
+      "queries": []
     }
   },
-  "monthly": {}
+  "monthly": {
+    "2026-01": {
+      "I Ching, The Oracle of the Cosmic Way": {
+        "query_count": 1,
+        "total_cost": 0.0,
+        "total_tokens": 15
+      },
+      "Foundations of Computer Vision": {
+        "query_count": 2,
+        "total_cost": 0.0,
+        "total_tokens": 148
+      }
+    }
+  }
 }
