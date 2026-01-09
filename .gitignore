@@ -1,6 +1,7 @@
-# Ignora todos os arquivos dentro de books/, mas mantém o diretório
 books/*
 !books/.gitkeep
-
-# Ignorar arquivos de ambiente
+storage/*
+!storage/.gitkeep
+storage/docstore.json
+storage/default__vector_store.json
 .env
