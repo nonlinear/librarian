@@ -1,15 +1,13 @@
 # Literature RAG
 
-Local retrieval-augmented generation for your book library
+> Local retrieval-augmented generation for your book library
 
-## Architecture
-
-### Asking a question
+## Asking a question
 
 Always start with [`/literature`](./.github/prompts/literature.prompt.md) prompt so it turns MCP on and understands you want RAG context
 
 ```
-/literature (specify either book or topic/folder),  question
+/literature.prompt (specify either book or topic/folder),  question
 ```
 
 ```mermaid
@@ -25,7 +23,7 @@ graph TD
   l1 --> u1[Answer to user]
 ```
 
-### Adding, removing book
+## Adding, removing book
 
 add, remove book under a folder/topic, then run [update literature](scripts/update_literature.py)
 
