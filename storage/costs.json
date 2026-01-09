@@ -1,246 +1,161 @@
 {
   "books": {
-    "Seeing Like a State": {
+    "The Chaos Apple by Thumper Forge": {
       "embedding_cost": 0.0,
-      "embedding_tokens": 884503,
-      "embedding_date": "2026-01-06T18:56:03.924731",
-      "queries": [
-        {
-          "date": "2026-01-06T17:30:40.048165",
-          "tokens": 110,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T17:30:58.089475",
-          "tokens": 14,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T17:31:32.679768",
-          "tokens": 25,
-          "cost": 0.0,
-          "month": "2026-01"
-        }
-      ]
-    },
-    "How forests think": {
-      "embedding_cost": 0.0,
-      "embedding_tokens": 536325,
-      "embedding_date": "2026-01-06T18:46:15.466587",
-      "queries": [
-        {
-          "date": "2026-01-06T17:53:50.849564",
-          "tokens": 32,
-          "cost": 0.0,
-          "month": "2026-01"
-        }
-      ]
-    },
-    "AI and UX": {
-      "embedding_cost": 0.0,
-      "embedding_tokens": 262083,
-      "embedding_date": "2026-01-06T18:46:56.315401",
-      "queries": [
-        {
-          "date": "2026-01-07T16:21:54.524067",
-          "tokens": 92,
-          "cost": 0.0,
-          "month": "2026-01"
-        }
-      ]
-    },
-    "The Atlas of AI": {
-      "embedding_cost": 0.0,
-      "embedding_tokens": 492029,
-      "embedding_date": "2026-01-06T18:48:01.679378",
-      "queries": []
-    },
-    "software above device": {
-      "embedding_cost": 0.0,
-      "embedding_tokens": 13135,
-      "embedding_date": "2026-01-06T18:48:15.528988",
-      "queries": []
-    },
-    "Email to the Universe": {
-      "embedding_cost": 0.0,
-      "embedding_tokens": 335652,
-      "embedding_date": "2026-01-06T18:49:02.325399",
-      "queries": []
-    },
-    "Code as Creative Medium": {
-      "embedding_cost": 0.0,
-      "embedding_tokens": 456791,
-      "embedding_date": "2026-01-06T18:49:57.818916",
+      "embedding_tokens": 258124,
+      "embedding_date": "2026-01-08T19:52:48.700485",
       "queries": []
     },
     "I Ching, The Oracle of the Cosmic Way": {
       "embedding_cost": 0.0,
       "embedding_tokens": 1226861,
-      "embedding_date": "2026-01-06T18:44:14.459522",
-      "queries": [
-        {
-          "date": "2026-01-06T20:35:51.060096",
-          "tokens": 14,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:17:53.800662",
-          "tokens": 40,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:18:15.101311",
-          "tokens": 23,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:18:36.507013",
-          "tokens": 49,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:19:22.832254",
-          "tokens": 44,
-          "cost": 0.0,
-          "month": "2026-01"
-        }
-      ]
+      "embedding_date": "2026-01-08T19:55:15.521303",
+      "queries": []
+    },
+    "Foundations of Computer Vision": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 0,
+      "embedding_date": "2026-01-08T19:57:20.637773",
+      "queries": []
     },
     "Philosophy and Simulation": {
       "embedding_cost": 0.0,
       "embedding_tokens": 406706,
-      "embedding_date": "2026-01-06T18:45:04.107003",
+      "embedding_date": "2026-01-08T19:59:30.013064",
+      "queries": []
+    },
+    "How forests think": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 536325,
+      "embedding_date": "2026-01-08T20:01:04.393934",
+      "queries": []
+    },
+    "AI and UX": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 262083,
+      "embedding_date": "2026-01-08T20:02:09.607276",
+      "queries": []
+    },
+    "The Atlas of AI": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 492029,
+      "embedding_date": "2026-01-08T20:03:38.658884",
+      "queries": []
+    },
+    "software above device": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 13135,
+      "embedding_date": "2026-01-08T20:04:24.463414",
+      "queries": []
+    },
+    "Email to the Universe": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 335652,
+      "embedding_date": "2026-01-08T20:05:40.283471",
+      "queries": []
+    },
+    "Code as Creative Medium": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 456791,
+      "embedding_date": "2026-01-08T20:07:09.153600",
       "queries": []
     },
     "Generative Design": {
       "embedding_cost": 0.0,
       "embedding_tokens": 170763,
-      "embedding_date": "2026-01-06T18:50:26.713561",
+      "embedding_date": "2026-01-08T20:08:10.839143",
       "queries": []
     },
     "The Diamond Age": {
       "embedding_cost": 0.0,
       "embedding_tokens": 806556,
-      "embedding_date": "2026-01-06T18:51:49.350882",
+      "embedding_date": "2026-01-08T20:10:07.237163",
       "queries": []
     },
     "Heavenly Tyrant": {
       "embedding_cost": 0.0,
       "embedding_tokens": 685827,
-      "embedding_date": "2026-01-06T18:53:06.095008",
+      "embedding_date": "2026-01-08T20:11:56.137767",
       "queries": []
     },
     "The Ministry for the Future": {
       "embedding_cost": 0.0,
       "embedding_tokens": 774389,
-      "embedding_date": "2026-01-06T18:54:35.359803",
+      "embedding_date": "2026-01-08T20:13:55.080062",
+      "queries": []
+    },
+    "Seeing Like a State": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 884503,
+      "embedding_date": "2026-01-08T20:15:57.753073",
       "queries": []
     },
     "Content Everywhere": {
       "embedding_cost": 0.0,
       "embedding_tokens": 318978,
-      "embedding_date": "2026-01-06T18:56:47.867838",
+      "embedding_date": "2026-01-08T20:17:12.367481",
       "queries": []
     },
     "Writing Is Designing": {
       "embedding_cost": 0.0,
       "embedding_tokens": 256434,
-      "embedding_date": "2026-01-06T18:57:31.461051",
+      "embedding_date": "2026-01-08T20:18:23.573098",
       "queries": []
     },
     "Validating Product Ideas": {
       "embedding_cost": 0.0,
       "embedding_tokens": 381936,
-      "embedding_date": "2026-01-06T18:58:21.525619",
+      "embedding_date": "2026-01-08T20:19:44.981079",
       "queries": []
     },
-    "usability": {
-      "embedding_cost": 0,
-      "embedding_tokens": 0,
-      "queries": [
-        {
-          "date": "2026-01-06T21:01:56.049251",
-          "tokens": 9,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:03:49.419618",
-          "tokens": 9,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:29:31.873744",
-          "tokens": 48,
-          "cost": 0.0,
-          "month": "2026-01"
-        }
-      ]
+    "Cybernetics": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 438105,
+      "embedding_date": "2026-01-08T19:56:41.012383",
+      "queries": []
     },
-    "oracles": {
-      "embedding_cost": 0,
-      "embedding_tokens": 0,
-      "queries": [
-        {
-          "date": "2026-01-06T21:05:01.867417",
-          "tokens": 14,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:09:05.659142",
-          "tokens": 15,
-          "cost": 0.0,
-          "month": "2026-01"
-        },
-        {
-          "date": "2026-01-06T21:16:16.059464",
-          "tokens": 14,
-          "cost": 0.0,
-          "month": "2026-01"
-        }
-      ]
+    "The Latest Computer Vision for Beginners and Experts": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 61324,
+      "embedding_date": "2026-01-08T19:58:14.123682",
+      "queries": []
+    },
+    "365 Tarot Spreads - Sasha Graham": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 469828,
+      "embedding_date": "2026-01-08T20:29:24.786473",
+      "queries": []
+    },
+    "Tarot Reading Explained": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 366263,
+      "embedding_date": "2026-01-08T20:30:44.087635",
+      "queries": []
+    },
+    "Learn Tarot. A Step - Step Guide - Julian de Burgh": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 123031,
+      "embedding_date": "2026-01-08T20:31:46.443473",
+      "queries": []
+    },
+    "The Occult I Ching - Maja D'Aoust": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 493858,
+      "embedding_date": "2026-01-08T20:33:25.260975",
+      "queries": []
+    },
+    "The I Ching or Book of Changes translated - Richard Wilhelm": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 994807,
+      "embedding_date": "2026-01-08T20:35:45.695935",
+      "queries": []
+    },
+    "I Ching in Plain English - George Hulskramer": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 145947,
+      "embedding_date": "2026-01-08T20:36:55.214153",
+      "queries": []
     }
   },
-  "monthly": {
-    "2026-01": {
-      "Seeing Like a State": {
-        "query_count": 3,
-        "total_cost": 0.0,
-        "total_tokens": 149
-      },
-      "How forests think": {
-        "query_count": 1,
-        "total_cost": 0.0,
-        "total_tokens": 32
-      },
-      "I Ching, The Oracle of the Cosmic Way": {
-        "query_count": 5,
-        "total_cost": 0.0,
-        "total_tokens": 170
-      },
-      "usability": {
-        "query_count": 3,
-        "total_cost": 0.0,
-        "total_tokens": 66
-      },
-      "oracles": {
-        "query_count": 3,
-        "total_cost": 0.0,
-        "total_tokens": 43
-      },
-      "AI and UX": {
-        "query_count": 1,
-        "total_cost": 0.0,
-        "total_tokens": 92
-      }
-    }
-  }
+  "monthly": {}
 }

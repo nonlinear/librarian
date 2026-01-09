@@ -17,7 +17,7 @@ from watchdog.events import FileSystemEventHandler
 sys.path.insert(0, str(Path(__file__).parent))
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings, StorageContext, load_index_from_storage
-from llama_index.embeddings.gemini import GeminiEmbedding
+from llama_index.embeddings.google import GeminiEmbedding
 from llama_index.llms.google_genai import GoogleGenAI
 from llama_index.readers.file import EpubReader
 from rag_cost_tracker import RAGCostTracker
@@ -27,7 +27,7 @@ load_dotenv()
 
 # Setup paths
 BASE_DIR = Path(__file__).parent.parent
-BOOKS_DIR = BASE_DIR / "literature" / "books"
+BOOKS_DIR = BASE_DIR / "books"
 STORAGE_DIR = BASE_DIR / "storage"
 
 # Initialize models
@@ -240,43 +240,45 @@ def remove_book_from_index(book_name: str):
     print(f"   ✓ Marked in tracking")
 
 
+
 class BookHandler(FileSystemEventHandler):
-    """Handle new and removed EPUB files"""
+    """On file event, index only changed EPUB or remove deleted EPUB from index"""
 
-    def on_created(self, event):
+    def on_any_event(self, event):
+        print(f"[DEBUG] Event received: type={event.event_type}, path={event.src_path}, is_directory={event.is_directory}")
         if event.is_directory:
+            print("[DEBUG] Ignoring directory event.")
             return
-
         path = Path(event.src_path)
-        if path.suffix == '.epub':
-            print(f"\n🆕 New book detected: {path.name}")
-            time.sleep(2)  # Wait for file to be fully written
+        if path.suffix.lower() == ".epub":
+            if event.event_type in ("created", "modified", "moved"):
+                print(f"🔄 Indexing changed file: {path}")
+                try:
+                    index_book(path)
+                except Exception as e:
+                    print(f"❌ Error indexing {path}: {e}")
+            elif event.event_type == "deleted":
+                print(f"🗑️ Removing deleted file: {path}")
+                try:
+                    remove_book_from_index(path.stem)
+                    remove_book_from_topics(path.parent, path.stem)
+                except Exception as e:
+                    print(f"❌ Error removing {path}: {e}")
+
+
+def reindex_all_books():
+    """Reindex all EPUBs in all subfolders and update .rag-topics"""
+    print("\n🚀 Reindexing all books...")
+    for folder, _, files in os.walk(BOOKS_DIR):
+        folder_path = Path(folder)
+        epubs = [f for f in files if f.lower().endswith('.epub')]
+        for epub in epubs:
+            epub_path = folder_path / epub
             try:
-                index_book(path)
+                index_book(epub_path)
             except Exception as e:
-                print(f"❌ Error indexing {path.name}: {e}")
-
-    def on_deleted(self, event):
-        if event.is_directory:
-            return
-
-        path = Path(event.src_path)
-        if path.suffix == '.epub':
-            book_name = path.stem
-            folder = path.parent
-
-            print(f"\n🗑️  Book removed: {path.name}")
-            try:
-                # Remove from index tracking
-                remove_book_from_index(book_name)
-
-                # Update .rag-topics
-                print(f"   📝 Updating .rag-topics...")
-                remove_book_from_topics(folder, book_name)
-
-                print(f"✅ Done removing {book_name}\n")
-            except Exception as e:
-                print(f"❌ Error removing {path.name}: {e}")
+                print(f"❌ Error indexing {epub}: {e}")
+    print("\n✅ Reindexing complete.")
 
 
 def main():
@@ -287,8 +289,10 @@ def main():
     print(f"Monitoring: {BOOKS_DIR}")
     print("Waiting for new EPUB files...\n")
 
+
+    from watchdog.observers.polling import PollingObserver
     event_handler = BookHandler()
-    observer = Observer()
+    observer = PollingObserver()
     observer.schedule(event_handler, str(BOOKS_DIR), recursive=True)
     observer.start()
 
