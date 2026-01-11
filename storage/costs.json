@@ -204,7 +204,20 @@
       "embedding_cost": 0.0,
       "embedding_tokens": 105099,
       "embedding_date": "2026-01-08T21:08:01.184366",
-      "queries": []
+      "queries": [
+        {
+          "date": "2026-01-10T18:20:30.157031",
+          "tokens": 54,
+          "cost": 0.0,
+          "month": "2026-01"
+        },
+        {
+          "date": "2026-01-10T18:23:36.404751",
+          "tokens": 54,
+          "cost": 0.0,
+          "month": "2026-01"
+        }
+      ]
     },
     "Molecular Red": {
       "embedding_cost": 0.0,
@@ -224,6 +237,49 @@
           "month": "2026-01"
         }
       ]
+    },
+    "Mastering Visual Studio Code": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 327580,
+      "embedding_date": "2026-01-10T15:07:36.320580",
+      "queries": []
+    },
+    "Version Control with Git": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 813974,
+      "embedding_date": "2026-01-10T15:08:56.235584",
+      "queries": []
+    },
+    "Producing Open Source Software": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 585726,
+      "embedding_date": "2026-01-10T15:09:50.695172",
+      "queries": []
+    },
+    "Designing Data-Intensive Applications": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 276981,
+      "embedding_date": "2026-01-10T15:10:23.446544",
+      "queries": []
+    },
+    "The Art of Community": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 1219032,
+      "embedding_date": "2026-01-10T15:12:11.178889",
+      "queries": [
+        {
+          "date": "2026-01-10T15:23:21.094639",
+          "tokens": 161,
+          "cost": 0.0,
+          "month": "2026-01"
+        }
+      ]
+    },
+    "The open organization ": {
+      "embedding_cost": 0.0,
+      "embedding_tokens": 320500,
+      "embedding_date": "2026-01-10T15:12:48.568866",
+      "queries": []
     }
   },
   "monthly": {
@@ -242,6 +298,16 @@
         "query_count": 2,
         "total_cost": 0.0,
         "total_tokens": 96
+      },
+      "The Art of Community": {
+        "query_count": 1,
+        "total_cost": 0.0,
+        "total_tokens": 161
+      },
+      "Psychopolitics": {
+        "query_count": 2,
+        "total_cost": 0.0,
+        "total_tokens": 108
       }
     }
   }

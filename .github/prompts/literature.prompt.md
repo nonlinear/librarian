@@ -1,98 +1,80 @@
 # Literature Research
 
-**Purpose:** Search indexed books using RAG to answer questions based on book contents.
+Purpose:
+Answer questions by searching indexed books using RAG via MCP tools.
+All factual claims must be grounded in book contents.
 
 ---
 
-## Instructions for AI
+## Operating Rules (Critical)
 
-When this prompt is activated:
+- MCP is the only source of book content.
+- Do NOT answer from general knowledge when book search is required.
+- Do NOT invent citations, quotes, or sources.
+- If MCP returns no relevant material, say so explicitly.
 
-1. **Check if user specified a folder:**
+---
 
-   - Look for patterns like: "use oracles:", "from AI folder:", "search in urbanism:"
-   - If folder specified, search ONLY in that folder
-   - Check `~/Documents/literature/books/` for available folders
+## Step 1 — Scope Detection (Reason First)
 
-2. **If NO folder specified, analyze the question** to identify relevant topics:
+Before calling any MCP tool, silently determine scope:
 
-   - Read all `.rag-topics` files in `~/Documents/literature/books/*/`
-   - Match question keywords against topics in each folder
-   - Identify which folders contain relevant books
+1. Check whether the user explicitly specifies:
 
-3. **Consult the RAG system:**
+   - A folder (e.g. “from urbanism”, “use oracles”)
+   - A book title
+   - A clear domain constraint
 
-   - Use as ferramentas MCP para consultar os livros relevantes
-   - Foque na pasta especificada OU nas pastas cujos tópicos correspondem à pergunta
-   - Recupere trechos e citações relevantes
+2. If explicit scope is present:
 
-4. **Provide answer with sources:**
+   - Search ONLY within that folder or book.
+   - Do NOT auto-detect topics.
 
-   - When mentioning an answer that has a source, add a reference in parentheses at the end of the sentence or term, like (1), (2), (3).
+3. If no scope is specified:
+   - Treat the input as a general question.
+   - Proceed to topic analysis.
 
-   - At the end, list sources as a numbered list, each with the file:// link and a 5-word string to search, like this:
+---
 
-📚 Sources:
+## Step 2 — Topic Analysis (Only if No Scope)
 
-1. file:///Users/nfrota/Documents/literature/books/folder/book.epub "five sequential words here"
-2. file:///Users/nfrota/Documents/literature/books/folder/another_book.epub "another five word example"
+If no folder or book was specified:
 
-3. **If no relevant books found:**
+1. Read all `.rag-topics` files under:
+   `~/Documents/literature/books/*/`
 
-- Explain which topics you searched
-- List available folders and their topics
-- Suggest how to rephrase the question
+2. Match question keywords and concepts against topic lists.
 
-## Advanced MCP Arguments
+3. Select only folders with clear semantic relevance.
+   Avoid broad or speculative matches.
 
-You can use these arguments in your MCP JSON requests for more control:
+---
 
-- `question`: The main query string.
-- `book_context`: (optional) Specify a book or folder for focused search.
-- `auto_detect`: (optional, default true) Set to false to disable topic auto-detection.
-- `max_sources`: (optional) Limit the number of sources returned (e.g., 5).
-- `return_snippets`: (optional) If true, include text snippets from sources.
-- `return_metadata`: (optional) If true, include extra metadata (author, year, etc.).
+## Step 3 — RAG Consultation via MCP
 
-**Example MCP JSON request:**
+- Use MCP tools to query the selected books or folders.
+- Prefer precision over recall.
+- Default to 3–5 sources unless otherwise requested.
+
+You may pass the following arguments to MCP:
+
+- `question`: main query string
+- `book_context`: specific book or folder (if applicable)
+- `auto_detect`: false if scope was explicitly provided
+- `max_sources`: limit sources (default 3–5)
+- `return_snippets`: include text excerpts when helpful
+- `return_metadata`: include author/year if available
+
+Example MCP request:
 
 ```json
 {
   "method": "tools/call",
-    "arguments": {
-      "return_snippets": true,
-      "return_metadata": true
-
----
-
-## Available Topics
-
-Current indexed folders and keywords:
-
-- **AI:** ethics, UX, machine learning, algorithmic bias, software design
-- **anthropocene:** ecology, forests, indigenous knowledge, climate
-- **art direction:** generative design, creative coding, Processing
-- **fiction:** sci-fi narratives (limited support)
-- **oracles:** I Ching, hexagrams, divination
-- **system theory:** complexity, emergence, gradients, simulation
-- **urbanism:** legibility, state power, planning, high modernism
-- **usability:** content strategy, validation, writing, UX
-
----
-## Debug Commands
-
-# View keywords for a folder
-cat ~/Documents/literature/books/AI/.rag-topics
+  "arguments": {
+    "question": "What is legibility?",
+    "book_context": "urbanism",
+    "return_snippets": true,
+    "return_metadata": true
+  }
+}
 ```
-
----
-
-## Tips
-
-**To ensure RAG activates:**
-
-- Mention topics explicitly (e.g., "according to I Ching")
-- Ask conceptual questions rather than generic ones
-- "What is legibility?" → urbanism/
-  **Examples that might NOT trigger:**
-- "How are you today?" (social, not knowledge-based)

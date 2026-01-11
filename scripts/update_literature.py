@@ -36,11 +36,17 @@ def get_indexed_books():
         return set()
 
 
-def update_literature():
-    print("\n🔎 Scanning for new EPUBs...")
+
+
+def update_literature(specific_topic=None):
+    print("\n🔎 Scanning for new EPUBs..." + (f" (topic: {specific_topic})" if specific_topic else ""))
     indexed_books = get_indexed_books()
     all_epubs = []
-    for folder, _, files in os.walk(BOOKS_DIR):
+    search_dir = BOOKS_DIR if not specific_topic else Path(BOOKS_DIR) / specific_topic
+    if not search_dir.exists():
+        print(f"[ERROR] Folder not found: {search_dir}")
+        return
+    for folder, _, files in os.walk(search_dir):
         folder_path = Path(folder)
         folder_name = folder_path.name
         for epub in files:
@@ -89,4 +95,6 @@ def update_literature():
     print("\n✅ Update complete.")
 
 if __name__ == "__main__":
-    update_literature()
+    import sys
+    topic = sys.argv[1] if len(sys.argv) > 1 else None
+    update_literature(topic)

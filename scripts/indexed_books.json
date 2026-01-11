@@ -118,5 +118,29 @@
   {
     "folder": "anthropocene",
     "book_name": "Molecular Red"
+  },
+  {
+    "folder": "product architecture",
+    "book_name": "Mastering Visual Studio Code"
+  },
+  {
+    "folder": "product architecture",
+    "book_name": "Version Control with Git"
+  },
+  {
+    "folder": "product architecture",
+    "book_name": "Producing Open Source Software"
+  },
+  {
+    "folder": "product architecture",
+    "book_name": "Designing Data-Intensive Applications"
+  },
+  {
+    "folder": "activism",
+    "book_name": "The Art of Community"
+  },
+  {
+    "folder": "activism",
+    "book_name": "The open organization "
   }
 ]

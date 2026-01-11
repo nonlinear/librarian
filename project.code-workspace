@@ -1,0 +1,28 @@
+{
+    "settings": {
+    // Set the title bar format
+    "window.title": "🏓 mesa"
+  },
+  "folders": [
+    {
+      "path": "./"    }
+  ],
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+
+      {
+        "label": "🔄 Commit mesa changes",
+        "type": "shell",
+        "command": "cd /Users/nfrota/Documents/mesa && git add -A && echo 'Enter commit message:' && read msg && git commit -m \"$msg\" && git pull && git push",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "shared"
+        }
+      }
+    ]
+  }
+}

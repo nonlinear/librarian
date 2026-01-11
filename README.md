@@ -41,18 +41,27 @@ graph TD
 
 ## Roadmap
 
-1. Embed books via [update literature](scripts/update_literature.py) ✅
-2. Turn on literature MCP (via tasks) ✅
-3. Query via [literature prompt](.github/prompts/literature.prompt.md) ✅
-4. Turn off literature MCP (via tasks) ✅
-5. Local embedding model (vs gemini) ⏳
-6. Better query (terminal on bg? extension?) ⏳
-7. threading/multiprocessing for simultaneous queries and implement cache for recent responses. ⏳
-8. literature prompt asking for topic or book for faster response ⏳
-9. turn MCP on/off automatically (how?) ⏳
-10. PDF support ⏳
-11. generalize: path on .env, etc. new computers) ⏳
-12. image support (source points to file with image) ⏳
+## Roadmap (Updated: MCP ↔ Front End split)
+
+1. Embed books via `update_literature.py` (MCP backend) ✅
+2. Turn on Literature MCP (local service, Nix-managed) ✅
+3. Query via literature prompt (client contract) ✅
+4. Turn off MCP (service lifecycle, not editor tasks) ✅
+5. Local embedding model (replace Gemini, MCP-only) ⏳
+6. Better query UX (VS Code extension / terminal client) ⏳
+7. Threading / multiprocessing + response cache (MCP) ⏳
+8. Prompt asks for topic/book when ambiguous (front end) ⏳
+9. Auto start/connect MCP from front end ⏳
+10. PDF support (MCP ingestion) ⏳
+11. Generalize config: paths, `.env`, new machines (MCP) ⏳
+12. Image support (index + source attribution) ⏳
+
+### Architecture Notes
+
+- MCP = backend (local, Nix-managed, tool-agnostic)
+- Front End = Last Mile (VS Code, terminal, others)
+- VS Code extension is a thin client only
+- No generic “bring-your-own MCP” VS Code extension yet
 
 ## 🤖 For AI
 
