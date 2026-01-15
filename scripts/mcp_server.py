@@ -1,69 +1,94 @@
 #!/usr/bin/env python3
 """
-Personal Library MCP Server (LlamaIndex version)
+Personal Library MCP Server
 
-Simplified architecture using LlamaIndex built-in vector store.
-Fast startup with Gemini embeddings.
+A Model Context Protocol server that provides RAG retrieval from indexed books.
+The server is LLM-agnostic - it only returns chunks, the LLM (Claude/GPT/etc) generates responses.
+
+MCP Tools:
+- query_library: Retrieve relevant chunks from books
+- list_topics: Show available topics
+- list_books: Show books in a topic
 """
 
 import json
 import sys
 import os
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional, List, Dict
 import asyncio
-from dotenv import load_dotenv
+import threading
 
-from llama_index.core import StorageContext, load_index_from_storage, Settings
-from llama_index.embeddings.google_genai import GoogleGenAIEmbedding
+import faiss
+import numpy as np
+from dotenv import load_dotenv
+import google.generativeai as genai
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Load environment
 ENV_PATH = Path(__file__).parent.parent / ".env"
 if not ENV_PATH.exists():
+    # Fallback to notes directory
     ENV_PATH = Path.home() / "Documents/notes/.env"
+
 load_dotenv(dotenv_path=ENV_PATH, override=True)
 
 # Paths
 STORAGE_DIR = Path(__file__).parent.parent / "storage"
 METADATA_FILE = STORAGE_DIR / "metadata.json"
+INDEX_FILE = STORAGE_DIR / "faiss.index"
+DOCSTORE_FILE = STORAGE_DIR / "docstore.json"
 
-# Setup Gemini embeddings
+# Gemini API setup
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 if not GOOGLE_API_KEY:
-    print("ERROR: GOOGLE_API_KEY not found in .env", file=sys.stderr)
-    sys.exit(1)
-
-embed_model = GoogleGenAIEmbedding(
-    model_name="models/embedding-001",
-    api_key=GOOGLE_API_KEY
-)
-Settings.embed_model = embed_model
+    print("WARNING: GOOGLE_API_KEY not found in .env", file=sys.stderr)
+else:
+    genai.configure(api_key=GOOGLE_API_KEY)
 
 # Global state
-index = None
-metadata = None
+faiss_index: Optional[faiss.Index] = None
+docstore: Optional[Dict] = None
+metadata: Optional[Dict] = None
+_loading_complete = threading.Event()
+_load_thread = None
+
+
+def _load_resources_background():
+    """Background thread to load FAISS index and docstore."""
+    global faiss_index, docstore
+
+    try:
+        print("Loading FAISS index in background...", file=sys.stderr, flush=True)
+        faiss_index = faiss.read_index(str(INDEX_FILE))
+
+        print("Loading docstore in background...", file=sys.stderr, flush=True)
+        try:
+            import orjson
+            with open(DOCSTORE_FILE, 'rb') as f:
+                docstore = {int(k): v for k, v in orjson.loads(f.read()).items()}
+        except ImportError:
+            import json as json_lib
+            with open(DOCSTORE_FILE, 'r', encoding='utf-8') as f:
+                docstore = {int(k): v for k, v in json_lib.load(f).items()}
+
+        print(f"✅ Resources loaded ({faiss_index.ntotal:,} vectors)", file=sys.stderr, flush=True)
+        _loading_complete.set()
+    except Exception as e:
+        print(f"❌ Error loading resources: {e}", file=sys.stderr, flush=True)
+        _loading_complete.set()  # Set anyway to avoid hanging
 
 
 def load_resources():
-    """Load metadata only. Index loads on-demand."""
-    global metadata
+    """Ensure resources are loaded (waits if background loading still in progress)."""
+    if not _loading_complete.is_set():
+        print("Waiting for background loading to complete...", file=sys.stderr, flush=True)
+        _loading_complete.wait()
 
-    if metadata is None:
-        print("Loading metadata...", file=sys.stderr, flush=True)
-        with open(METADATA_FILE, 'r') as f:
-            metadata = json.load(f)
-        print("✅ Metadata loaded (index will load on first query)", file=sys.stderr, flush=True)
-
-
-def ensure_index_loaded():
-    """Lazy load index only when needed."""
-    global index
-
-    if index is None:
-        print("Loading vector index (first query, ~12s)...", file=sys.stderr, flush=True)
-        storage_context = StorageContext.from_defaults(persist_dir=str(STORAGE_DIR))
-        index = load_index_from_storage(storage_context)
-        print("✅ Index loaded", file=sys.stderr, flush=True)
+    if faiss_index is None or docstore is None:
+        raise RuntimeError("Failed to load resources")
 
 
 def find_book_id(query: str) -> Optional[str]:
@@ -85,16 +110,40 @@ def find_topic_id(query: str) -> Optional[str]:
     return None
 
 
+def filter_indices(book_id: Optional[str] = None, topic_id: Optional[str] = None) -> List[int]:
+    """Get valid docstore indices for book/topic filter."""
+    if not book_id and not topic_id:
+        return list(docstore.keys())
+
+    valid = []
+    for idx, doc in docstore.items():
+        if book_id and doc['book_id'] == book_id:
+            valid.append(idx)
+        elif topic_id and doc['topic_id'] == topic_id:
+            valid.append(idx)
+
+    return valid
+
+
 def query_library(
     question: str,
     book_context: Optional[str] = None,
     top_k: int = 5
 ) -> Dict:
-    """Query the library and return relevant chunks."""
-    load_resources()
-    ensure_index_loaded()  # Lazy load index only when querying
+    """
+    Query the library and return relevant chunks.
 
-    # Parse context
+    Args:
+        question: User's question
+        book_context: Optional book title/ID or topic label/ID to filter
+        top_k: Number of chunks to return
+
+    Returns:
+        Dict with results and metadata
+    """
+    load_resources()
+
+    # Parse context (book or topic)
     book_id = None
     topic_id = None
 
@@ -106,40 +155,55 @@ def query_library(
         if not book_id and not topic_id:
             return {
                 "error": f"Context not found: {book_context}",
-                "suggestion": "Use list_topics or list_books"
+                "suggestion": "Use list_topics or list_books to see available options"
             }
 
-    # Build filter string if needed
-    filter_metadata = {}
-    if book_id:
-        filter_metadata['book_id'] = book_id
-    elif topic_id:
-        filter_metadata['topic_id'] = topic_id
-
-    # Query index
-    retriever = index.as_retriever(
-        similarity_top_k=top_k,
-        filters=filter_metadata if filter_metadata else None
+    # Generate query embedding using Gemini
+    result = genai.embed_content(
+        model="models/embedding-001",
+        content=question,
+        task_type="retrieval_query"
     )
+    query_embedding = np.array([result['embedding']], dtype='float32')
 
-    nodes = retriever.retrieve(question)
+    # Search FAISS
+    distances, indices = faiss_index.search(query_embedding, top_k * 10)
 
-    # Format results
+    # Filter and collect results
+    valid_indices = filter_indices(book_id, topic_id) if (book_id or topic_id) else None
     results = []
-    for node in nodes:
+
+    for dist, idx in zip(distances[0], indices[0]):
+        if idx == -1 or idx not in docstore:
+            continue
+
+        if valid_indices and idx not in valid_indices:
+            continue
+
+        doc = docstore[idx]
+
         results.append({
-            "text": node.text,
-            "book_title": node.metadata.get('book_title', 'Unknown'),
-            "book_author": node.metadata.get('book_author', 'Unknown'),
-            "topic": node.metadata.get('topic_label', 'Unknown'),
-            "score": node.score
+            "text": doc['chunk_full'],
+            "book_title": doc['book_title'],
+            "book_author": doc['book_author'],
+            "topic": doc['topic_label'],
+            "chunk_index": doc['chunk_index'],
+            "similarity": float(1 / (1 + dist))
         })
 
-    return {"results": results}
+        if len(results) >= top_k:
+            break
+
+    return {
+        "question": question,
+        "context": book_context,
+        "results": results,
+        "total_chunks": len(results)
+    }
 
 
 def list_topics() -> Dict:
-    """List all topics."""
+    """List all available topics."""
     load_resources()
 
     topics = []
@@ -163,7 +227,7 @@ def list_books(topic_context: Optional[str] = None) -> Dict:
     for topic in metadata['topics']:
         if topic_context:
             topic_id = find_topic_id(topic_context)
-            if topic_id and topic['id'] != topic_id:
+            if topic['id'] != topic_id:
                 continue
 
         for book in topic['books']:
@@ -243,12 +307,19 @@ async def handle_mcp_request(request: Dict) -> Dict:
 
 async def main():
     """MCP stdio server main loop."""
+    global metadata, _load_thread
+
     print("Personal Library MCP Server starting...", file=sys.stderr, flush=True)
 
-    # Pre-load resources
-    load_resources()
+    # Load metadata synchronously (fast - only 19KB)
+    with open(METADATA_FILE, 'r', encoding='utf-8') as f:
+        metadata = json.load(f)
 
-    print("Personal Library MCP Server ready", file=sys.stderr, flush=True)
+    # Start background loading of heavy resources (FAISS + docstore)
+    _load_thread = threading.Thread(target=_load_resources_background, daemon=True)
+    _load_thread.start()
+
+    print("Personal Library MCP Server ready (loading index in background)", file=sys.stderr, flush=True)
 
     while True:
         try:
