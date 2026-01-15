@@ -1,7 +1,7 @@
 {
     "settings": {
     // Set the title bar format
-    "window.title": "🏓 mesa"
+    "window.title": "📚 Personal Library"
   },
   "folders": [
     {
@@ -12,9 +12,9 @@
     "tasks": [
 
       {
-        "label": "🔄 Commit mesa changes",
+        "label": "🔄 Commit",
         "type": "shell",
-        "command": "cd /Users/nfrota/Documents/mesa && git add -A && echo 'Enter commit message:' && read msg && git commit -m \"$msg\" && git pull && git push",
+        "command": "cd /Users/nfrota/Documents/personal%20library && git add -A && echo 'Enter commit message:' && read msg && git commit -m \"$msg\" && git pull && git push",
         "group": "build",
         "presentation": {
           "echo": true,
