@@ -106,14 +106,31 @@ Once scope is determined, call `query_library`:
 
 1. **Synthesize** information from results
 2. **Ground** every claim in specific chunks
-3. **Cite** sources (book + author)
+3. **Cite** sources inline with numbers: `(1)`, `(2)`, etc.
 4. **Acknowledge gaps** if incomplete
+
+**Citation Format:**
+
+In the answer, use inline citations:
+
+```
+According to DeLanda (1), gradients are intensive differences that drive morphogenesis. This connects to Deleuze's concept of difference (2).
+```
+
+At the end, list sources matching the citation numbers:
+
+```
+Sources:
+1. file://books/system theory/philosophy_and_simulation.epub "gradients intensive differences morphogenesis"
+2. file://books/philosophy/difference_and_repetition.epub "difference virtuality actualization"
+```
 
 **Never:**
 
 - Quote chunks that weren't returned
 - Add general knowledge without marking it
 - Claim something is "in the book" unless MCP returned it
+- Cite sources without providing searchable quotes
 
 ---
 

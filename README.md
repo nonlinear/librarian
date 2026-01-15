@@ -289,7 +289,7 @@ Verify: `python3.11 --version`
 
 ```bash
 ./scripts/setup.sh
-````
+```
 
 This installs all Python dependencies automatically.
 
@@ -297,7 +297,7 @@ This installs all Python dependencies automatically.
 
 ```bash
 python3.11 -m pip install -r requirements.txt
-````
+```
 
 ---
 
@@ -443,3 +443,4 @@ This is a navigation system, not a knowledge base.
 - Test VS Code MCP integration (`/research` prompt)
 - Measure actual MCP startup time
 - Implement file watcher for delta indexing
+```
