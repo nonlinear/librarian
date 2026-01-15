@@ -261,15 +261,7 @@ graph LR
 
 Before installation, you need:
 
-**Python 3.11 or higher**
-
-| Platform      | Installation                                                  |
-| ------------- | ------------------------------------------------------------- |
-| macOS         | `brew install python@3.11`                                    |
-| Ubuntu/Debian | `sudo apt install python3.11`                                 |
-| Windows       | [Download from python.org](https://www.python.org/downloads/) |
-
-Ve1. Python 3.11 or higher\*\*
+**1. Python 3.11 or higher**
 
 | Platform      | Installation                                                  |
 | ------------- | ------------------------------------------------------------- |
@@ -292,8 +284,11 @@ Verify: `python3.11 --version`
    ```
 
 ⚠️ **Never commit `.env` to git** (already in `.gitignore`)
-./scripts/setup.sh
 
+**3. Run setup script**
+
+```bash
+./scripts/setup.sh
 ````
 
 This installs all Python dependencies automatically.
@@ -321,52 +316,35 @@ python3.11 -m pip install -r requirements.txt
    python3.11 scripts/generate_metadata.py
    ```
 
-   llama-index-core` - RAG framework
+3. **Build index**
 
-- `llama-index-embeddings-google-genai` - Gemini embeddings
-- `llama-index-readers-file` - EPUB/PDF parsing
-- `keybert` - Semantic tag extraction
-- `ebooklib` + `beautifulsoup4` - EPUB parsing
-- `python-dotenv` - Environment variables
-- `watchdog` - File system monitoring (future)
+   ```bash
+   python3.11 scripts/indexer.py
+   ```
+
+   Creates vector store in `storage/` (~92MB for 25 books)
+
+4. **Query your library**
+
+   ```bash
+   python3.11 scripts/query.py "what books discuss AI ethics?"
+   ```
 
 ---
 
 ## Dependencies
 
-Core RAG framework
-python3.11 -m pip install llama-index-core llama-index-readers-file llama-index-embeddings-google-genai
+All installed via `requirements.txt`:
 
-# EPUB parsing
-
-python3.11 -m pip install ebooklib beautifulsoup4
-
-# Tag extraction
-
-python3.11 -m pip install keybert
-
-# Environment variables
-
-python3.11 -m pip install python-dotenv google-generativeai
-
-# File watching (future)lation (if needed):\*\*
-
-```bash
-# Core RAG framework
-python3.11 -m pip install llama-index-core llama-index-readers-file llama-index-embeddings-google-genai
-
-# EPUB parsing
-python3.11 -m pip install ebooklib beautifulsoup4
-
-# Tag extraction
-python3.11 -m pip install keybert
-
-# Environment variables
-python3.11 -m pip install python-dotenv google-generativeai
-
-# File watching (future)
-python3.11 -m pip install watchdog
-```
+- `llama-index-core>=0.13.0` - RAG framework
+- `llama-index-embeddings-google-genai>=0.1.0` - Gemini embeddings
+- `llama-index-llms-gemini>=0.6.0` - Gemini LLM integration
+- `llama-index-readers-file>=0.1.0` - EPUB/PDF parsing
+- `keybert>=0.8.0` - Semantic tag extraction
+- `ebooklib>=0.18` + `beautifulsoup4>=4.12.0` - EPUB parsing
+- `python-dotenv>=1.0.0` - Environment variables
+- `google-generativeai>=0.3.0` - Google AI SDK
+- `watchdog>=3.0.0` - File system monitoring
 
 ---
 
@@ -401,60 +379,40 @@ Contents:
 
 ```bash
 GOOGLE_API_KEY=your_actual_key_here
-```
-
-x] Implement `metadata.json` generation
-
-- [x] LlamaIndex vector store setup
-- [x] Gemini embedding pipeline
-- [ ] File watcher with delta detection
-
-### Phase 2: Query System (In Progress)
-
-- [x] MCP server with 3 tools (query_library, list_topics, list_books)
-- [x] Metadata-first query routing
-- [ ] Clarification prompts when ambiguous
-- [ ] Response caching
-
-### Phase 3: Optimization
-
-- [ ] Threading/multiprocessing
-- [ ] Index persistence optimization
-- [ ] PDF support
-- [ ] Image extraction and indexing
-
-### Phase 4: Clients
-
-- [ ] VS Code extension integration (testing
+---
 
 ## Roadmap
 
-### Phase 1: Core Infrastructure
+### Phase 1: Core Infrastructure ✅
 
 - [x] Implement `metadata.json` generation
-- [ ] File watcher with delta detection
 - [x] LlamaIndex vector store setup
 - [x] Gemini embedding pipeline
+- [x] CLI query tool (scripts/query.py)
+- [ ] **NEXT:** File watcher with delta detection
 
-### Phase 2: Query System
+### Phase 2: MCP Integration
 
-- [ ] Metadata-first query routing
+- [x] MCP server with 3 tools (query_library, list_topics, list_books)
+- [x] Metadata-first query routing
+- [ ] **NEXT:** Test VS Code MCP integration end-to-end
 - [ ] Clarification prompts when ambiguous
-- [ ] RAG retrieval from selected topics/books
 - [ ] Response caching
 
 ### Phase 3: Optimization
 
-- [ ] Threading/multiprocessing
+- [ ] **NEXT:** Measure MCP startup time (<0.5s target)
+- [ ] Threading/multiprocessing for indexing
 - [ ] Index persistence optimization
-- [ ] PDF support
+- [ ] PDF support (currently EPUB only)
 - [ ] Image extraction and indexing
 
-### Phase 4: Clients
+### Phase 4: Production
 
-- [ ] VS Code extension (thin client)
-- [ ] Terminal client
+- [ ] Watchdog integration for auto-reindexing
+- [ ] Terminal client (standalone)
 - [ ] API documentation
+- [ ] Performance benchmarks
 
 ---
 
@@ -467,5 +425,21 @@ When working on this codebase:
 3. **Use Homebrew Python 3.11** for all operations
 4. **Respect the map-territory distinction**
 5. **Optimize for latency** over comprehensiveness
+6. **Check roadmap on session start**: Read this README's Roadmap section and announce the next `- [ ] **NEXT:**` item as the suggested task
 
 This is a navigation system, not a knowledge base.
+
+---
+
+## Project Status (Last Updated: 2026-01-15)
+
+**Current State:**
+- ✅ Phase 1 complete: Full LlamaIndex + Gemini migration
+- ✅ 25 books indexed (3,547 chunks, 92MB storage)
+- ✅ CLI query tool working (12s load + 389ms query)
+- ⏳ MCP server ready but untested in VS Code
+
+**Next Priority:**
+- Test VS Code MCP integration (`/research` prompt)
+- Measure actual MCP startup time
+- Implement file watcher for delta indexing
