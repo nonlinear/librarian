@@ -1,0 +1,16 @@
+{
+  // Personal Library MCP Configuration
+  // Add this to your VS Code settings (User or Workspace)
+
+  "chat.mcp.servers": {
+    "personal-library": {
+      "command": "/opt/homebrew/bin/python3.11",
+      "args": [
+        "/Users/nfrota/Documents/personal library/scripts/mcp_server.py"
+      ],
+      "env": {},
+      "description": "Personal book library RAG (local, FAISS-based)",
+      "enabled": true
+    }
+  }
+}

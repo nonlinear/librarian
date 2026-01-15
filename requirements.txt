@@ -1,0 +1,24 @@
+# Personal Library MCP - Requirements
+# Install with: /opt/homebrew/bin/python3.11 -m pip install -r requirements.txt
+
+# EPUB/PDF parsing
+ebooklib>=0.18
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# Tag extraction
+keybert>=0.8.0
+
+# LlamaIndex with Gemini embeddings
+llama-index-core>=0.10.0
+llama-index-readers-file>=0.1.0
+llama-index-embeddings-google-genai>=0.1.0
+
+# Google AI
+google-generativeai>=0.3.0
+
+# File watching
+watchdog>=3.0.0
+
+# Utilities
+python-dotenv>=1.0.0

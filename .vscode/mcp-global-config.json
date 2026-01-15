@@ -1,6 +1,4 @@
 {
-  "simpleBrowser.focusLockIndicator": true,
-  "simpleBrowser.hideDefaultMenuBar": false,
   "chat.mcp.servers": {
     "personal-library": {
       "command": "/opt/homebrew/bin/python3.11",

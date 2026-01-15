@@ -1,7 +1,29 @@
-books/*
+# Books (BYOB: Bring Your Own Books)
+books/**
 !books/.gitkeep
-storage/*
+
+# Storage (databases, indexes, metadata)
+storage/**
 !storage/.gitkeep
-storage/docstore.json
-storage/default__vector_store.json
+!storage/README.md
+
+# Environment
 .env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Legacy files (migration artifacts)
+*.rag-topics
+indexed_books.json
+indexed_books.txt
+query_result.txt

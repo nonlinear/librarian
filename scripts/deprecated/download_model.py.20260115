@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+"""
+Download embedding model to local cache.
+Run this once after installation to avoid download delays on first MCP start.
+"""
+
+from sentence_transformers import SentenceTransformer
+import sys
+from pathlib import Path
+
+EMBEDDING_MODEL = 'all-MiniLM-L6-v2'
+
+def download_model():
+    """Download and cache the embedding model."""
+    print(f"Downloading embedding model: {EMBEDDING_MODEL}")
+    print("This will take ~30 seconds and only needs to run once...")
+
+    try:
+        model = SentenceTransformer(EMBEDDING_MODEL)
+        print(f"✅ Model downloaded and cached successfully")
+        print(f"   Model size: ~80MB")
+        print(f"   Cache location: ~/.cache/huggingface/")

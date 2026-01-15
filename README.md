@@ -1,8 +1,6 @@
 # Personal Library MCP
 
-**Local, offline-first RAG system for personal book libraries**
-
-A semantic navigation system for EPUB/PDF collections. Designed for speed, control, and zero cloud dependencies.
+> A BYOB (Bring Your Own Books) local MCP so you can consult your library as you build your projects.
 
 ---
 
@@ -43,11 +41,25 @@ books/
 | Component     | Choice                 | Why                             |
 | ------------- | ---------------------- | ------------------------------- |
 | Engine        | Python 3.11            | Homebrew-managed, local control |
-| RAG Framework | LlamaIndex             | Efficient local indexing        |
-| Embeddings    | `all-MiniLM-L6-v2`     | 384-dim, fast, open source      |
-| Vector Store  | FAISS                  | Local, no network calls         |
+| RAG Framework | LlamaIndex             | Efficient indexing & retrieval  |
+| Embeddings    | Gemini `embedding-001` | Fast API, 768-dim, free tier    |
+| Vector Store  | LlamaIndex (native)    | No manual FAISS management      |
 | File Watching | `watchdog`             | Delta detection                 |
 | Metadata      | Single `metadata.json` | Fast navigation map             |
+
+**Embedding Benchmark (M3 MacBook Pro):**
+
+| Model                      | Startup | Query Latency | Quality   | Cost      |
+| -------------------------- | ------- | ------------- | --------- | --------- |
+| **Gemini embedding-001**✅ | <0.5s   | ~700ms        | Excellent | Free tier |
+| all-MiniLM-L6-v2 (local)   | ~4s     | ~500ms        | Good      | $0        |
+
+**Why Gemini?**
+
+1. **Instant startup**: No 4s model loading
+2. **Better embeddings**: 768-dim vs 384-dim
+3. **Free tier**: Generous API limits
+4. **Simpler**: LlamaIndex handles vector store
 
 ---
 
@@ -103,8 +115,8 @@ books/
 graph TD
   START[Start MCP] --> VAULT[Set VAULT_PATH]
   VAULT --> META[Load metadata.json]
-  META --> EMB[Load embedding model<br/>all-MiniLM-L6-v2]
-  EMB --> VEC[Load FAISS index]
+  META --> EMB[Initialize Gemini API]
+  EMB --> VEC[Load LlamaIndex vector store]
   VEC --> WATCH[Start file watcher]
   WATCH --> WAIT[Wait for invocation]
 
@@ -125,13 +137,13 @@ graph TD
   TYPE -->|Added| PARSE[Parse document]
   PARSE --> CHUNK[Split into chunks]
   CHUNK --> GEN[Generate embeddings]
-  GEN --> ADD[Add to vector index]
+  GEN --> ADD[Add to LlamaIndex]
   ADD --> UPDATE1[Update metadata.json]
 
-  TYPE -->|Removed| REMOVE[Remove from vector index]
+  TYPE -->|Removed| REMOVE[Remove from LlamaIndex]
   REMOVE --> UPDATE2[Update metadata.json]
 
-  UPDATE1 --> SAVE[Save index + metadata]
+  UPDATE1 --> SAVE[Persist vector store + metadata]
   UPDATE2 --> SAVE
   SAVE --> WAIT[Wait for next event]
 
@@ -193,7 +205,7 @@ graph LR
 
   B1 --> DECISION{Confident?}
 
-  DECISION -->|Yes| VEC[Query FAISS<br/>scope: philosophy/Psychopolitics]
+  DECISION -->|Yes| VEC[Query LlamaIndex<br/>scope: philosophy/Psychopolitics]
   DECISION -->|No| ASK[Ask user]
 
   VEC --> RAG[RAG retrieval]
@@ -237,9 +249,124 @@ graph LR
 2. Extract delta (new/removed files only)
 3. Update embeddings (incremental)
 4. Update `metadata.json`
-5. Persist to FAISS
+5. Persist to LlamaIndex storage
 
 **No full reindexing unless explicitly requested.**
+
+---
+
+## Quick Start
+
+### Prerequisites
+
+Before installation, you need:
+
+**Python 3.11 or higher**
+
+| Platform      | Installation                                                  |
+| ------------- | ------------------------------------------------------------- |
+| macOS         | `brew install python@3.11`                                    |
+| Ubuntu/Debian | `sudo apt install python3.11`                                 |
+| Windows       | [Download from python.org](https://www.python.org/downloads/) |
+
+Ve1. Python 3.11 or higher\*\*
+
+| Platform      | Installation                                                  |
+| ------------- | ------------------------------------------------------------- |
+| macOS         | `brew install python@3.11`                                    |
+| Ubuntu/Debian | `sudo apt install python3.11`                                 |
+| Windows       | [Download from python.org](https://www.python.org/downloads/) |
+
+Verify: `python3.11 --version`
+
+**2. Google Gemini API Key**
+
+1. Get free API key: https://aistudio.google.com/app/apikey
+2. Copy `.env-template` to `.env`:
+   ```bash
+   cp .env-template .env
+   ```
+3. Edit `.env` and add your key:
+   ```bash
+   GOOGLE_API_KEY=AIzaSy...your_actual_key_here
+   ```
+
+⚠️ **Never commit `.env` to git** (already in `.gitignore`)
+./scripts/setup.sh
+
+````
+
+This installs all Python dependencies automatically.
+
+**Manual setup (if needed):**
+
+```bash
+python3.11 -m pip install -r requirements.txt
+````
+
+---
+
+### Usage
+
+1. **Add your books**
+
+   ```bash
+   mkdir -p books/topic-name
+   # Copy EPUB/PDF files to books/topic-name/
+   ```
+
+2. **Generate metadata**
+
+   ```bash
+   python3.11 scripts/generate_metadata.py
+   ```
+
+   llama-index-core` - RAG framework
+
+- `llama-index-embeddings-google-genai` - Gemini embeddings
+- `llama-index-readers-file` - EPUB/PDF parsing
+- `keybert` - Semantic tag extraction
+- `ebooklib` + `beautifulsoup4` - EPUB parsing
+- `python-dotenv` - Environment variables
+- `watchdog` - File system monitoring (future)
+
+---
+
+## Dependencies
+
+Core RAG framework
+python3.11 -m pip install llama-index-core llama-index-readers-file llama-index-embeddings-google-genai
+
+# EPUB parsing
+
+python3.11 -m pip install ebooklib beautifulsoup4
+
+# Tag extraction
+
+python3.11 -m pip install keybert
+
+# Environment variables
+
+python3.11 -m pip install python-dotenv google-generativeai
+
+# File watching (future)lation (if needed):\*\*
+
+```bash
+# Core RAG framework
+python3.11 -m pip install llama-index-core llama-index-readers-file llama-index-embeddings-google-genai
+
+# EPUB parsing
+python3.11 -m pip install ebooklib beautifulsoup4
+
+# Tag extraction
+python3.11 -m pip install keybert
+
+# Environment variables
+python3.11 -m pip install python-dotenv google-generativeai
+
+# File watching (future)
+python3.11 -m pip install watchdog
+```
 
 ---
 
@@ -258,43 +385,56 @@ graph LR
 
 ---
 
-## Development Environment
+## Development Notes
 
-### Python
-
-**Always use Homebrew Python 3.11:**
+Required `.env` file for Gemini API:
 
 ```bash
-/opt/homebrew/bin/python3.11 -m pip install <package>
-/opt/homebrew/bin/python3.11 script.py
+# Copy template
+cp .env-template .env
+
+# Edit and add your key
+nano .env
 ```
 
-**Never use:**
-
-- `python3`, `python`, `pip`, `pip3` without full path
-- Virtual environments (venv, conda, etc.)
-- System Python
-
-### Environment Variables
-
-All secrets in `.env`:
+Contents:
 
 ```bash
-GEMINI_API_KEY=your_key_here
+GOOGLE_API_KEY=your_actual_key_here
 ```
 
-**Never commit `.env` or hardcode keys.**
+x] Implement `metadata.json` generation
 
----
+- [x] LlamaIndex vector store setup
+- [x] Gemini embedding pipeline
+- [ ] File watcher with delta detection
+
+### Phase 2: Query System (In Progress)
+
+- [x] MCP server with 3 tools (query_library, list_topics, list_books)
+- [x] Metadata-first query routing
+- [ ] Clarification prompts when ambiguous
+- [ ] Response caching
+
+### Phase 3: Optimization
+
+- [ ] Threading/multiprocessing
+- [ ] Index persistence optimization
+- [ ] PDF support
+- [ ] Image extraction and indexing
+
+### Phase 4: Clients
+
+- [ ] VS Code extension integration (testing
 
 ## Roadmap
 
 ### Phase 1: Core Infrastructure
 
-- [ ] Implement `metadata.json` generation
+- [x] Implement `metadata.json` generation
 - [ ] File watcher with delta detection
-- [ ] FAISS vector store setup
-- [ ] Local embedding pipeline (`all-MiniLM-L6-v2`)
+- [x] LlamaIndex vector store setup
+- [x] Gemini embedding pipeline
 
 ### Phase 2: Query System
 
