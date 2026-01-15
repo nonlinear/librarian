@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Start Literature MCP Server",
+      "label": "Start Personal Library MCP",
       "type": "shell",
       "command": "zsh",
       "args": [
@@ -18,7 +18,7 @@
       // }
     },
     {
-      "label": "Stop Literature MCP Server",
+      "label": "Stop Personal Library MCP",
       "type": "shell",
       "command": "pkill -f literature_mcp_server.py",
       "options": {
@@ -47,18 +47,6 @@
       "type": "shell",
       "command": "python3 .github/scripts/sync_comics.py",
       "group": "build"
-    },
-    {
-      "label": "🔄  Commit literature changes",
-      "type": "shell",
-      "command": "cd /Users/nfrota/Documents/literature && git add -A && echo 'Enter commit message:' && read msg && git commit -m \"$msg\" && git pull && git push",
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      }
     }
   ]
 }
