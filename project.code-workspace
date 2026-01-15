@@ -17,10 +17,11 @@
         "group": "build",
         "presentation": {
           "echo": false,
-          "reveal": "silent",
+          "reveal": "always",
           "focus": false,
           "panel": "shared",
-          "clear": true
+          "clear": true,
+          "close": true
         },
         "problemMatcher": []
       }
