@@ -16,11 +16,13 @@
         "command": ".github/scripts/commit.sh \"${input:commitMessage}\"",
         "group": "build",
         "presentation": {
-          "echo": true,
+          "echo": false,
           "reveal": "always",
-          "focus": false,
-          "panel": "shared",
-          "clear": false
+          "focus": true,
+          "panel": "dedicated",
+          "clear": true,
+          "showReuseMessage": false,
+          "close": true
         },
         "problemMatcher": []
       }
