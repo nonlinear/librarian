@@ -1,6 +1,4 @@
-# Personal Library Research
-
-**Trigger:** `/library`
+# Personal Library Research Prompt
 
 **Purpose:** Answer questions by searching your indexed personal book library via MCP.
 All factual claims must be grounded in retrieved book chunks.

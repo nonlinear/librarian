@@ -10,9 +10,10 @@ lxml>=4.9.0
 keybert>=0.8.0
 
 # LlamaIndex with Gemini embeddings
-llama-index-core>=0.10.0
+llama-index-core>=0.13.0
 llama-index-readers-file>=0.1.0
 llama-index-embeddings-google-genai>=0.1.0
+llama-index-llms-gemini>=0.6.0
 
 # Google AI
 google-generativeai>=0.3.0
