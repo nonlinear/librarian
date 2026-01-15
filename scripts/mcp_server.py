@@ -45,20 +45,25 @@ metadata = None
 
 
 def load_resources():
-    """Load LlamaIndex and metadata."""
-    global index, metadata
-
-    if index is None:
-        print("Loading vector index...", file=sys.stderr, flush=True)
-        storage_context = StorageContext.from_defaults(persist_dir=str(STORAGE_DIR))
-        index = load_index_from_storage(storage_context)
+    """Load metadata only. Index loads on-demand."""
+    global metadata
 
     if metadata is None:
         print("Loading metadata...", file=sys.stderr, flush=True)
         with open(METADATA_FILE, 'r') as f:
             metadata = json.load(f)
+        print("✅ Metadata loaded (index will load on first query)", file=sys.stderr, flush=True)
 
-    print("✅ Resources loaded", file=sys.stderr, flush=True)
+
+def ensure_index_loaded():
+    """Lazy load index only when needed."""
+    global index
+
+    if index is None:
+        print("Loading vector index (first query, ~12s)...", file=sys.stderr, flush=True)
+        storage_context = StorageContext.from_defaults(persist_dir=str(STORAGE_DIR))
+        index = load_index_from_storage(storage_context)
+        print("✅ Index loaded", file=sys.stderr, flush=True)
 
 
 def find_book_id(query: str) -> Optional[str]:
@@ -87,6 +92,7 @@ def query_library(
 ) -> Dict:
     """Query the library and return relevant chunks."""
     load_resources()
+    ensure_index_loaded()  # Lazy load index only when querying
 
     # Parse context
     book_id = None
