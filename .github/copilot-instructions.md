@@ -2,6 +2,23 @@
 
 Welcome to the `notes` repository! This document provides essential guidelines for AI coding agents to be productive and aligned with the project's conventions. Please follow these instructions carefully to ensure consistency and maintainability.
 
+## 🚨 DEBUG MODE
+
+**When debugging or troubleshooting issues:**
+
+1. **ALWAYS follow `.github/prompts/debug.prompt.md` instructions**
+2. **STOP before making changes** - Think first, act second
+3. **NO zigzagging** - One well-researched solution, not multiple attempts
+4. **Research official docs** before proposing solutions
+5. **Get user approval** before executing changes
+
+**Triggers for Debug Mode:**
+
+- User says "this is frustrating"
+- Multiple failed attempts
+- User asks to "debug" or "figure out why"
+- Complex technical issues
+
 ## Project Overview
 
 The `notes` repository is a collection of markdown files and related resources. It serves as a knowledge base for various topics, including AEM, AI tools, Docker, and more. The structure is flat, with most files located in the root directory, and a few subdirectories like `wiley/` for specific topics.

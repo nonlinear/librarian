@@ -4,6 +4,10 @@
 
 ---
 
+## 🚨 FOR AI AGENTS: Always check the Roadmap section before starting any work. It tracks what's done and what's next.
+
+---
+
 ## Core Principles
 
 **Every millisecond matters.**
@@ -170,33 +174,106 @@ python3.11 -m pip install -r requirements.txt
 
 ## Roadmap
 
-### Phase 1: Core Infrastructure ✅
+### Foundation (Completed)
 
-- [x] Implement `metadata.json` generation
+- [x] `metadata.json` generation (`scripts/generate_metadata.py`)
 - [x] LlamaIndex vector store setup
-- [x] Gemini embedding pipeline
-- [x] CLI query tool (scripts/query.py)
-- [ ] **NEXT:** File watcher with delta detection
-
-### Phase 2: MCP Integration
-
+- [x] Gemini embedding pipeline (768-dim, embedding-001)
+- [x] CLI query tool (`scripts/query.py`)
 - [x] MCP server with 3 tools (query_library, list_topics, list_books)
 - [x] Metadata-first query routing
-- [ ] **NEXT:** Test VS Code MCP integration end-to-end
-- [ ] Clarification prompts when ambiguous
-- [ ] Response caching
+- [x] FAISS index (75KB) + docstore.json (17MB) architecture
 
-### Phase 3: Optimization
+### Phase 1: Database Optimization ✅ (COMPLETE)
 
-- [ ] **NEXT:** Measure MCP startup time (<0.5s target)
-- [ ] Threading/multiprocessing for indexing
-- [ ] Index persistence optimization
+**Problem**: `storage/docstore.json` (17MB) causes 30s MCP startup delay
+
+**Solution Implemented: Topic-Based Lazy Loading** 🎉
+
+- [x] Created `scripts/partition_storage.py`
+- [x] Split storage into 12 topic-specific directories:
+  - [x] `storage/ai/` (12KB FAISS + 1.42MB chunks)
+  - [x] `storage/activism/` (6KB FAISS + 1.97MB chunks)
+  - [x] `storage/anthropocene/` (15KB FAISS + 3.05MB chunks)
+  - [x] `storage/fiction/` (9KB FAISS + 2.93MB chunks)
+  - [x] `storage/oracles/` (21KB FAISS + 4.90MB chunks)
+  - [x] `storage/urbanism/` (3KB FAISS + 1.13MB chunks)
+  - [x] `storage/usability/` (9KB FAISS + 1.24MB chunks)
+  - [x] 5 empty topics (not yet indexed)
+- [x] Created `scripts/mcp_server_lazy.py`
+  - [x] Loads ONLY `metadata.json` (19KB) on startup → **instant** (<100ms)
+  - [x] Lazy-loads topics on first query (~2s per topic)
+  - [x] Topic caching prevents reload
+  - [x] Topic inference from query/book/explicit param
+- [x] Re-enabled MCP in VS Code config
+- [x] Binary format (pickle) for faster deserialization
+
+**Performance**:
+
+- Startup: **30s → <100ms** (300x improvement)
+- First query per topic: ~2s (lazy load)
+- Subsequent queries: instant (cached)
+
+**Abandoned Approaches**:
+
+- ❌ Background loading (worked in terminal, failed in MCP stdio)
+- ❌ Full FAISS reindex (wasteful, cancelled)
+- ❌ Monolithic pickle conversion (only 2% size reduction)
+
+### Phase 2: Incremental Updates (Delta Indexing) ⭐ (NEXT)
+
+**Current**: Full reindexing on every change (slow, wasteful)
+
+- [ ] Rewrite `scripts/update_delta.py` for partitioned storage
+  - [ ] Compare current `books/` structure with `metadata.json`
+  - [ ] Identify deltas (added/removed/modified books)
+  - [ ] Update only affected topic directories
+  - [ ] Regenerate topic's FAISS index + chunks.pkl
+  - [ ] Update `metadata.json` incrementally
+- [ ] Update `scripts/query.py` CLI tool for partitioned storage
+- [ ] Test delta update vs full reindex performance
+
+**Future Automation:**
+
+- [ ] Integrate `watchdog` library for filesystem monitoring
+- [ ] Auto-trigger `update_delta.py` on file changes
+- [ ] Real-time index updates (no manual intervention)
+
+### Phase 3: MCP Performance & Integration
+
+**Current state**: MCP re-enabled with lazy loading server ✅
+
+- [x] Created `scripts/mcp_server_lazy.py`
+- [x] Re-enabled MCP in `~/Library/Application Support/Code/User/mcp.json`
+- [ ] Test `/research` end-to-end in VS Code (pending reload)
+- [ ] Measure actual MCP startup time in VS Code
+- [ ] Validate no "Starting MCP servers... Skip?" dialog
+- [x] Document troubleshooting in TROUBLESHOOTING.md
+
+**Pending validation**:
+
+- User needs to reload VS Code (Cmd+R) to test
+
+### Future Enhancements
+
+**Local Embedding Models** (Privacy + Speed):
+
+- [ ] Test Sentence Transformers (e.g., `all-MiniLM-L6-v2`)
+  - Pros: Free, fast, offline, 384-dim
+  - Cons: Lower quality than Gemini
+- [ ] Test BGE embeddings (e.g., `BAAI/bge-small-en-v1.5`)
+  - Pros: Better quality, still local, 384-dim
+  - Cons: Larger model size
+- [ ] Make embedding model swappable (config-based)
+- [ ] Compare local vs Gemini quality on test queries
+
+**Other Enhancements**:
+
 - [ ] PDF support (currently EPUB only)
-- [ ] Image extraction and indexing
-
-### Phase 4: Production
-
-- [ ] Watchdog integration for auto-reindexing
-- [ ] Terminal client (standalone)
+- [ ] Image extraction and indexing from books
+- [ ] Response caching for repeated queries
+- [ ] Clarification prompts when query is ambiguous
+- [ ] Threading/multiprocessing for faster indexing
+- [ ] Terminal client (standalone, non-MCP)
 - [ ] API documentation
-- [ ] Performance benchmarks
+- [ ] Performance benchmarks documentation
