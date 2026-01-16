@@ -106,23 +106,25 @@ Once scope is determined, call `query_library`:
 
 1. **Synthesize** information from results
 2. **Ground** every claim in specific chunks
-3. **Cite** sources inline with numbers: `(1)`, `(2)`, etc.
+3. **Cite** sources inline with emoji numbers: 1️⃣ 2️⃣ 3️⃣ etc.
 4. **Acknowledge gaps** if incomplete
 
 **Citation Format:**
 
-In the answer, use inline citations:
+In the answer, use inline emoji citations:
 
 ```
-According to DeLanda (1), gradients are intensive differences that drive morphogenesis. This connects to Deleuze's concept of difference (2).
+According to DeLanda 1️⃣, gradients are intensive differences that drive morphogenesis. This connects to Deleuze's concept of difference 2️⃣.
 ```
 
-At the end, list sources matching the citation numbers:
+At the end, list sources with horizontal rule separator:
 
 ```
-Sources:
-1. file://books/system theory/philosophy_and_simulation.epub "gradients intensive differences morphogenesis"
-2. file://books/philosophy/difference_and_repetition.epub "difference virtuality actualization"
+----
+1️⃣
+file://books/system theory/philosophy_and_simulation.epub "gradients intensive differences morphogenesis"
+2️⃣
+file://books/philosophy/difference_and_repetition.epub "difference virtuality actualization"
 ```
 
 **Never:**

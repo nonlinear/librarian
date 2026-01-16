@@ -7,29 +7,17 @@ import os
 import sys
 import json
 from pathlib import Path
-from dotenv import load_dotenv
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext, Settings, Document
-from llama_index.embeddings.google_genai import GoogleGenAIEmbedding
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.readers.file import EpubReader
 
-# Load environment
-ENV_PATH = Path(__file__).parent.parent / ".env"
-if not ENV_PATH.exists():
-    ENV_PATH = Path.home() / "Documents/notes/.env"
-load_dotenv(dotenv_path=ENV_PATH)
-
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-if not GOOGLE_API_KEY:
-    print("❌ GOOGLE_API_KEY not found in .env")
-    sys.exit(1)
-
-# Setup embeddings
-embed_model = GoogleGenAIEmbedding(
-    model_name="models/embedding-001",
-    api_key=GOOGLE_API_KEY
+# Setup local embeddings (384-dim, no API key needed)
+embed_model = HuggingFaceEmbedding(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
 Settings.embed_model = embed_model
+print("✓ Using local embedding model: all-MiniLM-L6-v2 (384-dim)")
 
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"

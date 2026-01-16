@@ -10,7 +10,7 @@ import pickle
 from pathlib import Path
 import numpy as np
 import faiss
-import google.generativeai as genai
+from sentence_transformers import SentenceTransformer
 import os
 
 # Paths
@@ -18,10 +18,8 @@ SCRIPT_DIR = Path(__file__).parent
 STORAGE_DIR = SCRIPT_DIR.parent / "storage"
 METADATA_FILE = STORAGE_DIR / "metadata.json"
 
-# Configure Gemini
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-if GOOGLE_API_KEY:
-    genai.configure(api_key=GOOGLE_API_KEY)
+# Load local embedding model (384-dim)
+EMBEDDING_MODEL = SentenceTransformer('all-MiniLM-L6-v2')
 
 def load_metadata():
     with open(METADATA_FILE, 'r', encoding='utf-8') as f:
@@ -43,13 +41,8 @@ def load_topic(topic_id):
     return {'index': index, 'chunks': chunks}
 
 def get_embedding(text):
-    """Get query embedding from Gemini."""
-    result = genai.embed_content(
-        model="models/embedding-001",
-        content=text,
-        task_type="retrieval_query"
-    )
-    return np.array(result['embedding'], dtype=np.float32)
+    """Get local embedding for text."""
+    return EMBEDDING_MODEL.encode(text, convert_to_numpy=True).astype(np.float32)
 
 def query_library(query, topic=None, k=5):
     """Query the library."""
