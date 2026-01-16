@@ -121,11 +121,28 @@ At the end, list sources with horizontal rule separator:
 
 ```
 ----
-1️⃣
-file://books/system theory/philosophy_and_simulation.epub "gradients intensive differences morphogenesis"
-2️⃣
-file://books/philosophy/difference_and_repetition.epub "difference virtuality actualization"
+1️⃣ [Philosophy and Simulation.epub](books/system%20theory/Philosophy%20and%20Simulation.epub)
+"intensive differences drive morphogenesis"
+
+2️⃣ [Difference and Repetition.epub](books/philosophy/Difference%20and%20Repetition.epub)
+"virtuality actualization difference repetition"
 ```
+
+**Citation Rules:**
+
+1. **File path format**: Markdown link with URL-encoded spaces
+
+   - Format: `[Book Title.epub](books/topic/Book%20Title.epub)`
+   - Display text: Book title WITH .epub extension (anti-spoofing)
+   - Link URL: Workspace-relative path WITH .epub, spaces as %20
+   - Becomes clickable pill in VS Code
+   - Each citation on its own line
+
+2. **Search query format**: "exact four word phrase"
+   - EXACTLY 4 consecutive words from the chunk
+   - Words must appear in SAME ORDER in book
+   - Use quotes around search phrase
+   - Keep it SHORT and EXACT (for Cmd+F finding)
 
 **Never:**
 

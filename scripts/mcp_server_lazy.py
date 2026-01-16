@@ -26,7 +26,8 @@ METADATA_FILE = STORAGE_DIR / "metadata.json"
 _lazy_imports_loaded = False
 faiss = None
 np = None
-genai = None
+SentenceTransformer = None
+embedding_model = None
 
 # Global state
 metadata: Optional[Dict] = None
@@ -35,27 +36,26 @@ _topic_cache: Dict[str, Dict] = {}  # {topic_id: {index, chunks}}
 
 def _ensure_imports():
     """Lazy load heavy dependencies only when needed."""
-    global _lazy_imports_loaded, faiss, np, genai
+    global _lazy_imports_loaded, faiss, np, SentenceTransformer, embedding_model
     if _lazy_imports_loaded:
         return
 
     import pickle
     import numpy
     import faiss as faiss_module
-    import google.generativeai as genai_module
+    from sentence_transformers import SentenceTransformer as ST
 
     # Set globals
     np = numpy
     faiss = faiss_module
-    genai = genai_module
+    SentenceTransformer = ST
 
-    # Configure Gemini
-    GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-    if GOOGLE_API_KEY:
-        genai.configure(api_key=GOOGLE_API_KEY)
+    # Load embedding model
+    os.environ['SENTENCE_TRANSFORMERS_HOME'] = 'models'
+    embedding_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
     _lazy_imports_loaded = True
-    print("✅ Loaded heavy dependencies", file=sys.stderr, flush=True)
+    print("✅ Loaded heavy dependencies (local embeddings)", file=sys.stderr, flush=True)
 
 
 def load_topic(topic_id: str) -> Dict:
@@ -113,15 +113,12 @@ def find_book_id(query: str) -> Optional[str]:
 
 
 def get_embedding(text: str):
-    """Get query embedding from Gemini."""
+    """Get query embedding from local model."""
     _ensure_imports()
 
-    result = genai.embed_content(
-        model="models/embedding-001",
-        content=text,
-        task_type="retrieval_query"
-    )
-    return np.array(result['embedding'], dtype=np.float32)
+    embedding = embedding_model.encode(text, convert_to_numpy=True).astype(np.float32)
+    return embedding
+
 
 
 def query_library(query: str, topic: Optional[str] = None, book: Optional[str] = None, k: int = 5) -> List[Dict]:

@@ -90,12 +90,10 @@ index = VectorStoreIndex.from_documents(all_documents, show_progress=True)
 
 print("   ✓ Index built")
 
-# Save index
-print("\n4. Saving to storage...")
+# Save index temporarily (needed for partitioning)
+print("\n4. Saving to temporary storage...")
 STORAGE_DIR.mkdir(exist_ok=True)
 index.storage_context.persist(persist_dir=str(STORAGE_DIR))
-
-print(f"   ✓ Saved to {STORAGE_DIR}")
 
 # Partition by topic for lazy loading
 print("\n5. Partitioning by topic for MCP optimization...")
@@ -104,6 +102,20 @@ partition_script = Path(__file__).parent / "partition_storage.py"
 result = subprocess.run([sys.executable, str(partition_script)], capture_output=True, text=True)
 if result.returncode == 0:
     print("   ✓ Storage partitioned by topic")
+
+    # Clean up temporary monolithic files (now using partitioned storage)
+    import os
+    deprecated_files = [
+        STORAGE_DIR / "default__vector_store.json",
+        STORAGE_DIR / "docstore.json",
+        STORAGE_DIR / "graph_store.json",
+        STORAGE_DIR / "image__vector_store.json",
+        STORAGE_DIR / "index_store.json"
+    ]
+    for f in deprecated_files:
+        if f.exists():
+            os.remove(f)
+    print("   ✓ Cleaned up temporary files")
 else:
     print(f"   ⚠️  Partitioning failed: {result.stderr}")
 

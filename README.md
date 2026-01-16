@@ -113,19 +113,6 @@ Before installation, you need:
    - `bash code --install-extension https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix`
    - or [Download .vsix](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix)
 
-## What This System Is Not
-
-- ❌ Not a chat interface
-- ❌ Not cloud-dependent
-- ❌ Not a general-purpose MCP
-- ❌ Not trying to be "smart" beyond navigation
-
-**It is:**
-
-- ✅ A navigation layer for your books
-- ✅ A semantic index with minimal latency
-- ✅ A local-first, privacy-preserving tool
-
 ---
 
 ---
