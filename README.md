@@ -90,14 +90,14 @@ Before installation, you need:
 - Windows [Download from python.org](https://www.python.org/downloads/)
 - Verify: `python3.11 --version`
 
-### Setup
+### Installation
 
 1. Run setup script: `bash ./scripts/setup.sh`
    - Installs Python dependencies
    - Downloads local embedding model (all-MiniLM-L6-v2, ~90MB)
    - Model saved in `models/` directory (not tracked by git)
 
-## Usage
+## BYOB (Bring Your Own Books)
 
 1. Add your books to `books/TOPICNAME/*.epub`
 2. Generate metadata: `bash python3.11 scripts/generate_metadata.py`
@@ -105,13 +105,15 @@ Before installation, you need:
    - Creates vector store in `storage/`
    - Auto-partitions by topic for MCP lazy-loading
    - ~90MB for 34 books (local embeddings)
-4. Example query: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
+4. Test: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
 
 ### VS Code Extension
 
 1. Install the Personal Library MCP extension
    - `bash code --install-extension https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix`
    - or [Download .vsix](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix)
+2. Install [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md)
+3. Use `/research` command to indicate you want answers from your personal library MCP
 
 ---
 
@@ -242,3 +244,10 @@ Before installation, you need:
 - [ ] Terminal client (standalone, non-MCP)
 - [ ] API documentation
 - [ ] Performance benchmarks documentation
+- [ ] **Deep linking to search results** ([concept](https://nonlinear.nyc/ideas/search-path))
+  - [ ] Research EPUB/PDF viewers with URI scheme support
+  - [ ] Bundle recommended viewer as Extension Pack dependency
+  - [ ] Configure default file associations in package.json
+  - [ ] Format: `vscode://viewer?file=path&search=query`
+  - [ ] One-click navigation from citations to exact location in book
+  - [ ] Integration with MCP response format

@@ -33,7 +33,7 @@
     {
       "label": "🔄 Sync comics",
       "type": "shell",
-      "command": "python3 .github/scripts/sync_comics.py",
+      "command": "/opt/homebrew/bin/python3.11 .github/scripts/sync_comics.py",
       "group": "build"
     }
   ],
