@@ -13,8 +13,10 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.readers.file import EpubReader
 
 # Setup local embeddings (384-dim, no API key needed)
+MODELS_DIR = Path(__file__).parent.parent / "models"
 embed_model = HuggingFaceEmbedding(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+    model_name="sentence-transformers/all-MiniLM-L6-v2",
+    cache_folder=str(MODELS_DIR)
 )
 Settings.embed_model = embed_model
 print("✓ Using local embedding model: all-MiniLM-L6-v2 (384-dim)")
@@ -24,7 +26,7 @@ BOOKS_DIR = Path(__file__).parent.parent / "books"
 STORAGE_DIR = Path(__file__).parent.parent / "storage"
 METADATA_FILE = STORAGE_DIR / "metadata.json"
 
-print("📚 Indexing books with LlamaIndex + Gemini")
+print("📚 Indexing books with local embeddings")
 print("=" * 50)
 
 # Load metadata
@@ -80,7 +82,7 @@ print(f"\n   Total: {len(all_documents)} document chunks")
 
 # Create index
 print("\n3. Building vector index...")
-print("   This will take ~2-3 minutes with Gemini API...")
+print("   This will take ~1-2 minutes with local embeddings...")
 
 index = VectorStoreIndex.from_documents(all_documents, show_progress=True)
 

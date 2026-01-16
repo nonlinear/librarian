@@ -15,8 +15,13 @@ import os
 
 # Paths
 SCRIPT_DIR = Path(__file__).parent
-STORAGE_DIR = SCRIPT_DIR.parent / "storage"
+PROJECT_DIR = SCRIPT_DIR.parent
+STORAGE_DIR = PROJECT_DIR / "storage"
+MODELS_DIR = PROJECT_DIR / "models"
 METADATA_FILE = STORAGE_DIR / "metadata.json"
+
+# Set model cache to local models/ directory
+os.environ['SENTENCE_TRANSFORMERS_HOME'] = str(MODELS_DIR)
 
 # Load local embedding model (384-dim)
 EMBEDDING_MODEL = SentenceTransformer('all-MiniLM-L6-v2')

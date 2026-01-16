@@ -84,18 +84,16 @@ fi
 
 echo ""
 
-# Check .env file
-if [ ! -f ".env" ]; then
-    echo "⚠️  .env file not found"
-    echo ""
-    echo "Create .env file with your Gemini API key:"
-    echo "  cp .env-template .env"
-    echo "  # Edit .env and add your key from aistudio.google.com"
-    echo ""
-    exit 1
-fi
+# Download local embedding model
+echo "📥 Downloading local embedding model..."
+echo "   Model: sentence-transformers/all-MiniLM-L6-v2 (~90MB)"
+echo "   Location: models/ (in project)"
+echo ""
 
-echo "✅ Found .env file"
+mkdir -p models
+$PYTHON -c "import os; os.environ['SENTENCE_TRANSFORMERS_HOME'] = 'models'; from sentence_transformers import SentenceTransformer; model = SentenceTransformer('all-MiniLM-L6-v2'); print('✅ Model downloaded to models/')"
+
+echo ""
 echo ""
 echo "🎉 Setup complete!"
 echo ""

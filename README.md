@@ -134,17 +134,26 @@ Before installation, you need:
 
 ## Setup
 
-3. Rename `.env-template` as `.env`
-4. [Get Google Gemini API Key](https://aistudio.google.com/app/apikey)
-5. Add your key to `.env`
-   - ⚠️ Maske sure `.env` is in `.gitignore`
-6. Run setup script: `bash ./scripts/setup.sh` (installs all Python dependencies automatically)
+1. Run setup script: `bash ./scripts/setup.sh`
+   - Installs Python dependencies
+   - Downloads local embedding model (all-MiniLM-L6-v2, ~90MB)
+   - Model saved in `models/` directory (not tracked by git)
 
 **Manual setup (if needed):**
 
 ```bash
 python3.11 -m pip install -r requirements.txt
 ```
+
+### VS Code Extension
+
+Install the Personal Library MCP extension:
+
+```bash
+code --install-extension https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix
+```
+
+or [Download .vsix](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix)
 
 ## Usage
 
@@ -178,7 +187,7 @@ python3.11 -m pip install -r requirements.txt
 
 - [x] `metadata.json` generation (`scripts/generate_metadata.py`)
 - [x] LlamaIndex vector store setup
-- [x] Gemini embedding pipeline (768-dim, embedding-001)
+- [x] Local embedding model (sentence-transformers/all-MiniLM-L6-v2, 384-dim)
 - [x] CLI query tool (`scripts/query.py`)
 - [x] MCP server with 3 tools (query_library, list_topics, list_books)
 - [x] Metadata-first query routing
@@ -254,18 +263,35 @@ python3.11 -m pip install -r requirements.txt
 
 - User needs to reload VS Code (Cmd+R) to test
 
+### Phase 4: Extension Integration & Automation ⭐ (NEXT)
+
+**Goal**: Seamless VS Code integration with automatic updates
+
+- [ ] Embed `/research` prompt in extension (or alternative trigger)
+  - [ ] Add command palette entry
+  - [ ] Keyboard shortcut configuration
+  - [ ] Context menu integration
+- [ ] Filesystem watcher (`watchdog`)
+  - [ ] Monitor `books/` directory for changes
+  - [ ] Auto-regenerate metadata on file add/remove/move
+  - [ ] Auto-reindex affected topics only (delta)
+  - [ ] Background indexing (non-blocking)
+- [ ] PDF support
+  - [ ] PDF text extraction (PyPDF2 or pdfplumber)
+  - [ ] PDF embedding alongside EPUB
+  - [ ] Update metadata schema for PDF metadata
+
 ### Future Enhancements
 
-**Local Embedding Models** (Privacy + Speed):
+**Local Embedding Models** ✅ (COMPLETE):
 
-- [ ] Test Sentence Transformers (e.g., `all-MiniLM-L6-v2`)
+- [x] Sentence Transformers (`all-MiniLM-L6-v2`)
   - Pros: Free, fast, offline, 384-dim
-  - Cons: Lower quality than Gemini
+  - Model cached in `models/` (90MB)
 - [ ] Test BGE embeddings (e.g., `BAAI/bge-small-en-v1.5`)
   - Pros: Better quality, still local, 384-dim
   - Cons: Larger model size
 - [ ] Make embedding model swappable (config-based)
-- [ ] Compare local vs Gemini quality on test queries
 
 **Other Enhancements**:
 
