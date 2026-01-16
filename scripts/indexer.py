@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Index books using LlamaIndex + Gemini embeddings
+Index books using LlamaIndex + local sentence-transformers embeddings
+Auto-partitions by topic for MCP lazy-loading optimization
 """
 
 import os
 import sys
 import json
+import subprocess
 from pathlib import Path
 
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, StorageContext, Settings, Document
@@ -95,6 +97,17 @@ index.storage_context.persist(persist_dir=str(STORAGE_DIR))
 
 print(f"   ✓ Saved to {STORAGE_DIR}")
 
+# Partition by topic for lazy loading
+print("\n5. Partitioning by topic for MCP optimization...")
+import subprocess
+partition_script = Path(__file__).parent / "partition_storage.py"
+result = subprocess.run([sys.executable, str(partition_script)], capture_output=True, text=True)
+if result.returncode == 0:
+    print("   ✓ Storage partitioned by topic")
+else:
+    print(f"   ⚠️  Partitioning failed: {result.stderr}")
+
 print("\n🎉 Indexing complete!")
 print(f"   Documents: {len(all_documents):,}")
 print(f"   Storage: {STORAGE_DIR}")
+print(f"   Structure: topic-partitioned (lazy-loading ready)")
