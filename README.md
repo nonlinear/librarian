@@ -232,6 +232,12 @@ graph TD
 
 **Other Enhancements**:
 
+- [ ] **Clean up folder structure**
+  - [ ] Reorganize into 2 top-level folders: `books/` and one for everything else
+  - [ ] Update all scripts to handle new structure
+  - [ ] Test indexer, metadata generation, MCP server
+  - [ ] Update documentation with new structure
+  - [ ] Requires careful testing - breaking change
 - [ ] PDF support (currently EPUB only)
 - [ ] Image extraction and indexing from books
 - [ ] Response caching for repeated queries
