@@ -182,10 +182,21 @@ def query_library(
 
         doc = docstore[idx]
 
+        # Get filename from metadata
+        book_filename = None
+        for topic in metadata['topics']:
+            for book in topic['books']:
+                if book['id'] == doc['book_id']:
+                    book_filename = book.get('filename')
+                    break
+            if book_filename:
+                break
+
         results.append({
             "text": doc['chunk_full'],
             "book_title": doc['book_title'],
             "book_author": doc['book_author'],
+            "book_filename": book_filename,
             "topic": doc['topic_label'],
             "chunk_index": doc['chunk_index'],
             "similarity": float(1 / (1 + dist))
@@ -197,6 +208,7 @@ def query_library(
     return {
         "question": question,
         "context": book_context,
+        "library_path": metadata.get('library_path'),
         "results": results,
         "total_chunks": len(results)
     }
@@ -235,11 +247,15 @@ def list_books(topic_context: Optional[str] = None) -> Dict:
                 "id": book['id'],
                 "title": book['title'],
                 "author": book['author'],
+                "filename": book.get('filename'),
                 "topic": topic['label'],
                 "tags": book['tags']
             })
 
-    return {"books": books}
+    return {
+        "library_path": metadata.get('library_path'),
+        "books": books
+    }
 
 
 # MCP Protocol Implementation

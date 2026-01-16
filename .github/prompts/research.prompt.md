@@ -135,11 +135,34 @@ At the end, list sources with horizontal rule separator.
 
 1. **File path format**: Markdown link with URL-encoded spaces
 
-   - Format: `[Book Title.epub](books/topic/Book%20Title.epub)`
+   - Format: `[Book Title.epub](../personal%20library/books/topic/Book%20Title.epub)`
    - Display text: Book title WITH .epub extension (anti-spoofing)
-   - Link URL: Workspace-relative path WITH .epub, spaces as %20
+   - Link URL: Workspace-relative path WITH .epub
+   - **MUST use URL encoding**: spaces as `%20`, `:` as `%3A`, `'` as `%27`, etc.
    - Becomes clickable pill in VS Code
    - Each citation on its own line
+
+   **CRITICAL: Book Title vs Filename:**
+
+   - MCP returns `book_title` from metadata (can be fancy/long)
+   - **Actual filename may differ** (e.g., "Debt - David Graeber.epub")
+   - **MUST get exact filename from `metadata.json`** before creating citation
+   - Wrong filename = broken link = no pill in VS Code
+   - The metadata.json MUST contain exact filenames or absolute paths
+
+   **Path calculation:**
+
+   - VS Code's link pill validation is VERY strict to prevent spoofing
+   - **Step 1:** Read `metadata.json` (from MCP server) to get:
+     1. Exact `filename` for each book (e.g., `"Debt - David Graeber.epub"`)
+     2. `library_path` field (e.g., `"/Users/nfrota/Documents/personal library"`)
+     3. Topic folder name (e.g., `"system_theory"`)
+   - **Step 2:** Get current workspace path (e.g., `/Users/nfrota/Documents/nonlinear`)
+   - **Step 3:** Calculate relative path from workspace to library:
+     - If both in same parent: `../personal%20library/books/topic/filename.epub`
+     - Use Python `os.path.relpath(library_path, workspace_path)` logic if needed
+   - **Step 4:** Construct final link with URL encoding
+   - **For nonlinear workspace:** Result is `../personal%20library/books/topic/exact-filename.epub`
 
 2. **Search query format**: Indented plain text (4 spaces)
    - EXACTLY 4 consecutive words from the chunk

@@ -258,31 +258,7 @@ git push
 
 ---
 
-## � Final Report
-
-After completing all checks, review the [README.md roadmap](../../README.md#project-progress-roadmap) and provide:
-
-### 1. What I Did
-
-- Summary of changes made in this session
-- Files modified/created/deleted
-- Tests run and results
-
-### 2. Last Completed Feature
-
-- Find the most recent `[x]` item in the roadmap
-- Brief context: what was it? (1-2 sentences max)
-- When: "2 weeks ago", "3 months ago", "2 days ago" (check git log if needed)
-- Jog memory with brief conversation context if relevant
-
-### 3. Next Steps
-
-- List upcoming `[ ]` features from roadmap
-- Ask: "Which feature should we tackle next?"
-
----
-
-## �💡 Tips
+## 💡 Tips
 
 **When in doubt:**
 

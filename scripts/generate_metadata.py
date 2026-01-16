@@ -135,6 +135,9 @@ def scan_books_folder() -> Dict:
 
     The map follows the territory, never the other way around.
     """
+    # Get absolute path to library root (parent of books/ folder)
+    library_path = str(BOOKS_DIR.parent.absolute())
+
     topics = []
 
     for topic_dir in sorted(BOOKS_DIR.iterdir()):
@@ -183,7 +186,10 @@ def scan_books_folder() -> Dict:
 
             topics.append(topic_entry)
 
-    return {"topics": topics}
+    return {
+        "library_path": library_path,
+        "topics": topics
+    }
 
 
 def main():
