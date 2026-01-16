@@ -117,16 +117,19 @@ In the answer, use inline emoji citations:
 According to DeLanda 1️⃣, gradients are intensive differences that drive morphogenesis. This connects to Deleuze's concept of difference 2️⃣.
 ```
 
-At the end, list sources with horizontal rule separator:
+At the end, list sources with horizontal rule separator.
 
-```
-----
+**Example format:**
+
+---
+
 1️⃣ [Philosophy and Simulation.epub](books/system%20theory/Philosophy%20and%20Simulation.epub)
-"intensive differences drive morphogenesis"
+
+    intensive differences drive morphogenesis
 
 2️⃣ [Difference and Repetition.epub](books/philosophy/Difference%20and%20Repetition.epub)
-"virtuality actualization difference repetition"
-```
+
+    virtuality actualization difference repetition
 
 **Citation Rules:**
 
@@ -138,10 +141,11 @@ At the end, list sources with horizontal rule separator:
    - Becomes clickable pill in VS Code
    - Each citation on its own line
 
-2. **Search query format**: "exact four word phrase"
+2. **Search query format**: Indented plain text (4 spaces)
    - EXACTLY 4 consecutive words from the chunk
    - Words must appear in SAME ORDER in book
-   - Use quotes around search phrase
+   - NO quotes (just the phrase itself)
+   - Indented with 4 spaces for code block formatting
    - Keep it SHORT and EXACT (for Cmd+F finding)
 
 **Never:**

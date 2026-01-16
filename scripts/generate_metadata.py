@@ -123,7 +123,18 @@ def generate_tags_from_text(text: str, num_tags: int = 6) -> List[str]:
 
 
 def scan_books_folder() -> Dict:
-    """Scan books/ and generate metadata structure."""
+    """
+    Scan books/ and generate metadata structure.
+
+    CRITICAL: books/ is the TERRITORY (source of truth).
+              metadata.json is the MAP (follows territory).
+
+    This function ALWAYS does a full scan of books/ folder and regenerates
+    metadata.json from scratch. Any existing metadata.json is IGNORED and
+    OVERWRITTEN. If there's a discrepancy, books/ wins, always.
+
+    The map follows the territory, never the other way around.
+    """
     topics = []
 
     for topic_dir in sorted(BOOKS_DIR.iterdir()):
