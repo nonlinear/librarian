@@ -2,41 +2,22 @@
 
 > A BYOB (Bring Your Own Books) local MCP so you can consult your library as you build your projects.
 
+> All local (books, embedding models, database). [Connect with your favorite AI provider](#5-ai-provider-integration) and [ask away](#4-usage)
+
+## Possible topics
+
+- ⚖️ **Compliance**: collect all compliance and regulation manuals to test a new idea the proper way
+- 🔧 **Troubleshooting**: move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions
+- 🌱 **Garden**: permaculture, indigenous plant guides, water management books to redesign your garden with less trial-and-error
+- 🎸 **Music/Hobby**: wanna try a new hobby but have no idea of scope? collect authoritative books in the field you wanna learn, and reduce your confusion by asking freely questions
+- 🎮 **Game Dev**: design patterns, procedural generation, narrative theory—query mid-project to find exactly which book explained that algorithm
+- 🌍 **Field Research**: anthropology, ethnography, linguistics—entire library indexed locally, works offline for weeks in remote locations
+- 💼 **Professional**: legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations
+- 💪 **Health & Fitness**: training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes
+
 ---
 
-## Core Principles
-
-**Every millisecond matters.**
-
-This system is a **semantic orientation tool**, not a conversational assistant.
-
-- **Map ≠ Territory**: Uses a single metadata file for navigation, not content replication
-- **Explicit invocation only**: No automatic exploration or unsolicited responses
-- **Delta indexing**: Only reindexes what changed
-- **Client-agnostic backend**: VS Code is just one possible interface
-
----
-
-## Architecture
-
-```
-books/
-├── topic_a/
-│   ├── book1.epub
-│   └── book2.pdf
-├── topic_b/
-│   └── book3.epub
-```
-
-**Rules:**
-
-- Exactly 1 folder level below `books/`
-- Each folder = 1 topic
-- Only EPUBs and PDFs inside
-
-## The Map: `metadata.json`
-
-Purpose: Minimal abstraction for rapid AI decision-making.
+## How it works
 
 ```mermaid
 graph TD
@@ -60,9 +41,11 @@ graph TD
     VEC --> ANSWER([Precise answer from<br>relevant book chunks])
 ```
 
+---
+
 ## Installation
 
-### 0. clone this repo
+### Clone this repo
 
 ### 1. Install Python 3.11 or higher
 
@@ -81,6 +64,9 @@ graph TD
 ### 3. BYOB (Bring Your Own Books)
 
 1. Add your books to `books/TOPICNAME/*.epub`
+   - Exactly 1 folder level below `books/`
+   - `.epub` and `.pdf`
+   - Each folder is a topic
 2. Generate metadata: `bash python3.11 scripts/generate_metadata.py`
 3. Build index (includes auto-partitioning): `bash python3.11 scripts/indexer.py`
    - Creates vector store in `storage/`
@@ -88,13 +74,42 @@ graph TD
    - ~90MB for 34 books (local embeddings)
 4. Test: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
 
-### 4. VSCode Extension
+**Folder structure:**
 
-1. Install the Personal Library MCP extension
-   - `bash code --install-extension https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix`
-   - or [Download .vsix](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix)
-2. Install [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md)
-3. Use `/research` command to indicate you want answers from your personal library MCP
+```
+books/
+├── topic_a/
+│   ├── book1.epub
+│   └── book2.pdf
+├── topic_b/
+│   └── book3.epub
+```
+
+### 4. Usage
+
+- Use [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md) to consult Personal Library MCP on your AI conversations
+- Make sure to specify topic or book name in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
+- Without `/research`, your AI uses general knowledge. With it, you get precise citations from your library
+- example 1: "`/research` what does Bogdanov say about Mars in Molecular Red?"
+- example 2: "`/research` in my anthropocene books, what are the main critiques of geoengineering?"
+- example 3: "`/research` what tarot spreads work best for decision-making under uncertainty?"
+
+---
+
+### 5. AI Provider Integration
+
+The Personal Library MCP is **provider-agnostic**. Pick your favorite AI environment:
+
+| Provider           | Status          | Notes                                                                                                                                                                                                                                                                       |
+| ------------------ | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Terminal**       | ✅ Ready        | `python3.11 scripts/query_partitioned.py "your question" --topic ai`                                                                                                                                                                                                        |
+| **VS Code**        | ✅ Ready        | Install [.vsix extension](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix) + [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md) |
+| **Claude Desktop** | 🤝 Collaborate? | Add to `~/Library/Application Support/Claude/claude_desktop_config.json` ([Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8))                                                                  |
+| **OpenAI API**     | 🤝 Collaborate? | Function calling wrapper needed ([Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8))                                                                                                           |
+| **LM Studio**      | 🤝 Collaborate? | Local model + MCP bridge ([Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8))                                                                                                                  |
+| **OpenWebUI**      | 🤝 Collaborate? | Custom tool integration ([Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8))                                                                                                                   |
+
+> 💡 **Want to add your idea?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8) and share your setup!
 
 ---
 
@@ -163,34 +178,34 @@ graph TD
 
 **Current workaround**: Manual full reindex (`python3.11 scripts/indexer.py`)
 
-### Phase 3: MCP Integration 🔶 (PARTIAL)
+### Phase 3: Provider Integration 🔶 (PARTIAL)
 
-**Server Complete, VS Code Testing Pending**
+**Core MCP Complete, Community Integrations Pending**
 
 **✅ Done:**
 
-- [x] Created `scripts/mcp_server_lazy.py`
+- [x] Created `scripts/mcp_server_lazy.py` (provider-agnostic)
 - [x] Lazy-loading architecture (instant startup)
-- [x] Re-enabled MCP in `~/Library/Application Support/Code/User/mcp.json`
-- [x] Document troubleshooting in TROUBLESHOOTING.md
+- [x] Terminal client working
+- [x] VS Code integration (MCP + /research prompt)
+- [x] Auto-rebuild on missing indices
+- [x] Consolidated storage (books/ only)
 
-**❌ Pending:**
+**🤝 Community Contributions Needed:**
 
-- [ ] Test `/research` end-to-end in VS Code
-- [ ] Measure actual MCP startup time in production
-- [ ] Validate no "Starting MCP servers... Skip?" dialog
-- [ ] User acceptance testing
+- [ ] Claude Desktop config example
+- [ ] OpenAI function calling wrapper
+- [ ] LM Studio integration guide
+- [ ] OpenWebUI custom tool
+- [ ] Provider comparison benchmarks
+- [ ] Integration testing across providers
 
-### Phase 4: Extension & Automation ❌ (NOT STARTED)
+### Phase 4: Automation & Advanced Features ❌ (NOT STARTED)
 
-**Goal**: Seamless VS Code integration with automatic updates
+**Goal**: Zero-friction daily usage across all providers
 
 **❌ All Pending:**
 
-- [ ] **Embed `/research` prompt in VS Code extension**
-  - [ ] Command palette entry: "Personal Library: Research"
-  - [ ] Keyboard shortcut (e.g., Cmd+Shift+L)
-  - [ ] Context menu integration
 - [ ] **Filesystem watcher (`watchdog`)**
   - [ ] Monitor `books/` for file changes
   - [ ] Auto-regenerate `metadata.json`
@@ -233,8 +248,7 @@ graph TD
 - [ ] Performance benchmarks documentation
 - [ ] **Deep linking to search results** ([concept](https://nonlinear.nyc/ideas/search-path))
   - [ ] Research EPUB/PDF viewers with URI scheme support
-  - [ ] Bundle recommended viewer as Extension Pack dependency
-  - [ ] Configure default file associations in package.json
-  - [ ] Format: `vscode://viewer?file=path&search=query`
+  - [ ] Provider-specific citation formats (VS Code pills, terminal hyperlinks, etc.)
+  - [ ] Format: `viewer://file=path&search=query`
   - [ ] One-click navigation from citations to exact location in book
   - [ ] Integration with MCP response format
