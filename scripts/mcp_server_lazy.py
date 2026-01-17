@@ -58,6 +58,48 @@ def _ensure_imports():
     print("✅ Loaded heavy dependencies (local embeddings)", file=sys.stderr, flush=True)
 
 
+def _rebuild_topic_index(topic_id: str, topic_label: str) -> bool:
+    """Rebuild FAISS index for a single topic."""
+    try:
+        import subprocess
+
+        print(f"🔨 Rebuilding index for topic: {topic_label}", file=sys.stderr, flush=True)
+
+        # Create a minimal script to reindex just this topic
+        script_path = Path(__file__).parent / "reindex_topic.py"
+
+        if not script_path.exists():
+            print(f"⚠️  reindex_topic.py not found, running full indexer", file=sys.stderr, flush=True)
+            # Fallback: run full indexer (slower but works)
+            indexer_path = Path(__file__).parent / "indexer.py"
+            result = subprocess.run(
+                [sys.executable, str(indexer_path)],
+                capture_output=True,
+                text=True,
+                timeout=600  # 10 min max
+            )
+            return result.returncode == 0
+
+        # Run topic-specific reindexer
+        result = subprocess.run(
+            [sys.executable, str(script_path), topic_id],
+            capture_output=True,
+            text=True,
+            timeout=120  # 2 min max per topic
+        )
+
+        if result.returncode == 0:
+            print(f"✅ Rebuilt {topic_label}", file=sys.stderr, flush=True)
+            return True
+        else:
+            print(f"❌ Error: {result.stderr}", file=sys.stderr, flush=True)
+            return False
+
+    except Exception as e:
+        print(f"❌ Rebuild failed: {e}", file=sys.stderr, flush=True)
+        return False
+
+
 def load_topic(topic_id: str) -> Dict:
     """Lazy load topic-specific FAISS index + chunks."""
     _ensure_imports()
@@ -83,9 +125,13 @@ def load_topic(topic_id: str) -> Dict:
     faiss_file = topic_dir / "faiss.index"
     chunks_file = topic_dir / "chunks.pkl"
 
+    # Auto-rebuild if missing
     if not faiss_file.exists() or not chunks_file.exists():
-        print(f"⚠️  Topic {topic_id} not indexed yet", file=sys.stderr, flush=True)
-        return None
+        print(f"⚠️  Topic {topic_id} indices missing. Auto-rebuilding...", file=sys.stderr, flush=True)
+        success = _rebuild_topic_index(topic_id, topic_label)
+        if not success:
+            print(f"❌ Failed to rebuild {topic_id}", file=sys.stderr, flush=True)
+            return None
 
     # Load FAISS index
     index = faiss.read_index(str(faiss_file))
