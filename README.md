@@ -8,14 +8,16 @@
 
 ## Useful for:
 
-- ⚖️ **Compliance**: collect all compliance and regulation manuals to test a new idea the proper way
-- 🔧 **Home improvement**: move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions
-- 🌱 **Gardening**: permaculture, indigenous plant guides, water management books to redesign your garden with less trial-and-error
-- 🎸 **New hobby**: wanna try a new hobby but have no idea of scope? collect authoritative books in the field you wanna learn, and reduce your confusion by asking freely questions
-- 🎮 **Game Dev**: design patterns, procedural generation, narrative theory—query mid-project to find exactly which book explained that algorithm
-- 🌍 **Field Research**: anthropology, ethnography, linguistics—entire library indexed locally, works offline for weeks in remote locations
-- 💼 **Professional**: legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations
-- 💪 **Fitness**: Training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes
+| Use Case                | Description                                                                                                                                                     |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ⚖️ **Compliance**       | Collect all compliance and regulation manuals to test a new idea the proper way                                                                                 |
+| 🔧 **Home improvement** | Move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions                                                      |
+| 🌱 **Gardening**        | Permaculture, indigenous plant guides, water management books to redesign your garden with less trial-and-error                                                 |
+| 🎸 **New hobby**        | Wanna try a new hobby but have no idea of scope? Collect authoritative books in the field you wanna learn, and reduce your confusion by asking freely questions |
+| 🎮 **Game Dev**         | Design patterns, procedural generation, narrative theory—query mid-project to find exactly which book explained that algorithm                                  |
+| 🌍 **Field Research**   | Anthropology, ethnography, linguistics—entire library indexed locally, works offline for weeks in remote locations                                              |
+| 💼 **Professional**     | Legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations                                                        |
+| 💪 **Fitness**          | Training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes                                                          |
 
 ---
 
@@ -47,52 +49,51 @@ graph TD
 
 ## Installation
 
-1. Clone this repo
-2. [Install Python](https://www.python.org/downloads/) 3.11 or higher
-3. Run setup script: `bash ./scripts/setup.sh`
+1. **Clone this repo**
+2. **[Install Python](https://www.python.org/downloads/)**: 3.11 or higher
+3. **Run setup script**: `bash ./scripts/setup.sh`
    - Installs Python dependencies
    - Downloads local embedding model (all-MiniLM-L6-v2, ~90MB)
    - Model saved in `models/` directory (not tracked by git)
-4. BYOB (Bring Your Own Books)
+4. **BYOB**: Bring Your Own Books
    - Exactly 1 folder level below `books/`
    - `.epub` and `.pdf`
    - Each folder is a topic
-5. Generate metadata: `bash python3.11 scripts/generate_metadata.py`
-6. Build index (includes auto-partitioning): `bash python3.11 scripts/indexer.py`
+5. **Generate metadata**: `bash python3.11 scripts/generate_metadata.py`
+6. **Build index** (includes auto-partitioning): `bash python3.11 scripts/indexer.py`
    - Creates vector store in `storage/`
    - Auto-partitions by topic for MCP lazy-loading
    - ~90MB for 34 books (local embeddings)
-7. Test: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
+7. **Test**: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
 
-**Folder structure:**
-
-```
-books/
-├── topic_a/
-│   ├── book1.epub
-│   └── book2.pdf
-├── topic_b/
-│   └── book3.epub
+```mermaid
+graph TD
+    A[books/] --> B[topic1/]
+    A --> C[topic2/]
+    B --> D[book1.epub]
+    B --> E[book2.pdf]
+    C --> F[book3.epub]
 ```
 
 ---
 
 ## Usage
 
-- Use [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md) to consult Personal Library MCP on your AI conversations
-- Make sure to specify topic or book name in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
-- Without `/research`, your AI uses general knowledge. With it, you get precise citations from your library
-- example 1: "`/research` what does Bogdanov say about Mars in Molecular Red?"
-- example 2: "`/research` in my anthropocene books, what are the main critiques of geoengineering?"
-- example 3: "`/research` what tarot spreads work best for decision-making under uncertainty?"
+- **Use [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md)** to consult Personal Library MCP on your AI conversations
+- Make sure to **specify topic or book** in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
+- **Example 1**: "`/research` what does Bogdanov say about Mars in Molecular Red?"
+- **Example 2**: "`/research` in my anthropocene books, what are the main critiques of geoengineering?"
+- **Example 3**: "`/research` what tarot spreads work best for decision-making under uncertainty?"
+
+> 👉 Without `/research` your AI uses general knowledge. With it you get precise citations from your library
 
 ---
 
-## AI Provider Integration
+## AI Integration
 
-The Personal Library MCP is **provider-agnostic**. Use your favorite AI environment:
+The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider:
 
-| Provider           | Status                                                                                                                                                                                                                |
+| AI Provider        | Status                                                                                                                                                                                                                |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Terminal**       | ✅ `python3.11 scripts/query_partitioned.py "your question" --topic ai`                                                                                                                                               |
 | **VS Code**        | ✅ `code --install-extension personal-library-mcp-latest.vsix` (or [download .vsix](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix)) |
