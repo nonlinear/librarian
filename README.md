@@ -7,13 +7,13 @@
 ## Possible topics
 
 - ⚖️ **Compliance**: collect all compliance and regulation manuals to test a new idea the proper way
-- 🔧 **Troubleshooting**: move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions
-- 🌱 **Garden**: permaculture, indigenous plant guides, water management books to redesign your garden with less trial-and-error
-- 🎸 **Music/Hobby**: wanna try a new hobby but have no idea of scope? collect authoritative books in the field you wanna learn, and reduce your confusion by asking freely questions
+- 🔧 **Home improvement**: move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions
+- 🌱 **Gardening**: permaculture, indigenous plant guides, water management books to redesign your garden with less trial-and-error
+- 🎸 **New hobby**: wanna try a new hobby but have no idea of scope? collect authoritative books in the field you wanna learn, and reduce your confusion by asking freely questions
 - 🎮 **Game Dev**: design patterns, procedural generation, narrative theory—query mid-project to find exactly which book explained that algorithm
 - 🌍 **Field Research**: anthropology, ethnography, linguistics—entire library indexed locally, works offline for weeks in remote locations
 - 💼 **Professional**: legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations
-- 💪 **Health & Fitness**: training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes
+- 💪 **Fitness**: Training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes
 
 ---
 
@@ -98,7 +98,7 @@ books/
 
 ### 5. AI Provider Integration
 
-The Personal Library MCP is **provider-agnostic**. Pick your favorite AI environment:
+The Personal Library MCP is **provider-agnostic**. Use your favorite AI environment:
 
 | Provider           | Status                                                                                                                                                                                                                |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
