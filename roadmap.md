@@ -72,11 +72,12 @@
   - [ ] Auto-reindex affected topics (uses Phase 2 delta logic)
   - [ ] Background indexing with progress indicator
   - [ ] Debounce mechanism
-- [ ] **PDF support**
-  - [ ] PDF text extraction (PyPDF2/pdfplumber)
-  - [ ] PDF embedding pipeline
-  - [ ] Update metadata schema
-  - [ ] Test mixed EPUB/PDF libraries
+- [x] **PDF support** ✅ (Jan 18, 2026)
+  - [x] PDF text extraction (PyMuPDF/fitz)
+  - [x] PDF embedding pipeline (PyMuPDFReader)
+  - [x] Update metadata schema
+  - [x] Test mixed EPUB/PDF libraries (computer vision: 4 PDFs, 2 EPUBs)
+  - ⚠️ MuPDF ICC profile warnings (cosmetic, don't affect indexing)
 
 ---
 
@@ -86,9 +87,14 @@
 
 **Local Embedding Models:**
 
-- [x] Sentence Transformers (`all-MiniLM-L6-v2`)
+- [x] Sentence Transformers (`all-MiniLM-L6-v2`) ✅ ACTIVE
   - Pros: Free, fast, offline, 384-dim
   - Model cached in `models/` (90MB)
+  - Stable, no crashes
+- [x] Tested `all-mpnet-base-v2` (Jan 18, 2026) ❌ ABANDONED
+  - Pros: Better semantic quality (768-dim)
+  - Cons: Crashes during reindexing on M3 Mac, 2x slower
+  - Decision: Reverted to MiniLM for stability
 - [ ] Test BGE embeddings (e.g., `BAAI/bge-small-en-v1.5`)
   - Pros: Better quality, still local, 384-dim
   - Cons: Larger model size

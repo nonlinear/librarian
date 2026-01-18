@@ -31,6 +31,33 @@
 
 ---
 
+## Phase 2: PDF Support + Integrated Reindexing ✅ (Jan 18, 2026)
+
+**Problem:** Only EPUBs supported, reindexing loaded model 23 times (memory inefficient)
+
+**Solution Implemented:** PDF Support + Single-Process Reindexing 🎉
+
+- [x] **PDF Support Added**
+  - [x] PyMuPDF (fitz) for text extraction
+  - [x] Updated `generate_metadata.py` for PDF metadata extraction
+  - [x] Updated `reindex_topic.py` with file type detection (.epub vs .pdf)
+  - [x] Updated `mcp_server_lazy.py` to handle PDF documents
+  - [x] Tested with 4 PDFs in computer vision topic (2460 chunks indexed)
+  - ⚠️ MuPDF ICC profile warnings (cosmetic, don't affect indexing)
+- [x] **Integrated Reindexing Architecture**
+  - [x] Created `scripts/reindex_all.py`
+  - [x] Loads embedding model **once**, reuses for all 23 topics
+  - [x] 23× more memory efficient than subprocess approach
+  - [x] Prevents Python crashes from repeated model loading
+- [x] **Embedding Model Evaluation**
+  - [x] Tested `all-mpnet-base-v2` (768-dim) for better quality
+  - [x] Crashes on M3 Mac during reindexing (leaked semaphores)
+  - [x] Decided to keep `all-MiniLM-L6-v2` (384-dim) for stability
+
+**Impact:** Mixed EPUB/PDF libraries now supported, 23× more efficient reindexing
+
+---
+
 ## Foundation ✅ (Initial Release)
 
 **Core infrastructure for Personal Library MCP**

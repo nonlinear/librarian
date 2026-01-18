@@ -52,14 +52,19 @@ graph TD
    - Downloads local embedding model (all-MiniLM-L6-v2, ~90MB)
    - Model saved in `models/` directory (not tracked by git)
 4. **BYOB**: Bring Your Own Books
-   - Exactly 1 folder level below `books/`
-   - `.epub` and `.pdf`
-   - Each folder is a topic
-5. **Generate metadata**: `bash python3.11 scripts/generate_metadata.py`
-6. **Build index**: `bash python3.11 scripts/indexer.py`
-   - Creates vector store in `storage/`
-   - Auto-partitions by topic for MCP lazy-loading (less zigzag, let's tokens used, more precision)
-7. **Test**: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
+   - Create folders in `books/` (one per topic)
+   - Add `.epub` and `.pdf` files to each topic folder
+   - Each folder becomes a searchable topic
+5. **Generate metadata**: `python3.11 scripts/generate_metadata.py`
+   - Scans `books/` folders and creates `books/metadata.json`
+6. **Build indices**: Choose one approach:
+   - **Full index** (all topics): `python3.11 scripts/indexer.py`
+   - **Per-topic** (recommended): `python3.11 scripts/reindex_topic.py <topic-id>`
+   - Indices saved per-topic in `books/<topic>/faiss.index`
+7. **Test**:
+   ```bash
+   python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai
+   ```
 
 ```mermaid
 graph TD
@@ -68,13 +73,14 @@ graph TD
     B --> D[book1.epub]
     B --> E[book2.pdf]
     C --> F[book3.epub]
+    C --> G[book4.pdf]
 ```
 
 ---
 
 ## Usage
 
-- **Use [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md)** to consult Personal Library MCP on your AI conversations
+- **Use `/research` prompt** to consult Personal Library MCP on your AI conversations (see [.github/prompts/research.prompt.md](.github/prompts/research.prompt.md))
 - Make sure to **specify topic or book** in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
 - **Example 1**: "`/research` what does Bogdanov say about Mars in Molecular Red?"
 - **Example 2**: "`/research` in my anthropocene books, what are the main critiques of geoengineering?"
@@ -88,14 +94,14 @@ graph TD
 
 The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider:
 
-| AI Provider        | Status                                                                                                                                                                                                                |
-| :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Terminal**       | ✅ `python3.11 scripts/query_partitioned.py "your question" --topic ai`                                                                                                                                               |
-| **VS Code**        | ✅ `code --install-extension personal-library-mcp-latest.vsix` (or [download .vsix](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix)) |
-| **Claude Desktop** | 👷 Pending                                                                                                                                                                                                            |
-| **OpenAI API**     | 👷 Pending                                                                                                                                                                                                            |
-| **LM Studio**      | 👷 Pending                                                                                                                                                                                                            |
-| **OpenWebUI**      | 👷 Pending                                                                                                                                                                                                            |
+| AI Provider        | Status                                                                  |
+| :----------------- | :---------------------------------------------------------------------- |
+| **Terminal**       | ✅ `python3.11 scripts/query_partitioned.py "your question" --topic ai` |
+| **VS Code**        | ✅ Live                                                                 |
+| **Claude Desktop** | 👷 Pending                                                              |
+| **OpenAI API**     | 👷 Pending                                                              |
+| **LM Studio**      | 👷 Pending                                                              |
+| **OpenWebUI**      | 👷 Pending                                                              |
 
 > 👷 Wanna collaborate? Connect via [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 

@@ -13,7 +13,7 @@ import faiss
 from sentence_transformers import SentenceTransformer
 from llama_index.core import VectorStoreIndex, Document, Settings
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.readers.file import EpubReader
+from llama_index.readers.file import EpubReader, PyMuPDFReader
 
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"
@@ -52,7 +52,8 @@ def reindex_topic(topic_id: str):
 
     # Load books for this topic
     documents = []
-    reader = EpubReader()
+    epub_reader = EpubReader()
+    pdf_reader = PyMuPDFReader()
 
     for book in topic_data['books']:
         book_path = topic_dir / book['filename']
@@ -64,7 +65,16 @@ def reindex_topic(topic_id: str):
         print(f"  Loading: {book['title']}")
 
         try:
-            docs = reader.load_data(str(book_path))
+            # Detect file type and use appropriate reader
+            file_ext = book_path.suffix.lower()
+
+            if file_ext == '.epub':
+                docs = epub_reader.load_data(str(book_path))
+            elif file_ext == '.pdf':
+                docs = pdf_reader.load_data(str(book_path))
+            else:
+                print(f"    ⚠️  Unsupported format: {file_ext}")
+                continue
 
             # Add metadata
             for doc in docs:

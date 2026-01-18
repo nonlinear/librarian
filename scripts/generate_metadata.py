@@ -67,6 +67,65 @@ def extract_epub_metadata(epub_path: Path) -> Dict:
         }
 
 
+def extract_pdf_metadata(pdf_path: Path) -> Dict:
+    """Extract title, author from PDF metadata."""
+    try:
+        import fitz  # PyMuPDF
+        doc = fitz.open(str(pdf_path))
+        metadata = doc.metadata
+
+        title = metadata.get('title', pdf_path.stem)
+        if not title or title.strip() == '':
+            title = pdf_path.stem
+
+        author = metadata.get('author', 'Unknown')
+        if not author or author.strip() == '':
+            author = 'Unknown'
+
+        # Extract year from creation date or modification date
+        year = None
+        for date_field in ['creationDate', 'modDate']:
+            if date_field in metadata and metadata[date_field]:
+                year_match = re.search(r'\d{4}', metadata[date_field])
+                if year_match:
+                    year = int(year_match.group())
+                    break
+
+        doc.close()
+        return {
+            "title": title,
+            "author": author,
+            "year": year
+        }
+    except Exception as e:
+        print(f"⚠️  Error reading {pdf_path.name}: {e}")
+        return {
+            "title": pdf_path.stem,
+            "author": "Unknown",
+            "year": None
+        }
+
+
+def extract_sample_text_pdf(pdf_path: Path, max_chars: int = 5000) -> str:
+    """Extract sample text from PDF for tag generation."""
+    try:
+        import fitz  # PyMuPDF
+        doc = fitz.open(str(pdf_path))
+        text_parts = []
+
+        # Extract text from first few pages
+        for page_num in range(min(5, len(doc))):
+            page = doc[page_num]
+            text_parts.append(page.get_text())
+
+        doc.close()
+        full_text = ' '.join(text_parts)
+        return full_text[:max_chars] if len(full_text) > max_chars else full_text
+    except Exception as e:
+        print(f"⚠️  Error extracting text from {pdf_path.name}: {e}")
+        return ""
+
+
 def extract_sample_text(epub_path: Path, max_chars: int = 5000) -> str:
     """Extract sample text from EPUB for tag generation."""
     try:
@@ -146,24 +205,31 @@ def scan_books_folder() -> Dict:
         topic_id = slugify(topic_dir.name)
         books = []
 
-        # Find all EPUBs in topic
-        for epub_file in sorted(topic_dir.glob("*.epub")):
-            print(f"📚 Processing: {topic_dir.name}/{epub_file.name}")
+        # Find all EPUBs and PDFs in topic
+        book_files = list(topic_dir.glob("*.epub")) + list(topic_dir.glob("*.pdf"))
+        for book_file in sorted(book_files):
+            print(f"📚 Processing: {topic_dir.name}/{book_file.name}")
 
-            # Extract metadata
-            metadata = extract_epub_metadata(epub_file)
+            # Extract metadata based on file type
+            if book_file.suffix.lower() == '.epub':
+                metadata = extract_epub_metadata(book_file)
+                sample_text = extract_sample_text(book_file)
+            elif book_file.suffix.lower() == '.pdf':
+                metadata = extract_pdf_metadata(book_file)
+                sample_text = extract_sample_text_pdf(book_file)
+            else:
+                continue
 
             # Generate tags from content
-            sample_text = extract_sample_text(epub_file)
             tags = generate_tags_from_text(sample_text)
 
             book_entry = {
-                "id": slugify(epub_file.stem),
+                "id": slugify(book_file.stem),
                 "title": metadata["title"],
                 "author": metadata["author"],
                 "year": metadata["year"],
                 "tags": tags,
-                "filename": epub_file.name
+                "filename": book_file.name
             }
 
             books.append(book_entry)
