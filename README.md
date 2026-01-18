@@ -8,16 +8,16 @@
 
 ## Useful for:
 
-| Use Case                | Description                                                                                                                                                     |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ⚖️ **Compliance**       | Collect all compliance and regulation manuals to test a new idea the proper way                                                                                 |
-| 🔧 **Home improvement** | Move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions                                                      |
-| 🌱 **Gardening**        | Permaculture, indigenous plant guides, water management books to redesign your garden with less trial-and-error                                                 |
-| 🎸 **New hobby**        | Wanna try a new hobby but have no idea of scope? Collect authoritative books in the field you wanna learn, and reduce your confusion by asking freely questions |
-| 🎮 **Game Dev**         | Design patterns, procedural generation, narrative theory—query mid-project to find exactly which book explained that algorithm                                  |
-| 🌍 **Field Research**   | Anthropology, ethnography, linguistics—entire library indexed locally, works offline for weeks in remote locations                                              |
-| 💼 **Professional**     | Legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations                                                        |
-| 💪 **Fitness**          | Training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes                                                          |
+| Possible uses               | Description                                                                                                                                                     |
+| :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ⚖️&nbsp;**Compliance**      | Collect all compliance and regulation manuals to test a new idea the proper way                                                                                 |
+| 🔧&nbsp;**Home&nbsp;fixes** | Move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions                                                      |
+| 🌱&nbsp;**Gardening**       | Permaculture, indigenous plant guides, water management books to redesign your garden with less trial-and-error                                                 |
+| 🎸&nbsp;**New&nbsp;hobby**  | Wanna try a new hobby but have no idea of scope? Collect authoritative books in the field you wanna learn, and reduce your confusion by asking freely questions |
+| 🎮&nbsp;**Game&nbsp;Dev**   | Design patterns, procedural generation, narrative theory—query mid-project to find exactly which book explained that algorithm                                  |
+| 🌍&nbsp;**Academic**        | Anthropology, ethnography, linguistics—entire library indexed locally, works offline for weeks in remote locations                                              |
+| 💼&nbsp;**Professional**    | Legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations                                                        |
+| 💪&nbsp;**Fitness**         | Training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes                                                          |
 
 ---
 
@@ -94,7 +94,7 @@ graph TD
 The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider:
 
 | AI Provider        | Status                                                                                                                                                                                                                |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Terminal**       | ✅ `python3.11 scripts/query_partitioned.py "your question" --topic ai`                                                                                                                                               |
 | **VS Code**        | ✅ `code --install-extension personal-library-mcp-latest.vsix` (or [download .vsix](https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix)) |
 | **Claude Desktop** | 👷 Pending                                                                                                                                                                                                            |
