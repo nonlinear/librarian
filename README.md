@@ -4,7 +4,9 @@
 
 > All local (books, embedding models, database). [Connect with your favorite AI provider](#5-ai-provider-integration) and [ask away](#4-usage)
 
-## Possible topics
+---
+
+## Useful for:
 
 - ⚖️ **Compliance**: collect all compliance and regulation manuals to test a new idea the proper way
 - 🔧 **Home improvement**: move all your home devices and appliances' instruction manuals + warranties, ask troubleshooting questions
@@ -45,34 +47,22 @@ graph TD
 
 ## Installation
 
-### Clone this repo
-
-### 1. Install Python 3.11 or higher
-
-- macOS`brew install python@3.11`
-- Ubuntu/Debian `sudo apt install python3.11`
-- Windows [Download from python.org](https://www.python.org/downloads/)
-- Verify: `python3.11 --version`
-
-### 2. Setup
-
-1. Run setup script: `bash ./scripts/setup.sh`
+1. Clone this repo
+2. [Install Python](https://www.python.org/downloads/) 3.11 or higher
+3. Run setup script: `bash ./scripts/setup.sh`
    - Installs Python dependencies
    - Downloads local embedding model (all-MiniLM-L6-v2, ~90MB)
    - Model saved in `models/` directory (not tracked by git)
-
-### 3. BYOB (Bring Your Own Books)
-
-1. Add your books to `books/TOPICNAME/*.epub`
+4. BYOB (Bring Your Own Books)
    - Exactly 1 folder level below `books/`
    - `.epub` and `.pdf`
    - Each folder is a topic
-2. Generate metadata: `bash python3.11 scripts/generate_metadata.py`
-3. Build index (includes auto-partitioning): `bash python3.11 scripts/indexer.py`
+5. Generate metadata: `bash python3.11 scripts/generate_metadata.py`
+6. Build index (includes auto-partitioning): `bash python3.11 scripts/indexer.py`
    - Creates vector store in `storage/`
    - Auto-partitions by topic for MCP lazy-loading
    - ~90MB for 34 books (local embeddings)
-4. Test: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
+7. Test: `bash python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai`
 
 **Folder structure:**
 
@@ -85,7 +75,9 @@ books/
 │   └── book3.epub
 ```
 
-### 4. Usage
+---
+
+## Usage
 
 - Use [/research prompt](https://github.com/nonlinear/personal-library/blob/main/.github/prompts/research.prompt.md) to consult Personal Library MCP on your AI conversations
 - Make sure to specify topic or book name in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
@@ -96,7 +88,7 @@ books/
 
 ---
 
-### 5. AI Provider Integration
+## AI Provider Integration
 
 The Personal Library MCP is **provider-agnostic**. Use your favorite AI environment:
 
@@ -110,6 +102,8 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI environm
 | **OpenWebUI**      | 👷 Pending                                                                                                                                                                                                            |
 
 > 👷 Wanna collaborate? Connect via [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
+
+---
 
 ## Project Status
 
