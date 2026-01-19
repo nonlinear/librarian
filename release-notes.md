@@ -6,32 +6,26 @@
 
 ---
 
-## Phase 1: Database Optimization ✅ (Jan 15, 2026)
+## Release Format
 
-**Problem:** `storage/docstore.json` (17MB) caused 30s MCP startup delay + Gemini API dependency
+Each release documents:
 
-**Solution Implemented:** Topic-Based Lazy Loading + Local Embeddings 🎉
-
-- [x] **Migrated to local embeddings** (Jan 15, 2026)
-  - [x] Replaced Gemini (768-dim) → sentence-transformers (384-dim)
-  - [x] Model stored in `models/` (90MB, gitignored)
-  - [x] Zero API keys required - fully offline
-  - [x] Updated: `indexer.py`, `query_partitioned.py`, `setup.sh`
-  - [x] Removed: `.env` requirement, API key docs
-- [x] Created `scripts/partition_storage.py`
-- [x] **Integrated auto-partitioning in `indexer.py`** (no manual step)
-- [x] Split storage into 12 topic-specific directories (automated)
-- [x] Created `scripts/mcp_server_lazy.py`
-  - [x] Loads ONLY `metadata.json` (19KB) on startup → **instant** (<100ms)
-  - [x] Lazy-loads topics on first query (~2s per topic)
-  - [x] Topic caching prevents reload
-- [x] Binary format (pickle) for faster deserialization
-
-**Impact:** Startup time reduced from 30s to <100ms, zero API dependencies
+- 📦 **What's new:** Features and changes
+- 👥 **Who needs to know:** Target audience and impact
+- 🔧 **Migration:** Breaking changes and upgrade steps (if any)
 
 ---
 
-## Phase 2: PDF Support + Integrated Reindexing ✅ (Jan 18, 2026)
+## v0.2: PDF Support + Integrated Reindexing ✅ (Jan 18, 2026)
+
+**Branch:** `main` (promoted from development)
+
+**👥 Who needs to know:**
+
+- Users with PDF books who couldn't use MCP before
+- Users experiencing crashes during reindexing (M3 Mac fix)
+
+**📦 What's new:**
 
 **Problem:** Only EPUBs supported, reindexing loaded model 23 times (memory inefficient)
 
@@ -53,6 +47,44 @@
   - [x] Tested `all-mpnet-base-v2` (768-dim) for better quality
   - [x] Crashes on M3 Mac during reindexing (leaked semaphores)
   - [x] Decided to keep `all-MiniLM-L6-v2` (384-dim) for stability
+
+**Impact:** Mixed EPUB/PDF libraries now supported, 23× more efficient reindexing
+
+**🔧 Migration:** None (backward compatible)
+
+---
+
+## v0.1: Database Optimization ✅ (Jan 15, 2026)
+
+**Branch:** `main` (promoted from development)
+
+**👥 Who needs to know:**
+
+- Users experiencing slow MCP startup (30s → <100ms)
+- Users who don't want API dependencies
+
+**📦 What's new:**
+
+**Problem:** `storage/docstore.json` (17MB) caused 30s MCP startup delay + Gemini API dependency
+
+**Solution Implemented:** Topic-Based Lazy Loading + Local Embeddings 🎉
+
+- [x] **Migrated to local embeddings** (Jan 15, 2026)
+  - [x] Replaced Gemini (768-dim) → sentence-transformers (384-dim)
+  - [x] Model stored in `models/` (90MB, gitignored)
+  - [x] Zero API keys required - fully offline
+  - [x] Updated: `indexer.py`, `query_partitioned.py`, `setup.sh`
+  - [x] Removed: `.env` requirement, API key docs
+- [x] Created `scripts/partition_storage.py`
+- [x] **Integrated auto-partitioning in `indexer.py`** (no manual step)
+- [x] Split storage into 12 topic-specific directories (automated)
+- [x] Created `scripts/mcp_server_lazy.py`
+  - [x] Loads ONLY `metadata.json` (19KB) on startup → **instant** (<100ms)
+  - [x] Lazy-loads topics on first query (~2s per topic)
+  - [x] Topic caching prevents reload
+- [x] Binary format (pickle) for faster deserialization
+
+**🔧 Migration:** Run `python3.11 scripts/indexer.py` to regenerate partitioned storage
 
 **Impact:** Mixed EPUB/PDF libraries now supported, 23× more efficient reindexing
 
@@ -79,3 +111,10 @@
 ---
 
 **See also:** [Roadmap](roadmap.md) for planned features.
+v0.0: Foundation ✅ (Initial Release)
+
+**Branch:** `main` (initial commit)
+
+**👥 Who needs to know:** All users (initial setup)
+
+**📦 What's new:**

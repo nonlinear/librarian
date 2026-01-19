@@ -6,7 +6,22 @@
 
 ---
 
-## Phase 2: Delta Indexing 🔶 (IN PROGRESS)
+## Version Control Strategy
+
+**Each roadmap version = one feature branch:**
+
+- Branch naming: `v{major}.{minor}-{feature-name}` (ex: `v0.3-delta-indexing`)
+- Regular rebase from `main` to stay current
+- When complete → merge to `main` → move to release-notes.md
+- Release notes specify: **What's new** + **Who needs to know**
+
+---
+
+## v0.3: Delta Indexing 🔶 (IN PROGRESS)
+
+**Branch:** `v0.3-delta-indexing` (when started)
+
+**Target audience:** Users with large libraries who reindex frequently
 
 **Goal:** Update only changed books instead of reindexing everything
 
@@ -32,7 +47,11 @@
 
 ---
 
-## Phase 3: Provider Integration 🔶 (IN PROGRESS)
+## v0.4: Provider Integration 🔶 (IN PROGRESS)
+
+**Branch:** `v0.4-provider-integration` (when started)
+
+**Target audience:** Users of Claude Desktop, OpenAI, LM Studio, OpenWebUI
 
 **Goal:** Make Personal Library MCP work with any AI provider
 
@@ -54,7 +73,11 @@
 - [ ] LM Studio integration guide
 - [ ] OpenWebUI custom tool
 - [ ] Provider comparison benchmarks
-- [ ] Integration testing across providers
+- [v0.5: Automation & Advanced Features ❌ (PLANNED)
+
+**Branch:** `v0.5-automation` (when started)
+
+**Target audience:** Power users who add books frequently
 
 ---
 
