@@ -216,16 +216,19 @@ git push
 
 ---
 
-## 🚨 Current State Assessment (2026-01-15)
+## 🚨 Current State Assessment (2026-01-18)
 
-**Recent Changes:**
+**⚠️ BRANCH STATUS:**
 
-- ✅ Migrated FAISS → LlamaIndex
-- ✅ Updated README.md (6 sections)
-- ✅ Updated setup.sh (removed model download)
-- ✅ Updated .env-template
+- **main** (stable): Commit 081296f - version BEFORE engine/ refactor
+- **dev/mcp-fixes**: WIP branch with MCP fixes (chunking, runtime filtering, VS Code integration)
+  - ⚠️ DO NOT MERGE until tested and stable
+  - Contains: improved chunking (SentenceSplitter), runtime filtering, integration scripts
 
-**Not Yet Done:** 7)
+**Recent Changes (on main):**
+
+- ✅ Using stable version without engine/ refactor
+- ✅ Extension points to correct paths (scripts/, not engine/scripts/)
 
 **Check project status:**
 
