@@ -53,11 +53,15 @@ python3.11 -c "import llama_index.core; import sentence_transformers" 2>&1 && ec
 echo "3️⃣ File structure test..."
 test -f books/metadata.json && ls books/*/faiss.index >/dev/null 2>&1 && echo "✅ Files exist" || echo "❌ Files missing"
 
-# Test 4: Query (if scripts/query.py exists)
-if [ -f scripts/query.py ]; then
-    echo "4️⃣ Query test..."
-    python3.11 scripts/query.py "test" > /dev/null 2>&1 && echo "✅ Query works" || echo "❌ Query failed"
-fi
+# Test 4: Nested folder support
+echo "4️⃣ Nested folder test..."
+python3.11 -c "
+import json
+from pathlib import Path
+metadata = json.loads((Path('books') / 'metadata.json').read_text())
+nested = [t['id'] for t in metadata['topics'] if '_' in t['id']]
+print(f'✅ Nested topics work ({len(nested)} found)' if nested else '⚠️ No nested topics')
+" 2>/dev/null || echo "❌ Nested topic test failed"
 
 echo ""
 echo "✅ All checks complete. Review results above."

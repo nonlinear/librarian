@@ -46,7 +46,14 @@ def reindex_topic(topic_id: str):
         return False
 
     topic_label = topic_data['label']
-    topic_dir = BOOKS_DIR / topic_label
+
+    # Handle nested topics (e.g., cybersecurity_strategy → cybersecurity/strategy/)
+    if '_' in topic_id:
+        # Split on underscore to reconstruct path
+        parts = topic_id.split('_')
+        topic_dir = BOOKS_DIR / '/'.join(parts)
+    else:
+        topic_dir = BOOKS_DIR / topic_label
 
     print(f"📚 Reindexing topic: {topic_label}")
 

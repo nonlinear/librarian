@@ -57,6 +57,9 @@ graph TD
    - Create folders in `books/` (one per topic)
    - Add `.epub` and `.pdf` files to each topic folder
    - Each folder becomes a searchable topic
+   - **Optional:** Organize with subfolders for better grouping
+     - Example: `books/cybersecurity/strategy/` → topic ID `cybersecurity_strategy`
+     - Subfolders create separate topics with underscore naming
 5. **Generate metadata**: `python3.11 scripts/generate_metadata.py`
    - Scans `books/` folders and creates `books/metadata.json`
 6. **Build indices**: Choose one approach:
@@ -72,10 +75,20 @@ graph TD
 graph TD
     A[books/] --> B[topic1/]
     A --> C[topic2/]
+    A --> H[topic3/]
+
     B --> D[book1.epub]
     B --> E[book2.pdf]
+
     C --> F[book3.epub]
     C --> G[book4.pdf]
+
+    H[topic3/<br/>root books] --> I[book5.epub]
+    H --> J[subfolder1/<br/>topic3_subfolder1]
+    H --> K[subfolder2/<br/>topic3_subfolder2]
+
+    J --> L[book6.epub]
+    K --> M[book7.epub]
 ```
 
 ---

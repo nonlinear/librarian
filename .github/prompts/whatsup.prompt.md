@@ -363,22 +363,37 @@ CURRENT=$(grep -m1 "^## v" CHANGELOG.md | sed 's/^## v//' | cut -d':' -f1 | tr -
 ### Possible Outcomes
 
 ```mermaid
-flowchart LR
+flowchart TD
     STEP4([user asks /whatsup]) --> CHECK{Checks passed?}
 
-    CHECK -->|No| REPORT1(["<b>NEXT:</b><br>🛑 Explain problem<br/>List failed tests<br/>Suggest fixes"])
+    CHECK -->|No| REPORT1[🛑 Failed Checks]
+    REPORT1 -->|Fixes applied<br/>Checks pass| STABLE
+
     CHECK -->|Yes| STABLE{Docs match reality?}
 
-    STABLE -->|No| REPORT2(["<b>NEXT:</b><br>⚠️ Update docs<br/>Show what changed<br/>Auto-update files"])
+    STABLE -->|No| REPORT2[⚠️ Docs Mismatch]
+    REPORT2 -->|Docs updated| PROGRESS
+
     STABLE -->|Yes| PROGRESS{Work done?}
 
-    PROGRESS -->|No changes| REPORT3(["<b>NEXT:</b><br>🧑 List next options<br/>Show ROADMAP<br/>Ask what's next"])
-    PROGRESS -->|Partial| REPORT4(["<b>NEXT:</b><br>✅ Update checkboxes<br/>Show progress<br/>Push increment"])
-    PROGRESS -->|Complete| REPORT5(["<b>NEXT:</b><br>🎉 Move to CHANGELOG<br/>Announce version<br/>Celebrate!"])
+    PROGRESS -->|No changes| GROOM
+    PROGRESS -->|Partial| REPORT4[✅ In Progress]
+    PROGRESS -->|Complete| REPORT5[🎉 Version Complete]
 
+    REPORT4 --> GROOM
+    REPORT5 --> GROOM
+
+    GROOM[📋 List next options<br/>Report: what, when, next]
+
+    GROOM --> NEXT_VERSION([Start new version])
+    GROOM --> ROADMAP_GROOM([Groom roadmap])
 ```
 
-### Outcome 1: 🛑 Failed Checks (Cannot Push)
+**All paths lead to stable state with "List next options" report**
+
+---
+
+### 🛑 Failed Checks
 
 **When:** STEP 2 checks failed
 
@@ -409,14 +424,28 @@ flowchart LR
 What would you like to do?
 ```
 
-### Outcome 2: ⚠️ Docs Mismatch (Auto-Update)
+**After fixes → Re-run /whatsup → Continues to stable state**
+
+---
+
+- Fix the issue and re-run whatsup
+- Ask me to clarify the requirement
+- Document as known issue in ROADMAP
+
+What would you like to do?
+
+````
+
+---
+
+### ⚠️ Docs Mismatch
 
 **When:** Code changed but docs don't reflect it
 
-**AI reports:**
+**AI automatically updates docs, then provides stable state report:**
 
 ```markdown
-## ⚠️ Documentation Updated
+## ⚠️ Documentation Updated → Stable State
 
 **What I found:**
 
@@ -428,26 +457,54 @@ What would you like to do?
 
 - ROADMAP: Marked [X] items complete
 - CHANGELOG: [Created new entry / Updated existing]
+- Version: v${OLD} → v${NEW}
 
-**Version:** v${OLD} → v${NEW}
+**✅ Pushed and stable**
 
-Ready to push these updates?
-```
+---
 
-### Outcome 3: 🧑 Grooming Mode (Plan Next Work)
+## 📋 What's Next?
 
-**When:** No uncommitted changes, stable state
+**⏰ When:** Last worked [time ago]
 
-**AI reports:**
+**🔨 What you did:** [feature summary]
+
+**🎯 Current status:**
+- Version: v${NEW}
+- Progress: [X/Y] items complete
+- All checks: ✅ Passing
+
+**🔮 Next options:**
+
+1. **Continue v${NEW}:** [Next unchecked item]
+2. **Start v${NEXT}:** [New feature from ROADMAP]
+3. **Groom ROADMAP:** Replan priorities
+````
+
+---
+
+### 📋 List Next Options
+
+**When:** No uncommitted changes, already in stable state
+
+**AI provides "List next options" report:**
 
 ```markdown
-## 🧑 Grooming Mode - What's Next?
+## 🧑 Grooming Mode → What's Next?
 
-**Current state:** ✅ Stable
+**✅ Current state: Stable**
 
-- Last worked: [time ago]
-- Current version: v${CURRENT}
+**⏰ When:** Last worked [time ago]
+
+**🎯 Current status:**
+
+- Version: v${CURRENT}
 - All checks: ✅ Passing
+- No uncommitted changes
+
+---
+
+## 📋 What's Next?
 
 **From ROADMAP, you could work on:**
 
@@ -464,14 +521,16 @@ Ready to push these updates?
 **Or:** What else would you like to work on?
 ```
 
-### Outcome 4: ✅ In Progress (Partial Work)
+---
+
+### ✅ In Progress
 
 **When:** Checks pass, some checkboxes done, version not complete
 
-**AI reports:**
+**AI updates checkboxes, pushes, then provides stable state report:**
 
 ```markdown
-## ✅ Progress Update
+## ✅ Progress Update → Stable State
 
 **⏰ When:** Last worked [time ago]
 
@@ -481,17 +540,11 @@ Ready to push these updates?
 - Files changed: [list]
 - Commits: [N]
 
-**🎯 Current version: v${VERSION}**
-
-- Progress: [X/Y] items complete
-- Status: 🔶 IN PROGRESS
-- Next: [Next unchecked item from ROADMAP]
-
-**📦 Updated:**
+**📦 Updated & Pushed:**
 
 - ROADMAP: Marked [item] as complete
-
-**🚀 Ready to push?** ✅ YES (all checks passed)
+- Version: v${VERSION} (in progress)
+- Checks: ✅ All passed
 
 **Commit message:**
 ```
@@ -505,16 +558,34 @@ Updated: ROADMAP
 
 ```
 
+**✅ Pushed and stable**
+
+---
+
+## 📋 What's Next?
+
+**🎯 Current status:**
+- Version: v${VERSION}
+- Progress: [X/Y] items complete
+- Status: 🔶 IN PROGRESS
+
+**🔮 Next options:**
+
+1. **Continue v${VERSION}:** [Next unchecked item from ROADMAP]
+2. **Start v${NEXT}:** [New feature from ROADMAP]
+3. **Groom ROADMAP:** Replan priorities
 ```
 
-### Outcome 5: 🎉 Version Complete (Celebrate!)
+---
+
+### 🎉 Version Complete
 
 **When:** All checkboxes done for a version, checks pass
 
-**AI reports:**
+**AI moves to CHANGELOG, pushes & celebrates, then provides stable state report:**
 
 ```markdown
-## 🎉 Version Complete!
+## 🎉 Version Complete! → Stable State
 
 **⏰ Timeline:**
 
@@ -530,21 +601,49 @@ v${VERSION}: [Feature name]
 **📊 Impact:**
 [From ROADMAP description - who benefits, why it matters]
 
-**📦 Updates made:**
+**📦 Updates made & Pushed:**
 
 - Moved ROADMAP → CHANGELOG
 - Status: 🔶 IN PROGRESS → ✅ COMPLETED
 - Version bumped: v${OLD} → v${NEW}
+- Checks: ✅ All passed
+
+**Commit message:**
+```
+
+release: v${VERSION} - [feature name]
+
+✅ All features complete
+Checks: ✅ All passed
+Updated: ROADMAP → CHANGELOG
+
+See CHANGELOG for full details
+
+```
+
+**✅ Pushed and stable**
+
+---
+
+## 📋 What's Next?
 
 **📣 Announce to users?**
 
 - Post in [Signal group / Discord / wherever]
-- Link: [CHANGELOG#v${VERSION}] (check [README](/README.md) for location)
+- Link: [CHANGELOG#v${VERSION}]
 - Tweet: "Just shipped v${VERSION}: [one-liner]"
 
-**🚀 Ready to push & celebrate!**
+**🔮 Next options:**
+
+1. **Start v${NEXT}:** [New feature from ROADMAP]
+2. **Groom ROADMAP:** Plan future versions
+3. **Break:** Take a well-deserved rest! 🎉
+```
+
+---
 
 **Commit message:**
+
 ```
 
 release: v${VERSION} - [feature name]
@@ -557,7 +656,7 @@ See CHANGELOG for full details (check [README](/README.md) for location)
 
 ```
 
-```
+````
 
 ### Time & Context Analysis (All Outcomes)
 
@@ -570,7 +669,7 @@ TIME_AGO=$(git log -1 --format="%ar" 2>/dev/null)
 LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "HEAD~10")
 COMMITS_SINCE=$(git log --oneline ${LAST_TAG}..HEAD 2>/dev/null | wc -l)
 FILES_CHANGED=$(git diff --name-only ${LAST_TAG}..HEAD 2>/dev/null | wc -l)
-```
+````
 
 **AI: Present this to user:**
 
@@ -650,15 +749,15 @@ Return to STEP 2 after fixes.
 
 ---
 
-## 🎯 Quick Reference: The 5 Outcomes
+## 🎯 Quick Reference: The 5 States
 
-| Outcome             | When         | Action            | Can Push? |
+| State               | When         | Action            | Can Push? |
 | ------------------- | ------------ | ----------------- | --------- |
-| 1️⃣ Failed Checks    | Tests fail   | Fix issues        | ❌ NO     |
-| 2️⃣ Docs Mismatch    | Code ≠ docs  | Auto-update docs  | ✅ YES    |
-| 3️⃣ Grooming         | No changes   | Plan next work    | N/A       |
-| 4️⃣ In Progress      | Partial work | Update checkboxes | ✅ YES    |
-| 5️⃣ Version Complete | All done!    | Move to CHANGELOG | ✅ YES 🎉 |
+| 🛑 Failed Checks    | Tests fail   | Fix issues        | ❌ NO     |
+| ⚠️ Docs Mismatch    | Code ≠ docs  | Auto-update docs  | ✅ YES    |
+| 🧑 Grooming         | No changes   | Plan next work    | N/A       |
+| ✅ In Progress      | Partial work | Update checkboxes | ✅ YES    |
+| 🎉 Version Complete | All done!    | Move to CHANGELOG | ✅ YES 🎉 |
 
 ---
 

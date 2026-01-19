@@ -198,14 +198,15 @@ def scan_books_folder() -> Dict:
 
     topics = []
 
-    for topic_dir in sorted(BOOKS_DIR.iterdir()):
-        if not topic_dir.is_dir() or topic_dir.name.startswith('.'):
-            continue
-
+    def process_topic_folder(topic_dir: Path, parent_topic_id: str = None):
+        """Process a topic folder and optionally its subfolders."""
         topic_id = slugify(topic_dir.name)
+        if parent_topic_id:
+            topic_id = f"{parent_topic_id}_{topic_id}"
+
         books = []
 
-        # Find all EPUBs and PDFs in topic
+        # Find all EPUBs and PDFs in this folder (not subfolders)
         book_files = list(topic_dir.glob("*.epub")) + list(topic_dir.glob("*.pdf"))
         for book_file in sorted(book_files):
             print(f"📚 Processing: {topic_dir.name}/{book_file.name}")
@@ -235,6 +236,8 @@ def scan_books_folder() -> Dict:
             books.append(book_entry)
             print(f"   Tags: {', '.join(tags)}")
 
+        result_topics = []
+
         if books:
             # Topic description = first few tags from all books
             all_tags = []
@@ -249,7 +252,24 @@ def scan_books_folder() -> Dict:
                 "books": books
             }
 
-            topics.append(topic_entry)
+            result_topics.append(topic_entry)
+
+        # Process subfolders as separate topics
+        for subfolder in sorted(topic_dir.iterdir()):
+            if subfolder.is_dir() and not subfolder.name.startswith('.'):
+                # Recursively process subfolder
+                subfolder_topics = process_topic_folder(subfolder, topic_id)
+                result_topics.extend(subfolder_topics)
+
+        return result_topics
+
+    for topic_dir in sorted(BOOKS_DIR.iterdir()):
+        if not topic_dir.is_dir() or topic_dir.name.startswith('.'):
+            continue
+
+        # Process this topic and its subfolders
+        topic_results = process_topic_folder(topic_dir)
+        topics.extend(topic_results)
 
     return {
         "library_path": library_path,

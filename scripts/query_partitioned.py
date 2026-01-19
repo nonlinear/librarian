@@ -16,9 +16,9 @@ import os
 # Paths
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
-STORAGE_DIR = PROJECT_DIR / "storage"
+BOOKS_DIR = PROJECT_DIR / "books"
 MODELS_DIR = PROJECT_DIR / "models"
-METADATA_FILE = STORAGE_DIR / "metadata.json"
+METADATA_FILE = BOOKS_DIR / "metadata.json"
 
 # Set model cache to local models/ directory
 os.environ['SENTENCE_TRANSFORMERS_HOME'] = str(MODELS_DIR)
@@ -32,7 +32,22 @@ def load_metadata():
 
 def load_topic(topic_id):
     """Load FAISS index + chunks for a topic."""
-    topic_dir = STORAGE_DIR / topic_id
+    # Handle nested topics (e.g., cybersecurity_strategy → cybersecurity/strategy/)
+    if '_' in topic_id:
+        parts = topic_id.split('_')
+        topic_dir = BOOKS_DIR / '/'.join(parts)
+    else:
+        # Find topic folder by matching topic_id to metadata
+        metadata = load_metadata()
+        topic_label = None
+        for topic in metadata['topics']:
+            if topic['id'] == topic_id:
+                topic_label = topic['label']
+                break
+        if not topic_label:
+            return None
+        topic_dir = BOOKS_DIR / topic_label
+
     faiss_file = topic_dir / "faiss.index"
     chunks_file = topic_dir / "chunks.pkl"
 

@@ -40,6 +40,11 @@
 - [x] Topic-partitioned storage (can reindex individual topics)
 - [x] Metadata tracking (books/ → metadata.json)
 - [x] Manual topic reindexing capability
+- [x] Nested folder support (topics/subtopics with underscore flattening)
+  - [x] `generate_metadata.py` - recursive folder scanning
+  - [x] `reindex_topic.py` - nested path resolution
+  - [x] `query_partitioned.py` - underscore topic ID support
+  - [x] Documentation updated (README.md with mermaid diagram)
 
 **❌ Pending:**
 
