@@ -4,6 +4,18 @@
 
 > All local (books, embedding models, database). [Connect with your favorite AI provider](#5-ai-provider-integration) and [ask away](#4-usage)
 
+**📋 Project Status Files:**
+
+**Location:** `/engine/docs/`
+
+- [ROADMAP](engine/docs/ROADMAP.md) - Planned features & in-progress work
+- [CHANGELOG](engine/docs/CHANGELOG.md) - Version history & completed features
+- [CHECKS](engine/docs/CHECKS.md) - Stability requirements & testing
+
+**AI:** Before any commit, follow [whatsup.prompt.md](.github/prompts/whatsup.prompt.md) workflow.
+
+---
+
 | Possible uses               | Description                                                                                                                                                     |
 | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ⚖️&nbsp;**Compliance**      | Collect all compliance and regulation manuals to test a new idea the proper way                                                                                 |
@@ -111,10 +123,8 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 
 ---
 
-## Project Status
-
-**[Roadmap](roadmap.md)** - Planned features and in-progress work
-
-**[Release Notes](release-notes.md)** - Completed features and deployments
+## Contributing
 
 > 💡 **Want to add your idea?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8) and share your setup!
+
+See [ROADMAP](engine/docs/ROADMAP.md) for planned features and [CHANGELOG](engine/docs/CHANGELOG.md) for version history.

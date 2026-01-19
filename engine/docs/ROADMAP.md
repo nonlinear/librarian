@@ -2,7 +2,12 @@
 
 > 🤖🚨 FOR AI: Always check this before starting work. Shows what's planned and in progress.
 
-**See also:** [Release Notes](release-notes.md) for completed features.
+**📋 Project Status Files:**
+
+- [README](../../README.md) - Entry point & quick start
+- **ROADMAP** (you are here) - Planned features & in-progress work
+- [CHANGELOG](CHANGELOG.md) - Completed features & version history
+- [CHECKS](CHECKS.md) - Stability requirements & testing
 
 ---
 
@@ -12,8 +17,22 @@
 
 - Branch naming: `v{major}.{minor}-{feature-name}` (ex: `v0.3-delta-indexing`)
 - Regular rebase from `main` to stay current
-- When complete → merge to `main` → move to release-notes.md
-- Release notes specify: **What's new** + **Who needs to know**
+- When complete → merge to `main` → move to CHANGELOG.md
+- CHANGELOG specifies: **What's new** + **Who needs to know**
+
+**Semantic Versioning (for AI):**
+
+- **Patch (v0.2.0 → v0.2.1):** Bug fixes only, no breaking changes, no reindexing
+- **Minor (v0.2.x → v0.3.0):** New features, backward compatible, optional reindexing
+- **Major (v0.x → v1.0):** Breaking changes, **requires full reindexing**, migration guide required
+
+**When feature completes:**
+
+1. Check ROADMAP.md current version section
+2. Mark checkboxes [x] for completed items
+3. If ALL checkboxes complete → move entire section to CHANGELOG.md
+4. Add "Impact:" and "Migration:" sections to CHANGELOG entry
+5. Update version number in commit
 
 ---
 
@@ -148,4 +167,4 @@
 
 ---
 
-**See also:** [Release Notes](release-notes.md) for completed features.
+**See also:** [CHANGELOG](CHANGELOG.md) for completed features and [CHECKS](CHECKS.md) for stability requirements.

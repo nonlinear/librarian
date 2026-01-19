@@ -1,6 +1,20 @@
-# Copilot Instructions for the `notes` Repository
+# Copilot Instructions for Personal Library
 
-Welcome to the `notes` repository! This document provides essential guidelines for AI coding agents to be productive and aligned with the project's conventions. Please follow these instructions carefully to ensure consistency and maintainability.
+Welcome to the Personal Library MCP repository! This document provides essential guidelines for AI coding agents to be productive and aligned with the project's conventions.
+
+## � START HERE: Read README.md
+
+**ALWAYS start by reading [README.md](../README.md)**
+
+README contains:
+
+- Project status files location
+- Pre-commit workflow reference
+- All essential project info
+
+**Do NOT proceed without reading README first.**
+
+---
 
 ## 🚨 DEBUG MODE
 
