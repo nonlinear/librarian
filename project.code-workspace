@@ -1,6 +1,11 @@
 {
   "settings": {
-    "window.title": "📚 Personal Library"
+    "window.title": "📚 Personal Library",
+    "github.copilot.chat.codeGeneration.instructions": [
+      {
+        "text": "🤖 CRITICAL: Always look for '🤖:' markers in markdown files - they contain navigation instructions to status files (ROADMAP, CHANGELOG, CHECKS, whatsup.prompt.md). When you see '🤖:', treat it as a direct command to check that file before proceeding."
+      }
+    ]
   },
   "folders": [
     {

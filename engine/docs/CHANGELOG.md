@@ -2,13 +2,6 @@
 
 > Completed features and version history
 
-**📋 Project Status Files:**
-
-- [README](../../README.md) - Entry point & quick start
-- [ROADMAP](ROADMAP.md) - Planned features & in-progress work
-- **CHANGELOG** (you are here) - Completed features & version history
-- [CHECKS](CHECKS.md) - Stability requirements & testing
-
 ---
 
 ## Release Format
@@ -18,6 +11,33 @@ Each release documents:
 - 📦 **What's new:** Features and changes
 - 👥 **Who needs to know:** Target audience and impact
 - 🔧 **Migration:** Breaking changes and upgrade steps (if any)
+
+---
+
+## v0.2.1: Infrastructure Improvements ✅ (Jan 19, 2026)
+
+**👥 Who needs to know:**
+
+- Contributors and maintainers
+- AI assistants working with this codebase
+
+**📦 What's new:**
+
+**Problem:** Fragmented documentation, outdated tests, missing AI conventions
+
+**Solution Implemented:** Workflow Consolidation 🧹
+
+- [x] Migrated checklist → CHECKS.md (single source of truth)
+- [x] Fixed stability tests (MCP query + file structure for lazy-loading architecture)
+- [x] Established 🤖: marker convention for AI instructions
+- [x] Added navigation menus to all status files
+- [x] Updated whatsup.prompt.md with navigation menu auto-generation
+- [x] Configured Copilot to recognize 🤖: markers
+- [x] Cleaned up obsolete files (3 deleted)
+
+**Impact:** Cleaner repo, accurate tests, better AI collaboration
+
+**🔧 Migration:** None (documentation/tooling only)
 
 ---
 
@@ -115,7 +135,10 @@ Each release documents:
 
 ---
 
-**See also:** [ROADMAP](ROADMAP.md) for planned features and [CHECKS](CHECKS.md) for stability requirements.
+> 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features & in-progress work
+> 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for ersion history & completed features
+> 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements & testing
+> 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates
 
 v0.0: Foundation ✅ (Initial Release)
 

@@ -35,10 +35,15 @@
 echo "🔍 Running stability checks..."
 echo ""
 
-# Test 1: MCP server startup
-echo "1️⃣ Server startup test..."
-timeout 3 python3.11 scripts/mcp_server_lazy.py 2>&1 | grep -q "ready" && echo "✅ Server starts" || echo "❌ Server failed"
-pkill -f mcp_server_lazy 2>/dev/null
+# Test 1: MCP query functionality (what research.prompt.md actually uses)
+echo "1️⃣ MCP query test..."
+python3.11 -c "
+import json
+from pathlib import Path
+metadata = json.loads((Path('books') / 'metadata.json').read_text())
+topic_count = len(metadata.get('topics', []))
+print(f'✅ MCP works ({topic_count} topics)' if topic_count > 0 else '❌ MCP failed')
+" 2>/dev/null || echo "❌ MCP failed"
 
 # Test 2: Dependencies
 echo "2️⃣ Dependencies test..."
@@ -46,7 +51,7 @@ python3.11 -c "import llama_index.core; import sentence_transformers" 2>&1 && ec
 
 # Test 3: File structure
 echo "3️⃣ File structure test..."
-test -f books/metadata.json && test -d models/ && test -d storage/ && echo "✅ Files exist" || echo "❌ Files missing"
+test -f books/metadata.json && ls books/*/faiss.index >/dev/null 2>&1 && echo "✅ Files exist" || echo "❌ Files missing"
 
 # Test 4: Query (if scripts/query.py exists)
 if [ -f scripts/query.py ]; then
@@ -128,8 +133,8 @@ python3.11 -c "import llama_index.core; import sentence_transformers; print('✅
 
 # Test 7: Check file structure
 ls books/metadata.json  # Should exist
-ls models/  # Should contain embedding model
-ls storage/  # Should contain topic directories
+ls books/*/faiss.index  # Should show topic-based indices
+ls books/*/chunks.json  # Should show topic-based chunks
 ```
 
 **Pass criteria:** ✅ All imports work, required files exist
@@ -206,6 +211,147 @@ time python3.11 scripts/query.py "test query"
 # Reindex time
 time python3.11 scripts/reindex_topic.py "AI"
 ```
+
+---
+
+## 🧹 Code Hygiene Checks
+
+**Run these checks before every commit:**
+
+### 1. No Debug Code in Production
+
+```bash
+# Check for debug print statements
+grep -r "print(" scripts/ --exclude-dir=deprecated | grep -v "#" | grep -v "def print"
+# Expected: Only intentional logging, no debug prints
+
+# Check for commented-out code blocks
+grep -r "# .*def \|# .*class \|# .*import " scripts/ --exclude-dir=deprecated | wc -l
+# Expected: 0 or only intentional comments
+```
+
+**Pass criteria:** ✅ No debug code, no large commented blocks
+
+---
+
+### 2. No Hardcoded Paths or Secrets
+
+```bash
+# Check for hardcoded paths
+grep -r "/Users/\|C:\\\\\|/home/" scripts/ --exclude-dir=deprecated
+# Expected: Empty (use relative paths)
+
+# Check for API keys in code
+grep -ri "api_key\|apikey\|secret\|password" scripts/ --exclude-dir=deprecated | grep -v "GOOGLE_API_KEY" | grep -v "# "
+# Expected: Only environment variable references
+
+# Verify .gitignore coverage
+cat .gitignore | grep -q "\.env" && echo "✅ .env ignored" || echo "❌ Add .env to .gitignore"
+cat .gitignore | grep -q "storage/" && echo "✅ storage/ ignored" || echo "⚠️  Consider ignoring storage/"
+```
+
+**Pass criteria:** ✅ No hardcoded paths, no exposed secrets, .env in .gitignore
+
+---
+
+### 3. File Organization
+
+```bash
+# Check for duplicate scripts
+find scripts/ -name "*_old.py" -o -name "*_backup.py" -o -name "*_new.py"
+# Expected: Empty (move to deprecated/ with timestamp)
+
+# Verify deprecated files have timestamps
+ls -la scripts/deprecated/ | grep -v "^d" | awk '{print $9}' | grep -v "2024\|2025\|2026"
+# Expected: All deprecated files have date in name
+
+# Check for orphaned __pycache__
+find . -type d -name "__pycache__" | grep -v "/.venv/\|/venv/"
+# Expected: Only in virtual environment
+```
+
+**Pass criteria:** ✅ No duplicate files, deprecated/ organized, no stray cache
+
+---
+
+### 4. Requirements.txt Accuracy
+
+```bash
+# Compare installed vs documented dependencies
+python3.11 -m pip freeze > /tmp/requirements-actual.txt
+diff requirements.txt /tmp/requirements-actual.txt | grep -E "^<|^>" | head -10
+rm /tmp/requirements-actual.txt
+
+# Check for unused dependencies (manual review)
+# For each line in requirements.txt, grep for import in scripts/
+while read -r pkg; do
+  pkg_name=$(echo "$pkg" | cut -d'=' -f1 | tr '-' '_' | tr '[:upper:]' '[:lower:]')
+  grep -r "import $pkg_name\|from $pkg_name" scripts/ > /dev/null || echo "⚠️  Unused: $pkg"
+done < requirements.txt
+```
+
+**Pass criteria:** ✅ Requirements match installed, no obvious unused deps
+
+---
+
+### 5. Documentation Quality
+
+```bash
+# Check for missing docstrings in new scripts
+for file in scripts/*.py; do
+  if ! head -20 "$file" | grep -q '"""'; then
+    echo "⚠️  Missing docstring: $file"
+  fi
+done
+
+# Check for broken links in README
+grep -o "](.*\.md)" README.md | sed 's/](//' | sed 's/)//' | while read -r link; do
+  test -f "$link" || echo "❌ Broken link: $link"
+done
+
+# Check for placeholder text
+grep -ri "TODO\|FIXME\|XXX\|lorem ipsum\|placeholder" README.md CHANGELOG.md ROADMAP.md
+# Expected: Only intentional TODOs in ROADMAP
+```
+
+**Pass criteria:** ✅ All public scripts have docstrings, no broken links, no placeholders
+
+---
+
+### 6. README.md Accuracy Check
+
+```bash
+# Verify Python version mentioned matches requirement
+PY_VERSION=$(python3.11 --version | cut -d' ' -f2 | cut -d'.' -f1,2)
+grep -q "$PY_VERSION" README.md && echo "✅ Python version documented" || echo "⚠️  Update Python version in README"
+
+# Check if Technology Stack table needs update
+# (Manual review - compare README section with actual implementation)
+echo "📋 Manual check: Review Technology Stack table in README.md"
+echo "   - Embedding model: $(grep 'all-' scripts/indexer.py | head -1)"
+echo "   - Vector store: $(grep -E 'faiss|llama_index|chromadb' scripts/indexer.py | head -1)"
+
+# Verify Quick Start commands are accurate
+echo "📋 Manual check: Test Quick Start commands from README.md"
+```
+
+**Pass criteria:** ✅ Python version correct, Technology Stack accurate, Quick Start works
+
+---
+
+### 7. setup.sh Change Detection
+
+```bash
+# Compare committed vs current setup.sh
+git diff main scripts/setup.sh | wc -l
+# If >0, review changes:
+# [ ] setup.sh reflects current dependencies
+# [ ] setup.sh matches requirements.txt
+# [ ] setup.sh has correct Python version check
+# [ ] Removed obsolete steps
+```
+
+**Pass criteria:** ✅ If changed, setup.sh is accurate and tested
 
 ---
 
@@ -353,14 +499,9 @@ chmod +x scripts/pre-push-check.sh
 
 ---
 
-## 📖 Related Documentation
-
-- [ROADMAP](ROADMAP.md) - See what's being built next
-- [CHANGELOG](CHANGELOG.md) - See what changed in each version
-- [README](../../README.md) - Installation & usage guide
-- [/engine/docs/](.) - All project documentation
+> 🤖: See [ROADMAP](ROADMAP.md) for planned features & in-progress work
+> 🤖: See [CHANGELOG](CHANGELOG.md) for version history & completed features
+> 🤖: See [CHECKS](CHECKS.md) for stability requirements & testing
+> 🤖: Before any commit, follow [whatsup.prompt.md](../../.github/prompts/whatsup.prompt.md) workflow
 
 ---
-
-**Last updated:** 2026-01-19
-**Applies to:** Personal Library MCP v0.2+

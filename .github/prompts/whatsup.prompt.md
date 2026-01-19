@@ -1,10 +1,10 @@
-# Project Status Check: What's Up?
+# What's Up? (Project Status Check)
 
 **Purpose:** Universal pre-commit workflow ensuring documentation-code parity and stability.
 
 **When to use:** Before EVERY commit, especially after long breaks or major changes.
 
-**🚨 CRITICAL RULE:** Never push until ALL checks from CHECKS (see [README](../../README.md)) pass. Return to fix or ask for clarification.
+**🚨 CRITICAL RULE:** Never push until ALL checks from CHECKS (see [README](/README.md)) pass. Return to fix or ask for clarification.
 
 ---
 
@@ -44,7 +44,7 @@ flowchart TD
 
 1. **Read README** to find where status files live (always project-specific)
 2. **Compare** actual work with documented plans
-3. **Validate** stability using CHECKS (check [README](../../README.md) for location)
+3. **Validate** stability using CHECKS (check [README](/README.md) for location)
 4. **Update** docs automatically (ROADMAP → CHANGELOG)
 5. **Determine outcome** (1 of 5 possible states)
 6. **Act** (push, fix, or groom)
@@ -126,7 +126,7 @@ git log --oneline "${LAST_VERSION}..HEAD" || git log --oneline -5
 
 ### 1B. Check ROADMAP
 
-**AI: Read ROADMAP (check [README](../../README.md) for location) and find matching features:**
+**AI: Read ROADMAP (check [README](/README.md) for location) and find matching features:**
 
 ```bash
 # For Personal Library:
@@ -176,7 +176,7 @@ cat ROADMAP.md | grep -Ei "in progress|planned|todo" -A 20
 
 ### 2A. Read CHECKS
 
-**AI: CHECKS contains all project-specific tests (check [README](../../README.md) for location):**
+**AI: CHECKS contains all project-specific tests (check [README](/README.md) for location):**
 
 ```bash
 # Read from location specified in README
@@ -186,7 +186,7 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 # It will contain exact commands to run
 ```
 
-**If CHECKS doesn't exist (check [README](../../README.md) for location):**
+**If CHECKS doesn't exist (check [README](/README.md) for location):**
 
 - ❌ **STOP:** "I don't see CHECKS. What tests must pass before pushing?"
 - ✅ Create CHECKS from user input (use template below)
@@ -216,7 +216,7 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 ✅ All checks complete.
 ```
 
-**Note:** CHECKS location specified in [README](../../README.md)
+**Note:** CHECKS location specified in [README](/README.md)
 
 ### 2C. Validation Gate
 
@@ -259,7 +259,7 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 
 ### 3A. Update ROADMAP
 
-**Location:** Check [README](../../README.md) for status files location.
+**Location:** Check [README](/README.md) for status files location.
 
 **If feature completed:**
 
@@ -281,13 +281,38 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 
 **If version fully complete:**
 
-- Move entire section from ROADMAP to CHANGELOG (check [README](../../README.md) for locations)
+- Move entire section from ROADMAP to CHANGELOG (check [README](/README.md) for locations)
 - Update status: 🔶 (IN PROGRESS) → ✅ (COMPLETED)
 - Add completion date
 
+**🤖 CRITICAL: Add Navigation Menu to ALL Status Files**
+
+Every status file (ROADMAP, CHANGELOG, CHECKS) must end with this navigation menu:
+
+```markdown
+---
+
+> 🤖: See [ROADMAP](path/to/ROADMAP.md) for planned features & in-progress work
+> 🤖: See [CHANGELOG](path/to/CHANGELOG.md) for version history & completed features
+> 🤖: See [CHECKS](path/to/CHECKS.md) for stability requirements & testing
+> 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates
+```
+
+**Important:** Adjust paths relative to each file's location:
+
+- If file is in `/engine/docs/ROADMAP.md`, links are: `ROADMAP.md`, `CHANGELOG.md`, `CHECKS.md`, `../../.github/prompts/whatsup.prompt.md`
+- If file is in `/docs/ROADMAP.md`, links are: `ROADMAP.md`, `CHANGELOG.md`, `CHECKS.md`, `../.github/prompts/whatsup.prompt.md`
+- If file is in root `/ROADMAP.md`, links are: `ROADMAP.md`, `CHANGELOG.md`, `CHECKS.md`, `.github/prompts/whatsup.prompt.md`
+
+**When to add menu:**
+
+- When creating new status files
+- When updating existing status files (if menu is missing or outdated)
+- Place menu AFTER all content, before "Last updated" timestamp (if exists)
+
 ### 3B. Update CHANGELOG
 
-**Location:** Check [README](../../README.md) for status files location.
+**Location:** Check [README](/README.md) for status files location.
 
 **AI: Add new entry following project format:**
 
@@ -325,7 +350,7 @@ CURRENT=$(grep -m1 "^## v" CHANGELOG.md | sed 's/^## v//' | cut -d':' -f1 | tr -
 
 **Update version references:**
 
-- [ ] CHANGELOG (add new entry at top) - check [README](../../README.md) for location
+- [ ] CHANGELOG (add new entry at top) - check [README](/README.md) for location
 - [ ] package.json / setup.py / Cargo.toml (if exists)
 - [ ] README.md (if version mentioned)
 
@@ -338,28 +363,18 @@ CURRENT=$(grep -m1 "^## v" CHANGELOG.md | sed 's/^## v//' | cut -d':' -f1 | tr -
 ### Possible Outcomes
 
 ```mermaid
-flowchart TD
-    STEP4([STEP 4: Analyze State]) --> CHECK{Checks passed?}
+flowchart LR
+    STEP4([user asks /whatsup]) --> CHECK{Checks passed?}
 
-    CHECK -->|No| FAIL[Outcome 1: FAILED CHECKS]
+    CHECK -->|No| REPORT1(["<b>NEXT:</b><br>🛑 Explain problem<br/>List failed tests<br/>Suggest fixes"])
     CHECK -->|Yes| STABLE{Docs match reality?}
 
-    STABLE -->|No| MISMATCH[Outcome 2: DOCS MISMATCH]
+    STABLE -->|No| REPORT2(["<b>NEXT:</b><br>⚠️ Update docs<br/>Show what changed<br/>Auto-update files"])
     STABLE -->|Yes| PROGRESS{Work done?}
 
-    PROGRESS -->|No changes| GROOM[Outcome 3: GROOMING MODE]
-    PROGRESS -->|Partial| PARTIAL[Outcome 4: IN PROGRESS]
-    PROGRESS -->|Complete| COMPLETE[Outcome 5: VERSION COMPLETE]
-
-    FAIL --> REPORT1(["<b>NEXT:</b><br>🛑 Explain problem<br/>List failed tests<br/>Suggest fixes"])
-
-    MISMATCH --> REPORT2(["<b>NEXT:</b><br>⚠️ Update docs<br/>Show what changed<br/>Auto-update files"])
-
-    GROOM --> REPORT3(["<b>NEXT:</b><br>🧑 List next options<br/>Show ROADMAP<br/>Ask what's next"])
-
-    PARTIAL --> REPORT4(["<b>NEXT:</b><br>✅ Update checkboxes<br/>Show progress<br/>Push increment"])
-
-    COMPLETE --> REPORT5(["<b>NEXT:</b><br>🎉 Move to CHANGELOG<br/>Announce version<br/>Celebrate!"])
+    PROGRESS -->|No changes| REPORT3(["<b>NEXT:</b><br>🧑 List next options<br/>Show ROADMAP<br/>Ask what's next"])
+    PROGRESS -->|Partial| REPORT4(["<b>NEXT:</b><br>✅ Update checkboxes<br/>Show progress<br/>Push increment"])
+    PROGRESS -->|Complete| REPORT5(["<b>NEXT:</b><br>🎉 Move to CHANGELOG<br/>Announce version<br/>Celebrate!"])
 
 ```
 
@@ -524,7 +539,7 @@ v${VERSION}: [Feature name]
 **📣 Announce to users?**
 
 - Post in [Signal group / Discord / wherever]
-- Link: [CHANGELOG#v${VERSION}] (check [README](../../README.md) for location)
+- Link: [CHANGELOG#v${VERSION}] (check [README](/README.md) for location)
 - Tweet: "Just shipped v${VERSION}: [one-liner]"
 
 **🚀 Ready to push & celebrate!**
@@ -538,7 +553,7 @@ release: v${VERSION} - [feature name]
 Checks: ✅ All passed
 Updated: ROADMAP → CHANGELOG
 
-See CHANGELOG for full details (check [README](../../README.md) for location)
+See CHANGELOG for full details (check [README](/README.md) for location)
 
 ```
 
@@ -660,7 +675,7 @@ Return to STEP 2 after fixes.
 
 ### 2. 👥 Users
 
-**Gets from CHANGELOG:** (check [README](../../README.md) for location)
+**Gets from CHANGELOG:** (check [README](/README.md) for location)
 
 - What's new: "Delta indexing - 23× faster"
 - Who cares: "Large library users"
@@ -668,7 +683,7 @@ Return to STEP 2 after fixes.
 
 ### 3. 🤖 AI Assistant
 
-**Gets from all files:** (check [README](../../README.md) for locations)
+**Gets from all files:** (check [README](/README.md) for locations)
 
 - Code state: [from CHECKS tests]
 - Planned work: [from ROADMAP]

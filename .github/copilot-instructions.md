@@ -52,6 +52,21 @@ The `notes` repository is a collection of markdown files and related resources. 
 
 THis contains so many PII that we decided not to put it online.
 
+## Status Files Navigation
+
+**🤖 AI: Always look for "🤖:" markers in markdown files** - they contain critical instructions.
+
+Example from README.md:
+
+```markdown
+> 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features
+> 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for version history
+> 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements
+> 🤖: Before any commit, follow [whatsup.prompt.md](.github/prompts/whatsup.prompt.md)
+```
+
+When you see "🤖:", treat it as a direct instruction - check that file before proceeding with related work.
+
 ### Markdown Formatting
 
 - Use ordered lists for tasks and steps.

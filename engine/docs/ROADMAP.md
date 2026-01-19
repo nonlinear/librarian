@@ -1,16 +1,5 @@
 # Personal Library MCP - Roadmap
 
-> 🤖🚨 FOR AI: Always check this before starting work. Shows what's planned and in progress.
-
-**📋 Project Status Files:**
-
-- [README](../../README.md) - Entry point & quick start
-- **ROADMAP** (you are here) - Planned features & in-progress work
-- [CHANGELOG](CHANGELOG.md) - Completed features & version history
-- [CHECKS](CHECKS.md) - Stability requirements & testing
-
----
-
 ## Version Control Strategy
 
 **Each roadmap version = one feature branch:**
@@ -165,6 +154,7 @@
   - [ ] One-click navigation from citations to exact location in book
   - [ ] Integration with MCP response format
 
----
-
-**See also:** [CHANGELOG](CHANGELOG.md) for completed features and [CHECKS](CHECKS.md) for stability requirements.
+> 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features & in-progress work
+> 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for ersion history & completed features
+> 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements & testing
+> 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates
