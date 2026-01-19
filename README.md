@@ -115,14 +115,14 @@ Make sure to **specify topic or book** in your question. MCP will try to disambi
 
 The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider:
 
-| AI Provider        | Status                                                                  |
-| :----------------- | :---------------------------------------------------------------------- |
-| **Terminal**       | ✅ `python3.11 scripts/query_partitioned.py "your question" --topic ai` |
-| **VS Code**        | ✅ Live                                                                 |
-| **Claude Desktop** | 👷 Pending                                                              |
-| **OpenAI API**     | 👷 Pending                                                              |
-| **LM `Studio**     | 👷 Pending                                                              |
-| **OpenWebUI**      | 👷 Pending                                                              |
+| AI Provider        | Status                                                                                                                                                        |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Terminal**       | ✅ `python3.11 scripts/query_partitioned.py "your question" --topic ai`                                                                                       |
+| **VS Code**        | ✅ `code --install-extension https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix` |
+| **Claude Desktop** | 👷 Pending                                                                                                                                                    |
+| **OpenAI API**     | 👷 Pending                                                                                                                                                    |
+| **LM Studio**      | 👷 Pending                                                                                                                                                    |
+| **OpenWebUI**      | 👷 Pending                                                                                                                                                    |
 
 > 👷 Wanna collaborate? Connect via [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 
@@ -135,5 +135,4 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 > 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features & in-progress work
 > 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for ersion history & completed features
 > 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements & testing
-> 🤖: See [FAILED](engine/docs/FAILED.md) for books that failed indexing (auto-updated)
 > 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates
