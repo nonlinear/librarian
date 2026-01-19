@@ -8,37 +8,36 @@
 
 ---
 
-## 🔄 The Workflow (AI Overview)
+### Possible Outcomes
 
 ```mermaid
 flowchart TD
-    START([user asks /whatsup]) --> README[STEP 0: Read README]
+    STEP4([user asks /whatsup]) --> CHECK{Checks passed?}
 
-    README --> FOUND{Status files listed?}
-    FOUND -->|No| CREATE[Ask user: Create status files?]
-    FOUND -->|Yes| LOCATION[Extract location path]
+    CHECK -->|No| REPORT1[🛑 Failed Checks]
+    REPORT1 -->|Fixes applied<br/>Checks pass| STABLE
 
-    CREATE --> LOCATION
-    LOCATION --> COMPARE[STEP 1: Compare Work vs Docs]
+    CHECK -->|Yes| STABLE{Docs match reality?}
 
-    COMPARE --> MATCH{Docs match reality?}
-    MATCH -->|No| UPDATE[Update ROADMAP/CHANGELOG]
-    MATCH -->|Yes| STABLE
+    STABLE -->|No| REPORT2[⚠️ Docs Mismatch]
+    REPORT2 -->|Docs updated| PROGRESS
 
-    UPDATE --> STABLE[STEP 2: Run CHECKS tests]
+    STABLE -->|Yes| PROGRESS{Work done?}
 
-    STABLE --> PASS{All checks pass?}
-    PASS -->|No| FIX([🛑 STOP: Fix or clarify])
-    PASS -->|Yes| PROMOTE[STEP 3: Update Documentation]
+    PROGRESS -->|No changes| GROOM
+    PROGRESS -->|Partial| REPORT4[✅ In Progress]
+    PROGRESS -->|Complete| REPORT5[🎉 Version Complete]
 
-    FIX --> COMPARE
+    REPORT4 --> GROOM
+    REPORT5 --> GROOM
 
-    PROMOTE --> CONTEXT[STEP 4: Determine Outcome]
-    CONTEXT --> DECISION[STEP 5: Decision Point]
+    GROOM[📋 List next options<br/>Report: what, when, next]
 
-    DECISION --> END([Push or Fix or Groom])
-
+    GROOM --> NEXT_VERSION([Start new version])
+    GROOM --> ROADMAP_GROOM([Groom roadmap])
 ```
+
+---
 
 **What this means:**
 
@@ -359,37 +358,6 @@ CURRENT=$(grep -m1 "^## v" CHANGELOG.md | sed 's/^## v//' | cut -d':' -f1 | tr -
 ## 👤 STEP 4: Developer Context Summary
 
 **AI: Generate outcome-based summary for the developer**
-
-### Possible Outcomes
-
-```mermaid
-flowchart TD
-    STEP4([user asks /whatsup]) --> CHECK{Checks passed?}
-
-    CHECK -->|No| REPORT1[🛑 Failed Checks]
-    REPORT1 -->|Fixes applied<br/>Checks pass| STABLE
-
-    CHECK -->|Yes| STABLE{Docs match reality?}
-
-    STABLE -->|No| REPORT2[⚠️ Docs Mismatch]
-    REPORT2 -->|Docs updated| PROGRESS
-
-    STABLE -->|Yes| PROGRESS{Work done?}
-
-    PROGRESS -->|No changes| GROOM
-    PROGRESS -->|Partial| REPORT4[✅ In Progress]
-    PROGRESS -->|Complete| REPORT5[🎉 Version Complete]
-
-    REPORT4 --> GROOM
-    REPORT5 --> GROOM
-
-    GROOM[📋 List next options<br/>Report: what, when, next]
-
-    GROOM --> NEXT_VERSION([Start new version])
-    GROOM --> ROADMAP_GROOM([Groom roadmap])
-```
-
-**All paths lead to stable state with "List next options" report**
 
 ---
 

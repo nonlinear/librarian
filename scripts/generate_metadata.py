@@ -23,6 +23,10 @@ import re
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"
 METADATA_FILE = BOOKS_DIR / "metadata.json"
+FAILED_FILE = Path(__file__).parent.parent / "engine" / "docs" / "FAILED.md"
+
+# Track failed books (reset on each run)
+FAILED_BOOKS = []
 
 # Tag extraction model (KeyBERT with MiniLM backend)
 print("Loading KeyBERT model...")
@@ -60,6 +64,11 @@ def extract_epub_metadata(epub_path: Path) -> Dict:
         }
     except Exception as e:
         print(f"⚠️  Error reading {epub_path.name}: {e}")
+        FAILED_BOOKS.append({
+            "file": str(epub_path.relative_to(BOOKS_DIR.parent)),
+            "error": str(e),
+            "type": "epub_metadata"
+        })
         return {
             "title": epub_path.stem,
             "author": "Unknown",
@@ -99,6 +108,11 @@ def extract_pdf_metadata(pdf_path: Path) -> Dict:
         }
     except Exception as e:
         print(f"⚠️  Error reading {pdf_path.name}: {e}")
+        FAILED_BOOKS.append({
+            "file": str(pdf_path.relative_to(BOOKS_DIR.parent)),
+            "error": str(e),
+            "type": "pdf_metadata"
+        })
         return {
             "title": pdf_path.stem,
             "author": "Unknown",
@@ -177,6 +191,11 @@ def generate_tags_from_text(text: str, num_tags: int = 6) -> List[str]:
 
     except Exception as e:
         print(f"   ⚠️  Tag extraction failed: {e}")
+        FAILED_BOOKS.append({
+            "file": "tag_extraction",
+            "error": str(e),
+            "type": "tag_generation"
+        })
         return ["untagged"]
 
 
@@ -289,6 +308,37 @@ def main():
     # Write metadata.json
     with open(METADATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(metadata, f, indent=2, ensure_ascii=False)
+
+    # Write fresh FAILED.md (replaces previous file)
+    if FAILED_BOOKS:
+        FAILED_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(FAILED_FILE, 'w', encoding='utf-8') as f:
+            f.write("# Failed Books\n\n")
+            f.write(f"**Last updated:** {Path(__file__).parent.parent.name} metadata generation\n\n")
+            f.write(f"**Total failures:** {len(FAILED_BOOKS)}\n\n")
+            f.write("---\n\n")
+
+            for failure in FAILED_BOOKS:
+                f.write(f"## {failure['file']}\n\n")
+                f.write(f"- **Type:** {failure['type']}\n")
+                f.write(f"- **Error:** `{failure['error']}`\n\n")
+
+            # Add navigation menu
+            f.write("---\n\n")
+            f.write("> 🤖: See [ROADMAP](ROADMAP.md) for planned features & in-progress work\n")
+            f.write("> 🤖: See [CHANGELOG](CHANGELOG.md) for version history & completed features\n")
+            f.write("> 🤖: See [CHECKS](CHECKS.md) for stability requirements & testing\n")
+            f.write("> 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates\n")
+
+        print()
+        print(f"⚠️  Failed books written to: {FAILED_FILE}")
+        print(f"   Total failures: {len(FAILED_BOOKS)}")
+    else:
+        # Remove FAILED.md if all books processed successfully
+        if FAILED_FILE.exists():
+            FAILED_FILE.unlink()
+            print()
+            print("✅ All books processed successfully - FAILED.md removed")
 
     print()
     print(f"✅ Generated: {METADATA_FILE}")

@@ -135,4 +135,5 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 > 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features & in-progress work
 > 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for ersion history & completed features
 > 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements & testing
+> 🤖: See [FAILED](engine/docs/FAILED.md) for books that failed indexing (auto-updated)
 > 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates
