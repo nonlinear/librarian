@@ -75,15 +75,18 @@ mv .env.backup .env
 **Section-by-section check:**
 
 - [ ] **Technology Stack table** - matches current implementation?
+
   - Embedding model correct?
   - Vector store correct (FAISS vs LlamaIndex)?
   - Dependencies accurate?
 
 - [ ] **Benchmark table** - numbers still valid?
+
   - Startup time measured recently?
   - Query latency accurate?
 
 - [ ] **Prerequisites** - complete and accurate?
+
   - Python version requirement?
   - API keys if needed?
   - Platform-specific instructions?
@@ -96,13 +99,15 @@ mv .env.backup .env
   ```
 
 - [ ] **Quick Start** - instructions work from scratch?
+
   - Can a new user follow them?
   - Are file paths correct?
   - Are commands accurate?
 
-- [ ] **Project Status links** - point to roadmap.md and release-notes.md?
-  - Check links work
-  - No broken references
+- [ ] **Roadmap** - checkboxes updated?
+  - Mark completed features with [x]
+  - Add new planned features
+  - Remove obsolete items
 
 **Quick validation:**
 
@@ -122,34 +127,43 @@ grep -i "local.*model" README.md  # Should not mention local model if using API
 # Check for TODO comments in code
 grep -r "TODO\|FIXME\|XXX" scripts/ --exclude-dir=deprecated
 
-# Check roadmap.md - what's in progress?
-# Check release-notes.md - what's been deployed?
+# Check GitHub issues (if using)
+# Check project board (if using)
 ```
 
 **Update documentation:**
 
-- [ ] Create/update commit message with what changed
-- [ ] Update roadmap.md if starting new work or completing tasks
-- [ ] Move completed groups from roadmap.md to release-notes.md
-- [ ] Update README.md if user-facing features changed
+- [ ] Create/update CHANGELOG.md or commit message with what changed
+- [ ] Update Roadmap in README.md
+- [ ] Move completed items from TODO to DONE
 
-**Example release notes entry (add to release-notes.md):**
+**Example changelog entry:**
 
 ```markdown
-## Phase X: Feature Name ✅ (Jan 17, 2026)
+## [Unreleased] - 2026-01-15
 
-**Problem:** Brief description of what was broken or missing
+### Changed
 
-**Solution Implemented:** What we built
+- Migrated from FAISS to LlamaIndex native vector store
+- Switched from local embeddings (all-MiniLM-L6-v2) to Gemini API (embedding-001)
+- Updated setup.sh to remove model download step
+- Improved startup time from 4s to <0.5s
 
-- [x] Key accomplishment 1
-- [x] Key accomplishment 2
-- [x] Key accomplishment 3
+### Added
 
-**Impact:** What changed for users (performance, features, etc)
+- .env-template with API key instructions
+- Gemini API key requirement in setup
+
+### Deprecated
+
+- scripts/deprecated/mcp_server_faiss.py
+- scripts/deprecated/indexer_faiss.py
+
+### Removed
+
+- Local embedding model dependency
+- Manual FAISS index management
 ```
-
-**Move completed items:** When a roadmap.md group is 100% done, move it to top of release-notes.md
 
 ---
 
@@ -216,43 +230,41 @@ git push
 
 ---
 
-## 🚨 Current State Assessment (2026-01-18)
+## 🚨 Current State Assessment (2026-01-15)
 
-**⚠️ BRANCH STATUS:**
+**Recent Changes:**
 
-- **main** (stable): Commit 081296f - version BEFORE engine/ refactor
-- **dev/mcp-fixes**: WIP branch with MCP fixes (chunking, runtime filtering, VS Code integration)
-  - ⚠️ DO NOT MERGE until tested and stable
-  - Contains: improved chunking (SentenceSplitter), runtime filtering, integration scripts
+- ✅ Migrated FAISS → LlamaIndex
+- ✅ Updated README.md (6 sections)
+- ✅ Updated setup.sh (removed model download)
+- ✅ Updated .env-template
 
-**Recent Changes (on main):**
+**Not Yet Done:**
 
-- ✅ Using stable version without engine/ refactor
-- ✅ Extension points to correct paths (scripts/, not engine/scripts/)
+- ⏳ Test new mcp_server.py with LlamaIndex
+- ⏳ Reindex books with new indexer.py
+- ⏳ Update requirements.txt (remove sentence-transformers, faiss-cpu)
+- ⏳ Test VS Code MCP integration end-to-end
+- ⏳ Measure actual startup time (<0.5s claim)
+- ⏳ Remove obsolete scripts (download_model.py, reindex_gemini.py)
 
-**Check project status:**
-
-```bash
-# What's in progress?
-cat roadmap.md | grep "🔶\|❌" -A 5
-
-# What was just completed?
-head -30 release-notes.md
-```
-
-**Before starting work:**
-
-- [ ] Read roadmap.md to understand current priorities
-- [ ] Check if your work fits an existing group or needs new one
-- [ ] Update roadmap.md when starting new tasks
-
-**Before pushing:**
+**Before Next Push:**
 
 - [ ] Run full test sequence above
-- [ ] Update roadmap.md with progress
-- [ ] If group is 100% done, move to release-notes.md with date
-- [ ] Update README.md if user-facing changfore full reindex
+- [ ] Update requirements.txt
+- [ ] Test indexer.py on sample book
+- [ ] Measure and document performance
+- [ ] Clean up obsolete files
 
+---
+
+## 💡 Tips
+
+**When in doubt:**
+
+1. Read the copilot-instructions.md
+2. Check deprecated/ for old working versions
+3. Test on a single book before full reindex
 4. Use `git stash` to save work-in-progress
 5. Create a feature branch for big changes
 

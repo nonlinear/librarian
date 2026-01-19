@@ -80,11 +80,15 @@ graph TD
 
 ## Usage
 
-- **Use `/research` prompt** to consult Personal Library MCP on your AI conversations (see [.github/prompts/research.prompt.md](.github/prompts/research.prompt.md))
-- Make sure to **specify topic or book** in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
-- **Example 1**: "`/research` what does Bogdanov say about Mars in Molecular Red?"
-- **Example 2**: "`/research` in my anthropocene books, what are the main critiques of geoengineering?"
-- **Example 3**: "`/research` what tarot spreads work best for decision-making under uncertainty?"
+**Use `/research` prompt** to consult Personal Library MCP on your AI conversations (see [.github/prompts/research.prompt.md](.github/prompts/research.prompt.md))
+
+Make sure to **specify topic or book** in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
+
+**Example 1**: "`/research` what does Bogdanov say about Mars in Molecular Red?"
+
+**Example 2**: "`/research` in my anthropocene books, what are the main critiques of geoengineering?"
+
+**Example 3**: "`/research` what tarot spreads work best for decision-making under uncertainty?"
 
 > 👉 Without `/research` your AI uses general knowledge. With it you get precise citations from your library
 
@@ -100,7 +104,7 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 | **VS Code**        | ✅ Live                                                                 |
 | **Claude Desktop** | 👷 Pending                                                              |
 | **OpenAI API**     | 👷 Pending                                                              |
-| **LM Studio**      | 👷 Pending                                                              |
+| **LM `Studio**     | 👷 Pending                                                              |
 | **OpenWebUI**      | 👷 Pending                                                              |
 
 > 👷 Wanna collaborate? Connect via [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
@@ -109,7 +113,8 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 
 ## Project Status
 
-- **[Roadmap](roadmap.md)** - Planned features and in-progress work
-- **[Release Notes](release-notes.md)** - Completed features and deployments
+**[Roadmap](roadmap.md)** - Planned features and in-progress work
+
+**[Release Notes](release-notes.md)** - Completed features and deployments
 
 > 💡 **Want to add your idea?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8) and share your setup!
