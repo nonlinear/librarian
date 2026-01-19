@@ -92,6 +92,8 @@ Make sure to **specify topic or book** in your question. MCP will try to disambi
 
 **Example 3**: "`/research` what tarot spreads work best for decision-making under uncertainty?"
 
+**Troubleshooting:** Books that failed to index (corrupted files, unsupported formats) go silently to `engine/docs/FAILED.md`
+
 > 👉 Without `/research` your AI uses general knowledge. With it you get precise citations from your library
 
 ---

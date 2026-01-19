@@ -74,6 +74,8 @@ def prepare_comics():
 
         # Remove " (*)" from name (mas mantém número do capítulo no arquivo)
         new_filename = re.sub(r'\s*\(.*?\)', '', filename)
+        # Remove " GetComics.INFO" from name
+        new_filename = re.sub(r'\s+GetComics\.INFO', '', new_filename, flags=re.IGNORECASE)
 
         # Remove extensão para manipular o nome base
         name_wo_ext = re.sub(r'\.[^.]+$', '', new_filename)

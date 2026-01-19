@@ -40,6 +40,7 @@ print(f"   Found {len(metadata_json['topics'])} topics")
 # Load all documents
 print("\n2. Loading books...")
 all_documents = []
+failed_books = []
 
 for topic in metadata_json['topics']:
     topic_id = topic['id']
@@ -79,6 +80,12 @@ for topic in metadata_json['topics']:
 
         except Exception as e:
             print(f"         ❌ Error: {e}")
+            failed_books.append({
+                'topic': topic_label,
+                'book': book['title'],
+                'filename': book['filename'],
+                'error': str(e)
+            })
 
 print(f"\n   Total: {len(all_documents)} document chunks")
 
@@ -115,3 +122,31 @@ print("\n🎉 Indexing complete!")
 print(f"   Documents: {len(all_documents):,}")
 print(f"   Storage: books/<topic>/")
 print(f"   Structure: topic-partitioned (lazy-loading ready)")
+
+# Save failed books log as markdown
+if failed_books:
+    failed_md = Path(__file__).parent.parent / "engine" / "docs" / "FAILED.md"
+    failed_md.parent.mkdir(parents=True, exist_ok=True)
+
+    # Group by topic
+    from collections import defaultdict
+    by_topic = defaultdict(list)
+    for book in failed_books:
+        by_topic[book['topic']].append(book)
+
+    # Write markdown
+    with open(failed_md, 'w') as f:
+        f.write("# Failed Books\n\n")
+        f.write(f"Books that could not be indexed ({len(failed_books)} total)\n\n")
+        f.write("---\n\n")
+
+        for topic in sorted(by_topic.keys()):
+            f.write(f"## {topic}\n\n")
+            for book in by_topic[topic]:
+                book_path = f"books/{topic}/{book['filename']}"
+                f.write(f"- **{book['book']}**\n")
+                f.write(f"  - File: [{book['filename']}](../../{book_path})\n")
+                f.write(f"  - Error: `{book['error']}`\n\n")
+
+    print(f"\n⚠️  {len(failed_books)} book(s) failed to index")
+    print(f"   See: {failed_md}")

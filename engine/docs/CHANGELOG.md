@@ -14,6 +14,29 @@ Each release documents:
 
 ---
 
+## v0.2.2: Failed Books Tracking ✅ (Jan 19, 2026)
+
+**👥 Who needs to know:**
+
+- Users indexing books
+- Anyone troubleshooting failed book imports
+
+**📦 What's new:**
+
+**Problem:** Books that fail to index (corrupted files, unsupported formats) errors were only shown during indexing with no persistent log
+
+**Solution Implemented:** Failed Books Log
+
+- [x] Added failed_books tracking to indexer.py
+- [x] Created FAILED.md output (organized by topic with file links)
+- [x] Updated README.md with troubleshooting reference
+
+**Impact:** Easy troubleshooting for corrupted/unsupported books
+
+**🔧 Migration:** None (automatic on next index run)
+
+---
+
 ## v0.2.1: Infrastructure Improvements ✅ (Jan 19, 2026)
 
 **👥 Who needs to know:**

@@ -7,6 +7,9 @@ books/**/*.pkl
 books/**/*.index
 books/metadata.json
 
+# Failed books log (contains PII)
+engine/docs/FAILED.md
+
 # Storage (deprecated - now inside books/)
 storage/
 
