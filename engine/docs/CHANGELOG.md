@@ -1,8 +1,13 @@
-# Personal Library MCP - Release Notes
+# Personal Library MCP - Changelog
 
-> Completed features and deployments
+> Completed features and version history
 
-**See also:** [Roadmap](roadmap.md) for planned features.
+**📋 Project Status Files:**
+
+- [README](../../README.md) - Entry point & quick start
+- [ROADMAP](ROADMAP.md) - Planned features & in-progress work
+- **CHANGELOG** (you are here) - Completed features & version history
+- [CHECKS](CHECKS.md) - Stability requirements & testing
 
 ---
 
@@ -110,7 +115,8 @@ Each release documents:
 
 ---
 
-**See also:** [Roadmap](roadmap.md) for planned features.
+**See also:** [ROADMAP](ROADMAP.md) for planned features and [CHECKS](CHECKS.md) for stability requirements.
+
 v0.0: Foundation ✅ (Initial Release)
 
 **Branch:** `main` (initial commit)
