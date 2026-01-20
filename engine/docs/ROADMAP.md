@@ -1,8 +1,8 @@
 # Personal Library MCP - Roadmap
 
-## Version Control Strategy
+## Epic Development Strategy
 
-**Each roadmap version = one feature branch:**
+**Each epic = one feature branch:**
 
 - Branch naming: `v{major}.{minor}-{feature-name}` (ex: `v0.3-delta-indexing`)
 - Regular rebase from `main` to stay current
@@ -15,9 +15,9 @@
 - **Minor (v0.2.x → v0.3.0):** New features, backward compatible, optional reindexing
 - **Major (v0.x → v1.0):** Breaking changes, **requires full reindexing**, migration guide required
 
-**When feature completes:**
+**When epic completes:**
 
-1. Check ROADMAP.md current version section
+1. Check ROADMAP.md current epic section
 2. Mark checkboxes [x] for completed items
 3. If ALL checkboxes complete → move entire section to CHANGELOG.md
 4. Add "Impact:" and "Migration:" sections to CHANGELOG entry
@@ -25,7 +25,7 @@
 
 ---
 
-## v0.3: Delta Indexing 🔶 (IN PROGRESS)
+## Epic v0.3: Delta Indexing 🔶 (IN PROGRESS)
 
 **Branch:** `v0.3-delta-indexing` (when started)
 
