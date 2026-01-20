@@ -51,10 +51,16 @@ First, check `books/metadata.json` to understand available content:
 
 ### ✅ ✅ ☑️ ☑️ Execute Search
 
+**CRITICAL: Get absolute path first**
+
+1. Read `books/metadata.json` to get `library_path` field
+2. Construct script path: `{library_path}/scripts/research.py`
+3. Use absolute path in command (works from any workspace)
+
 **Command structure:**
 
 ```bash
-python3.11 scripts/research.py "{query}" --topic {topic} --top-k {k}
+python3.11 {library_path}/scripts/research.py "{query}" --topic {topic} --top-k {k}
 ```
 
 **Parameters:**
@@ -88,9 +94,10 @@ python3.11 scripts/research.py "{query}" --topic {topic} --top-k {k}
 **If execution fails:**
 
 - Check if Python 3.11+ is installed
-- Verify workspace path contains `scripts/research.py`
+- Verify `library_path` from metadata.json exists
+- Confirm `{library_path}/scripts/research.py` exists
 - Confirm topic exists in `books/metadata.json`
-- Ask user to run setup: `bash ./scripts/setup.sh`
+- Ask user to run setup: `bash {library_path}/scripts/setup.sh`
 
 ---
 
@@ -225,10 +232,12 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 ## Helper Commands
 
 **List topics:**
-Execute: `python3.11 scripts/research.py --list-topics`
+Execute: `python3.11 {library_path}/scripts/research.py --list-topics`
 
 **List books in topic:**
-Execute: `python3.11 scripts/research.py --list-books --topic anthropocene`
+Execute: `python3.11 {library_path}/scripts/research.py --list-books --topic anthropocene`
+
+(Replace `{library_path}` with value from `books/metadata.json`)
 
 ---
 
@@ -265,10 +274,11 @@ Execute: `python3.11 scripts/research.py --list-books --topic anthropocene`
 
 **AI workflow:**
 
-1. Reads metadata → finds "Molecular Red" in `anthropocene` topic
-2. Executes: `python3.11 scripts/research.py "what does Bogdanov say about Mars" --topic anthropocene --top-k 5`
-3. Parses JSON response
-4. Synthesizes answer with citations
+1. Reads metadata → gets `library_path = "/Users/nfrota/Documents/personal library"`
+2. Finds "Molecular Red" in `anthropocene` topic
+3. Executes: `python3.11 /Users/nfrota/Documents/personal\ library/scripts/research.py "what does Bogdanov say about Mars" --topic anthropocene --top-k 5`
+4. Parses JSON response
+5. Synthesizes answer with citations
 
 **Response:**
 
@@ -292,9 +302,10 @@ Bogdanov envisioned Mars as a socialist utopia 1️⃣ where collective labor tr
 
 **AI workflow:**
 
-1. Executes: `python3.11 scripts/research.py "spreads for decision-making" --topic tarot --top-k 5`
-2. Parses results
-3. Formats answer with citations
+1. Reads metadata → gets `library_path`
+2. Executes: `python3.11 {library_path}/scripts/research.py "spreads for decision-making" --topic tarot --top-k 5`
+3. Parses results
+4. Formats answer with citations
 
 **Assistant (colloquial match - instant):**
 
