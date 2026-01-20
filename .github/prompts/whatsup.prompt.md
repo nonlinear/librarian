@@ -274,19 +274,33 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 
 **Location:** Check [README](/README.md) for status files location.
 
+**Epic Format:**
+
+> 🤖 **CRITICAL:** Always read epic format from [CONTRIBUTING.md](../.github/CONTRIBUTING.md#epic-format)
+> User may customize syntax - NEVER use hardcoded format
+
+**To write epics correctly:**
+
+1. Read CONTRIBUTING.md section "Epic Format"
+2. Find the `> 🤖 **AI: Use this syntax when writing epics` marker
+3. Use that exact syntax for all epic writes
+4. Respect status indicators (🚧 with link, ⏳ without link, ✅ completed)
+
 **If feature completed:**
 
 ```markdown
 # Before (in ROADMAP):
 
-## v0.3: Delta Indexing 🔶 (IN PROGRESS)
+> **v0.3**
+> [🚧](link) **Delta Indexing**
 
 - [x] Topic-partitioned storage
 - [ ] Automated change detection ← THIS WAS DONE
 
 # After (AI updates):
 
-## v0.3: Delta Indexing 🔶 (IN PROGRESS)
+> **v0.3**
+> [🚧](link) **Delta Indexing**
 
 - [x] Topic-partitioned storage
 - [x] Automated change detection ← MARKED COMPLETE
@@ -295,7 +309,7 @@ cat [STATUS_FILES_LOCATION]/CHECKS.md
 **If version fully complete:**
 
 - Move entire section from ROADMAP to CHANGELOG (check [README](/README.md) for locations)
-- Update status: 🔶 (IN PROGRESS) → ✅ (COMPLETED)
+- Change status emoji: `🚧` → `✅`
 - Add completion date
 
 **🤖 CRITICAL: Add Navigation Menu to ALL Status Files**

@@ -2,7 +2,7 @@
 
 > A BYOB (Bring Your Own Books) local MCP so you can consult your library as you build your projects.
 
-> All local (books, embedding models, database). [Connect with your favorite AI provider](#5-ai-provider-integration) and [ask away](#4-usage)
+> All local (books, embedding models, database). Connect with your favorite AI provider and [ask away](#Usage)
 
 ---
 
@@ -19,19 +19,9 @@
 
 ---
 
-> **Latest Epic:**
->
-> - [v0.2.6 Partitioning Bug Fix](engine/docs/CHANGELOG.md#v026-partitioning-bug-fix--library-cleanup--jan-20-2026) ✅ (Jan 20, 2026)
-> - {a descirption not a list, well make it on roadmap and use it}
-> - [View full changelog](engine/docs/CHANGELOG.md)
-
-> **(Probably) Next Epic:**
->
-> - [v0.3 Delta Indexing](engine/docs/ROADMAP.md#epic-v03-delta-indexing--in-progress)
-> - {a descirption not a list, well make it on roadmap and use it}
-> - [View roadmap](engine/docs/ROADMAP.md)
-
-> 👷 **Wanna collaborate?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
+- **✅ Done / v0.3** / [Meta-Workflow Infrastructure](engine/docs/CHANGELOG.md#v03) / _Established workflow infrastructure for epic-based development_
+- **🚧 Next / v0.4** / [Delta indexing](engine/docs/ROADMAP.md#v04) / _More optimized reindexing_
+- [View changelog](engine/docs/CHANGELOG.md) / [View roadmap](engine/docs/ROADMAP.md) / [Join signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 
 ---
 
@@ -56,11 +46,8 @@
    - **Full index** (all topics): `python3.11 scripts/indexer.py`
    - **Per-topic** (recommended): `python3.11 scripts/reindex_topic.py <topic-id>`
    - Indices saved per-topic in `books/<topic>/faiss.index`
-7. **Test (CLI)** - for debugging only:
-   ```bash
-   python3.11 scripts/research.py "what books discuss AI ethics?" --topic ai
-   ```
-   **Note:** Main usage is via [VS Code MCP integration](#5-ai-provider-integration), not CLI
+7. **Test (CLI)**: `bash
+python3.11 scripts/research.py "what books discuss AI ethics?" --topic ai`
 
 ```mermaid
 graph TD

@@ -132,6 +132,73 @@ v0.5-automation (feature branch)
 
 ---
 
+## Epic Format
+
+> 🤖 **AI: Use this syntax when writing epics in ROADMAP or CHANGELOG**
+
+**Syntax:**
+
+```markdown
+### v0.X
+
+#### [🚧](link-to-branch) Epic Title
+
+Epic description (what problem does this solve?)
+
+- [ ] Task to complete (roadmap only)
+- [x] Completed task (roadmap only)
+- Completed task (changelog only, in past tense)
+
+❌ Anti-pattern (what NOT to do)
+✅ Best practice (with link if applicable)
+🗒️ Note
+
+---
+```
+
+**Status indicators:**
+
+- `🚧` with link = active branch exists (in-progress epic)
+- `⏳` no link = planned, no branch yet
+- `✅` completed (changelog only)
+
+**Examples:**
+
+```markdown
+> **v0.3**
+> [🚧](https://github.com/user/repo/tree/v0.3-delta-indexing) **Delta Indexing**
+
+Automatic change detection for incremental book indexing
+
+- [x] Detect filesystem changes
+- [ ] Auto-reindex affected topics
+
+✅ Use folder_path from metadata for accuracy
+❌ Don't parse topic_id with string splitting
+```
+
+---
+
+## Epic Development Strategy
+
+**Each epic = one feature branch:**
+
+- Branch naming: `v{major}.{minor}-{feature-name}` (ex: `v0.3-delta-indexing`)
+- Regular rebase from `main` to stay current
+- When complete → merge to `main` → move to CHANGELOG.md
+
+**When epic completes:**
+
+1. Run `/whatsup` (marks checkboxes, validates checks)
+2. Move entire epic from ROADMAP → CHANGELOG
+3. Change status: `🚧` → `✅`
+4. Merge branch to main with `--no-ff`
+5. Tag release: `git tag v0.3.0 -m "Epic v0.3 complete"`
+6. Delete feature branch (recommended, history preserved via tags)
+7. Announce release
+
+---
+
 ## Semantic Versioning
 
 **For AI-assisted projects:**
