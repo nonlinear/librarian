@@ -5,6 +5,42 @@ All factual claims must be grounded in retrieved book chunks.
 
 ---
 
+## Metadata Structure (Read This First!)
+
+**Location:** `books/metadata.json` in the library
+
+**Structure:**
+```json
+{
+  "library_path": "/Users/nfrota/Documents/personal library",
+  "topics": [
+    {
+      "id": "ai_theory",
+      "label": "AI",
+      "description": "...",
+      "books": [{"id": "...", "title": "...", "author": "...", "tags": [...]}]
+    }
+  ]
+}
+```
+
+**Key points:**
+- `library_path` (string) → absolute path to library root
+- `topics` (list) → array of topic objects
+- Each topic has `id`, `label`, `description`, `books`
+
+**Get library path (use this exact command):**
+```bash
+python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
+```
+
+**List all topic IDs (use this exact command):**
+```bash
+python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+```
+
+---
+
 ## When to Use This Prompt
 
 ✅ **USE when:**
@@ -35,32 +71,46 @@ All factual claims must be grounded in retrieved book chunks.
 
 ### ✅ ☑️ ☑️ ☑️ Verify Context
 
-First, check `books/metadata.json` to understand available content:
+**Step 1: Get library path**
 
-1. Read `metadata.json` to see all topics and books
-2. Match user's question against available topics/books
-3. Determine if you understand WHICH topic or book to search
+Execute this exact command:
+```bash
+python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
+```
 
-**If you understand the scope** (know which topic/book):
-→ Proceed to Step 2
+Store result as `LIBRARY_PATH` variable.
 
-**If you DON'T understand the scope** (unclear what to search):
-→ Ask user: "I found topics like [X, Y, Z]. Which area should I search?"
+**Step 2: Check available topics**
+
+Execute this exact command:
+```bash
+python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+```
+
+**Step 3: Match user query to topics**
+
+- If user specified topic name → find matching topic ID from list
+- If user didn't specify → go to "Infer Topic" section below
+
+**Decision:**
+- ✅ Topic identified → Proceed to "Execute Search"
+- ❌ Topic unclear → Ask user to choose from list
 
 ---
 
 ### ✅ ✅ ☑️ ☑️ Execute Search
 
-**CRITICAL: Get absolute path first**
+**Use the LIBRARY_PATH from Step 1**
 
-1. Read `books/metadata.json` to get `library_path` field
-2. Construct script path: `{library_path}/scripts/research.py`
-3. Use absolute path in command (works from any workspace)
-
-**Command structure:**
+**Command (exact format):**
 
 ```bash
-python3.11 {library_path}/scripts/research.py "{query}" --topic {topic} --top-k {k}
+python3.11 "{LIBRARY_PATH}/scripts/research.py" "{query}" --topic {topic_id} --top-k {k}
+```
+
+**Example:**
+```bash
+python3.11 "/Users/nfrota/Documents/personal library/scripts/research.py" "security risks in contact apps" --topic cybersecurity_applied --top-k 5
 ```
 
 **Parameters:**
@@ -231,13 +281,22 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 
 ## Helper Commands
 
-**List topics:**
-Execute: `python3.11 {library_path}/scripts/research.py --list-topics`
+**Get library path:**
+```bash
+python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
+```
 
-**List books in topic:**
-Execute: `python3.11 {library_path}/scripts/research.py --list-books --topic anthropocene`
+**List all topic IDs:**
+```bash
+python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+```
 
-(Replace `{library_path}` with value from `books/metadata.json`)
+**List books in specific topic:**
+```bash
+python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; topic = next(t for t in topics if t['id'] == '{topic_id}'); print('\n'.join(b['title'] for b in topic['books']))"
+```
+
+(Replace `{topic_id}` with actual topic ID like `anthropocene`)
 
 ---
 
