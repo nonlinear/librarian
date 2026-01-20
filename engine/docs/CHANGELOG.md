@@ -2,6 +2,24 @@
 
 > Completed features and version history
 
+**📋 Status Files Navigation**
+
+> **Methodology files** (how we work):
+>
+> - 🤖 [CONTRIBUTING](../../.github/CONTRIBUTING.md) - Git workflow & branch strategy
+> - 🤖 [whatsup.prompt.md](../../.github/prompts/whatsup.prompt.md) - Pre-commit workflow
+>
+> **Project status files** (what we're building):
+>
+> - 🤖 [ROADMAP](ROADMAP.md) - Planned features & in-progress work
+> - 🤖 **CHANGELOG** (you are here) - Version history & completed features
+> - 🤖 [CHECKS](CHECKS.md) - Stability requirements & testing
+>
+> **File locations:**
+>
+> - Methodology: `.github/` (shareable across projects)
+> - Project status: `engine/docs/` (project-specific)
+
 ---
 
 ## Release Format
@@ -324,13 +342,6 @@ Each release documents:
 **Impact:** Full local MCP infrastructure for book queries
 
 ---
-
-> 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features & in-progress work
-> 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for ersion history & completed features
-> 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements & testing
-> 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates
-
-v0.0: Foundation ✅ (Initial Release)
 
 **Branch:** `main` (initial commit)
 

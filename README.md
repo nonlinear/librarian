@@ -19,29 +19,19 @@
 
 ---
 
-## How it works
+> **📍 Current Status:** [v0.3 Delta Indexing](engine/docs/ROADMAP.md#epic-v03-delta-indexing--in-progress) 🔶 IN PROGRESS
 
-```mermaid
-graph TD
-    QUERY([research prompt+<br>specific book query]) --> MAP[Read metadata.json]
-    MAP --> SIM[Semantic Similarity]
+> **Latest Release:** [v0.2.6 Partitioning Bug Fix](engine/docs/CHANGELOG.md#v026-partitioning-bug-fix--library-cleanup--jan-20-2026) ✅ (Jan 20, 2026)
+>
+> - Fixed partition_storage.py crash
+> - 400x improved search quality (54,962 chunks vs 137)
+> - [View full changelog](engine/docs/CHANGELOG.md)
 
-    SIM --> T1[Topic: philosophy<br/>Score: 0.89]
-    SIM --> T2[Topic: AI<br/>Score: 0.32]
-
-    T1 --> B1[Book: Psychopolitics<br/>Tags: power, discipline<br/>Score: 0.91]
-
-    B1 --> DECISION1{Confident match?}
-    T2 --> DECISION2{Confident match?}
-
-    DECISION1 -->|Yes| VEC[Query Vector Store<br/>Scope: philosophy/Psychopolitics]
-    DECISION2 -->|No| ASK[System asks for clarification]
-
-    ASK --> CLARIFY[Clarification query]
-    CLARIFY --> MAP
-
-    VEC --> ANSWER([Precise answer from<br>relevant book chunks])
-```
+> **(Probably) Next Release:** Delta indexing automation (update only changed books)
+>
+> - [View roadmap](engine/docs/ROADMAP.md) for planned features
+>
+> 👷 **Wanna collaborate?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 
 ---
 
@@ -110,6 +100,34 @@ Make sure to **specify topic or book** in your question. MCP will try to disambi
 
 > 👉 Without `/research` your AI uses general knowledge. With it you get precise citations from your library
 
+---
+
+## How it works
+
+```mermaid
+graph TD
+    QUERY([research prompt+<br>specific book query]) --> MAP[Read metadata.json]
+    MAP --> SIM[Semantic Similarity]
+
+    SIM --> T1[Topic: philosophy<br/>Score: 0.89]
+    SIM --> T2[Topic: AI<br/>Score: 0.32]
+
+    T1 --> B1[Book: Psychopolitics<br/>Tags: power, discipline<br/>Score: 0.91]
+
+    B1 --> DECISION1{Confident match?}
+    T2 --> DECISION2{Confident match?}
+
+    DECISION1 -->|Yes| VEC[Query Vector Store<br/>Scope: philosophy/Psychopolitics]
+    DECISION2 -->|No| ASK[System asks for clarification]
+
+    ASK --> CLARIFY[Clarification query]
+    CLARIFY --> MAP
+
+    VEC --> ANSWER([Precise answer from<br>relevant book chunks])
+```
+
+---
+
 <!-- ---
 
 ## AI Integration
@@ -127,14 +145,22 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 
 > 👷 Wanna collaborate? Connect via [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8) -->
 
----
+## Methodology
 
-## Contributing
-
-> 💡 **Want to add your idea?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8) and share your setup!
-
-> 🤖: See [CONTRIBUTING](.github/CONTRIBUTING.md) for git workflow & branch strategy
-> 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features & in-progress work
-> 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for version history & completed features
-> 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements & testing
-> 👷: Consider using [/whatsup prompt](.github/prompts/whatsup.prompt.md) for updates
+> **📋 Status Files Navigation**
+>
+> **Methodology files** (how we work):
+>
+> - 🤖 [CONTRIBUTING](.github/CONTRIBUTING.md) - Git workflow & branch strategy
+> - 🤖 [whatsup.prompt.md](.github/prompts/whatsup.prompt.md) - Pre-commit workflow
+>
+> **Project status files** (what we're building):
+>
+> - 🤖 [ROADMAP](engine/docs/ROADMAP.md) - Planned features & in-progress work
+> - 🤖 [CHANGELOG](engine/docs/CHANGELOG.md) - Version history & completed features
+> - 🤖 [CHECKS](engine/docs/CHECKS.md) - Stability requirements & testing
+>
+> **File locations:**
+>
+> - Methodology: `.github/` (shareable across projects)
+> - Project status: `engine/docs/` (project-specific)

@@ -2,6 +2,24 @@
 
 > 🤖 This file defines the git workflow for feature development. Reusable across projects.
 
+**📋 Status Files Navigation**
+
+> **Methodology files** (how we work):
+>
+> - 🤖 **CONTRIBUTING** (you are here) - Git workflow & branch strategy
+> - 🤖 [whatsup.prompt.md](prompts/whatsup.prompt.md) - Pre-commit workflow
+>
+> **Project status files** (what we're building):
+>
+> - 🤖 [ROADMAP](../engine/docs/ROADMAP.md) - Planned features & in-progress work
+> - 🤖 [CHANGELOG](../engine/docs/CHANGELOG.md) - Version history & completed features
+> - 🤖 [CHECKS](../engine/docs/CHECKS.md) - Stability requirements & testing
+>
+> **File locations:**
+>
+> - Methodology: `.github/` (shareable across projects)
+> - Project status: `engine/docs/` (project-specific)
+
 ## Branch Strategy
 
 **One branch per epic:**
@@ -73,33 +91,51 @@ v0.5-automation (feature branch)
 5. **Before merging - use `/whatsup`:**
 
    ```bash
-   # Run pre-commit workflow
+   # Run pre-commit workflow (does steps 6-7 automatically)
    # See .github/prompts/whatsup.prompt.md
    ```
+
+   **The `/whatsup` workflow will:**
+   - ✅ Run all CHECKS (see engine/docs/CHECKS.md)
+   - ✅ Update ROADMAP (mark completed checkboxes)
+   - ✅ Move epic to CHANGELOG (if complete)
+   - ✅ Bump version number (semantic versioning)
+   - ✅ Generate commit message
 
 6. **Merge to main when epic complete:**
 
    ```bash
    git checkout main
+   git pull origin main
    git merge v0.3-delta-indexing --no-ff
+
+   # Tag the release
+   git tag v0.3.0 -m "Epic v0.3: Delta Indexing complete"
+
    git push origin main
+   git push origin v0.3.0
    ```
 
-7. **Update documentation:**
-   - Move ROADMAP epic section → CHANGELOG.md
-   - Add "Impact:" and "Migration:" sections
-   - Update version numbers
-   - Tag release:
-     ```bash
-     git tag v0.3.0
-     git push origin v0.3.0
-     ```
+7. **Delete feature branch (recommended):**
 
-8. **Delete feature branch (optional):**
    ```bash
+   # Local
    git branch -d v0.3-delta-indexing
+
+   # Remote (optional - keeps history clean)
    git push origin --delete v0.3-delta-indexing
    ```
+
+   **Branch deletion policy:**
+   - ✅ **DO delete** after successful merge (keeps branch list clean)
+   - ✅ Git history preserved via tags
+   - ✅ Can recreate from tag if needed: `git checkout -b v0.3-delta-indexing v0.3.0`
+   - ❌ **DON'T delete** if you plan to make hotfixes on that version
+
+8. **Announce release:**
+   - Update [README.md](../README.md) status section (links to new CHANGELOG entry)
+   - Post in [Signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
+   - Tweet/share if public release
 
 ---
 

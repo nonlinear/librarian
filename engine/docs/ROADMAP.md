@@ -1,5 +1,25 @@
 # Personal Library MCP - Roadmap
 
+**📋 Status Files Navigation**
+
+> **Methodology files** (how we work):
+>
+> - 🤖 [CONTRIBUTING](../../.github/CONTRIBUTING.md) - Git workflow & branch strategy
+> - 🤖 [whatsup.prompt.md](../../.github/prompts/whatsup.prompt.md) - Pre-commit workflow
+>
+> **Project status files** (what we're building):
+>
+> - 🤖 **ROADMAP** (you are here) - Planned features & in-progress work
+> - 🤖 [CHANGELOG](CHANGELOG.md) - Version history & completed features
+> - 🤖 [CHECKS](CHECKS.md) - Stability requirements & testing
+>
+> **File locations:**
+>
+> - Methodology: `.github/` (shareable across projects)
+> - Project status: `engine/docs/` (project-specific)
+
+---
+
 ## Epic Development Strategy
 
 > 🤖 **Full workflow details:** See [.github/CONTRIBUTING.md](../../.github/CONTRIBUTING.md)
@@ -301,8 +321,3 @@
   - [ ] Format: `viewer://file=path&search=query`
   - [ ] One-click navigation from citations to exact location in book
   - [ ] Integration with MCP response format
-
-> 🤖: See [ROADMAP](engine/docs/ROADMAP.md) for planned features & in-progress work
-> 🤖: See [CHANGELOG](engine/docs/CHANGELOG.md) for ersion history & completed features
-> 🤖: See [CHECKS](engine/docs/CHECKS.md) for stability requirements & testing
-> 👷: Consider using [/whatsup prompt](https://github.com/nonlinear/nonlinear.github.io/blob/main/.github/prompts/whatsup.prompt.md) for updates

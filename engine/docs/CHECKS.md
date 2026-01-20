@@ -2,12 +2,23 @@
 
 > **Definition of Done:** Tests required before pushing to production
 
-**📋 Project Status Files:**
+**📋 Status Files Navigation**
 
-- [README](../../README.md) - Entry point & quick start
-- [ROADMAP](ROADMAP.md) - Planned features & in-progress work
-- [CHANGELOG](CHANGELOG.md) - Completed features & version history
-- **CHECKS** (you are here) - Stability requirements & testing
+> **Methodology files** (how we work):
+>
+> - 🤖 [CONTRIBUTING](../../.github/CONTRIBUTING.md) - Git workflow & branch strategy
+> - 🤖 [whatsup.prompt.md](../../.github/prompts/whatsup.prompt.md) - Pre-commit workflow
+>
+> **Project status files** (what we're building):
+>
+> - 🤖 [ROADMAP](ROADMAP.md) - Planned features & in-progress work
+> - 🤖 [CHANGELOG](CHANGELOG.md) - Version history & completed features
+> - 🤖 **CHECKS** (you are here) - Stability requirements & testing
+>
+> **File locations:**
+>
+> - Methodology: `.github/` (shareable across projects)
+> - Project status: `engine/docs/` (project-specific)
 
 ---
 
@@ -563,12 +574,3 @@ fi
 ```bash
 chmod +x scripts/pre-push-check.sh
 ```
-
----
-
-> 🤖: See [ROADMAP](ROADMAP.md) for planned features & in-progress work
-> 🤖: See [CHANGELOG](CHANGELOG.md) for version history & completed features
-> 🤖: See [CHECKS](CHECKS.md) for stability requirements & testing
-> 🤖: Before any commit, follow [whatsup.prompt.md](../../.github/prompts/whatsup.prompt.md) workflow
-
----
