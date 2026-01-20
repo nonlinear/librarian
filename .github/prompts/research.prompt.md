@@ -10,6 +10,7 @@ All factual claims must be grounded in retrieved book chunks.
 **Location:** `books/metadata.json` in the library
 
 **Structure:**
+
 ```json
 {
   "library_path": "/Users/nfrota/Documents/personal library",
@@ -25,16 +26,19 @@ All factual claims must be grounded in retrieved book chunks.
 ```
 
 **Key points:**
+
 - `library_path` (string) → absolute path to library root
 - `topics` (list) → array of topic objects
 - Each topic has `id`, `label`, `description`, `books`
 
 **Get library path (use this exact command):**
+
 ```bash
 python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
 ```
 
 **List all topic IDs (use this exact command):**
+
 ```bash
 python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
 ```
@@ -69,46 +73,117 @@ python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['top
 
 ---
 
-### ✅ ☑️ ☑️ ☑️ Verify Context
+## 🚨 CRITICAL: Library Validation (MUST RUN FIRST)
 
-**Step 1: Get library path**
+**Before answering ANY research question, verify library accessibility:**
+
+**🚧 1 of 6: Check if metadata.json exists**
 
 Execute this exact command:
+
+```bash
+test -f books/metadata.json && echo "LIBRARY_FOUND" || echo "LIBRARY_NOT_FOUND"
+```
+
+**Decision logic:**
+
+- ✅ **Output = "LIBRARY_FOUND"**: Proceed to 🚧 2 of 6
+- ❌ **Output = "LIBRARY_NOT_FOUND"**: STOP IMMEDIATELY
+
+**If library not found, respond EXACTLY:**
+
+```
+❌ Personal Library not accessible in this workspace.
+
+This prompt requires access to `books/metadata.json`.
+
+Available options:
+1. Switch to the Personal Library workspace
+2. Ask your question without `/research` for general knowledge
+3. Rephrase as a non-library question
+
+I cannot answer research questions without library access.
+```
+
+**DO NOT:**
+
+- Answer from general knowledge
+- Provide architectural suggestions
+- Give alternative solutions
+- Continue with the research workflow
+
+---
+
+## Research Workflow (Follow in Order)
+
+```mermaid
+graph TD
+    START([User asks /research question]) --> STEP1[🚧 1 of 6: Library Validation]
+    STEP1 -->|Found| STEP2[🚧 2 of 6: Get Library Path]
+    STEP1 -->|Not Found| STOP[❌ STOP - Refuse to answer]
+
+    STEP2 --> STEP3[🚧 3 of 6: Check Topics & Match Query]
+    STEP3 --> DECISION{Topic specified?}
+
+    DECISION -->|Yes| STEP4[🚧 4 of 6: Execute Search]
+    DECISION -->|No| INFER[Infer Topic from Metadata]
+
+    INFER -->|Confident match| STEP4
+    INFER -->|Unclear| ASK[Ask user to choose]
+    ASK --> STEP4
+
+    STEP4 --> STEP5[🚧 5 of 6: Parse JSON Results]
+    STEP5 --> STEP6[🚧 Final: Format Answer with Citations]
+    STEP6 --> END([Deliver grounded answer])
+```
+
+---
+
+### 🚧 2 of 6: Get Library Path
+
+**Get library path from metadata**
+
+Execute this exact command:
+
 ```bash
 python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
 ```
 
 Store result as `LIBRARY_PATH` variable.
 
-**Step 2: Check available topics**
+---
+
+### 🚧 3 of 6: Check Topics & Match Query
+
+**List all topic IDs**
 
 Execute this exact command:
+
 ```bash
 python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
 ```
 
-**Step 3: Match user query to topics**
-
-- If user specified topic name → find matching topic ID from list
-- If user didn't specify → go to "Infer Topic" section below
-
-**Decision:**
-- ✅ Topic identified → Proceed to "Execute Search"
-- ❌ Topic unclear → Ask user to choose from list
-
 ---
 
-### ✅ ✅ ☑️ ☑️ Execute Search
+### 🚧 4 of 6: Execute Search
 
-**Use the LIBRARY_PATH from Step 1**
+**If topic unclear, infer from metadata:**
 
-**Command (exact format):**
+- Read `books/metadata.json` for topic tags
+- Match query keywords against topic IDs, book titles, tags
+- Weighted scoring: tags 50%, topic ID 30%, labels 20%
+- ✅ Confidence ≥ 60%: Auto-select topic
+- ⚠️ Confidence < 60%: Ask user to clarify from top 3 candidates
+- ❌ No matches: List all available topics
+
+**Execute the search command (use LIBRARY_PATH from 🚧 2 of 6):**
 
 ```bash
 python3.11 "{LIBRARY_PATH}/scripts/research.py" "{query}" --topic {topic_id} --top-k {k}
 ```
 
 **Example:**
+
 ```bash
 python3.11 "/Users/nfrota/Documents/personal library/scripts/research.py" "security risks in contact apps" --topic cybersecurity_applied --top-k 5
 ```
@@ -151,31 +226,7 @@ python3.11 "/Users/nfrota/Documents/personal library/scripts/research.py" "secur
 
 ---
 
-### ✅ ✅ ✅ ☑️ Infer Topic
-
-**If user didn't specify topic, infer from metadata:**
-
-1. Read `books/metadata.json` for topic tags
-2. Match query keywords against:
-   - Topic IDs (e.g., "cybersecurity_applied")
-   - Book titles and tags
-   - Weighted scoring: tags 50%, topic ID 30%, labels 20%
-
-**Decision logic:**
-
-- ✅ **Confidence ≥ 60%**: Auto-select topic
-- ⚠️ **Confidence < 60%**: Ask user to clarify from top 3 candidates
-- ❌ **No matches**: List all available topics
-
-**Examples:**
-
-- "applied cybersecurity" → `cybersecurity_applied` (colloquial match)
-- "cryptography best practices" → `cybersecurity_applied` (tag match)
-- "security stuff" → Ask: "cybersecurity_applied (40%), cybersecurity_history (35%), or information_theory (25%)?"
-
----
-
-### ✅ ✅ ✅ ✅ Parse Results
+### 🚧 5 of 6: Parse Results
 
 **From the JSON response, extract:**
 
@@ -212,7 +263,7 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 
 ---
 
-## Step 5 — Citation Format (CRITICAL)
+### 🚧 Final: Citation Format (CRITICAL)
 
 - **MUST get exact filename from `metadata.json`** before creating citation
 - Wrong filename = broken link = no pill in VS Code
@@ -282,16 +333,19 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 ## Helper Commands
 
 **Get library path:**
+
 ```bash
 python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
 ```
 
 **List all topic IDs:**
+
 ```bash
 python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
 ```
 
 **List books in specific topic:**
+
 ```bash
 python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; topic = next(t for t in topics if t['id'] == '{topic_id}'); print('\n'.join(b['title'] for b in topic['books']))"
 ```
