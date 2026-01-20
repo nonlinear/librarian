@@ -164,6 +164,18 @@
   - Cons: Larger model size
 - [ ] Make embedding model swappable (config-based)
 
+**Meta Development Workflow:**
+
+- [ ] **Implement epic-per-branch workflow**
+  - [ ] Enforce: Each ROADMAP epic = dedicated feature branch
+  - [ ] Branch naming: `v{major}.{minor}-{epic-name}` (e.g., `v0.3-delta-indexing`)
+  - [ ] Workflow: Regular rebase from `main` to stay current
+  - [ ] Completion criteria: Merge to `main` = move ROADMAP section → CHANGELOG
+  - [ ] Add git hooks or CI checks to validate workflow compliance
+  - [ ] Update whatsup.prompt.md to handle feature branch workflow
+  - [ ] Document branch-based development in contributing guide
+  - **Note:** Current workflow is direct commits to `main` (works for now)
+
 **Other Enhancements:**
 
 - [ ] **Clean up folder structure**
