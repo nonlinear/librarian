@@ -2,23 +2,16 @@
 
 > 🤖 This file defines the git workflow for feature development. Reusable across projects.
 
-**📋 Status Files Navigation**
-
-> **Methodology files** (how we work):
+> 🤖
 >
-> - 🤖 **CONTRIBUTING** (you are here) - Git workflow & branch strategy
-> - 🤖 [whatsup.prompt.md](prompts/whatsup.prompt.md) - Pre-commit workflow
+> [CHANGELOG](../engine/docs/CHANGELOG.md) - What we did
+> [ROADMAP](../engine/docs/ROADMAP.md) - What we wanna do
+> [CONTRIBUTING](.github/CONTRIBUTING.md) - How we do it
+> [CHECKS](../engine/docs/CHECKS.md) - What we accept
 >
-> **Project status files** (what we're building):
+> [/whatsup](prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
-> - 🤖 [ROADMAP](../engine/docs/ROADMAP.md) - Planned features & in-progress work
-> - 🤖 [CHANGELOG](../engine/docs/CHANGELOG.md) - Version history & completed features
-> - 🤖 [CHECKS](../engine/docs/CHECKS.md) - Stability requirements & testing
->
-> **File locations:**
->
-> - Methodology: `.github/` (shareable across projects)
-> - Project status: `engine/docs/` (project-specific)
+> 🤖
 
 ## Branch Strategy
 

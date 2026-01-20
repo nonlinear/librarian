@@ -19,18 +19,18 @@
 
 ---
 
-> **📍 Current Status:** [v0.3 Delta Indexing](engine/docs/ROADMAP.md#epic-v03-delta-indexing--in-progress) 🔶 IN PROGRESS
-
-> **Latest Release:** [v0.2.6 Partitioning Bug Fix](engine/docs/CHANGELOG.md#v026-partitioning-bug-fix--library-cleanup--jan-20-2026) ✅ (Jan 20, 2026)
+> **Latest Release:**
 >
-> - Fixed partition_storage.py crash
-> - 400x improved search quality (54,962 chunks vs 137)
+> - [v0.2.6 Partitioning Bug Fix](engine/docs/CHANGELOG.md#v026-partitioning-bug-fix--library-cleanup--jan-20-2026) ✅ (Jan 20, 2026)
+> - {a descirption not a list, well make it on roadmap and use it}
 > - [View full changelog](engine/docs/CHANGELOG.md)
 
-> **(Probably) Next Release:** Delta indexing automation (update only changed books)
+> **(Probably) Next Release:**
 >
+> - [v0.3 Delta Indexing](engine/docs/ROADMAP.md#epic-v03-delta-indexing--in-progress)
+> - {a descirption not a list, well make it on roadmap and use it}
 > - [View roadmap](engine/docs/ROADMAP.md) for planned features
->
+
 > 👷 **Wanna collaborate?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 
 ---
@@ -145,22 +145,13 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 
 > 👷 Wanna collaborate? Connect via [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8) -->
 
-## Methodology
-
-> **📋 Status Files Navigation**
+> 🤖
 >
-> **Methodology files** (how we work):
+> [CHANGELOG](engine/docs/CHANGELOG.md) - What we did
+> [ROADMAP](engine/docs/ROADMAP.md) - What we wanna do
+> [CONTRIBUTING](.github/CONTRIBUTING.md) - How we do it
+> [CHECKS](engine/docs/CHECKS.md) - What we accept
 >
-> - 🤖 [CONTRIBUTING](.github/CONTRIBUTING.md) - Git workflow & branch strategy
-> - 🤖 [whatsup.prompt.md](.github/prompts/whatsup.prompt.md) - Pre-commit workflow
+> [/whatsup](.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
-> **Project status files** (what we're building):
->
-> - 🤖 [ROADMAP](engine/docs/ROADMAP.md) - Planned features & in-progress work
-> - 🤖 [CHANGELOG](engine/docs/CHANGELOG.md) - Version history & completed features
-> - 🤖 [CHECKS](engine/docs/CHECKS.md) - Stability requirements & testing
->
-> **File locations:**
->
-> - Methodology: `.github/` (shareable across projects)
-> - Project status: `engine/docs/` (project-specific)
+> 🤖

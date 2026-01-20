@@ -2,23 +2,16 @@
 
 > **Definition of Done:** Tests required before pushing to production
 
-**📋 Status Files Navigation**
-
-> **Methodology files** (how we work):
+> 🤖
 >
-> - 🤖 [CONTRIBUTING](../../.github/CONTRIBUTING.md) - Git workflow & branch strategy
-> - 🤖 [whatsup.prompt.md](../../.github/prompts/whatsup.prompt.md) - Pre-commit workflow
+> [CHANGELOG](CHANGELOG.md) - What we did
+> [ROADMAP](ROADMAP.md) - What we wanna do
+> [CONTRIBUTING](../../.github/CONTRIBUTING.md) - How we do it
+> [CHECKS](CHECKS.md) - What we accept
 >
-> **Project status files** (what we're building):
+> [/whatsup](../../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
-> - 🤖 [ROADMAP](ROADMAP.md) - Planned features & in-progress work
-> - 🤖 [CHANGELOG](CHANGELOG.md) - Version history & completed features
-> - 🤖 **CHECKS** (you are here) - Stability requirements & testing
->
-> **File locations:**
->
-> - Methodology: `.github/` (shareable across projects)
-> - Project status: `engine/docs/` (project-specific)
+> 🤖
 
 ---
 

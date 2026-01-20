@@ -52,51 +52,60 @@ flowchart TD
 
 ## 📋 STEP 0: Read README for Status Files Location
 
-**AI: README is the ONLY source of truth for file locations**
+**AI: README is the ONLY source of truth for file locations AND navigation block**
 
 **🚨 CRITICAL: READ-ONLY**
+
 - ✅ **READ** README to find status files locations
+- ✅ **COPY** navigation block (🤖 markers) from README to all status files
 - ❌ **DO NOT EDIT** README without explicit user permission
+- ❌ **DO NOT** create custom navigation - always copy from README
 - README is the entry point - changes affect entire project discovery
 
 ### Read README First
 
 ```bash
 # Step 1: Read README.md
-cat README.md | head -30
+cat README.md | head -50
 
-# Step 2: Look for "Project Status Files" or "Status Files" section
+# Step 2: Look for 🤖 navigation block
 # Example output should show:
-# **Location:** /engine/docs/
-# - ROADMAP
-# - CHANGELOG
-# - CHECKS
+# > 🤖
+# >
+# > [CHANGELOG](...) - What we did
+# > [ROADMAP](...) - What we wanna do
+# > [CONTRIBUTING](...) - How we do it
+# > [CHECKS](...) - What we accept
+# >
+# > [/whatsup](...) - The prompt that keeps us sane
+# >
+# > 🤖
 ```
 
-### Extract Location
+### Extract Navigation Block
 
 **What README MUST contain:**
 
 ```markdown
-**📋 Project Status Files:**
-**Location:** /path/to/files/
-
-- ROADMAP - Planned features
-- CHANGELOG - Version history
-- CHECKS - Stability tests
+> 🤖
+>
+> [CHANGELOG](engine/docs/CHANGELOG.md) - What we did
+> [ROADMAP](engine/docs/ROADMAP.md) - What we wanna do
+> [CONTRIBUTING](.github/CONTRIBUTING.md) - How we do it
+> [CHECKS](engine/docs/CHECKS.md) - What we accept
+>
+> [/whatsup](.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+>
+> 🤖
 ```
 
-**AI: Parse this to get file paths:**
+**AI: Copy this block to ALL status files:**
 
-```bash
-# Example for Personal Library:
-# Location: /engine/docs/
-# → ROADMAP is at: /engine/docs/ROADMAP.md
-# → CHANGELOG is at: /engine/docs/CHANGELOG.md
-# → CHECKS is at: /engine/docs/CHECKS.md
-```
+- Adjust paths relative to each file's location
+- Keep exact same format and descriptions
+- This ensures consistency across the project
 
-**If README doesn't specify location:**
+**If README doesn't have navigation block:**
 
 - ❌ **STOP:** Ask user "Where are your status files? (e.g., /docs/, /engine/docs/, root)"
 - ✅ Update README to document location
@@ -333,10 +342,12 @@ Every status file (ROADMAP, CHANGELOG, CHECKS) must end with this navigation men
 ## v0.5.0 - 2026-01-20 (NEW ENTRY - documents rename)
 
 ### Renamed for Clarity
+
 - Scripts: query_partitioned.py → research.py (matches research.prompt.md)
-...
+  ...
 
 ## v0.3.0 - 2026-01-19 (OLD ENTRY - left unchanged)
+
 - Added: query_partitioned.py for CLI queries
 ```
 
