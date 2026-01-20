@@ -5,9 +5,17 @@ All factual claims must be grounded in retrieved book chunks.
 
 ---
 
+## Library Configuration
+
+**Absolute library path:** `/Users/nfrota/Documents/personal library`
+
+Use this path for ALL commands regardless of current workspace.
+
+---
+
 ## Metadata Structure (Read This First!)
 
-**Location:** `books/metadata.json` in the library
+**Location:** `{library_path}/books/metadata.json`
 
 **Structure:**
 
@@ -34,13 +42,13 @@ All factual claims must be grounded in retrieved book chunks.
 **Get library path (use this exact command):**
 
 ```bash
-python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
+python3.11 -c "import json; print(json.load(open('/Users/nfrota/Documents/personal library/books/metadata.json'))['library_path'])"
 ```
 
 **List all topic IDs (use this exact command):**
 
 ```bash
-python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/personal library/books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
 ```
 
 ---
@@ -82,7 +90,7 @@ python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['top
 Execute this exact command:
 
 ```bash
-test -f books/metadata.json && echo "LIBRARY_FOUND" || echo "LIBRARY_NOT_FOUND"
+test -f "/Users/nfrota/Documents/personal library/books/metadata.json" && echo "LIBRARY_FOUND" || echo "LIBRARY_NOT_FOUND"
 ```
 
 **Decision logic:**
@@ -93,14 +101,14 @@ test -f books/metadata.json && echo "LIBRARY_FOUND" || echo "LIBRARY_NOT_FOUND"
 **If library not found, respond EXACTLY:**
 
 ```
-❌ Personal Library not accessible in this workspace.
+❌ Personal Library not accessible.
 
-This prompt requires access to `books/metadata.json`.
+Expected location: /Users/nfrota/Documents/personal library/books/metadata.json
 
-Available options:
-1. Switch to the Personal Library workspace
-2. Ask your question without `/research` for general knowledge
-3. Rephrase as a non-library question
+Possible fixes:
+1. Verify the library exists at the expected path
+2. Update the library path in this prompt's configuration section
+3. Ask your question without `/research` for general knowledge
 
 I cannot answer research questions without library access.
 ```
@@ -146,7 +154,7 @@ graph TD
 Execute this exact command:
 
 ```bash
-python3.11 -c "import json; print(json.load(open('books/metadata.json'))['library_path'])"
+python3.11 -c "import json; print(json.load(open('/Users/nfrota/Documents/personal library/books/metadata.json'))['library_path'])"
 ```
 
 Store result as `LIBRARY_PATH` variable.
@@ -160,7 +168,7 @@ Store result as `LIBRARY_PATH` variable.
 Execute this exact command:
 
 ```bash
-python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/personal library/books/metadata.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
 ```
 
 ---
@@ -169,7 +177,7 @@ python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['top
 
 **If topic unclear, infer from metadata:**
 
-- Read `books/metadata.json` for topic tags
+- Read `/Users/nfrota/Documents/personal library/books/metadata.json` for topic tags
 - Match query keywords against topic IDs, book titles, tags
 - Weighted scoring: tags 50%, topic ID 30%, labels 20%
 - ✅ Confidence ≥ 60%: Auto-select topic
@@ -347,7 +355,7 @@ python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['top
 **List books in specific topic:**
 
 ```bash
-python3.11 -c "import json; topics = json.load(open('books/metadata.json'))['topics']; topic = next(t for t in topics if t['id'] == '{topic_id}'); print('\n'.join(b['title'] for b in topic['books']))"
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/personal library/books/metadata.json'))['topics']; topic = next(t for t in topics if t['id'] == '{topic_id}'); print('\n'.join(b['title'] for b in topic['books']))"
 ```
 
 (Replace `{topic_id}` with actual topic ID like `anthropocene`)
