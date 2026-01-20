@@ -15,23 +15,31 @@
 
 ---
 
-## Release Format
+### v0.3
 
-Each release documents:
+#### ✅ Meta-Workflow Infrastructure
 
-- 📦 **What's new:** Features and changes
-- 👥 **Who needs to know:** Target audience and impact
-- 🔧 **Migration:** Breaking changes and upgrade steps (if any)
+Established workflow infrastructure for epic-based development
+
+- Created [CONTRIBUTING.md](../../.github/CONTRIBUTING.md) - Git workflow & branch strategy
+- Defined branch-per-epic policy (`v{major}.{minor}-{epic-name}`)
+- Documented rebase-only workflow (from `main`)
+- Established merge workflow (whatsup → merge → tag → delete branch → announce)
+- Branch deletion policy (recommended after merge, history preserved via tags)
+- Semantic versioning guidelines for AI projects
+- Standardized navigation across all status files
+- README as single source of truth for navigation
+
+✅ Always copy navigation block from README to status files
+🗒️ Originally planned as "Delta Indexing" but pivoted to meta-workflow. Delta automation deferred.
 
 ---
 
-## v0.2.6: Partitioning Bug Fix & Library Cleanup ✅ (Jan 20, 2026)
+### v0.2.6
 
-**👥 Who needs to know:** Anyone running full library reindexing
+#### ✅ Library cleanup
 
-**📦 What's new:**
-
-**Bug Fix:**
+fixing subtopics as flat ones
 
 - **Fixed partition_storage.py crash:** `UnboundLocalError: topic_label` when creating per-topic indices
   - Root cause: Variable used before assignment in loop
@@ -52,7 +60,9 @@ Each release documents:
 
 ---
 
-## v0.2.5: Path Resolution & Platform-Agnostic Prompt ✅ (Jan 20, 2026)
+### v0.2.5
+
+#### ✅ Path Resolution & Platform-Agnostic Prompt
 
 **👥 Who needs to know:** Users with subtopics (AI/theory) or folder names with spaces (product architecture)
 
@@ -99,7 +109,9 @@ Each release documents:
 
 ---
 
-## v0.2.4: Critical Chunking Bug Fix ✅ (Jan 20, 2026)
+### v0.2.4
+
+#### ✅ Critical Chunking Bug Fix
 
 **👥 Who needs to know:** ALL USERS - this fix improves search quality 400x
 
@@ -135,7 +147,9 @@ Each release documents:
 
 ---
 
-## v0.2.3: Critical Bug Fixes ✅ (Jan 20, 2026)
+### v0.2.3
+
+#### ✅ Critical Bug Fixes
 
 **👥 Who needs to know:**
 
@@ -192,7 +206,9 @@ Each release documents:
 
 ---
 
-## v0.2.2: Failed Books Tracking ✅ (Jan 19, 2026)
+### v0.2.2
+
+#### ✅ Failed Books Tracking
 
 **👥 Who needs to know:**
 
@@ -215,7 +231,9 @@ Each release documents:
 
 ---
 
-## v0.2.1: Infrastructure Improvements ✅ (Jan 19, 2026)
+### v0.2.1
+
+#### ✅ Infrastructure Improvements
 
 **👥 Who needs to know:**
 
@@ -242,9 +260,9 @@ Each release documents:
 
 ---
 
-## v0.2: PDF Support + Integrated Reindexing ✅ (Jan 18, 2026)
+### v0.2
 
-**Branch:** `main` (promoted from development)
+#### ✅ PDF Support + Integrated Reindexing
 
 **👥 Who needs to know:**
 
@@ -280,9 +298,9 @@ Each release documents:
 
 ---
 
-## v0.1: Database Optimization ✅ (Jan 15, 2026)
+### v0.1
 
-**Branch:** `main` (promoted from development)
+#### ✅ Database Optimization
 
 **👥 Who needs to know:**
 
@@ -316,7 +334,9 @@ Each release documents:
 
 ---
 
-## Foundation ✅ (Initial Release)
+### Foundation
+
+#### ✅ Initial Release
 
 **Core infrastructure for Personal Library MCP**
 
@@ -333,11 +353,3 @@ Each release documents:
 - [x] Auto-partitioning integrated in `indexer.py`
 
 **Impact:** Full local MCP infrastructure for book queries
-
----
-
-**Branch:** `main` (initial commit)
-
-**👥 Who needs to know:** All users (initial setup)
-
-**📦 What's new:**
