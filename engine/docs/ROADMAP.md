@@ -51,24 +51,30 @@
 
 **Branch:** `v0.3-delta-indexing` ✅ **Active**
 
-**Target audience:** Users with large libraries who reindex frequently
+**Target audience:** Developers building epic-based workflows for AI-assisted projects
 
-**Goal:** Update only changed books instead of reindexing everything
+**Goal:** Establish workflow infrastructure for epic-based development
 
-**Status:** Infrastructure complete, automation pending
+**Status:** Meta-workflow complete, delta indexing automation pending
 
-**✅ Done:**
+**✅ Done (Jan 20, 2026):**
 
-- [x] Topic-partitioned storage (can reindex individual topics)
-- [x] Metadata tracking (books/ → metadata.json)
-- [x] Manual topic reindexing capability
-- [x] Nested folder support (topics/subtopics with underscore flattening)
-  - [x] `generate_metadata.py` - recursive folder scanning
-  - [x] `reindex_topic.py` - nested path resolution
-  - [x] `research.py` - underscore topic ID support
-  - [x] Documentation updated (README.md with mermaid diagram)
+- [x] **Meta Development Workflow**
+  - [x] Created [CONTRIBUTING.md](../../.github/CONTRIBUTING.md) - Git workflow & branch strategy
+  - [x] Defined branch-per-epic policy (`v{major}.{minor}-{epic-name}`)
+  - [x] Documented rebase-only workflow (from `main`)
+  - [x] Established merge workflow (whatsup → merge → tag → delete branch → announce)
+  - [x] Branch deletion policy (recommended after merge, history preserved via tags)
+  - [x] Semantic versioning guidelines for AI projects
 
-**❌ Pending:**
+- [x] **Status Files Navigation System**
+  - [x] Standardized navigation across all status files
+  - [x] Methodology files (`.github/`) - shareable across projects
+  - [x] Project status (`engine/docs/`) - project-specific
+  - [x] Consistent blockquote format with bullets
+  - [x] Removed duplicate navigation from footers
+
+**❌ Pending (Original Delta Indexing Scope):**
 
 - [ ] **Diagnostic tool for topic health checks** (based on `test_chunking.py`)
   - [x] Created `scripts/test_chunking.py` - single-topic chunking diagnostics
@@ -77,8 +83,8 @@
   - [ ] Performance metrics: load time, index time, chunks/second
   - [ ] Efficiency report: expected vs actual chunks ratio
   - [ ] Use before/after reindexing to validate improvements
-  - [ ] Example: `python3.11 scripts/test_chunking.py cybersecurity_applied`
-- [ ] `scripts/update_delta.py` - automated change detection
+
+- [ ] **`scripts/update_delta.py` - automated change detection**
   - [ ] Compare `books/` filesystem vs `metadata.json`
   - [ ] Identify deltas (added/removed/modified books)
   - [ ] Auto-reindex only affected topic directories
@@ -88,13 +94,29 @@
     - [ ] Delete parent indices: `books/AI/chunks.pkl`, `books/AI/faiss.index`
     - [ ] Create new subfolder indices: `books/AI/theory/chunks.pkl`, etc.
     - [ ] Detection: Parent folder has subfolders with books but no indices
-    - [ ] Example cleanup: Remove `books/AI/chunks.pkl` when `AI/theory/` detected
+
 - [ ] CLI command: `python3.11 scripts/update_delta.py`
 - [ ] Performance benchmarks (delta vs full reindex)
 
-**Granular Indexing Quality Epic:**
+**🚨 NOTE:** Epic pivoted to meta-workflow infrastructure (CONTRIBUTING.md, status files navigation). Original delta indexing scope deferred to v0.4 or separate epic.
 
-> 🚨 **CRITICAL ISSUE FOUND (2026-01-20):** Current indexing creates only ~0.7 chunks/book (137 chunks from 197 books). Expected: 100+ chunks/book for typical 200-page books. Root cause unknown - needs investigation.
+**Current workaround:** Manual full reindex (`python3.11 scripts/indexer.py`) or per-topic (`python3.11 scripts/reindex_topic.py <topic>`)
+
+---
+
+## v0.4: Indexing Quality & Reporting ❌ (PLANNED)
+
+**Branch:** `v0.4-indexing-quality` (when started)
+
+**Target audience:** Users experiencing poor search quality or indexing failures
+
+**Goal:** Visibility into indexing health and automatic detection of problems
+
+**Status:** Not started (deferred from v0.3)
+
+**🚨 CRITICAL ISSUE:** Current indexing creates only ~0.7 chunks/book (137 chunks from 197 books). Expected: 100+ chunks/book for typical 200-page books. Root cause unknown - needs investigation.
+
+**❌ All Pending:**
 
 - [ ] **Indexing report system** (replace FAILED.md with comprehensive REPORT)
   - [ ] Track timing metrics (total time, time per book, chunks per second)
@@ -108,6 +130,7 @@
     - Corrupted files, unsupported formats, parsing errors
   - [ ] Timestamp and indexer version in report header
   - [ ] Link from README → REPORT for visibility
+
 - [ ] **Chunk health checks** (validate chunks proportional to filesize)
   - [ ] Calculate expected chunks from filesize
     - EPUB: ~1 chunk per 1KB (avg, based on 1024 char chunks)
@@ -117,19 +140,20 @@
   - [ ] Add `--validate` flag to `reindex_topic.py`
   - [ ] Report: `⚠️  Topic 'product_architecture': 5 chunks from 5MB (expected ~5000)`
   - [ ] Suggest: `Run: python3.11 scripts/reindex_topic.py product_architecture --force`
+
 - [ ] **Chunk quality metrics**
   - [ ] Track chunks/MB ratio per topic
   - [ ] Detect outliers (too many/few chunks)
   - [ ] Store metrics in metadata.json
   - [ ] Dashboard/report of index health
 
-**Current workaround:** Manual full reindex (`python3.11 scripts/indexer.py`)
+**Current workaround:** Manual inspection of FAILED.md, manual chunk count validation
 
 ---
 
-## v0.4: Provider Integration 🔶 (IN PROGRESS)
+## v0.5: Provider Integration 🔶 (IN PROGRESS)
 
-**Branch:** `v0.4-provider-integration` (when started)
+**Branch:** `v0.5-provider-integration` (when started)
 
 **Target audience:** Users of Claude Desktop, OpenAI, LM Studio, OpenWebUI
 
