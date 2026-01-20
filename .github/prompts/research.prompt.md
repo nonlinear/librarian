@@ -260,14 +260,16 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 
 ---
 
-1️⃣ [Molecular Red.epub](/Users/nfrota/Documents/personal%20library/books/anthropocene/Molecular%20Red.epub)
+1️⃣ [Molecular Red.epub](../personal%20library/books/anthropocene/Molecular%20Red.epub)
 
     gradients drive morphogenesis matter
 
-2️⃣ [A Thousand Plateaus.epub](/Users/nfrota/Documents/personal%20library/books/anthropocene/A%20Thousand%20Plateaus.epub)
+2️⃣ [A Thousand Plateaus.epub](../personal%20library/books/anthropocene/A%20Thousand%20Plateaus.epub)
 
     intensive differences create forms
 ```
+
+(Example assumes workspace at `/Users/nfrota/Documents/nonlinear` - adjust relative path for actual workspace)
 
 ---
 
@@ -285,10 +287,16 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
   1.  Exact `filename` for each book (e.g., `"Debt - David Graeber.epub"`)
   2.  `library_path` field (e.g., `"/Users/nfrota/Documents/personal library"`)
   3.  Topic `folder_path` (e.g., `"AI/theory"` or `"system_theory"`)
-- **Step 2:** Construct absolute path: `{library_path}/books/{folder_path}/{filename}`
-- **Step 3:** URL-encode spaces and special characters (`%20`, `%3A`, `%27`, etc.)
+- **Step 2:** Get current workspace absolute path (use VS Code API or `os.getcwd()`)
+- **Step 3:** Calculate relative path from workspace to library:
+  ```python
+  import os
+  relative_to_library = os.path.relpath(library_path, workspace_path)
+  ```
+- **Step 4:** Construct: `{relative_to_library}/books/{folder_path}/{filename}`
+- **Step 5:** URL-encode spaces and special characters (`%20`, `%3A`, `%27`, etc.)
 
-**CRITICAL:** Use **absolute paths**, not relative. Relative paths don't form clickable pills in VS Code.
+**CRITICAL:** Use **relative paths** calculated from absolutes. VS Code pills require workspace-relative paths for phishing protection.
 
 2. **Search query format**: Indented plain text (4 spaces)
    - EXACTLY 4 consecutive words from the chunk
@@ -298,12 +306,12 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 
 ## Step 5 — Citation Format (CRITICAL)
 
-**File path format**: Markdown link with URL-encoded absolute path
+**File path format**: Markdown link with URL-encoded workspace-relative path
 
-- Format: `[Book Title.epub]({absolute_path})`
+- Format: `[Book Title.epub]({workspace_relative_path})`
 - Display text: Book title WITH .epub extension
-- Link URL: **Absolute path** from `library_path` (NOT relative)
-- **MUST use URL encoding**: spaces as `%20`, `:` as `%3A`, `'` as `%27`, etc.
+- Link URL: **Relative path from current workspace** (calculated from absolutes)
+- **MUST use URL encoding**: spaces as `%20`, `:` as `%3A`, `%27` etc.
 
 **Search snippet format**: Indented plain text (4 spaces)
 
@@ -316,17 +324,29 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 
 1. Read `/Users/nfrota/Documents/personal library/books/metadata.json` to get:
    - Exact `filename` for the book
-   - `folder_path` from the topic entry (e.g., `"AI/theory"` or `"product architecture"`)
+   - `folder_path` from the topic entry (e.g., `"AI/theory"`)
    - `library_path` (e.g., `"/Users/nfrota/Documents/personal library"`)
-2. Construct absolute path: `{library_path}/books/{folder_path}/{filename}`
-3. URL-encode: spaces→`%20`, etc.
+2. Get current workspace path (e.g., `/Users/nfrota/Documents/nonlinear`)
+3. Calculate relative path:
+   ```python
+   import os
+   relative = os.path.relpath(
+       "/Users/nfrota/Documents/personal library",
+       "/Users/nfrota/Documents/nonlinear"
+   )
+   # Returns: "../personal library"
+   ```
+4. Construct: `{relative}/books/{folder_path}/{filename}`
+5. URL-encode: spaces→`%20`, etc.
 
 **Example:**
 
-- Library path: `/Users/nfrota/Documents/personal library`
+- Workspace: `/Users/nfrota/Documents/nonlinear`
+- Library: `/Users/nfrota/Documents/personal library`
+- Relative: `../personal library`
 - Topic folder: `AI/theory`
 - Filename: `Superintelligence.epub`
-- Result: `/Users/nfrota/Documents/personal%20library/books/AI/theory/Superintelligence.epub`
+- Result: `../personal%20library/books/AI/theory/Superintelligence.epub`
 
 **Never:**
 
