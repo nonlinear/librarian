@@ -43,7 +43,7 @@
 - [x] Nested folder support (topics/subtopics with underscore flattening)
   - [x] `generate_metadata.py` - recursive folder scanning
   - [x] `reindex_topic.py` - nested path resolution
-  - [x] `query_partitioned.py` - underscore topic ID support
+  - [x] `research.py` - underscore topic ID support
   - [x] Documentation updated (README.md with mermaid diagram)
 
 **❌ Pending:**
@@ -55,6 +55,34 @@
   - [ ] Incremental metadata.json updates
 - [ ] CLI command: `python3.11 scripts/update_delta.py`
 - [ ] Performance benchmarks (delta vs full reindex)
+
+**Granular Indexing Quality Epic:**
+
+- [ ] **Indexing report system** (replace FAILED.md with comprehensive REPORT)
+  - [ ] Generate `engine/docs/REPORT.md` after each indexing run
+  - [ ] **✅ Success section:** Topics indexed successfully with stats
+    - Example: `✅ AI: 1224 chunks from 8 books (153 chunks/book avg)`
+  - [ ] **⚠️ Alert section:** Suspicious chunking (health check failures)
+    - Example: `⚠️ product_architecture: 5 chunks from 5MB (expected ~5000)`
+    - Suggest re-index with `--force` flag
+  - [ ] **❌ Error section:** Books that failed to index (current FAILED.md content)
+    - Corrupted files, unsupported formats, parsing errors
+  - [ ] Timestamp and indexer version in report header
+  - [ ] Link from README → REPORT for visibility
+- [ ] **Chunk health checks** (validate chunks proportional to filesize)
+  - [ ] Calculate expected chunks from filesize
+    - EPUB: ~1 chunk per 1KB (avg, based on 1024 char chunks)
+    - PDF: ~1 chunk per 1.5KB (denser text)
+  - [ ] Flag topics with suspiciously low chunk counts
+  - [ ] Auto-detect indexing failures during reindex
+  - [ ] Add `--validate` flag to `reindex_topic.py`
+  - [ ] Report: `⚠️  Topic 'product_architecture': 5 chunks from 5MB (expected ~5000)`
+  - [ ] Suggest: `Run: python3.11 scripts/reindex_topic.py product_architecture --force`
+- [ ] **Chunk quality metrics**
+  - [ ] Track chunks/MB ratio per topic
+  - [ ] Detect outliers (too many/few chunks)
+  - [ ] Store metrics in metadata.json
+  - [ ] Dashboard/report of index health
 
 **Current workaround:** Manual full reindex (`python3.11 scripts/indexer.py`)
 

@@ -12,11 +12,11 @@
 
 ### What Uses What
 
-| Script/Process                                          | Embedding Model | Status               |
-| ------------------------------------------------------- | --------------- | -------------------- |
-| **[mcp_server_lazy.py](../scripts/mcp_server_lazy.py)** | MiniLM-L6-v2    | ✅ Active (queries)  |
-| **[reindex_topic.py](../scripts/reindex_topic.py)**     | MiniLM-L6-v2    | ✅ Active (indexing) |
-| **[indexer_faiss.py](../scripts/indexer_faiss.py)**     | Gemini 768-dim  | ⚠️ NOT in use        |
+| Script/Process                                      | Embedding Model | Status               |
+| --------------------------------------------------- | --------------- | -------------------- |
+| **[mcp_server.py](../scripts/mcp_server.py)**       | MiniLM-L6-v2    | ✅ Active (queries)  |
+| **[reindex_topic.py](../scripts/reindex_topic.py)** | MiniLM-L6-v2    | ✅ Active (indexing) |
+| **[indexer_faiss.py](../scripts/indexer_faiss.py)** | Gemini 768-dim  | ⚠️ NOT in use        |
 
 **Current indices:** All are 384-dim (MiniLM), so you're already fully local! ✅
 
@@ -209,9 +209,9 @@ _Benchmark corpus: 35 books, 11,764 chunks on M3_
 
 **Active scripts (local only):**
 
-- [mcp_server_lazy.py](../scripts/mcp_server_lazy.py) ✅
+- [mcp_server.py](../scripts/mcp_server.py) ✅
 - [reindex_topic.py](../scripts/reindex_topic.py) ✅
-- [query_partitioned.py](../scripts/query_partitioned.py) ✅
+- [research.py](../scripts/research.py) ✅
 
 **Verification:**
 

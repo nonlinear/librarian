@@ -14,6 +14,63 @@ Each release documents:
 
 ---
 
+## v0.2.3: Critical Bug Fixes ✅ (Jan 20, 2026)
+
+**👥 Who needs to know:**
+
+- All users with nested topics (e.g., `cybersecurity/applied/`)
+- All users with root topics containing spaces (e.g., `product architecture/`)
+- Anyone who ran `reindex_topic.py` manually
+
+**📦 What's new:**
+
+**Problems Fixed:**
+
+1. **Path Resolution Bug:** Topics with underscores failed to resolve correctly
+   - Nested topics: `cybersecurity_applied` didn't map to `books/cybersecurity/applied/`
+   - Root topics with spaces: `product_architecture` didn't map to `books/product architecture/`
+   - **Impact:** Books weren't being indexed, queries failed silently
+
+2. **Critical Chunking Bug:** EPUB books weren't chunked properly
+   - `reindex_topic.py` used raw documents instead of chunked nodes from index
+   - **Result:** 1 chunk per book instead of ~200 chunks per book
+   - **Example:** `product_architecture` had only 5 chunks from 5 books (should be ~1000+)
+   - **Impact:** Severely degraded search quality - couldn't find specific passages
+
+**Solutions Implemented:**
+
+- [x] Fixed path resolution in `indexer.py`, `reindex_topic.py`, `mcp_server.py`
+  - Try nested path first (`topic_id.replace('_', '/')`)
+  - Fall back to label if nested path doesn't exist
+  - Handles both nested topics and root topics with underscores
+- [x] Fixed chunking in `reindex_topic.py`
+  - Changed from iterating raw documents to extracting chunked nodes from index
+  - Added explicit chunk settings (1024 chars, 200 overlap)
+  - Added debug output showing chunk counts
+- [x] Renamed scripts for clarity
+  - `query_partitioned.py` → `research.py` (matches research.prompt.md)
+  - `mcp_server_lazy.py` → `mcp_server.py` (production server)
+- [x] Documentation improvements
+  - Added happy path validation test to CHECKS.md
+  - Added CHANGELOG append-only policy to whatsup.prompt.md
+  - Designed comprehensive REPORT.md system in ROADMAP
+
+**🔧 Migration:**
+
+- **If you have nested topics or topics with underscores:** Re-run full indexer to rebuild with correct paths
+  ```bash
+  python3.11 scripts/indexer.py
+  ```
+- **If you manually reindexed topics:** Re-run those topics to get proper chunking
+  ```bash
+  python3.11 scripts/reindex_topic.py <topic-name>
+  ```
+- **Script renames:** Update any custom scripts or documentation referencing old names
+
+**Impact:** Correct indexing for all topic types, dramatically improved search quality
+
+---
+
 ## v0.2.2: Failed Books Tracking ✅ (Jan 19, 2026)
 
 **👥 Who needs to know:**
@@ -121,7 +178,7 @@ Each release documents:
   - [x] Replaced Gemini (768-dim) → sentence-transformers (384-dim)
   - [x] Model stored in `models/` (90MB, gitignored)
   - [x] Zero API keys required - fully offline
-  - [x] Updated: `indexer.py`, `query_partitioned.py`, `setup.sh`
+  - [x] Updated: `indexer.py`, `research.py`, `setup.sh`
   - [x] Removed: `.env` requirement, API key docs
 - [x] Created `scripts/partition_storage.py`
 - [x] **Integrated auto-partitioning in `indexer.py`** (no manual step)
@@ -148,7 +205,7 @@ Each release documents:
   - [x] Model cached in `models/` (90MB, not tracked by git)
   - [x] Zero API keys required
   - [x] Fully offline operation
-- [x] CLI query tool (`scripts/query_partitioned.py`)
+- [x] CLI query tool (`scripts/research.py`)
 - [x] MCP server with 3 tools (query_library, list_topics, list_books)
 - [x] Metadata-first query routing
 - [x] Topic-partitioned storage (FAISS + pickle per topic)

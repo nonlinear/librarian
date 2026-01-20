@@ -68,14 +68,14 @@ embed_model = HuggingFaceEmbedding(
 )
 ```
 
-#### B. Update mcp_server_lazy.py
+#### B. Update mcp_server.py
 
 ```python
 # Line 55, change model name:
 embedding_model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')  # ← Change this
 ```
 
-#### C. Update query_partitioned.py (if you use it)
+#### C. Update research.py (if you use it)
 
 ```python
 # Line 27, change model name:
@@ -172,7 +172,7 @@ print(f'Model dimension: {model.get_sentence_embedding_dimension()}')
 ### 1. Revert code changes
 
 ```bash
-# In reindex_topic.py, mcp_server_lazy.py, query_partitioned.py:
+# In reindex_topic.py, mcp_server.py, research.py:
 # Change back to: all-MiniLM-L6-v2
 ```
 
@@ -252,7 +252,7 @@ python3.11 -c "from sentence_transformers import SentenceTransformer; import os;
 # 2. Update reindex_topic.py
 # (Manual edit: line 24-27, change model name)
 
-# 3. Update mcp_server_lazy.py
+# 3. Update mcp_server.py
 # (Manual edit: line 55, change model name)
 
 # 4. Reindex all topics

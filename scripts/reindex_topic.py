@@ -26,6 +26,8 @@ embed_model = HuggingFaceEmbedding(
     cache_folder=str(MODELS_DIR)
 )
 Settings.embed_model = embed_model
+Settings.chunk_size = 1024
+Settings.chunk_overlap = 200
 
 def reindex_topic(topic_id: str):
     """Reindex a single topic."""
@@ -48,10 +50,18 @@ def reindex_topic(topic_id: str):
     topic_label = topic_data['label']
 
     # Handle nested topics (e.g., cybersecurity_strategy → cybersecurity/strategy/)
+    # AND root topics with underscores (e.g., product_architecture → product architecture/)
     if '_' in topic_id:
-        # Split on underscore to reconstruct path
+        # Check if it's a nested topic (has corresponding subfolder)
         parts = topic_id.split('_')
-        topic_dir = BOOKS_DIR / '/'.join(parts)
+        nested_path = BOOKS_DIR / '/'.join(parts)
+
+        # Try nested path first, fall back to label with spaces
+        if nested_path.exists():
+            topic_dir = nested_path
+        else:
+            # Not nested - use label (which may have spaces)
+            topic_dir = BOOKS_DIR / topic_label
     else:
         topic_dir = BOOKS_DIR / topic_label
 
@@ -104,24 +114,28 @@ def reindex_topic(topic_id: str):
         print(f"❌ No documents loaded for {topic_label}")
         return False
 
-    print(f"\n  Building index for {len(documents)} chunks...")
+    print(f"\n  Building index for {len(documents)} documents...")
 
-    # Build index
+    # Build index (this chunks documents internally)
     index = VectorStoreIndex.from_documents(documents)
 
-    # Extract embeddings and chunks
+    # Extract embeddings and chunks from the INDEX NODES (not raw documents)
     embeddings = []
     chunks = []
 
-    for doc in documents:
-        # Get embedding
-        embedding = embed_model.get_text_embedding(doc.text)
+    # Get chunked nodes from the index
+    nodes = list(index.docstore.docs.values())
+    print(f"  Created {len(nodes)} chunks from {len(documents)} documents")
+
+    for node in nodes:
+        # Get embedding for the chunked node
+        embedding = embed_model.get_text_embedding(node.get_content())
         embeddings.append(embedding)
 
         # Store chunk info
         chunks.append({
-            'text': doc.text,
-            'metadata': doc.metadata
+            'text': node.get_content(),
+            'metadata': node.metadata
         })
 
     # Create FAISS index

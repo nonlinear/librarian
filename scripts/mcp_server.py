@@ -121,7 +121,20 @@ def load_topic(topic_id: str) -> Dict:
         print(f"⚠️  Topic {topic_id} not found in metadata", file=sys.stderr, flush=True)
         return None
 
-    topic_dir = BOOKS_DIR / topic_label
+    # Reconstruct full path from flattened topic_id
+    # Handle nested topics (e.g., cybersecurity_applied → cybersecurity/applied/)
+    # AND root topics with underscores (e.g., product_architecture → product architecture/)
+    if '_' in topic_id:
+        # Try nested path first
+        nested_path = BOOKS_DIR / topic_id.replace('_', '/')
+
+        if nested_path.exists():
+            topic_dir = nested_path
+        else:
+            # Not nested - use label (which may have spaces)
+            topic_dir = BOOKS_DIR / topic_label
+    else:
+        topic_dir = BOOKS_DIR / topic_label
     faiss_file = topic_dir / "faiss.index"
     chunks_file = topic_dir / "chunks.pkl"
 
@@ -157,6 +170,142 @@ def find_topic_id(query: str) -> Optional[str]:
         if query_lower in topic['label'].lower() or query_lower == topic['id']:
             return topic['id']
     return None
+
+
+def infer_topic_from_query(query: str, min_confidence: float = 0.6) -> Dict:
+    """
+    Infer topic from query using tags and colloquial phrasing.
+    Returns: {
+        'topic_id': str or None,
+        'confidence': float (0-1),
+        'candidates': list of (topic_id, score) tuples,
+        'reasoning': str
+    }
+    """
+    query_lower = query.lower()
+    query_words = set(query_lower.split())
+
+    # Strategy 1: Check for exact child-parent colloquial phrases
+    # "applied cybersecurity", "cybersecurity history", "history of cybersecurity"
+    for topic in metadata['topics']:
+        topic_id = topic['id']
+
+        # For subtopics like cybersecurity_applied
+        if '_' in topic_id:
+            parts = topic_id.split('_')
+            parent = parts[0]
+            child = parts[1]
+
+            # Check various colloquial patterns
+            patterns = [
+                f"{child} {parent}",      # "applied cybersecurity"
+                f"{parent} {child}",      # "cybersecurity applied"
+                f"{child} of {parent}",   # "history of cybersecurity"
+                f"{parent} {child}",      # "cybersecurity history"
+            ]
+
+            for pattern in patterns:
+                if pattern in query_lower:
+                    return {
+                        'topic_id': topic_id,
+                        'confidence': 1.0,
+                        'candidates': [(topic_id, 1.0)],
+                        'reasoning': f'Matched colloquial phrase: "{pattern}"'
+                    }
+
+    # Strategy 2: Score topics by tag overlap + word matching
+    scored_topics = []
+
+    for topic in metadata['topics']:
+        score = 0.0
+        topic_id = topic['id']
+
+        # Get topic tags
+        topic_tags = set(topic.get('description', '').lower().split(', '))
+
+        # Score tag overlap (weighted higher)
+        tag_matches = query_words & topic_tags
+        score += len(tag_matches) * 0.5
+
+        # Score topic ID word matches
+        topic_words = set(topic_id.replace('_', ' ').split())
+        id_matches = query_words & topic_words
+        score += len(id_matches) * 0.3
+
+        # Score label matches
+        label_words = set(topic['label'].lower().split())
+        label_matches = query_words & label_words
+        score += len(label_matches) * 0.2
+
+        if score > 0:
+            # Normalize score (rough heuristic)
+            normalized_score = min(score / max(len(query_words), 3), 1.0)
+            scored_topics.append((topic_id, normalized_score, tag_matches | id_matches | label_matches))
+
+    # Sort by score
+    scored_topics.sort(key=lambda x: x[1], reverse=True)
+
+    if not scored_topics:
+        return {
+            'topic_id': None,
+            'confidence': 0.0,
+            'candidates': [],
+            'reasoning': 'No tag or keyword matches found'
+        }
+
+    best_topic, best_score, matches = scored_topics[0]
+
+    # Check if we have high enough confidence
+    if best_score >= min_confidence:
+        return {
+            'topic_id': best_topic,
+            'confidence': best_score,
+            'candidates': [(t, s) for t, s, _ in scored_topics[:3]],
+            'reasoning': f'Tag/keyword matches: {", ".join(sorted(matches))}'
+        }
+    else:
+        return {
+            'topic_id': None,
+            'confidence': best_score,
+            'candidates': [(t, s) for t, s, _ in scored_topics[:3]],
+            'reasoning': f'Low confidence ({best_score:.2f}). Top matches: {", ".join(sorted(matches))}'
+        }
+
+
+def topic_id_to_path(topic_id: str) -> str:
+    """Convert flattened topic ID to display path with /."""
+    return topic_id.replace('_', '/')
+
+
+def get_related_topics(topic_id: str, limit: int = 3) -> List[str]:
+    """Suggest related topics based on tag overlap."""
+    current_topic = None
+    for topic in metadata['topics']:
+        if topic['id'] == topic_id:
+            current_topic = topic
+            break
+
+    if not current_topic:
+        return []
+
+    # Get tags from current topic description
+    current_tags = set(current_topic.get('description', '').lower().split(', '))
+
+    # Score other topics by tag overlap
+    scored_topics = []
+    for topic in metadata['topics']:
+        if topic['id'] == topic_id:
+            continue
+
+        topic_tags = set(topic.get('description', '').lower().split(', '))
+        overlap = len(current_tags & topic_tags)
+
+        if overlap > 0:
+            scored_topics.append((topic['id'], overlap))
+
+    # Sort by overlap and return top N
+    scored_topics.sort(key=lambda x: x[1], reverse=True)
+    return [topic_id_to_path(t[0]) for t, _ in scored_topics[:limit]]
 
 
 def find_book_id(query: str) -> Optional[str]:
@@ -254,10 +403,18 @@ def query_library(query: str, topic: Optional[str] = None, book: Optional[str] =
             'text': chunk['text'],
             'book_title': chunk['metadata']['book_title'],
             'topic': chunk['metadata']['topic_label'],
+            'topic_path': topic_id_to_path(topic_id),
             'score': float(dist)
         })
 
-    return results
+    # Add related topics suggestion
+    response = {
+        'results': results,
+        'topic_searched': topic_id_to_path(topic_id),
+        'related_topics': get_related_topics(topic_id)
+    }
+
+    return response
 
 
 async def handle_mcp_request(request: Dict) -> Dict:
@@ -327,7 +484,7 @@ async def handle_mcp_request(request: Dict) -> Dict:
                 return {"content": [{"type": "text", "text": json.dumps(results, indent=2)}]}
 
             elif tool_name == 'list_topics':
-                topics = [{"id": t['id'], "label": t['label'], "description": t['description']}
+                topics = [{"id": t['id'], "path": topic_id_to_path(t['id']), "label": t['label'], "description": t['description']}
                          for t in metadata['topics']]
                 return {"content": [{"type": "text", "text": json.dumps(topics, indent=2)}]}
 

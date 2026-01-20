@@ -313,6 +313,28 @@ Every status file (ROADMAP, CHANGELOG, CHECKS) must end with this navigation men
 
 **Location:** Check [README](/README.md) for status files location.
 
+**🚨 CRITICAL RULE: CHANGELOG is append-only**
+
+- ✅ **ADD new entries at the top** (newest first)
+- ❌ **NEVER edit old entries** (history is immutable)
+- ✅ **If mistake in old entry:** Add clarification/correction as NEW entry
+- 📝 **Rename/refactor?** Document in NEW entry, keep old names in history
+
+**Why:** CHANGELOG is historical record of what actually happened at that time. If old entry says "query_partitioned.py", that's what existed then. Don't rewrite history.
+
+**Example - The RIGHT way:**
+
+```markdown
+## v0.5.0 - 2026-01-20 (NEW ENTRY - documents rename)
+
+### Renamed for Clarity
+- Scripts: query_partitioned.py → research.py (matches research.prompt.md)
+...
+
+## v0.3.0 - 2026-01-19 (OLD ENTRY - left unchanged)
+- Added: query_partitioned.py for CLI queries
+```
+
 **AI: Add new entry following project format:**
 
 ```markdown

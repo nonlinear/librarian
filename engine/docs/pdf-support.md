@@ -186,11 +186,11 @@ else:
 
 **Critical:** Both must use the same embedding model and dimension.
 
-| Stage                 | Current Model | Dimension | Script             |
-| --------------------- | ------------- | --------- | ------------------ |
-| **Indexing (build)**  | MiniLM-L6-v2  | 384       | reindex_topic.py   |
-| **Retrieval (query)** | MiniLM-L6-v2  | 384       | mcp_server_lazy.py |
-| **Status**            | ✅ Matching   | ✅ Match  | Working correctly  |
+| Stage                 | Current Model | Dimension | Script            |
+| --------------------- | ------------- | --------- | ----------------- |
+| **Indexing (build)**  | MiniLM-L6-v2  | 384       | reindex_topic.py  |
+| **Retrieval (query)** | MiniLM-L6-v2  | 384       | mcp_server.py     |
+| **Status**            | ✅ Matching   | ✅ Match  | Working correctly |
 
 **What happens if they mismatch:**
 
@@ -242,11 +242,11 @@ else:
 
 ## Active Scripts (Local Embeddings Only)
 
-| Script                                                  | Purpose              | Model Used   |
-| ------------------------------------------------------- | -------------------- | ------------ |
-| [mcp_server_lazy.py](../scripts/mcp_server_lazy.py)     | MCP server (queries) | MiniLM-L6-v2 |
-| [reindex_topic.py](../scripts/reindex_topic.py)         | Reindex single topic | MiniLM-L6-v2 |
-| [query_partitioned.py](../scripts/query_partitioned.py) | CLI query tool       | MiniLM-L6-v2 |
+| Script                                          | Purpose              | Model Used   |
+| ----------------------------------------------- | -------------------- | ------------ |
+| [mcp_server.py](../scripts/mcp_server.py)       | MCP server (queries) | MiniLM-L6-v2 |
+| [reindex_topic.py](../scripts/reindex_topic.py) | Reindex single topic | MiniLM-L6-v2 |
+| [research.py](../scripts/research.py)           | CLI query tool       | MiniLM-L6-v2 |
 
 **All use:** `sentence-transformers/all-MiniLM-L6-v2` (384-dim, local)
 

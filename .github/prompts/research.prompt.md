@@ -59,28 +59,64 @@ Before querying:
 
 ---
 
-## Step 3 — Query Execution
+## Step 3 — Query Execution (SMART INFERENCE)
 
-If user didn't specify book/topic:
+**System infers topic from query using:**
+1. **Colloquial phrasing** (high confidence)
+   - "applied cybersecurity" → `cybersecurity/applied`
+   - "cybersecurity history" → `cybersecurity/history`
+   - "history of AI" → `ai/history` (if exists)
 
-1. **Call `list_topics`** to see available topics
-2. **Match question to topics** using descriptions/tags
-3. **If ambiguous**: Ask user to clarify
-4. **If no match**: Ask user which topic to search
+2. **Tag matching** (calculated confidence)
+   - Query: "cryptography best practices"
+   - Tags: `cybersecurity_applied` has "cryptography-contents"
+   - Confidence: High → Auto-select
 
-**Never guess.** Always clarify when uncertain.
+3. **Keyword overlap** (weighted scoring)
+   - Topic ID words: 30% weight
+   - Tag matches: 50% weight
+   - Label matches: 20% weight
+
+**Decision logic:**
+- ✅ **Confidence ≥ 60%**: Make the bet, proceed with query
+- ⚠️ **Confidence < 60%**: Ask user to clarify from top 3 candidates
+- ❌ **No matches**: List all available topics
+
+**If user specified topic explicitly:**
+- Use it directly (skip inference)
+
+**If inference succeeds:**
+- `query`: User's question (required)
+- `topic`: Topic ID (optional - system infers if not provided)
+- `book`: Book title filter (optional)
+- `k`: Number of chunks (default 5)
+
+**System behavior:**
+- If `topic` provided: Use it directly
+- If not: Call internal `infer_topic_from_query()`
+  - Returns: `{topic_id, confidence, candidates, reasoning}`
+  - High confidence: Proceed automatically
+  - Low confidence: Ask user to pick from candidatests
+- ❌ **No scope** = Never allowed
+- 💡 **Multiple topics?** User creates aggregated topic
 
 ---
 
-## Step 4 — Query the Library
+## Step 4 — Query the Library (SCOPED)
 
 Once scope is determined, call `query_library`:
 
 **Arguments:**
 
-- `question`: User's question (required)
-- `book_context`: Topic ID or book title (optional)
-- `top_k`: Number of chunks (default 5)
+- `query`: User's question (required)
+- `topic`: Topic ID (e.g., "cybersecurity_applied", "anthropocene") - **REQUIRED**
+- `book`: Book title filter (optional, further narrows within topic)
+- `k`: Number of chunks (default 5)
+
+**Topic ID format:**
+- Display to user with `/`: `ai`, `anthropocene`, `cybersecurity/applied`
+- Internal IDs use `_`: `cybersecurity_applied` (MCP handles conversion)
+- Check `list_topics` output for hierarchical display
 
 **MCP Returns:**
 
@@ -90,11 +126,13 @@ Once scope is determined, call `query_library`:
     {
       "text": "...",
       "book_title": "...",
-      "book_author": "...",
       "topic": "...",
-      "similarity": 0.85
+      "topic_path": "cybersecurity/applied",
+      "score": 0.85
     }
-  ]
+  ],
+  "topic_searched": "cybersecurity/applied",
+  "related_topics": ["cybersecurity/history", "cryptography/basics"]
 }
 ```
 
@@ -106,30 +144,34 @@ Once scope is determined, call `query_library`:
 
 1. **Synthesize** information from results
 2. **Ground** every claim in specific chunks
-3. **Cite** sources inline with emoji numbers: 1️⃣ 2️⃣ 3️⃣ etc. (numbering resets per query, not cumulative)
-4. **Acknowledge gaps** if incomplete
-
-**Citation Format:**
-
-In the answer, use inline emoji citations:
+3. **Cite** sources inline with emoji numbers: 1️⃣ 2️⃣ 3️⃣ etc.
+4. **Show topic path** above citations
+5. **Suggest related topics** at the end
+6. **Acknowledge gaps** if incomplete, then list sources with topic path header:
 
 ```
-According to DeLanda 1️⃣, gradients are intensive differences that drive morphogenesis. This connects to Deleuze's concept of difference 2️⃣.
-```
+According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to Deleuze 2️⃣.
 
-At the end, list sources with horizontal rule separator.
-
-**Example format:**
+**Topic:** cybersecurity/applied
 
 ---
 
-1️⃣ [Philosophy and Simulation.epub](books/system%20theory/Philosophy%20and%20Simulation.epub)
+1️⃣ [Applied Cryptography.epub](../personal%20library/books/cybersecurity/applied/Applied%20Cryptography.epub)
 
-    intensive differences drive morphogenesis
+    cryptography today encyclopedic readable
 
-2️⃣ [Difference and Repetition.epub](books/philosophy/Difference%20and%20Repetition.epub)
+2️⃣ [Hacking The Art of Exploitation.epub](../personal%20library/books/cybersecurity/applied/Hacking%20The%20Art%20of%20Exploitation.epub)
 
-    virtuality actualization difference repetition
+    programming assembly language exploit
+
+---
+
+**💡 Related topics you might want to explore:**
+- `cybersecurity/history` - Historical security breaches
+- `cybersecurity/strategy` - Risk management frameworks
+```
+
+**Always include "Related topics" section** if MCP returns them.
 
 **Citation Rules:**
 
@@ -175,6 +217,11 @@ At the end, list sources with horizontal rule separator.
 - Claim something is "in the book" unless MCP returned it
 - Cite sources without providing searchable quotes
 
+- `cybersecurity/applied` - Cryptography, exploits
+- `cybersecurity/history` - Security breaches
+- `cybersecurity/strategy` - Risk management
+
+Which area should I search
 ---
 
 ## Helper Commands
@@ -188,16 +235,20 @@ At the end, list sources with horizontal rule separator.
 
 ---
 
-## Error Handling
+##Scope not specified:**
+"Your library has topics: [list top 5-7 topics]. Which area should I search?"
+
+**Ambiguous scope:**
+"I found multiple cybersecurity topics: applied, history, strategy. Which one?"
 
 **MCP not connected:**
-"Personal Library MCP is offline. Start with: `python3.11 scripts/mcp_server.py`"
+"Personal Library MCP is offline. Enable it in MCP servers panel."
 
 **No results:**
-"No relevant information found in [context]. Try rephrasing or different topic."
+"No relevant information in `{topic}`. Try different topic or rephrase."
 
-**Context not found:**
-"Topic/book not found. Use `/library list topics` to see options."
+**Topic not found:**
+"Topic '{topic}' not in library. Available: [list topics]."
 
 ---
 
@@ -205,11 +256,9 @@ At the end, list sources with horizontal rule separator.
 
 The system uses `metadata.json` as a navigation map:
 
-- **Topics** = folders (e.g., "anthropocene", "system theory")
+- **Topics** = folders (e.g., "anthropocene", "cybersecurity/applied")
 - **Books** = EPUBs with metadata (title, author, tags)
-- **Tags** = semantic keywords extracted from content
-
-Match user questions to tags for better topic selection.
+- **Tags** = semantic keywords for smart matching
 
 ---
 
@@ -218,17 +267,45 @@ Match user questions to tags for better topic selection.
 - Query latency: ~500ms
 - Embedding: all-MiniLM-L6-v2 (local)
 - Index: 11,764 chunks, 35 books
-- Use filters (book/topic) to improve precision
+- Inference confidence threshold: 60%
 
 ---
 
 ## Example Usage
 
-**User:** `/library what are gradients in philosophy and simulation?`
+**User:** `/research cryptography best practices`
 
-**Assistant:**
+**Assistant (high confidence - auto-selects):**
 
-1. Detects explicit book context: "philosophy and simulation"
-2. Calls: `query_library(question="what are gradients", book_context="philosophy and simulation")`
-3. Receives chunks about gradients in DeLanda's book
-4. Synthesizes answer citing specific passages
+Searched `cybersecurity/applied` (matched: cryptography, exploits)
+
+[... answer with citations ...]
+
+**Topic:** cybersecurity/applied
+
+---
+
+💡 Related topics:
+- `cybersecurity/history`
+- `information_theory`
+
+---
+
+**User:** `/research applied cybersecurity`
+
+**Assistant (colloquial match - instant):**
+
+[Proceeds immediately, no confirmation needed]
+
+**Topic:** cybersecurity/applied
+
+---
+
+**User:** `/research security stuff`
+
+**Assistant (low confidence - asks):**
+
+"I'm not sure which topic. Choose from:
+1. `cybersecurity/applied` (40%)
+2. `cybersecurity/history` (35%)
+3. `information_theory` (25%)"

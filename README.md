@@ -66,10 +66,11 @@ graph TD
    - **Full index** (all topics): `python3.11 scripts/indexer.py`
    - **Per-topic** (recommended): `python3.11 scripts/reindex_topic.py <topic-id>`
    - Indices saved per-topic in `books/<topic>/faiss.index`
-7. **Test**:
+7. **Test (CLI)** - for debugging only:
    ```bash
-   python3.11 scripts/query_partitioned.py "what books discuss AI ethics?" --topic ai
+   python3.11 scripts/research.py "what books discuss AI ethics?" --topic ai
    ```
+   **Note:** Main usage is via [VS Code MCP integration](#5-ai-provider-integration), not CLI
 
 ```mermaid
 graph TD
@@ -117,7 +118,7 @@ The Personal Library MCP is **provider-agnostic**. Use your favorite AI provider
 
 | AI Provider        | Status                                                                                                                                                        |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Terminal**       | ✅ `python3.11 scripts/query_partitioned.py "your question" --topic ai`                                                                                       |
+| **Terminal**       | ✅ `python3.11 scripts/research.py "your question" --topic ai`                                                                                                |
 | **VS Code**        | ✅ `code --install-extension https://github.com/nonlinear/personal-library/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix` |
 | **Claude Desktop** | 👷 Pending                                                                                                                                                    |
 | **OpenAI API**     | 👷 Pending                                                                                                                                                    |

@@ -21,7 +21,10 @@ embed_model = HuggingFaceEmbedding(
     cache_folder=str(MODELS_DIR)
 )
 Settings.embed_model = embed_model
+Settings.chunk_size = 1024
+Settings.chunk_overlap = 200
 print("✓ Using local embedding model: all-MiniLM-L6-v2 (384-dim)")
+print("✓ Chunking: 1024 chars, 200 overlap")
 
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"
@@ -45,8 +48,20 @@ failed_books = []
 for topic in metadata_json['topics']:
     topic_id = topic['id']
     topic_label = topic['label']
-    # Use label (original folder name) not id (slugified)
-    topic_dir = BOOKS_DIR / topic_label
+
+    # Handle nested topics (e.g., cybersecurity_applied → cybersecurity/applied/)
+    # AND root topics with underscores (e.g., product_architecture → product architecture/)
+    if '_' in topic_id:
+        # Try nested path first
+        nested_path = BOOKS_DIR / topic_id.replace('_', '/')
+
+        if nested_path.exists():
+            topic_dir = nested_path
+        else:
+            # Not nested - use label (which may have spaces)
+            topic_dir = BOOKS_DIR / topic_label
+    else:
+        topic_dir = BOOKS_DIR / topic_label
 
     print(f"\n   Topic: {topic_label}")
 

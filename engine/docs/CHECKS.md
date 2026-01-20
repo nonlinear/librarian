@@ -129,6 +129,69 @@ python3.11 scripts/reindex_topic.py "AI"
 
 ---
 
+### 3.1. Happy Path Test (Path Resolution)
+
+**Question:** If a user follows README.md happy path, will path resolution work for:
+
+- ✅ Nested topics? (`cybersecurity_applied` → `books/cybersecurity/applied/`)
+- ✅ Root topics with underscores? (`product_architecture` → `books/product architecture/`)
+
+```bash
+# Test 6a: Verify nested topic path resolution
+python3.11 -c "
+from pathlib import Path
+import json
+BOOKS_DIR = Path('books')
+metadata = json.loads((BOOKS_DIR / 'metadata.json').read_text())
+
+# Find a nested topic
+nested = [t for t in metadata['topics'] if '_' in t['id'] and '/' in t['id'].replace('_', '/')]
+if nested:
+    topic_id = nested[0]['id']
+    # Simulate indexer.py logic
+    nested_path = BOOKS_DIR / topic_id.replace('_', '/')
+    print(f'✅ Nested path works: {topic_id} → {nested_path}' if nested_path.exists() else f'❌ Path broken: {nested_path}')
+else:
+    print('⚠️  No nested topics to test')
+"
+
+# Test 6b: Verify root topic with underscore
+python3.11 -c "
+from pathlib import Path
+import json
+BOOKS_DIR = Path('books')
+metadata = json.loads((BOOKS_DIR / 'metadata.json').read_text())
+
+# Find root topic with underscore (e.g., product_architecture)
+root_underscore = [t for t in metadata['topics'] if '_' in t['id'] and '/' not in t['id'].replace('_', '/')]
+if root_underscore:
+    topic = root_underscore[0]
+    topic_id = topic['id']
+    topic_label = topic['label']
+    # Simulate indexer.py logic
+    nested_path = BOOKS_DIR / topic_id.replace('_', '/')
+    label_path = BOOKS_DIR / topic_label
+    actual_path = nested_path if nested_path.exists() else label_path
+    print(f'✅ Root underscore works: {topic_id} → {actual_path}' if actual_path.exists() else f'❌ Path broken: {topic_id}')
+else:
+    print('⚠️  No root underscore topics to test')
+"
+
+# Test 6c: Run full indexer to verify (happy path from README)
+python3.11 scripts/indexer.py 2>&1 | grep -E "✓ Loaded|⚠️  Not found" | head -10
+# Expected: All books load, no "Not found" errors
+```
+
+**Pass criteria:**
+
+- ✅ Nested topics resolve correctly
+- ✅ Root topics with underscores resolve correctly
+- ✅ Full indexer finds all books in all topics
+
+**Why this matters:** Bug was that `indexer.py` only used `topic_label`, not handling underscore-to-slash conversion. Users following README step 6 ("Build indices") would hit missing file errors for nested topics and misnamed root topics.
+
+---
+
 ### 4. Environment Check
 
 ```bash
@@ -206,7 +269,7 @@ ls books/*/chunks.json  # Should show topic-based chunks
 
 ```bash
 # Startup time
-time python3.11 scripts/mcp_server_lazy.py &
+time python3.11 scripts/mcp_server.py &
 # Ctrl+C after "ready" message
 
 # Query time
@@ -458,7 +521,7 @@ echo ""
 
 # 3. MCP server startup
 echo "🚀 3. Testing MCP server startup..."
-timeout 3 python3.11 scripts/mcp_server_lazy.py 2>&1 | grep -q "Personal Library MCP Server ready" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
+timeout 3 python3.11 scripts/mcp_server.py 2>&1 | grep -q "Personal Library MCP Server ready" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
 echo ""
 
 # 4. Quick query test (if query.py exists)
