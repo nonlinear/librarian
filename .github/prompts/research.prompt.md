@@ -260,23 +260,22 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 
 ---
 
-1️⃣ [Molecular Red.epub]({calculated_relative_path}/books/anthropocene/Molecular%20Red.epub)
+1️⃣ [Molecular Red.epub](/Users/nfrota/Documents/personal%20library/books/anthropocene/Molecular%20Red.epub)
 
     gradients drive morphogenesis matter
 
-2️⃣ [A Thousand Plateaus.epub]({calculated_relative_path}/books/anthropocene/A%20Thousand%20Plateaus.epub)
+2️⃣ [A Thousand Plateaus.epub](/Users/nfrota/Documents/personal%20library/books/anthropocene/A%20Thousand%20Plateaus.epub)
 
     intensive differences create forms
 ```
-
-(Replace `{calculated_relative_path}` with actual workspace-relative path from Step 1-3 above)
 
 ---
 
 ### 🚧 Final: Citation Format (CRITICAL)
 
 - **MUST get exact filename from `metadata.json`** before creating citation
-- Wrong filename = broken link = no pill in VS Code
+- Wrong filename = broken link = n
+  o pill in VS Code
 - The metadata.json MUST contain exact filenames or absolute paths
 
 **Path calculation:**
@@ -286,13 +285,10 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
   1.  Exact `filename` for each book (e.g., `"Debt - David Graeber.epub"`)
   2.  `library_path` field (e.g., `"/Users/nfrota/Documents/personal library"`)
   3.  Topic `folder_path` (e.g., `"AI/theory"` or `"system_theory"`)
-- **Step 2:** Get current workspace path from environment
-- **Step 3:** Calculate relative path from workspace to library:
-  - Use Python: `os.path.relpath(library_path, workspace_path)`
-  - Example from nonlinear workspace: `../personal library/`
-  - Example from personal library workspace: `./`
-- **Step 4:** Construct final link: `{relative_path}/books/{folder_path}/{filename}`
-- **Step 5:** URL-encode spaces and special characters (`%20`, `%3A`, `%27`, etc.)
+- **Step 2:** Construct absolute path: `{library_path}/books/{folder_path}/{filename}`
+- **Step 3:** URL-encode spaces and special characters (`%20`, `%3A`, `%27`, etc.)
+
+**CRITICAL:** Use **absolute paths**, not relative. Relative paths don't form clickable pills in VS Code.
 
 2. **Search query format**: Indented plain text (4 spaces)
    - EXACTLY 4 consecutive words from the chunk
@@ -302,11 +298,11 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
 
 ## Step 5 — Citation Format (CRITICAL)
 
-**File path format**: Markdown link with URL-encoded spaces
+**File path format**: Markdown link with URL-encoded absolute path
 
-- Format: `[Book Title.epub]({relative_path}/books/{folder_path}/Book%20Title.epub)`
+- Format: `[Book Title.epub]({absolute_path})`
 - Display text: Book title WITH .epub extension
-- Link URL: Workspace-relative path WITH .epub
+- Link URL: **Absolute path** from `library_path` (NOT relative)
 - **MUST use URL encoding**: spaces as `%20`, `:` as `%3A`, `'` as `%27`, etc.
 
 **Search snippet format**: Indented plain text (4 spaces)
@@ -322,21 +318,15 @@ According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to De
    - Exact `filename` for the book
    - `folder_path` from the topic entry (e.g., `"AI/theory"` or `"product architecture"`)
    - `library_path` (e.g., `"/Users/nfrota/Documents/personal library"`)
-2. Get current workspace path (e.g., `/Users/nfrota/Documents/nonlinear`)
-3. Calculate relative path: `os.path.relpath(library_path, workspace_path)`
-   - From nonlinear: `../personal library`
-   - From personal library: `.`
-4. Construct: `{relative_path}/books/{folder_path}/{filename}`
-5. URL-encode: spaces→`%20`, etc.
+2. Construct absolute path: `{library_path}/books/{folder_path}/{filename}`
+3. URL-encode: spaces→`%20`, etc.
 
 **Example:**
 
-- Current workspace: `/Users/nfrota/Documents/nonlinear`
 - Library path: `/Users/nfrota/Documents/personal library`
-- Relative: `../personal library`
 - Topic folder: `AI/theory`
 - Filename: `Superintelligence.epub`
-- Result: `../personal%20library/books/AI/theory/Superintelligence.epub`
+- Result: `/Users/nfrota/Documents/personal%20library/books/AI/theory/Superintelligence.epub`
 
 **Never:**
 
