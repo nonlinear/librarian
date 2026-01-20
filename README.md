@@ -19,17 +19,17 @@
 
 ---
 
-> **Latest Release:**
+> **Latest Epic:**
 >
 > - [v0.2.6 Partitioning Bug Fix](engine/docs/CHANGELOG.md#v026-partitioning-bug-fix--library-cleanup--jan-20-2026) ✅ (Jan 20, 2026)
 > - {a descirption not a list, well make it on roadmap and use it}
 > - [View full changelog](engine/docs/CHANGELOG.md)
 
-> **(Probably) Next Release:**
+> **(Probably) Next Epic:**
 >
 > - [v0.3 Delta Indexing](engine/docs/ROADMAP.md#epic-v03-delta-indexing--in-progress)
 > - {a descirption not a list, well make it on roadmap and use it}
-> - [View roadmap](engine/docs/ROADMAP.md) for planned features
+> - [View roadmap](engine/docs/ROADMAP.md)
 
 > 👷 **Wanna collaborate?** Join [Personal Library signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 
