@@ -1,15 +1,12 @@
 # Personal Library MCP - Changelog
 
-> Completed features and version history
-
 > 🤖
 >
-> [CHANGELOG](CHANGELOG.md) - What we did
-> [ROADMAP](ROADMAP.md) - What we wanna do
-> [CONTRIBUTING](../../.github/CONTRIBUTING.md) - How we do it
-> [CHECKS](CHECKS.md) - What we accept
->
-> [/whatsup](../../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+> - [CHANGELOG](CHANGELOG.md) - What we did
+> - [ROADMAP](ROADMAP.md) - What we wanna do
+> - [CONTRIBUTING](../../.github/CONTRIBUTING.md) - How we do it
+> - [CHECKS](CHECKS.md) - What we accept
+> - [/whatsup](../../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
 > 🤖
 

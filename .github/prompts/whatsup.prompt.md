@@ -105,6 +105,25 @@ cat README.md | head -50
 - Keep exact same format and descriptions
 - This ensures consistency across the project
 
+**🚨 CRITICAL: Verify navigation blocks in all status files**
+
+Before proceeding, check if navigation blocks in status files match README:
+
+```bash
+# Compare navigation blocks
+grep -A 10 "^> 🤖" README.md
+grep -A 10 "^> 🤖" engine/docs/CHANGELOG.md
+grep -A 10 "^> 🤖" engine/docs/ROADMAP.md
+grep -A 10 "^> 🤖" .github/CONTRIBUTING.md
+grep -A 10 "^> 🤖" engine/docs/CHECKS.md
+```
+
+**If mismatch found:**
+
+- ✅ **Auto-fix:** Update all status files to match README format
+- ✅ Adjust paths relative to each file's location
+- ✅ Keep exact same order and descriptions as README
+
 **If README doesn't have navigation block:**
 
 - ❌ **STOP:** Ask user "Where are your status files? (e.g., /docs/, /engine/docs/, root)"

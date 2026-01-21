@@ -4,12 +4,11 @@
 
 > 🤖
 >
-> [CHANGELOG](../engine/docs/CHANGELOG.md) - What we did
-> [ROADMAP](../engine/docs/ROADMAP.md) - What we wanna do
-> [CONTRIBUTING](.github/CONTRIBUTING.md) - How we do it
-> [CHECKS](../engine/docs/CHECKS.md) - What we accept
->
-> [/whatsup](prompts/whatsup.prompt.md) - The prompt that keeps us sane
+> - [CHANGELOG](../engine/docs/CHANGELOG.md) - What we did
+> - [ROADMAP](../engine/docs/ROADMAP.md) - What we wanna do
+> - [CONTRIBUTING](CONTRIBUTING.md) - How we do it
+> - [CHECKS](../engine/docs/CHECKS.md) - What we accept
+> - [/whatsup](prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
 > 🤖
 
