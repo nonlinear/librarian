@@ -1,8 +1,12 @@
 # Personal Library MCP - Changelog
 
+---
+
+## v0.3.1
+
 ### Epic-per-branch workflow
 
-[commit](https://github.com/nonlinear/personal-library/commit/3c201e47b)
+[commit](https://github.com/nonlinear/personal-library/commit/999717af9c9932299e690580c5bba5b3c201e47b)
 
 Branch-based development for each roadmap epic.
 
@@ -15,22 +19,26 @@ Branch-based development for each roadmap epic.
 - [x] Document branch-based development in contributing guide
 - **Note:** Current workflow is direct commits to `main` (works for now)
 
-## v0.3
+---
 
-[commit](https://github.com/nonlinear/personal-library/commit/caf6d7fa7)
+## v0.3.0
 
 ### Meta-Workflow Infrastructure
+
+[commit](https://github.com/nonlinear/personal-library/commit/a5b5d23a6621da8fd51647c0b6135e2caf6d7fa7)
 
 Established workflow infrastructure for epic-based development
 
 ✅ Always copy navigation block from README to status files
 🗒️ Originally planned as "Delta Indexing" but pivoted to meta-workflow. Delta automation deferred.
 
+---
+
 ## v0.2.6
 
-[commit](https://github.com/nonlinear/personal-library/commit/709410687)
-
 ### Library cleanup
+
+[commit](https://github.com/nonlinear/personal-library/commit/8c8c8fa1853e8e26b02ec5938b2d7b8709410687)
 
 fixing subtopics as flat ones
 
@@ -44,11 +52,13 @@ fixing subtopics as flat ones
 
 **🔧 Migration:** None - just a bug fix
 
+---
+
 ## v0.2.5
 
-[commit](https://github.com/nonlinear/personal-library/commit/75a26cd9e)
-
 ### Path Resolution & Platform-Agnostic Prompt
+
+[commit](https://github.com/nonlinear/personal-library/commit/bc656194dd3da44fc84212481d82c0d75a26cd9e)
 
 **👥 Who needs to know:** Users with subtopics (AI/theory) or folder names with spaces (product architecture)
 
@@ -78,11 +88,13 @@ fixing subtopics as flat ones
 
 **Example fixes:**
 
+---
+
 ## v0.2.4
 
-[commit](https://github.com/nonlinear/personal-library/commit/3b3aa17a0)
-
 ### Critical Chunking Bug Fix
+
+[commit](https://github.com/nonlinear/personal-library/commit/7008ee14412eb840a25e2d90bd7e0ad3b3aa17a0)
 
 **👥 Who needs to know:** ALL USERS - this fix improves search quality 400x
 
@@ -108,11 +120,13 @@ fixing subtopics as flat ones
 
 **Discovered during:** NAS books reorganization + chunking diagnostics
 
+---
+
 ## v0.2.3
 
-[commit](https://github.com/nonlinear/personal-library/commit/cd4d46db8)
-
 ### Critical Bug Fixes
+
+[commit](https://github.com/nonlinear/personal-library/commit/005f7544c06b9f06ca59809edea6f4334bc3405e)
 
 **👥 Who needs to know:**
 
@@ -157,11 +171,13 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 **Impact:** Correct indexing for all topic types, dramatically improved search quality
 
+---
+
 ## v0.2.2
 
-[commit](https://github.com/nonlinear/personal-library/commit/34bc3405e)
-
 ### Failed Books Tracking
+
+[commit](https://github.com/nonlinear/personal-library/commit/3b8ebc82f3cfa3a8f91a18e6c8c8578cd4d46db8)
 
 **👥 Who needs to know:**
 
@@ -175,11 +191,13 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 **🔧 Migration:** None (automatic on next index run)
 
+---
+
 ## v0.2.1
 
-[commit](https://github.com/nonlinear/personal-library/commit/c671038c7)
-
 ### Infrastructure Improvements
+
+[commit](https://github.com/nonlinear/personal-library/commit/242b33733cc31b0a03e786e6f1ecda4c671038c7)
 
 **👥 Who needs to know:**
 
@@ -193,11 +211,13 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 **🔧 Migration:** None (documentation/tooling only)
 
-## v0.2
+---
 
-[commit](https://github.com/nonlinear/personal-library/commit/517420bf9)
+## v0.2.0
 
 ### PDF Support + Integrated Reindexing
+
+[commit](https://github.com/nonlinear/personal-library/commit/517420bf9b22bcb7d2b26186cd0ab251eb120e2)
 
 **👥 Who needs to know:**
 
@@ -225,11 +245,13 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 **🔧 Migration:** None (backward compatible)
 
-## v0.1
+---
 
-[commit](https://github.com/nonlinear/personal-library/commit/418d98ef7)
+## v0.1.0
 
 ### Database Optimization
+
+[commit](https://github.com/nonlinear/personal-library/commit/418d98ef7a95fb0552b2486954f71367a9a2aab)
 
 **👥 Who needs to know:**
 
@@ -252,7 +274,9 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 **Impact:** Mixed EPUB/PDF libraries now supported, 23× more efficient reindexing
 
-### Foundation
+---
+
+## v0.0.0
 
 ### Initial Release
 
@@ -263,6 +287,8 @@ python3.11 scripts/reindex_topic.py <topic-name>
 - [x] Fully offline operation
 
 **Impact:** Full local MCP infrastructure for book queries
+
+---
 
 > 🤖
 >

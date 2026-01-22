@@ -1,38 +1,6 @@
 # Personal Library MCP - Roadmap
 
-## v0.2
-
-### Delta indexing
-
-More optimized reindexing
-
-- [ ] Define logic: how system knows there is a mismatch?
-- [ ] once mismatch is detected, thats the delta
-- [ ] retriaval by book too ,not just topic
-- [ ] update metadata (only delta)
-- [ ] update FAISS index (only delta)
-- [ ] redo FAILED as REPORT, more complete
-
-## v0.3
-
-### Automatic change detection
-
-Auto-detection of books folder for delta reindexing
-
-- [ ] **Filesystem watcher (`watchdog`)**
-  - [ ] Monitor `books/` for file changes
-  - [ ] Auto-regenerate `metadata.json`
-  - [ ] Auto-reindex affected topics (uses Phase 2 delta logic)
-  - [ ] Background indexing with progress indicator
-  - [ ] Debounce mechanism
-- [x] **PDF support** ✅ (Jan 18, 2026)
-  - [x] PDF text extraction (PyMuPDF/fitz)
-  - [x] PDF embedding pipeline (PyMuPDFReader)
-  - [x] Update metadata schema
-  - [x] Test mixed EPUB/PDF libraries (computer vision: 4 PDFs, 2 EPUBs)
-  - ⚠️ MuPDF ICC profile warnings (cosmetic, don't affect indexing)
-
-## v0.4
+## v0.4.0
 
 ### Hygiene
 
@@ -49,7 +17,7 @@ Repository structure and code hygiene improvements for long-term maintainability
 - [ ] Add stability check for hidden object files
       🗒️ Previous attempts failed due to path/test breakage—requires careful, coordinated update.
 
-## v0.5
+## v0.5.0
 
 ### User testing
 
@@ -60,7 +28,7 @@ Test repo from the start, change docs or setup to comply.
 - [ ] Add setup scripts/checks for new users
 - [ ] Collect feedback from first-time users
 
-## v0.6
+## v0.6.0
 
 ### Better feedback loop
 
@@ -75,7 +43,7 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
 - [ ] Support direct book queries
 - [ ] Extension configuration
 
-## v0.7
+## v0.7.0
 
 ### FAILED to REPORT
 
@@ -93,7 +61,7 @@ Visibility into indexing health and automatic detection of problems
 - [ ] Store metrics in metadata.json
       **Current issue:** Only ~0.7 chunks/book (137 chunks from 197 books). Expected: 100+ chunks/book.
 
-## v0.8
+## v0.8.0
 
 ### Granular Error Handling
 
@@ -110,7 +78,7 @@ Implement granular error reporting for MCP research pipeline
 - [ ] On "success but empty" (no results for topic/book), clearly inform user and suggest similar concepts or related topics/books as follow-up
 - [ ] Document all error types and user-facing messages
 
-## v0.9
+## v0.9.0
 
 ### Multi-User Support
 
@@ -118,7 +86,7 @@ Add support for multi-user environments (permissions, access control)
 
 - [ ] Permission/access error handling
 
-## v0.10
+## v0.10.0
 
 ### Future Ideas
 
