@@ -1,3 +1,26 @@
+### v0.9
+
+#### ⏳ Granular Error Handling
+
+- [ ] Implement granular error reporting for MCP research pipeline
+  - [ ] Python not installed or wrong version
+  - [ ] research.py missing or not executable
+  - [ ] metadata.json missing or corrupted
+  - [ ] faiss.index missing or corrupted
+  - [ ] Model not downloaded
+  - [ ] MCP internal exception (traceback)
+  - [ ] Timeout (query takes too long / max time exceeded)
+  - [ ] Disk full or IO error
+- [ ] On "success but empty" (no results for topic/book), clearly inform user and suggest similar concepts or related topics/books as follow-up
+- [ ] Document all error types and user-facing messages
+
+### v0.10
+
+#### ⏳ Multi-User Support
+
+- [ ] Add support for multi-user environments (permissions, access control)
+- [ ] Permission/access error handling
+
 ### v0.x
 
 #### ⏳ Hygiene & Folder Refactor
@@ -122,6 +145,7 @@ A way for vscode AI tab to autocomplete list existing topics and books for more 
   - Parse `#` references before sending to MCP
   - Convert to proper topic/book filters
   - Example: `/research in #cybersecurity_applied what is SQL injection?`
+- [ ] **Support direct book queries** (e.g., --book argument in research.py and prompt parsing)
 - [ ] **Extension configuration**
   - Setting: `personalLibrary.enableAutocomplete` (default: true)
   - Setting: `personalLibrary.metadataPath` (auto-detected from workspace)
