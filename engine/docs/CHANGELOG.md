@@ -1,22 +1,8 @@
 # Personal Library MCP - Changelog
 
-# Epic Syntax Reference
-
-Each roadmap epic uses the following format:
-
-## v0.x
-
-### EPIC TITLE
-
-Short description
-
-- [ ] Task 1
-- [ ] Task 2
-      ...etc
-
-## v0.3b
-
 ### Epic-per-branch workflow
+
+[commit](https://github.com/nonlinear/personal-library/commit/3c201e47b)
 
 Branch-based development for each roadmap epic.
 
@@ -31,7 +17,9 @@ Branch-based development for each roadmap epic.
 
 ## v0.3
 
-### ✅ Meta-Workflow Infrastructure
+[commit](https://github.com/nonlinear/personal-library/commit/caf6d7fa7)
+
+### Meta-Workflow Infrastructure
 
 Established workflow infrastructure for epic-based development
 
@@ -40,7 +28,9 @@ Established workflow infrastructure for epic-based development
 
 ## v0.2.6
 
-### ✅ Library cleanup
+[commit](https://github.com/nonlinear/personal-library/commit/709410687)
+
+### Library cleanup
 
 fixing subtopics as flat ones
 
@@ -56,7 +46,9 @@ fixing subtopics as flat ones
 
 ## v0.2.5
 
-### ✅ Path Resolution & Platform-Agnostic Prompt
+[commit](https://github.com/nonlinear/personal-library/commit/75a26cd9e)
+
+### Path Resolution & Platform-Agnostic Prompt
 
 **👥 Who needs to know:** Users with subtopics (AI/theory) or folder names with spaces (product architecture)
 
@@ -88,7 +80,9 @@ fixing subtopics as flat ones
 
 ## v0.2.4
 
-### ✅ Critical Chunking Bug Fix
+[commit](https://github.com/nonlinear/personal-library/commit/3b3aa17a0)
+
+### Critical Chunking Bug Fix
 
 **👥 Who needs to know:** ALL USERS - this fix improves search quality 400x
 
@@ -116,7 +110,9 @@ fixing subtopics as flat ones
 
 ## v0.2.3
 
-### ✅ Critical Bug Fixes
+[commit](https://github.com/nonlinear/personal-library/commit/cd4d46db8)
+
+### Critical Bug Fixes
 
 **👥 Who needs to know:**
 
@@ -163,7 +159,9 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 ## v0.2.2
 
-### ✅ Failed Books Tracking
+[commit](https://github.com/nonlinear/personal-library/commit/34bc3405e)
+
+### Failed Books Tracking
 
 **👥 Who needs to know:**
 
@@ -179,7 +177,9 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 ## v0.2.1
 
-### ✅ Infrastructure Improvements
+[commit](https://github.com/nonlinear/personal-library/commit/c671038c7)
+
+### Infrastructure Improvements
 
 **👥 Who needs to know:**
 
@@ -195,7 +195,9 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 ## v0.2
 
-### ✅ PDF Support + Integrated Reindexing
+[commit](https://github.com/nonlinear/personal-library/commit/517420bf9)
+
+### PDF Support + Integrated Reindexing
 
 **👥 Who needs to know:**
 
@@ -225,7 +227,9 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 ## v0.1
 
-### ✅ Database Optimization
+[commit](https://github.com/nonlinear/personal-library/commit/418d98ef7)
+
+### Database Optimization
 
 **👥 Who needs to know:**
 
@@ -250,7 +254,7 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 ### Foundation
 
-### ✅ Initial Release
+### Initial Release
 
 **Core infrastructure for Personal Library MCP**
 
