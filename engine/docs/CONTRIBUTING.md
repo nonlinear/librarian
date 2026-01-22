@@ -1,14 +1,12 @@
 # Contributing Guide
 
-> 🤖 This file defines the git workflow for feature development. Reusable across projects.
-
 > 🤖
 >
-> - [CHANGELOG](../engine/docs/CHANGELOG.md) - What we did
-> - [ROADMAP](../engine/docs/ROADMAP.md) - What we wanna do
-> - [CONTRIBUTING](CONTRIBUTING.md) - How we do it
-> - [CHECKS](../engine/docs/CHECKS.md) - What we accept
-> - [/whatsup](prompts/whatsup.prompt.md) - The prompt that keeps us sane
+> - [CHANGELOG](CHANGELOG.md) — What we did
+> - [ROADMAP](ROADMAP.md) — What we wanna do
+> - [CONTRIBUTING](CONTRIBUTING.md) — How we do it
+> - [CHECKS](CHECKS.md) — What we accept
+> - [/whatsup](../../.github/prompts/whatsup.prompt.md) — The prompt that keeps us sane
 >
 > 🤖
 
@@ -26,7 +24,7 @@ v0.5-automation (feature branch)
 
 ### Branch Naming
 
-**Format:** `v{major}.{minor}-{epic-name}`
+## Status Files Index
 
 **Examples:**
 
@@ -38,11 +36,13 @@ v0.5-automation (feature branch)
 
 1. **Create branch from main:**
 
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout -b v0.3-delta-indexing
-   ```
+## Epic/Branch Workflow ("Epic Dance")
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b v0.3-delta-indexing
+```
 
 2. **Link branch in ROADMAP.md:**
 
@@ -300,16 +300,7 @@ refactor: consolidate storage to books/ only
 4. **Move to CHANGELOG** - if epic complete
 5. **Run all tests** - ensure nothing broke
 
----
-
 ## Questions?
-
-- 📖 See [ROADMAP.md](../engine/docs/ROADMAP.md) for current epics
-- 📜 See [CHANGELOG.md](../engine/docs/CHANGELOG.md) for completed features
-- ✅ See [CHECKS.md](../engine/docs/CHECKS.md) for stability requirements
-- 🔄 Use [/whatsup](prompts/whatsup.prompt.md) before every commit
-
----
 
 **Last updated:** 2026-01-20
 **Version:** 1.0 (Initial workflow definition)

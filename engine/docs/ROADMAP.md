@@ -1,3 +1,18 @@
+### v0.x
+
+#### ⏳ Hygiene & Folder Refactor
+
+Repository structure and code hygiene improvements for long-term maintainability.
+
+- [ ] Move all folders except books/ into engine/
+- [ ] Update all scripts, tests, and documentation to use new paths
+- [ ] Ensure all stability checks and workflows pass after refactor
+- [ ] Document migration steps and any breaking changes
+
+🗒️ Previous attempts failed due to path/test breakage—requires careful, coordinated update.
+
+---
+
 # Personal Library MCP - Roadmap
 
 > 🤖
@@ -9,6 +24,13 @@
 > - [/whatsup](../../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
 >
 > 🤖
+>
+> - [README](./README.md) - Our project
+> - [CHANGELOG](./engine/docs/CHANGELOG.md) — What we did
+> - [ROADMAP](./engine/docs/ROADMAP.md) — What we wanna do
+> - [CONTRIBUTING](./engine/docs/CONTRIBUTING.md) — How we do it
+> - [CHECKS](./engine/docs/CHECKS.md) — What we accept
+> - [/whatsup](./.github/prompts/whatsup.prompt.md) — The prompt that keeps us sane
 
 ---
 

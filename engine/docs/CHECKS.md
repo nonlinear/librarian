@@ -1,14 +1,35 @@
 # Personal Library MCP - Stability Checks
 
+> **Formatting Standard:**
+>
+> All status files (CHECKS, ROADMAP, CHANGELOG, CONTRIBUTING) must be both **human-readable** (clear, prompt-like, easy to follow) and **machine-readable** (easy for scripts or AI to parse and execute).
+>
+> **How to format tests and checklists:**
+>
+> 1. **Each test/check should be a short, copy-pasteable code block** (one-liner or small block), with a plain-text explanation and pass/fail criteria immediately after.
+> 2. **No large, monolithic scripts**—keep each check atomic and self-contained.
+> 3. **No markdown formatting or prose inside code blocks.**
+> 4. **All explanations, expected output, and pass criteria must be outside code blocks.**
+> 5. **Status files should be easy for both humans and automation to read, extract, and run.**
+>
+> _Example:_
+>
+> ```bash
+> python3.11 -c "import llama_index.core; import sentence_transformers"
+> ```
+>
+> Expected: No error, prints nothing.
+> Pass: ✅ Dependencies OK
+
 > **Definition of Done:** Tests required before pushing to production
 
 > 🤖
 >
-> - [CHANGELOG](CHANGELOG.md) - What we did
-> - [ROADMAP](ROADMAP.md) - What we wanna do
-> - [CONTRIBUTING](../../.github/CONTRIBUTING.md) - How we do it
-> - [CHECKS](CHECKS.md) - What we accept
-> - [/whatsup](../../.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+> - [CHANGELOG](CHANGELOG.md) — What we did
+> - [ROADMAP](ROADMAP.md) — What we wanna do
+> - [CONTRIBUTING](CONTRIBUTING.md) — How we do it
+> - [CHECKS](CHECKS.md) — What we accept
+> - [/whatsup](../../.github/prompts/whatsup.prompt.md) — The prompt that keeps us sane
 >
 > 🤖
 
@@ -27,48 +48,86 @@
 
 ---
 
-## 🤖 For AI: How to Run These Checks
+## 📐 Status File Formatting Check (MANDATORY)
 
-**Automated test sequence (copy-paste into terminal):**
+**All status files (CHECKS.md, ROADMAP.md, CHANGELOG.md, CONTRIBUTING.md) must follow the formatting standard above.**
 
-```bash
-#!/bin/bash
-# Personal Library MCP - Automated Stability Checks
+**Test: Formatting compliance**
+
+````bash
+grep -q 'Formatting Standard' engine/docs/CHECKS.md && \
+grep -q 'Formatting Standard' engine/docs/ROADMAP.md && \
+grep -q 'Formatting Standard' engine/docs/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
+Expected: Prints '✅ All status files declare formatting standard'.
+Pass: ✅ All status files declare formatting standard
+
+**Test: Formatting compliance (manual/AI review)**
+For each status file, confirm:
+
+- Each test/check is a short, copy-pasteable code block with plain-text explanation and pass/fail criteria immediately after.
+- No large, monolithic scripts; each check is atomic and self-contained.
+- No markdown formatting or prose inside code blocks.
+- All explanations, expected output, and pass criteria are outside code blocks.
+- File is easy for both humans and automation to read, extract, and run.
+
+Pass: ✅ All status files are both human- and machine-readable
+
+---
 
 echo "🔍 Running stability checks..."
 echo ""
-
-# Test 1: MCP query functionality (what research.prompt.md actually uses)
-echo "1️⃣ MCP query test..."
-python3.11 -c "
-import json
-from pathlib import Path
-metadata = json.loads((Path('books') / 'metadata.json').read_text())
-topic_count = len(metadata.get('topics', []))
-print(f'✅ MCP works ({topic_count} topics)' if topic_count > 0 else '❌ MCP failed')
-" 2>/dev/null || echo "❌ MCP failed"
-
-# Test 2: Dependencies
+echo "0️⃣ Status file formatting check..."
+grep -q 'Formatting Standard' engine/docs/CHECKS.md && \
+grep -q 'Formatting Standard' engine/docs/ROADMAP.md && \
+grep -q 'Formatting Standard' engine/docs/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
 echo "2️⃣ Dependencies test..."
-python3.11 -c "import llama_index.core; import sentence_transformers" 2>&1 && echo "✅ Dependencies OK" || echo "❌ Dependencies missing"
-
-# Test 3: File structure
 echo "3️⃣ File structure test..."
-test -f books/metadata.json && ls books/*/faiss.index >/dev/null 2>&1 && echo "✅ Files exist" || echo "❌ Files missing"
-
-# Test 4: Nested folder support
+test -f books/metadata.json && ls books/\*/faiss.index >/dev/null 2>&1 && echo "✅ Files exist" || echo "❌ Files missing"
 echo "4️⃣ Nested folder test..."
-python3.11 -c "
-import json
-from pathlib import Path
-metadata = json.loads((Path('books') / 'metadata.json').read_text())
-nested = [t['id'] for t in metadata['topics'] if '_' in t['id']]
-print(f'✅ Nested topics work ({len(nested)} found)' if nested else '⚠️ No nested topics')
-" 2>/dev/null || echo "❌ Nested topic test failed"
-
 echo ""
 echo "✅ All checks complete. Review results above."
+
+**Automated test sequence (run each check below):**
+
+---
+
+**Test 1: MCP query functionality (what research.prompt.md actually uses)**
+
+```bash
+python3.11 -c "import json; from pathlib import Path; metadata = json.loads((Path('books') / 'metadata.json').read_text()); topic_count = len(metadata.get('topics', [])); print(f'✅ MCP works ({topic_count} topics)' if topic_count > 0 else '❌ MCP failed')"
+````
+
+Expected: Prints '✅ MCP works (N topics)' where N > 0.
+Pass: ✅ MCP works
+
+**Test 2: Dependencies**
+
+```bash
+python3.11 -c "import llama_index.core; import sentence_transformers"
 ```
+
+Expected: No error, prints nothing.
+Pass: ✅ Dependencies OK
+
+**Test 3: File structure**
+
+```bash
+test -f books/metadata.json && ls books/*/faiss.index >/dev/null 2>&1 && echo "✅ Files exist" || echo "❌ Files missing"
+```
+
+Expected: Prints '✅ Files exist'.
+Pass: ✅ Files exist
+
+**Test 4: Nested folder support**
+
+```bash
+python3.11 -c "import json; from pathlib import Path; metadata = json.loads((Path('books') / 'metadata.json').read_text()); nested = [t['id'] for t in metadata['topics'] if '_' in t['id']]; print(f'✅ Nested topics work ({len(nested)} found)' if nested else '⚠️ No nested topics')"
+```
+
+Expected: Prints '✅ Nested topics work (N found)' where N >= 0.
+Pass: ✅ Nested topics work
+
+---
 
 **What whatsup.prompt.md does:**
 

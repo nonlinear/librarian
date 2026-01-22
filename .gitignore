@@ -10,6 +10,13 @@ books/metadata.json
 # Failed books log (contains PII)
 engine/docs/FAILED.md
 
+# VS Code settings
+.vscode/
+
+# GitHub workflows/scripts (except research prompt)
+.github/
+!.github/prompts/research.prompt.md
+
 # Storage (deprecated - now inside books/)
 storage/
 
