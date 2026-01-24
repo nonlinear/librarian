@@ -10,10 +10,17 @@
       "**/*.pkl": true,
       "**/*.index": true,
       "books/metadata.json": true,
+      "books/**/*.pkl": true,
+      "books/**/*.index": true,
       "models/": true,
       "**/__pycache__": true,
       "**/.DS_Store": true,
       "engine/docs/FAILED.md": true
+    },
+    "files.watcherExclude": {
+      "**/*.pkl": true,
+      "**/*.index": true,
+      "books/**/*.epub": true
     },
     "search.exclude": {
       "**/*.pkl": true,
@@ -26,45 +33,5 @@
     {
       "path": "./"
     }
-  ],
-  "tasks": {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "📚 Update Library (Full)",
-        "type": "shell",
-        "command": "/opt/homebrew/bin/python3.11 scripts/generate_metadata.py && /opt/homebrew/bin/python3.11 scripts/indexer.py",
-        "group": "build",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        },
-        "problemMatcher": []
-      },
-      {
-        "label": "🗺️ Regenerate Metadata Only",
-        "type": "shell",
-        "command": "/opt/homebrew/bin/python3.11",
-        "args": ["scripts/generate_metadata.py"],
-        "group": "build",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        },
-        "problemMatcher": []
-      },
-      {
-        "label": "🔍 Reindex Books Only",
-        "type": "shell",
-        "command": "/opt/homebrew/bin/python3.11",
-        "args": ["scripts/indexer.py"],
-        "group": "build",
-        "presentation": {
-          "reveal": "always",
-          "panel": "shared"
-        },
-        "problemMatcher": []
-      }
-    ]
-  }
+  ]
 }

@@ -54,6 +54,51 @@
 >
 > 🤖
 
+---
+
+## 🚨 About This Project
+
+**This is a personal library management system - NOT a collaborative repository.**
+
+Each person runs their own instance with their own books. Nothing syncs to GitHub except code/scripts.
+
+**Want to contribute code?** Contact me first to discuss environment setup - don't submit PRs directly.
+
+**Just want to use it?** Fork it, clone it, use it. Your books/data stay 100% local.
+
+### Setup After Clone
+
+**1. Verify `.git/info/exclude` exists:**
+
+```bash
+cat .git/info/exclude
+```
+
+Expected content:
+
+```
+# BYOB: Bring Your Own Books/Models - Local files (don't sync to GitHub)
+books/**/*.epub
+books/**/*.pkl
+books/**/*.index
+books/metadata.json
+models/
+```
+
+**Why:** Keeps your library private + enables autocomplete for book links. See [epic-notes/v0.4.0.md](epic-notes/v0.4.0.md#autocomplete-investigation) for technical details.
+
+**2. Add your books:**
+
+```bash
+# Organize books from Downloads
+python3.11 .github/scripts/organize_books.py
+
+# Generate metadata + indices
+python3.11 scripts/indexer.py
+```
+
+---
+
 ## Branch Strategy
 
 **One branch per epic:**
@@ -104,6 +149,7 @@ grep -r "keyword" engine/docs/epic-notes/
 - **Deferred features:** Features intentionally postponed with reasoning
 
 **When to check:**
+
 - Starting any new epic (especially similar features)
 - Encountering unexpected behavior
 - Considering a feature that "feels like it was tried before"
@@ -175,21 +221,45 @@ Replace ⏳ with 🚧 and add branch link:
 
 ### Step 5: Create Epic Notes
 
-**File:** `engine/docs/epic-notes/v0.X.0.md`
+**Structure (v0.4.0 and earlier):**
+
+```
+engine/docs/epic-notes/v0.X.0.md  # Single file for all notes
+```
+
+**Structure (v0.5.0+):**
+
+```
+engine/docs/epic-notes/v0.X.0/
+  ├── MAIN.md                      # Primary epic documentation
+  ├── pill-validation.md           # Specific finding/experiment
+  └── autocomplete-fix.md          # Another finding
+```
 
 Add notes link to ROADMAP on same line as branch:
 
 ```markdown
 ### [🚧](branch-link) Source Granularity | [notes](epic-notes/v0.4.0.md)
+
+# OR for folder structure:
+
+### [🚧](branch-link) Source Granularity | [notes](epic-notes/v0.4.0/)
 ```
 
-**Notes file purpose:**
+**Notes purpose:**
 
-- Session summaries
-- Experiments
-- Testing results
-- Implementation discoveries
-- DO NOT create new files for each experiment - update notes
+- Session summaries (in MAIN.md)
+- Experiments and discoveries (separate files in v0.5.0+)
+- Testing results and root cause analysis
+- Implementation blockers and workarounds
+
+**When to use folder structure:**
+
+- Epic has multiple distinct findings (>3)
+- Single file exceeds ~500 lines
+- Findings are independent enough to reference separately
+
+**Migration:** When converting v0.X.0.md → v0.X.0/, rename to MAIN.md and extract major findings to separate files.
 
 ### Step 6: Push Main Changes
 

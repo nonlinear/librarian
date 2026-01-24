@@ -1,11 +1,6 @@
-# Books (BYOB: Bring Your Own Books)
-books/**
-!books/.gitkeep
-# Keep EPUBs but ignore indices/metadata inside books/
-!books/**/*.epub
+# Books metadata/indices (EPUBs ignored in .git/info/exclude)
 books/**/*.pkl
 books/**/*.index
-books/metadata.json
 
 # Failed books log (contains PII)
 engine/docs/FAILED.md
@@ -20,9 +15,6 @@ engine/docs/FAILED.md
 
 # Storage (deprecated - now inside books/)
 storage/
-
-# Models (local embedding models)
-models/
 
 # Environment
 .env
