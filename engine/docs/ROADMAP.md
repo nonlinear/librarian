@@ -2,7 +2,7 @@
 
 ## v0.4.0
 
-### Source Granularity
+### [🚧](https://github.com/nonlinear/personal-library/tree/v0.4.0) Source Granularity | [notes](epic-notes/v0.4.0.md)
 
 ⏳ Add page/chapter granularity to citations for direct navigation in PDFs and EPUBs.
 
