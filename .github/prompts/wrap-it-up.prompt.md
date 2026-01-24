@@ -207,9 +207,22 @@ https://github.com/nonlinear/personal-library
 - Books added: X new EPUBs/PDFs
 - Topics expanded: [topic names]
 - Total library: ~XXX books
+
+🧠 New Gaps Found (if any):
+1. gap-name (STATUS)
+2. another-gap (STATUS)
 ```
 
 **Note:** Library updates probably won't be announced on social, but good to track growth
+
+**User can respond with:**
+
+```
+post: 1 3
+gap: 2
+```
+
+Agent will draft Mastodon (achievements 1+3) AND create gap file (#2)
 
 **Words of Affirmation** (context-aware):
 
