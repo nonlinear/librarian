@@ -82,47 +82,127 @@ v0.5-automation (feature branch)
 
 ## Epic/Branch Workflow ("Epic Dance")
 
+### Step 1: Groom Epic in ROADMAP (on main)
+
+**Before creating branch:**
+
+1. **Add epic to ROADMAP.md** as next v0.X.0 (top of list)
+2. **Renumber all existing epics** (+1 each)
+3. **Write epic with:**
+   - ⏳ Status indicator (planned, no branch yet)
+   - Problem statement
+   - Solution approach
+   - Task checklist
+4. **Review and refine** tasks (can spend time here)
+
+**Example:**
+
+```markdown
+## v0.4.0
+
+### Source Granularity
+
+⏳ Add page/chapter granularity to citations
+
+**Problem:** Citations require manual Ctrl+F
+**Solution:** PDF `#page=N`, EPUB chapter links
+
+**Tasks:**
+
+- [ ] Test VS Code extensions
+- [ ] Extract page numbers during PDF chunking
+      ...
+```
+
+### Step 2: Name Conversation
+
+**AI conversation title:** `v0.X.0: Epic Title`
+
+Example: `v0.4.0: Source Granularity`
+
+### Step 3: Create Branch
+
 ```bash
 git checkout main
 git pull origin main
-git checkout -b v0.3-delta-indexing
+git checkout -b v0.X.0  # Just version number, no descriptive name
 ```
 
-2. **Link branch in ROADMAP.md:**
+**Branch naming:** `v0.X.0` (no epic name, just version)
 
-   ```markdown
-   ## Epic v0.3: Delta Indexing 🔶 (IN PROGRESS)
+### Step 4: Update ROADMAP with Branch Link
 
-   **Branch:** `v0.3-delta-indexing`
-   ```
+Replace ⏳ with 🚧 and add branch link:
 
-3. **Work on feature with regular commits:**
+```markdown
+## v0.4.0
 
-   ```bash
-   git add .
-   git commit -m "feat: implement change detection"
-   git push origin v0.3-delta-indexing
-   ```
+### [🚧](https://github.com/user/repo/tree/v0.4.0) Source Granularity
+```
 
-4. **Stay current - rebase from main regularly:**
+**Format:** `### [🚧](branch-url) Epic Title`
 
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout v0.3-delta-indexing
-   git rebase main
-   git push --force-with-lease origin v0.3-delta-indexing
-   ```
+### Step 5: Create Epic Notes
 
-   **Why rebase?**
-   - Keeps linear history
-   - Easier to review
-   - Cleaner when merging back to main
+**File:** `engine/docs/epic-notes/v0.X.0.md`
 
-   **When to rebase?**
-   - Daily if main is active
-   - Before creating PR
-   - After major main updates
+Add notes link to ROADMAP on same line as branch:
+
+```markdown
+### [🚧](branch-link) Source Granularity | [notes](epic-notes/v0.4.0.md)
+```
+
+**Notes file purpose:**
+
+- Session summaries
+- Experiments
+- Testing results
+- Implementation discoveries
+- DO NOT create new files for each experiment - update notes
+
+### Step 6: Push Main Changes
+
+```bash
+git checkout main
+git add engine/docs/ROADMAP.md  # Updated with links
+git commit -m "docs: add v0.X.0 epic to roadmap"
+git push origin main
+```
+
+**Typical main changes when starting epic:**
+
+- ROADMAP.md (epic + renumbering + links)
+- Sometimes: prompts (if epic requires new prompt)
+
+### Step 7: Work on Epic (in branch)
+
+```bash
+git checkout v0.X.0
+git add .
+git commit -m "feat: implement feature"
+git push origin v0.X.0
+```
+
+### Step 8: Stay Current - Rebase Regularly
+
+```bash
+git checkout main
+git pull origin main
+git checkout v0.X.0
+git rebase main
+git push --force-with-lease origin v0.X.0
+```
+
+**Why rebase?**
+
+- Keeps linear history
+- Easier to review
+- Cleaner when merging back to main
+
+  **When to rebase?**
+  - Daily if main is active
+  - Before creating PR
+  - After major main updates
 
 5. **Before merging - use `/whatsup`:**
 

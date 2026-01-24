@@ -2,6 +2,37 @@
 
 ## v0.4.0
 
+### Source Granularity
+
+⏳ Add page/chapter granularity to citations for direct navigation in PDFs and EPUBs.
+
+**Problem:** Current citations use text snippets requiring manual Ctrl+F. Users should click and jump directly to exact page/location.
+
+**Solution:**
+
+- PDF citations → `Book.pdf#page=42` (RFC 3778 standard)
+- EPUB citations → chapter/CFI when possible
+- Text snippets as verification fallback
+
+**Tasks:**
+
+- [ ] Test VS Code extensions for PDF/EPUB navigation with anchors
+- [ ] Verify pill validation works with `#page=N` and `#chapter` anchors
+- [ ] 6DF chunking: Extract page number during indexing
+- [ ] EPUB chunking: Extract chapter/section during indexing
+- [ ] Update chunks.json schema to v2.0 (add `page`, `chapter`, `cfi` fields)
+- [ ] Modify research.py output format to include new fields
+- [ ] Update research.prompt.md citation format for clickable links
+- [ ] Handle backward compatibility (old chunks without page/chapter)
+- [ ] Force reindex all topics with new schema
+- [ ] Document VS Code extensions setup (tomoki1207.pdf, cweijan.epub-reader)
+- [ ] Testing & validation checklist
+
+✅ research.prompt.md already hardened with error codes (E001-E013)
+🗒️ Se7 industry standards: PDF uses `#page=N`, EPUB uses CFI or chapter anchors
+
+## v0.5.0
+
 ### Hygiene
 
 Repository structure and code hygiene improvements for long-term maintainability. Includes "Tuck In: Hidden Object Files" epic.
@@ -43,7 +74,7 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
 - [ ] Support direct book queries
 - [ ] Extension configuration
 
-## v0.7.0
+## v0.8.0
 
 ### FAILED to REPORT
 
@@ -61,7 +92,7 @@ Visibility into indexing health and automatic detection of problems
 - [ ] Store metrics in metadata.json
       **Current issue:** Only ~0.7 chunks/book (137 chunks from 197 books). Expected: 100+ chunks/book.
 
-## v0.8.0
+## v0.9.0
 
 ### Granular Error Handling
 
@@ -78,7 +109,7 @@ Implement granular error reporting for MCP research pipeline
 - [ ] On "success but empty" (no results for topic/book), clearly inform user and suggest similar concepts or related topics/books as follow-up
 - [ ] Document all error types and user-facing messages
 
-## v0.9.0
+## v0.10.0
 
 ### Multi-User Support
 
@@ -86,7 +117,7 @@ Add support for multi-user environments (permissions, access control)
 
 - [ ] Permission/access error handling
 
-## v0.10.0
+## v0.11.0
 
 ### Future Ideas
 
