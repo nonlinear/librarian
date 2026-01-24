@@ -82,6 +82,37 @@ v0.5-automation (feature branch)
 
 ## Epic/Branch Workflow ("Epic Dance")
 
+### 🔍 Before Starting New Work: Review Epic Notes
+
+**CRITICAL:** Always check existing epic notes before starting similar work to avoid reinventing the wheel.
+
+```bash
+# List all epic notes
+ls engine/docs/epic-notes/
+
+# Search for relevant keywords
+grep -r "keyword" engine/docs/epic-notes/
+```
+
+**Why epic notes matter:**
+
+- **Discovered blockers:** Previous epics may have hit technical limitations
+  - Example: v0.4.0 found VS Code pill validation breaks with `#` fragments
+- **Tested solutions:** Multiple approaches already tried and documented
+  - Example: v0.4.0 tested 6 different anchor syntaxes (all failed)
+- **Documented workarounds:** Pragmatic solutions when ideal ones don't work
+- **Deferred features:** Features intentionally postponed with reasoning
+
+**When to check:**
+- Starting any new epic (especially similar features)
+- Encountering unexpected behavior
+- Considering a feature that "feels like it was tried before"
+- Planning technical approaches
+
+**Epic notes = knowledge base** - Treat them as first-class documentation, not just session logs.
+
+---
+
 ### Step 1: Groom Epic in ROADMAP (on main)
 
 **Before creating branch:**
