@@ -109,21 +109,18 @@ graph TD
 
 ---
 
-<!-- ---
-
 ## AI Integration
 
 Librarian MCP is **provider-agnostic**. Use your favorite AI provider:
 
-| AI Provider        | Status                                                                                                                                                               |
-| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Terminal**       | ✅ `python3.11 scripts/research.py "your question" --topic ai`                                                                                                       |
+| AI Provider        | Status                                                                                                                                                        |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Terminal**       | ✅ `python3.11 scripts/research.py "your question" --topic ai`                                                                                                |
 | **VS Code**        | ✅ `bash   code --install-extension https://github.com/nonlinear/librarian/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix` |
-| **Claude Desktop** | 👷 Pending                                                                                                                                                           |
-| **OpenAI API**     | 👷 Pending                                                                                                                                                           |
-| **LM Studio**      | 👷 Pending                                                                                                                                                           |
-| **OpenWebUI**      | 👷 Pending                                                                                                                                                           |
-
+| **Claude Desktop** | 👷 Pending                                                                                                                                                    |
+| **OpenAI API**     | 👷 Pending                                                                                                                                                    |
+| **LM Studio**      | 👷 Pending                                                                                                                                                    |
+| **OpenWebUI**      | 👷 Pending                                                                                                                                                    |
 
 > 🤖
 >
@@ -174,7 +171,5 @@ graph LR
     style V1 fill:#90EE90
     style V13 fill:#FFE4B5
     style V2 fill:#E6E6FA
-
-```
 
 ```
