@@ -3,8 +3,11 @@
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
 graph LR
+    subgraph "🚧 In Progress"
+        V5A[v0.5.0<br/>Index Granularity<br/><small>🚧 active</small>]
+    end
+
     subgraph "🎯 Ready"
-        V5A[v0.5.0<br/>Index Granularity]
         V5B[v0.5.1<br/>Hygiene]
         V5C[v0.5.2<br/>User Testing]
     end
@@ -31,10 +34,7 @@ graph LR
     V9 --> V10
     V10 --> ADMIN
 
-    style V5A fill:#90EE90
-    style V5B fill:#90EE90
-    style V5C fill:#90EE90
-    style V7 fill:#FFE4B5
+    style V5A fill:#FFD700
     style V6 fill:#FFE4B5
     style ADMIN fill:#E6E6FA
 ```
@@ -50,9 +50,9 @@ graph LR
 
 ## v0.5.0
 
-### Index Granularity
+### [🚧](https://github.com/nonlinear/personal-library/tree/v0.5.0) Index Granularity | [notes](gaps/epic-notes/v0.5.0.md)
 
-⏳ Prepare chunking data for future citation granularity (NO display changes yet).
+🚧 Prepare chunking data for future citation granularity (NO display changes yet).
 
 **Goal:** Add page/chapter metadata to index so it's ready when we solve the VS Code pill limitation.
 
