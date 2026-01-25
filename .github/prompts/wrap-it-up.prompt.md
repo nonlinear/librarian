@@ -542,28 +542,19 @@ Good to pause? 🌙
 
 ---
 
-### Step 13: Close VS Code? (Optional)
+### Step 13: Close VS Code (User executes in terminal)
 
-**Ask via terminal:**
-
-```
-Shutdown VS Code now? (y/n)
-```
-
-**If yes:**
-
-```bash
-# macOS
-osascript -e 'quit app "Visual Studio Code"'
-```
-
-**If no:**
+**Agent shows command, user executes:**
 
 ```
-✅ Wrap-up complete. VS Code stays open.
+🌙 Copy & paste this command in your terminal to close VS Code:
+
+echo "" && echo "🌙 Closing VS Code in 5 seconds... (Ctrl+C to cancel)" && sleep 1 && echo "4..." && sleep 1 && echo "3..." && sleep 1 && echo "2..." && sleep 1 && echo "1..." && sleep 1 && osascript -e 'quit app "Visual Studio Code"' && echo "✅ VS Code closed. Good night! 🌙"
 ```
 
-**Purpose:** Clean mental break, avoid "just one more thing" trap
+**Why user runs it:** If agent runs it and then sends a message, VS Code detects activity and blocks closure with a prompt.
+
+**Purpose:** Clean mental break, avoid "just one more thing" trap. Countdown gives time to cancel if needed (Ctrl+C).
 ```
 
 **ADHD-specific principles:**
