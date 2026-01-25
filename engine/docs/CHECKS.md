@@ -250,6 +250,36 @@ python3.11 scripts/indexer_v2.py --all
 
 ---
 
+### 3. MCP Server Startup Test
+
+```bash
+# Test: MCP server starts and loads metadata
+timeout 5 python3.11 scripts/mcp_server.py 2>&1 | grep -E "Ready|Loaded metadata" | head -5
+# Expected: Server starts, loads library-index.json (or metadata.json fallback), shows topic count
+# Expected: No import errors, no missing file errors
+```
+
+**Pass criteria:** ✅ Server starts successfully, metadata loads, no errors
+
+**Note:** v0.5.0+ mcp_server.py has failsafe: tries library-index.json first, falls back to metadata.json
+
+---
+
+### 4. Watch Library Test (Optional)
+
+```bash
+# Test: watch_library.py monitors file changes
+python3.11 scripts/watch_library.py --dry-run
+# Expected: Scans books/ directory, detects structure, no crashes
+# Expected: Shows topics and books being watched
+```
+
+**Pass criteria:** ✅ Scanner works, no errors (or skip if not using watch mode)
+
+**Note:** watch_library.py is optional automation - not required for core functionality
+
+---
+
 ### 2.1. Happy Path Test (Path Resolution)
 
 **Question:** If a user follows README.md happy path, will path resolution work for:
