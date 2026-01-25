@@ -129,8 +129,8 @@ grep -q 'Formatting Standard' engine/docs/CHECKS.md && \
 grep -q 'Formatting Standard' engine/docs/ROADMAP.md && \
 grep -q 'Formatting Standard' engine/docs/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
 echo "2️⃣ Dependencies test..."
-echo "3️⃣ File structure test..."
-test -f books/metadata.json && ls books/\*/faiss.index >/dev/null 2>&1 && echo "✅ Files exist" || echo "❌ Files missing"
+echo "3️⃣ File structure test (v2.0)..."
+test -f books/library-index.json && ls books/*/topic-index.json >/dev/null 2>&1 && echo "✅ v2.0 Files exist" || echo "❌ Files missing"
 echo "4️⃣ Nested folder test..."
 echo ""
 echo "✅ All checks complete. Review results above."
@@ -142,11 +142,13 @@ echo "✅ All checks complete. Review results above."
 **Test 1: MCP query functionality (what research.prompt.md actually uses)**
 
 ```bash
-python3.11 -c "import json; from pathlib import Path; metadata = json.loads((Path('books') / 'metadata.json').read_text()); topic_count = len(metadata.get('topics', [])); print(f'✅ MCP works ({topic_count} topics)' if topic_count > 0 else '❌ MCP failed')"
-````
+python3.11 -c "import json; from pathlib import Path; metadata = json.loads((Path('books') / 'library-index.json').read_text()); topic_count = len(metadata.get('topics', [])); print(f'✅ MCP works ({topic_count} topics)' if topic_count > 0 else '❌ MCP failed')"
+```
 
 Expected: Prints '✅ MCP works (N topics)' where N > 0.
 Pass: ✅ MCP works
+
+**Note:** v0.5.0+ uses `library-index.json` (v2.0 schema) instead of `metadata.json`
 
 **Test 2: Dependencies**
 
@@ -157,23 +159,36 @@ python3.11 -c "import llama_index.core; import sentence_transformers"
 Expected: No error, prints nothing.
 Pass: ✅ Dependencies OK
 
-**Test 3: File structure**
+**Test 3: File structure (v2.0 schema)**
 
 ```bash
-test -f books/metadata.json && ls books/*/faiss.index >/dev/null 2>&1 && echo "✅ Files exist" || echo "❌ Files missing"
+test -f books/library-index.json && ls books/*/topic-index.json >/dev/null 2>&1 && echo "✅ v2.0 files exist" || echo "❌ Files missing - run migrate_to_v2.py"
 ```
 
-Expected: Prints '✅ Files exist'.
-Pass: ✅ Files exist
+Expected: Prints '✅ v2.0 files exist'.
+Pass: ✅ v2.0 files exist
 
-**Test 4: Nested folder support**
+**Note:** v0.5.0+ uses per-topic `topic-index.json` instead of monolithic `metadata.json`
+
+**Test 4: Nested folder support (v2.0)**
 
 ```bash
-python3.11 -c "import json; from pathlib import Path; metadata = json.loads((Path('books') / 'metadata.json').read_text()); nested = [t['id'] for t in metadata['topics'] if '_' in t['id']]; print(f'✅ Nested topics work ({len(nested)} found)' if nested else '⚠️ No nested topics')"
+python3.11 -c "import json; from pathlib import Path; metadata = json.loads((Path('books') / 'library-index.json').read_text()); nested = [t['id'] for t in metadata['topics'] if '_' in t['id']]; print(f'✅ Nested topics work ({len(nested)} found)' if nested else '⚠️ No nested topics')"
 ```
 
 Expected: Prints '✅ Nested topics work (N found)' where N >= 0.
 Pass: ✅ Nested topics work
+
+**Test 5: Chunks v2.0 schema (page/chapter metadata)**
+
+```bash
+python3.11 -c "import json; from pathlib import Path; BOOKS_DIR = Path('books'); all_chunks = [(topic_dir, json.loads((topic_dir / 'chunks.json').read_text())) for topic_dir in BOOKS_DIR.glob('*') if (topic_dir / 'chunks.json').exists()]; v2_topics = [topic for topic, chunks in all_chunks if chunks and ('page' in chunks[0] or 'chapter' in chunks[0])]; v1_topics = [topic for topic, chunks in all_chunks if chunks and 'page' not in chunks[0] and 'chapter' not in chunks[0]]; print(f'✅ v2.0: {len(v2_topics)} topics, v1.0: {len(v1_topics)} topics (reindex with --all to update)' if v2_topics else '⚠️ All topics need reindexing')"
+```
+
+Expected: Shows mix of v2.0 and v1.0 topics (v1.0 topics need reindexing).
+Pass: ✅ Reports topic counts
+
+**Note:** v0.5.0+ chunks include page/chapter metadata. Run `indexer_v2.py --all` to update all topics to v2.0 schema.
 
 ---
 
@@ -211,20 +226,27 @@ If any query fails, MCP is considered broken for its primary use case.
 
 ---
 
-### 2. Indexing Test
+### 2. Indexing Test (v2.0)
 
 ```bash
-# Test 4: Generate metadata
-python3.11 scripts/generate_metadata.py
-# Expected: Updates books/metadata.json, no errors
-
-# Test 5: Reindex single topic (faster than full reindex)
-python3.11 scripts/reindex_topic.py "AI"
-# Expected: Creates/updates storage/AI/ directory
+# Test: Reindex single topic (v0.5.0+)
+python3.11 scripts/indexer_v2.py --topic theory/anthropocene
+# Expected: Creates/updates topic-index.json, chunks.json, faiss.index in topic folder
+# Expected: Shows delta detection (hash comparison)
 # Expected: No crashes, completes successfully
+
+# Test: Force reindex (skip delta detection)
+python3.11 scripts/indexer_v2.py --topic theory/anthropocene --force
+# Expected: Rebuilds index even if unchanged
+
+# Test: Reindex all topics
+python3.11 scripts/indexer_v2.py --all
+# Expected: Processes all topics with delta detection
 ```
 
-**Pass criteria:** ✅ Metadata updated, topic indexed without errors
+**Pass criteria:** ✅ Topic indexed successfully, delta detection works, no errors
+
+**Note:** v0.5.0+ uses `indexer_v2.py` instead of deprecated `reindex_topic.py`/`reindex_all.py`
 
 ---
 
@@ -236,12 +258,12 @@ python3.11 scripts/reindex_topic.py "AI"
 - ✅ Root topics with underscores? (`product_architecture` → `books/product architecture/`)
 
 ```bash
-# Test 6a: Verify nested topic path resolution
+# Test 6a: Verify nested topic path resolution (v2.0)
 python3.11 -c "
 from pathlib import Path
 import json
 BOOKS_DIR = Path('books')
-metadata = json.loads((BOOKS_DIR / 'metadata.json').read_text())
+metadata = json.loads((BOOKS_DIR / 'library-index.json').read_text())
 
 # Find a nested topic
 nested = [t for t in metadata['topics'] if '_' in t['id'] and '/' in t['id'].replace('_', '/')]
@@ -254,12 +276,12 @@ else:
     print('⚠️  No nested topics to test')
 "
 
-# Test 6b: Verify root topic with underscore
+# Test 6b: Verify root topic with underscore (v2.0)
 python3.11 -c "
 from pathlib import Path
 import json
 BOOKS_DIR = Path('books')
-metadata = json.loads((BOOKS_DIR / 'metadata.json').read_text())
+metadata = json.loads((BOOKS_DIR / 'library-index.json').read_text())
 
 # Find root topic with underscore (e.g., product_architecture)
 root_underscore = [t for t in metadata['topics'] if '_' in t['id'] and '/' not in t['id'].replace('_', '/')]
@@ -276,9 +298,9 @@ else:
     print('⚠️  No root underscore topics to test')
 "
 
-# Test 6c: Run full indexer to verify (happy path from README)
-python3.11 scripts/indexer.py 2>&1 | grep -E "✓ Loaded|⚠️  Not found" | head -10
-# Expected: All books load, no "Not found" errors
+# Test 6c: Run indexer to verify (v0.5.0+ happy path)
+python3.11 scripts/indexer_v2.py --all 2>&1 | grep -E "✅|⚠️" | head -10
+# Expected: All topics process successfully, delta detection works
 ```
 
 **Pass criteria:**
@@ -287,7 +309,9 @@ python3.11 scripts/indexer.py 2>&1 | grep -E "✓ Loaded|⚠️  Not found" | he
 - ✅ Root topics with underscores resolve correctly
 - ✅ Full indexer finds all books in all topics
 
-**Why this matters:** Bug was that `indexer.py` only used `topic_label`, not handling underscore-to-slash conversion. Users following README step 6 ("Build indices") would hit missing file errors for nested topics and misnamed root topics.
+**Why this matters:** Ensures `indexer_v2.py` correctly handles nested topics (e.g., `cybersecurity/applied`) and root topics with underscores. Users following README indexing steps should not encounter missing file errors.
+
+**Note:** v0.5.0+ uses `indexer_v2.py --all` instead of deprecated `indexer.py`
 
 ---
 
@@ -297,10 +321,11 @@ python3.11 scripts/indexer.py 2>&1 | grep -E "✓ Loaded|⚠️  Not found" | he
 # Test 6: Check dependencies
 python3.11 -c "import llama_index.core; import sentence_transformers; print('✅ Dependencies OK')"
 
-# Test 7: Check file structure
-ls books/metadata.json  # Should exist
-ls books/*/faiss.index  # Should show topic-based indices
-ls books/*/chunks.json  # Should show topic-based chunks
+# Test 7: Check file structure (v2.0)
+ls books/library-index.json     # Should exist (v2.0 registry)
+ls books/*/topic-index.json     # Should show per-topic metadata
+ls books/*/faiss.index          # Should show topic-based indices
+ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 ```
 
 **Pass criteria:** ✅ All imports work, required files exist
@@ -311,7 +336,7 @@ ls books/*/chunks.json  # Should show topic-based chunks
 
 ```bash
 # Test 8: Monitor memory during reindex (optional, for large libraries)
-/usr/bin/time -l python3.11 scripts/reindex_topic.py "AI" 2>&1 | grep "maximum resident set size"
+/usr/bin/time -l python3.11 scripts/indexer_v2.py --topic AI/policy 2>&1 | grep "maximum resident set size"
 # Expected: <2GB for most topics
 ```
 
@@ -329,23 +354,31 @@ ls books/*/chunks.json  # Should show topic-based chunks
 **Fix:** Run `bash scripts/setup.sh`
 **Test:** `python3.11 -c "import sentence_transformers"`
 
-### Issue 2: Missing metadata.json
+### Issue 2: Missing library-index.json (v2.0)
 
 **Symptom:** MCP server starts but can't find books
-**Fix:** Run `python3.11 scripts/generate_metadata.py`
-**Test:** `cat books/metadata.json | jq .`
+**Fix:** Run `python3.11 scripts/indexer_v2.py --all` (generates library-index.json + indexes)
+**Test:** `cat books/library-index.json | jq .`
 
 ### Issue 3: Corrupted index
 
 **Symptom:** Query returns no results or crashes
-**Fix:** Reindex affected topic: `python3.11 scripts/reindex_topic.py "<topic>"`
+**Fix:** Reindex affected topic: `python3.11 scripts/indexer_v2.py --topic <topic-path> --force`
 **Test:** Query after reindex
+
+**Note:** v0.5.0+ use `--force` flag to skip delta detection and force rebuild
 
 ### Issue 4: M3 Mac crashes (mpnet model)
 
 **Symptom:** Segfault during reindexing with `all-mpnet-base-v2`
-**Fix:** Use `all-MiniLM-L6-v2` (current default)
-**Test:** Check `scripts/indexer.py` for model name
+**Fix:** Use `all-MiniLM-L6-v2` (current default since v0.5.0)
+**Test:** Check `scripts/indexer_v2.py` for model name
+
+### Issue 5: Migration from v1 to v2 schema
+
+**Symptom:** `metadata.json` exists but `library-index.json` missing
+**Fix:** Run `python3.11 scripts/migrate_to_v2.py`
+**Test:** Check `books/library-index.json` exists, backup created at `books/library-index.json.v1.backup`
 
 ---
 
@@ -359,7 +392,8 @@ ls books/*/chunks.json  # Should show topic-based chunks
 | First query (cold)       | <3s    | ~2s      | ✅     |
 | Cached query             | <0.5s  | ~0.3s    | ✅     |
 | Reindex single topic     | <30s   | 10-45s\* | ✅     |
-| Full reindex (23 topics) | <10min | ~8min\*  | ✅     |
+| Full reindex (54 topics) | <15min | ~12min\* | ✅     |
+| Delta reindex (no changes) | <10s | ~5s      | ✅     |
 | Memory usage             | <2GB   | ~1.2GB   | ✅     |
 
 \*Varies by topic size (number of books/chunks)
@@ -374,8 +408,11 @@ time python3.11 scripts/mcp_server.py &
 # Query time
 time python3.11 scripts/query.py "test query"
 
-# Reindex time
-time python3.11 scripts/reindex_topic.py "AI"
+# Reindex time (v0.5.0+)
+time python3.11 scripts/indexer_v2.py --topic AI/policy
+
+# Delta reindex time (no changes)
+time python3.11 scripts/indexer_v2.py --all  # Should skip unchanged topics
 ```
 
 ---
@@ -494,8 +531,8 @@ grep -q "$PY_VERSION" README.md && echo "✅ Python version documented" || echo 
 # Check if Technology Stack table needs update
 # (Manual review - compare README section with actual implementation)
 echo "📋 Manual check: Review Technology Stack table in README.md"
-echo "   - Embedding model: $(grep 'all-' scripts/indexer.py | head -1)"
-echo "   - Vector store: $(grep -E 'faiss|llama_index|chromadb' scripts/indexer.py | head -1)"
+echo "   - Embedding model: $(grep 'all-' scripts/indexer_v2.py | head -1)"
+echo "   - Vector store: $(grep -E 'faiss|llama_index|chromadb' scripts/indexer_v2.py | head -1)"
 
 # Verify Quick Start commands are accurate
 echo "📋 Manual check: Test Quick Start commands from README.md"
@@ -610,11 +647,11 @@ python3.11 -c "import llama_index.core; import sentence_transformers" || { echo 
 echo "✅ Environment OK"
 echo ""
 
-# 2. File structure
+# 2. File structure (v2.0)
 echo "📂 2. Checking file structure..."
-test -f books/metadata.json || { echo "❌ books/metadata.json missing - run generate_metadata.py"; exit 1; }
+test -f books/library-index.json || { echo "❌ books/library-index.json missing - run indexer_v2.py --all or migrate_to_v2.py"; exit 1; }
 test -d models/ || { echo "❌ models/ missing - run setup.sh"; exit 1; }
-test -d storage/ || { echo "⚠️  storage/ missing - reindexing needed"; }
+ls books/*/topic-index.json >/dev/null 2>&1 || { echo "⚠️  No topic indices - run indexer_v2.py --all"; }
 echo "✅ File structure OK"
 echo ""
 
@@ -662,3 +699,4 @@ fi
 ```bash
 chmod +x scripts/pre-push-check.sh
 ```
+````
