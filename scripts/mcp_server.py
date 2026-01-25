@@ -2,7 +2,7 @@
 """
 Personal Library MCP Server - Partitioned Lazy Loading
 
-Loads only metadata.json on startup (instant <100ms).
+Loads only library-index.json on startup (instant <100ms).
 Topic-specific FAISS + chunks loaded on-demand during queries.
 
 MCP Tools:
@@ -20,7 +20,10 @@ import asyncio
 
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"
-METADATA_FILE = BOOKS_DIR / "metadata.json"
+# v2.0: library-index.json, fallback to v1.0 metadata.json for backwards compatibility
+METADATA_FILE = BOOKS_DIR / "library-index.json"
+if not METADATA_FILE.exists():
+    METADATA_FILE = BOOKS_DIR / "metadata.json"  # Fallback to v1.0 schema
 
 # Heavy imports - lazy loaded on first query
 _lazy_imports_loaded = False
