@@ -3,10 +3,6 @@
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
 graph LR
-    subgraph "🚧 In Progress"
-        V5A[v0.5.0<br/>Smart Indexing<br/><small>🚧 active</small>]
-    end
-
     subgraph "🎯 Ready"
         V5B[v0.5.1<br/>Hygiene]
         V5C[v0.5.2<br/>User Testing]
@@ -24,8 +20,6 @@ graph LR
         ADMIN[v1.0.0<br/>Admin Generalization<br/><small>Status files repo</small>]
     end
 
-    V5A --> V7
-    V5A -.data ready.-> V7
     V5B --> V6
     V5C --> V6
     V6 --> V7
@@ -34,72 +28,11 @@ graph LR
     V9 --> V10
     V10 --> ADMIN
 
-    style V5A fill:#FFD700
     style V6 fill:#FFE4B5
     style ADMIN fill:#E6E6FA
 ```
 
 ---
-
-## v0.5.0
-
-### [🚧](https://github.com/nonlinear/personal-library/tree/v0.5.0) Smart Indexing | [notes](gaps/epic-notes/v0.5.0.md)
-
-🚧 Smarter indexing (delta detection) + deeper metadata (page/chapter).
-
-**Goal:** Only reindex what changed + capture page/chapter for future navigation.
-
-**What we're building:**
-
-**Phase 1: Architecture (Modularize First)**
-
-- [ ] Modularize metadata: Move from single `metadata.json` to per-topic `.metadata.json`
-- [ ] Each topic folder becomes self-contained (metadata + faiss.index + chunks.json)
-- [ ] Main metadata.json becomes registry (just topic list + config)
-- [ ] Update all scripts to use per-topic metadata
-- [ ] Ensure MCP server can auto-discover topics from filesystem
-- [ ] Schema version tracking per topic (for compatibility)
-
-**Phase 2: Target Metadata (Page/Chapter)**
-
-- [ ] Update chunks.json schema to v2.0 (add `page`, `chapter`, `cfi` fields)
-- [ ] PDF chunking: Extract page numbers during indexing
-- [ ] EPUB chunking: Extract chapter/section during indexing
-- [ ] Store metadata in chunks.json
-- [ ] Handle backward compatibility (old chunks without page/chapter)
-- [ ] Add validation: chunks have expected metadata
-
-**Phase 3: Smart Detection (Topic-Level Delta)**
-
-- [ ] Detect topic-level changes (hash folder contents)
-- [ ] Compare filesystem state vs stored hash in .metadata.json
-- [ ] Only reindex changed topics (nuke + rebuild per topic)
-- [ ] Add `--force` flag to reindex everything
-- [ ] Massive time savings (unchanged topics skipped)
-
-**Phase 4: User-Visible Output**
-
-- [ ] Show page/chapter in research.py output (as text, not links)
-- [ ] Format: "Book.pdf (page 42)" or "Book.epub (chapter 3)"
-- [ ] No pills/links yet (VS Code limitation)
-
-**Benefits of modular architecture:**
-
-- ✅ Topic folders are portable (same embedding model = just copy folder)
-- ✅ Corruption sandboxed (bad topic ≠ dead library)
-- ✅ Faster operations (small JSON files, parallel indexing possible)
-- ✅ Git-friendly (changes per topic, not monolithic)
-
-**Why merge delta + granularity:** Same code area (indexer), one schema upgrade, users get both improvements at once.
-
-**Phased approach:** Architecture first (modularize), then detection (delta), then display (page/chapter).
-
-🗒️ Deferred clickable navigation to v0.7.0 (Citation Expression - VS Code limitation)
-🗒️ Book ID system discussion → See v0.11.0 Future Ideas (deduplication, stable references)
-
-**Branch:** `v0.5.0`
-
-## v0.5.1
 
 ## v0.5.1
 
