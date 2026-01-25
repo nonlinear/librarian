@@ -1,8 +1,4 @@
-# Books - Keep out of commits but show in autocomplete (#file:books)
-books/**/*.epub
-books/**/*.pdf
-
-# Books metadata/indices
+# Books metadata/indices (books themselves excluded via .git/info/exclude + .vscode/settings.json)
 books/**/*.pkl
 books/**/*.index
 books/metadata.json
