@@ -58,16 +58,16 @@ graph LR
 
 **What we're building:**
 
-**Delta Indexing (Smarter):**
+**Phase 1: Architecture (Modularize First)**
 
-- [ ] Detect filesystem changes vs metadata.json
-- [ ] Compare book modification timestamps
-- [ ] Only reindex affected topics/books
-- [ ] Update metadata.json with last indexed timestamp
-- [ ] Add `--force` flag to reindex everything
-- [ ] Skip unchanged books (massive time savings)
+- [ ] Modularize metadata: Move from single `metadata.json` to per-topic `.metadata.json`
+- [ ] Each topic folder becomes self-contained (metadata + faiss.index + chunks.json)
+- [ ] Main metadata.json becomes registry (just topic list + config)
+- [ ] Update all scripts to use per-topic metadata
+- [ ] Ensure MCP server can auto-discover topics from filesystem
+- [ ] Schema version tracking per topic (for compatibility)
 
-**Metadata Granularity (Deeper):**
+**Phase 2: Target Metadata (Page/Chapter)**
 
 - [ ] Update chunks.json schema to v2.0 (add `page`, `chapter`, `cfi` fields)
 - [ ] PDF chunking: Extract page numbers during indexing
@@ -76,21 +76,33 @@ graph LR
 - [ ] Handle backward compatibility (old chunks without page/chapter)
 - [ ] Add validation: chunks have expected metadata
 
-**User-Visible Output:**
+**Phase 3: Smart Detection (Topic-Level Delta)**
+
+- [ ] Detect topic-level changes (hash folder contents)
+- [ ] Compare filesystem state vs stored hash in .metadata.json
+- [ ] Only reindex changed topics (nuke + rebuild per topic)
+- [ ] Add `--force` flag to reindex everything
+- [ ] Massive time savings (unchanged topics skipped)
+
+**Phase 4: User-Visible Output**
 
 - [ ] Show page/chapter in research.py output (as text, not links)
 - [ ] Format: "Book.pdf (page 42)" or "Book.epub (chapter 3)"
 - [ ] No pills/links yet (VS Code limitation)
 
-**Testing:**
+**Benefits of modular architecture:**
 
-- [ ] Test delta detection accuracy
-- [ ] Test reindexing with new schema
-- [ ] Validate metadata extraction quality
+- ✅ Topic folders are portable (same embedding model = just copy folder)
+- ✅ Corruption sandboxed (bad topic ≠ dead library)
+- ✅ Faster operations (small JSON files, parallel indexing possible)
+- ✅ Git-friendly (changes per topic, not monolithic)
 
 **Why merge delta + granularity:** Same code area (indexer), one schema upgrade, users get both improvements at once.
 
+**Phased approach:** Architecture first (modularize), then detection (delta), then display (page/chapter).
+
 🗒️ Deferred clickable navigation to v0.7.0 (Citation Expression - VS Code limitation)
+🗒️ Book ID system discussion → See v0.11.0 Future Ideas (deduplication, stable references)
 
 **Branch:** `v0.5.0`
 
@@ -283,6 +295,22 @@ Add support for multi-user environments (permissions, access control)
 ### Future Ideas
 
 Enhancements for later versions
+
+**Book Identity & Deduplication (Discussion Needed):**
+
+- [ ] **DISCUSS:** Do we need stable book IDs across renames?
+  - Current: filename = ID (rename = new book)
+  - Alternative: Hash-based ID (survives renames)
+  - Use case: Track "same book" across moves/renames
+- [ ] **DISCUSS:** Deduplication strategy
+  - Same book in multiple topics (reference vs copy?)
+  - Same content, different files (hash matching?)
+  - User intent: duplicate on purpose vs accidental?
+- [ ] **DISCUSS:** Cross-references between books
+  - "This book references that book"
+  - Requires stable IDs or filename tracking?
+- [ ] Document trade-offs: simplicity vs features
+
 **Local Embedding Models:**
 
 - [x] Sentence Transformers (`all-MiniLM-L6-v2`) ✅ ACTIVE
