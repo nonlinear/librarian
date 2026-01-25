@@ -288,36 +288,37 @@ Example: "Migrate first knowledge gap from epic notes"
 
 ---
 
-### Step 12: Closure Gate
+### Step 12: Gaps Check (if found)
 
-**Permission to stop:**
+**If session had discoveries worth documenting:**
 
 ```
-✅ All buttons tightened:
-- [ ] Code committed & pushed
-- [ ] Epic notes updated
-- [ ] Mastodon post drafted (optional)
-- [ ] Tomorrow action clear
-- [ ] Body needs addressed
-- [ ] Optional actions considered (project/mental health)
+🧠 Found potential gaps:
 
-Good to pause? 🌙
+1. vscode-autocomplete-deflation (applied existing gap solution)
+2. wrap-it-up-auto-close (new workflow pattern)
+
+Press Enter in terminal to skip and close VS Code.
+Or continue chat to document these.
+```
+
+**If no gaps found:**
+
+```
+No new gaps this session (just cleanup/implementation).
+```
 
 ---
 
-### Step 13: Close VS Code (User executes in terminal)
+### Step 13: Auto-Close VS Code
 
-**Agent shows command, user executes:**
+**After gaps check, run countdown automatically (agent stays SILENT after this):**
 
-```
-🌙 Copy & paste this command in your terminal to close VS Code:
-
+```bash
 echo "" && echo "🌙 Closing VS Code in 5 seconds... (Ctrl+C to cancel)" && sleep 1 && echo "4..." && sleep 1 && echo "3..." && sleep 1 && echo "2..." && sleep 1 && echo "1..." && sleep 1 && osascript -e 'quit app "Visual Studio Code"' && echo "✅ VS Code closed. Good night! 🌙"
 ```
 
-**Why user runs it:** If agent runs it and then sends a message, VS Code detects activity and blocks closure with a prompt.
-
-**Purpose:** Clean mental break, avoid "just one more thing" trap. Countdown gives time to cancel if needed (Ctrl+C).
+**Critical:** Agent must NOT send any message after running this command, or VS Code will prompt "unsaved changes".
 ```
 
 **ADHD-specific principles:**
