@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "library_path": "/Users/nfrota/Documents/personal library/books",
+  "library_path": "/Users/nfrota/Documents/librarian/books",
   "embedding_model": "all-MiniLM-L6-v2",
   "chunk_settings": {
     "size": 1024,
