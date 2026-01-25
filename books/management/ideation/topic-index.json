@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "management_ideation",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "36e5660b4f354bac5d21d80abff14fe5c9c223b3c97d35304f86e001547721b7",
+  "books": [
+    {
+      "id": "against_method",
+      "title": "ebooksclub.org__Against_Method__Third_Edition.djvu",
+      "author": "Jedimy",
+      "year": 2011,
+      "tags": [
+        "lakatos-rationalist",
+        "circumstances-lmre",
+        "book-fmished",
+        "complex-historical",
+        "disappeared-mysterious",
+        "postscript-relativism"
+      ],
+      "filename": "Against Method.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.445621
+    },
+    {
+      "id": "competitive_strategy",
+      "title": "Competitive Strategy",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "industries-competitors",
+        "strategy-1982",
+        "simon-schuster",
+        "catalogirig-publication",
+        "colophon-trademarks",
+        "porter-free"
+      ],
+      "filename": "Competitive Strategy.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.4562316
+    },
+    {
+      "id": "intuition_pumps_and_other_tools_for_thinking",
+      "title": "Intuition Pumps And Other Tools for Thinking",
+      "author": "Daniel C. Dennett",
+      "year": 2013,
+      "tags": [
+        "general-thinking",
+        "competence-comprehension",
+        "parody-reasoning",
+        "intuition-pumps",
+        "dedication-tufts",
+        "homunculi"
+      ],
+      "filename": "Intuition Pumps And Other Tools for Thinking.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.473611
+    },
+    {
+      "id": "the_archaeology_of_knowledge",
+      "title": "Microsoft Word - Foucault, Michel _2002_ Archaeology of knowledge - London;\u2026",
+      "author": "B\u00e5rd",
+      "year": 2007,
+      "tags": [
+        "knowledge-michel",
+        "foucault-contents",
+        "literary-theory",
+        "archaeological-description",
+        "introduction-ii",
+        "ambition-define"
+      ],
+      "filename": "The Archaeology of Knowledge.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.4780343
+    },
+    {
+      "id": "six_thinking_hats",
+      "title": "Microsoft Word - Edward De Bono - Six Thinking Hatss.doc",
+      "author": "Edward",
+      "year": 2006,
+      "tags": [
+        "thinking-hats",
+        "effectiveness-thought",
+        "colors-chapter",
+        "ward-bono",
+        "anguage-emotions",
+        "conclusion-summaries"
+      ],
+      "filename": "six thinking hats.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.4898968
+    }
+  ]
+}

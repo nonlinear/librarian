@@ -1,0 +1,178 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "ai_prompt_engineering",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "7aab6b3a7d053422f7b33741697e2531f46c11b1054cf7d5cd0a057455997a16",
+  "books": [
+    {
+      "id": "210713586v1",
+      "title": "2107.13586v1",
+      "author": "Unknown",
+      "year": 2021,
+      "tags": [
+        "prompt-predict",
+        "nlp-prompting",
+        "language-processing",
+        "modal-learning",
+        "automated-template",
+        "beginners-make"
+      ],
+      "filename": "2107.13586v1.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.4465663
+    },
+    {
+      "id": "220413988v3",
+      "title": "A Taxonomy of Prompt Modifiers for Text-To-Image Generation",
+      "author": "Unknown",
+      "year": 2023,
+      "tags": [
+        "prompts-artworks",
+        "generation-ai",
+        "text-image",
+        "synthesis-images",
+        "modifiers-text",
+        "enhance"
+      ],
+      "filename": "2204.13988v3.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.4630365
+    },
+    {
+      "id": "220607682v2",
+      "title": "2206.07682v2",
+      "author": "Unknown",
+      "year": 2022,
+      "tags": [
+        "large-language",
+        "sborgeaud-deepmind",
+        "models-abilities",
+        "learning-research",
+        "scale-tasks",
+        "chapel-hill"
+      ],
+      "filename": "2206.07682v2.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.466508
+    },
+    {
+      "id": "240606608v6",
+      "title": "2406.06608v6",
+      "author": "Unknown",
+      "year": 2025,
+      "tags": [
+        "engineering-prompt",
+        "marine-carpuat1",
+        "telecomunica\u00e7\u00f5es",
+        "lan-guage",
+        "extensively-researched",
+        "33-technique"
+      ],
+      "filename": "2406.06608v6.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.4762173
+    },
+    {
+      "id": "architects_of_intelligence",
+      "title": "Architects of Intelligence",
+      "author": "Martin Ford",
+      "year": 2018,
+      "tags": [
+        "architects-intelligence",
+        "intelligence-copyright",
+        "martin-ford",
+        "book-reproduced",
+        "provide-trademark",
+        "xiaoxiao"
+      ],
+      "filename": "Architects of intelligence.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.5433528
+    },
+    {
+      "id": "data-strategies-for-ai-leaders",
+      "title": "Data-Strategies-for-AI-Leaders",
+      "author": "Unknown",
+      "year": 2024,
+      "tags": [
+        "insights-generative",
+        "analytics-ai",
+        "automation-making",
+        "ai-exacerbates",
+        "businesses-data",
+        "offerings-driven"
+      ],
+      "filename": "Data-Strategies-for-AI-Leaders.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.5804338
+    },
+    {
+      "id": "email_to_the_universe",
+      "title": "Email to the Universe and Other Alterations of Consciousness",
+      "author": "Robert Anton Wilson",
+      "year": 2017,
+      "tags": [
+        "consciousness",
+        "understand-new",
+        "civilization-contents",
+        "amoeba-ebook",
+        "wilson-writings",
+        "design-pelorian"
+      ],
+      "filename": "Email to the Universe.epub",
+      "filetype": "epub",
+      "last_modified": 1762276736.078551
+    },
+    {
+      "id": "reality_transurfing",
+      "title": "Reality Transurfing",
+      "author": "Unknown",
+      "year": 2020,
+      "tags": [
+        "variations-published",
+        "brumby-books",
+        "orcabookservices-uk",
+        "africa-alternative",
+        "tel",
+        "deershot-lodge"
+      ],
+      "filename": "Reality Transurfing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.585167
+    },
+    {
+      "id": "simulations_of_god",
+      "title": "Microsoft Word - modello -- 3.0 scrn.doc",
+      "author": "Quick Silver",
+      "year": 2004,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Simulations of God.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6309874
+    },
+    {
+      "id": "gemini-for-google-workspace-prompting-guide-101",
+      "title": "gemini-for-google-workspace-prompting-guide-101",
+      "author": "Unknown",
+      "year": 2024,
+      "tags": [
+        "gemini-workspace",
+        "effective-prompts",
+        "standalone-chat",
+        "collaborate-ai",
+        "drive-google",
+        "documents-personalize"
+      ],
+      "filename": "gemini-for-google-workspace-prompting-guide-101.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6600838
+    }
+  ]
+}

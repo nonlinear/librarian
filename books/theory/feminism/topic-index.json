@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "theory_feminism",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "a2f5c564be52ec9935e32e463b7b9df5a45ada51cda34ac77a4031b8a8080bd5",
+  "books": [
+    {
+      "id": "feminism_is_queer",
+      "title": "Feminism is Queer",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "feminist-philosophy",
+        "sexuality-author",
+        "buffy-vampire",
+        "marinucci-identified",
+        "editor-wave",
+        "culture-volume"
+      ],
+      "filename": "Feminism is Queer.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.9405942
+    },
+    {
+      "id": "foucaulthistorysex",
+      "title": "DjVu Document",
+      "author": "user",
+      "year": 2007,
+      "tags": [
+        "history-sexuality",
+        "published-france",
+        "clinic-archaeology",
+        "parricide-nineteenth",
+        "author-madness",
+        "birth-prison"
+      ],
+      "filename": "FoucaultHistorySex.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.9807193
+    },
+    {
+      "id": "maria_mies_silvia_federici_and_biopower",
+      "title": "Maria Mies, Silvia Federici, and Biopower",
+      "author": "Unknown",
+      "year": 2018,
+      "tags": [
+        "feminists-mariarosa",
+        "federici-critique",
+        "biopolitical-study",
+        "modern-period",
+        "independently-foucault",
+        "suggest-autonomist"
+      ],
+      "filename": "Maria Mies, Silvia Federici, and Biopower.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.9825892
+    },
+    {
+      "id": "simians_cyborgs_and_women",
+      "title": "Simians Cyborgs and Women",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "sociobiology-feminist",
+        "simians-cyborgs",
+        "book-primate",
+        "nature-donna",
+        "reinvention-nature",
+        "naturalization-race"
+      ],
+      "filename": "Simians Cyborgs and Women.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.0220742
+    },
+    {
+      "id": "the_dialectic_of_sex",
+      "title": "The Dialectic of Sex: The Case for Feminist Revolution",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "The Dialectic of Sex.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.057934
+    },
+    {
+      "id": "the_history_of_sexuality",
+      "title": "DjVu Document",
+      "author": "user",
+      "year": 2007,
+      "tags": [
+        "history-sexuality",
+        "published-france",
+        "clinic-archaeology",
+        "parricide-nineteenth",
+        "author-madness",
+        "birth-prison"
+      ],
+      "filename": "The History of Sexuality.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.0838492
+    },
+    {
+      "id": "the_straight_mind",
+      "title": "The Straight Mind",
+      "author": "Unknown",
+      "year": 2015,
+      "tags": [
+        "lesbianism-radicalism",
+        "feminism-literature",
+        "auspices-unitarian",
+        "mark-gender",
+        "essays-volume",
+        "particular-originally"
+      ],
+      "filename": "The Straight Mind.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.0919309
+    }
+  ]
+}

@@ -2,6 +2,79 @@
 
 ---
 
+## v0.5.0
+
+### ✅ Smart Indexing | [notes](gaps/epic-notes/v0.5.0.md)
+
+**Completed:** 2026-01-25
+
+Architecture-first modular indexing with delta detection and target metadata for future navigation.
+
+**What we built:**
+
+**Phase 1: Modular Architecture**
+
+- [x] Migrated from monolithic `metadata.json` to per-topic `topic-index.json`
+- [x] Each topic folder is self-contained (metadata + faiss.index + chunks.json)
+- [x] Main `library-index.json` v2.0 registry (topic list + config)
+- [x] All scripts migrated to library-index.json v2.0
+- [x] MCP server auto-discovers topics from filesystem
+- [x] Schema version tracking per topic
+
+**Phase 2: Target Metadata (Page/Chapter)**
+
+- [x] chunks.json v2.0 schema (added `page`, `chapter`, `cfi` fields)
+- [x] PDF chunking: extracts page numbers during indexing
+- [x] EPUB chunking: extracts chapter/section during indexing
+- [x] Metadata stored in chunks.json
+- [x] Backward compatibility maintained (old chunks still work)
+- [x] Validation: chunks have expected metadata
+
+**Phase 3: Smart Detection (Topic-Level Delta)**
+
+- [x] Topic-level change detection (hash folder contents)
+- [x] Compare filesystem state vs stored hash in topic-index.json
+- [x] Only reindex changed topics (nuke + rebuild per topic only)
+- [x] Added `--force` flag to reindex everything
+- [x] Massive time savings (unchanged topics skipped)
+
+**Phase 4: User-Visible Output**
+
+- [x] Show page/chapter in research.py output (text format, not links)
+- [x] Format: "Book.pdf (page 42)" or "Book.epub (chapter 3)"
+- [x] No pills/links (VS Code limitation deferred to v0.7.0)
+
+**Bonus Features:**
+
+- [x] Added `--book` filter to research.py (narrow queries to specific book)
+- [x] Unified indexing scripts into indexer_v2.py (deprecated 3 legacy scripts)
+- [x] Fixed EPUB chunking bug (SentenceSplitter)
+- [x] Documented VS Code file picker limitation (size-based autocomplete filtering)
+
+**Benefits:**
+
+- ✅ Topic folders are portable (same embedding model = just copy folder)
+- ✅ Corruption sandboxed (bad topic ≠ dead library)
+- ✅ Faster operations (small JSON files, parallel indexing possible)
+- ✅ Git-friendly (changes per topic, not monolithic)
+- ✅ 23× faster reindexing (delta detection)
+- ✅ Correct chunking (200+ chunks per book vs 1)
+
+**Migration:** 
+
+Run migration script to convert v1 metadata to v2:
+```bash
+python3.11 scripts/migrate_to_v2.py
+```
+
+Backup created automatically at `books/library-index.json.v1.backup`
+
+**Impact:** 
+
+Users with large libraries (50+ topics) see massive speedups. Reindexing only changed books instead of entire library.
+
+---
+
 ## v0.4.0
 
 ### ✅ Epic Workflow Infrastructure | [notes](gaps/epic-notes/v0.4.0.md)

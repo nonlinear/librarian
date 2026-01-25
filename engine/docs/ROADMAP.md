@@ -4,7 +4,6 @@
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
 graph LR
     subgraph "🎯 Ready"
-        V5A[v0.5.0<br/>Smart Indexing]
         V5B[v0.5.1<br/>Hygiene]
         V5C[v0.5.2<br/>User Testing]
     end
@@ -21,8 +20,6 @@ graph LR
         ADMIN[v1.0.0<br/>Admin Generalization<br/><small>Status files repo</small>]
     end
 
-    V5A --> V7
-    V5A -.data ready.-> V7
     V5B --> V6
     V5C --> V6
     V6 --> V7
@@ -31,70 +28,11 @@ graph LR
     V9 --> V10
     V10 --> ADMIN
 
-    style V5A fill:#90EE90
-    style V5B fill:#90EE90
-    style V5C fill:#90EE90
-    style V7 fill:#FFE4B5
     style V6 fill:#FFE4B5
     style ADMIN fill:#E6E6FA
 ```
 
-> 🤖 **AI: Update this mermaid graph when grooming roadmap**
->
-> - Move epics between subgraphs as status changes
-> - Add new nodes for new epics
-> - Update dependencies (arrows) when priorities shift
-> - Keep it visual - this is the "subway map" of the project
-
 ---
-
-## v0.5.0
-
-### Smart Indexing
-
-⏳ Smarter indexing (delta detection) + deeper metadata (page/chapter).
-
-**Goal:** Only reindex what changed + capture page/chapter for future navigation.
-
-**What we're building:**
-
-**Delta Indexing (Smarter):**
-
-- [ ] Detect filesystem changes vs metadata.json
-- [ ] Compare book modification timestamps
-- [ ] Only reindex affected topics/books
-- [ ] Update metadata.json with last indexed timestamp
-- [ ] Add `--force` flag to reindex everything
-- [ ] Skip unchanged books (massive time savings)
-
-**Metadata Granularity (Deeper):**
-
-- [ ] Update chunks.json schema to v2.0 (add `page`, `chapter`, `cfi` fields)
-- [ ] PDF chunking: Extract page numbers during indexing
-- [ ] EPUB chunking: Extract chapter/section during indexing
-- [ ] Store metadata in chunks.json
-- [ ] Handle backward compatibility (old chunks without page/chapter)
-- [ ] Add validation: chunks have expected metadata
-
-**User-Visible Output:**
-
-- [ ] Show page/chapter in research.py output (as text, not links)
-- [ ] Format: "Book.pdf (page 42)" or "Book.epub (chapter 3)"
-- [ ] No pills/links yet (VS Code limitation)
-
-**Testing:**
-
-- [ ] Test delta detection accuracy
-- [ ] Test reindexing with new schema
-- [ ] Validate metadata extraction quality
-
-**Why merge delta + granularity:** Same code area (indexer), one schema upgrade, users get both improvements at once.
-
-🗒️ Deferred clickable navigation to v0.7.0 (Citation Expression - VS Code limitation)
-
-**Branch:** `v0.5.0`
-
-## v0.5.1
 
 ## v0.5.1
 
@@ -283,6 +221,22 @@ Add support for multi-user environments (permissions, access control)
 ### Future Ideas
 
 Enhancements for later versions
+
+**Book Identity & Deduplication (Discussion Needed):**
+
+- [ ] **DISCUSS:** Do we need stable book IDs across renames?
+  - Current: filename = ID (rename = new book)
+  - Alternative: Hash-based ID (survives renames)
+  - Use case: Track "same book" across moves/renames
+- [ ] **DISCUSS:** Deduplication strategy
+  - Same book in multiple topics (reference vs copy?)
+  - Same content, different files (hash matching?)
+  - User intent: duplicate on purpose vs accidental?
+- [ ] **DISCUSS:** Cross-references between books
+  - "This book references that book"
+  - Requires stable IDs or filename tracking?
+- [ ] Document trade-offs: simplicity vs features
+
 **Local Embedding Models:**
 
 - [x] Sentence Transformers (`all-MiniLM-L6-v2`) ✅ ACTIVE

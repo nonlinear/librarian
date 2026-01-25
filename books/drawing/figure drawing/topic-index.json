@@ -1,0 +1,153 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "drawing_figure_drawing",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "33d32b5343ea98de90015a766a0e81c9cd95178f327a87983b53c73b673a93af",
+  "books": [
+    {
+      "id": "complete_guide_to_drawing_from_life",
+      "title": "Complete Guide to Drawing from Life",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Complete Guide to Drawing from Life.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291067.7114253
+    },
+    {
+      "id": "draw_people_every_day",
+      "title": "Draw People Every Day: Short Lessons in Portrait and Figure Drawing Using Ink and Color",
+      "author": "Kagan McLeod",
+      "year": 2020,
+      "tags": [
+        "guptill-horse",
+        "horse-head",
+        "head-colophon",
+        "www-watsonguptill",
+        "imprint-crown",
+        "cataloging-publication"
+      ],
+      "filename": "Draw People Every Day.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291067.951743
+    },
+    {
+      "id": "drawing_dynamic_hands",
+      "title": "Drawing Dynamic Hands",
+      "author": "Unknown",
+      "year": 2002,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Drawing Dynamic Hands.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291068.0158412
+    },
+    {
+      "id": "drawing_people",
+      "title": "Drawing People",
+      "author": "Barbara Bradley",
+      "year": 2020,
+      "tags": [
+        "drawing-people",
+        "portray-clothed",
+        "north-light",
+        "figure-barbara",
+        "figure-copyright",
+        "imprint-publications"
+      ],
+      "filename": "Drawing People.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291068.118662
+    },
+    {
+      "id": "dynamic_figure_drawing",
+      "title": "dynamicfigure.pdf",
+      "author": "Unknown",
+      "year": 2008,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Dynamic figure drawing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291068.5723934
+    },
+    {
+      "id": "figure_drawing_without_a_model",
+      "title": "Figure Drawing Without A Model",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Figure Drawing Without A Model.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291068.917218
+    },
+    {
+      "id": "figure_drawing_for_fashion_design",
+      "title": "Figure Drawing for Fashion Design",
+      "author": "Unknown",
+      "year": 2009,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Figure Drawing for Fashion Design.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291069.4915402
+    },
+    {
+      "id": "figure_drawing_with_virtual_models",
+      "title": "1598633287.pdf",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "trademark-curious",
+        "poser-registered",
+        "figure-construction",
+        "technology-ptr",
+        "photographic-reference",
+        "thomson-course"
+      ],
+      "filename": "Figure Drawing with Virtual Models.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291069.54069
+    },
+    {
+      "id": "life_drawing",
+      "title": "Life Drawing: How to Portray the Figure With Accuracy and Expression",
+      "author": "Robert Barrett",
+      "year": 2020,
+      "tags": [
+        "drawing-portray",
+        "nupastel-paper",
+        "figure-accuracy",
+        "76cm-collection",
+        "arnst-life",
+        "brian-ruth"
+      ],
+      "filename": "Life Drawing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291069.6450646
+    },
+    {
+      "id": "the_human_figure_in_motion",
+      "title": "The Human Figure In Motion",
+      "author": "Unknown",
+      "year": 2002,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "The Human Figure In Motion.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291069.7072926
+    }
+  ]
+}

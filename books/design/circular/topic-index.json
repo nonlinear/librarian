@@ -1,0 +1,64 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_circular",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "bdc90dc7a8e2064c864a225f0631073b2179d47f9dbfc993b251dd7aca4a128e",
+  "books": [
+    {
+      "id": "cradle_to_cradle",
+      "title": "Cradle to Cradle_001.jpg",
+      "author": "Administrador",
+      "year": 2012,
+      "tags": [
+        "revolutionary-tpdmology",
+        "wlwam-llodonoqb",
+        "data-mcdonough",
+        "cradle-remaking",
+        "durabooktm-patent",
+        "waterproof"
+      ],
+      "filename": "Cradle to Cradle.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291064.783124
+    },
+    {
+      "id": "the_circular_economy_handbook",
+      "title": "The Circular Economy Handbook",
+      "author": "Unknown",
+      "year": 2019,
+      "tags": [
+        "circular-economy",
+        "copyright-designs",
+        "handbook-peter",
+        "advantage",
+        "credit-accenture",
+        "springer-nature"
+      ],
+      "filename": "The Circular Economy Handbook.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291064.8206928
+    },
+    {
+      "id": "the_circular_economy",
+      "title": "The Circular Economy: A Wealth of Flows: 2nd Edition",
+      "author": "Webster, Ken",
+      "year": 2016,
+      "tags": [
+        "circular-economy",
+        "estate-china",
+        "flows-history",
+        "prices-followed",
+        "continuing-stagnation",
+        "digital-potential"
+      ],
+      "filename": "The Circular Economy.epub",
+      "filetype": "epub",
+      "last_modified": 1769143071.538214
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "magick_i_ching",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "b9d754d6513e9038f4c518272a5b613f69182d50b1a638a8c11f7d8cd3cebdb6",
+  "books": [
+    {
+      "id": "i_ching_made_easy_-_amy_m_sorrell",
+      "title": "I Ching Made Easy: Be Your Own Psychic Advisor Using the Worold's Oldest Oracle",
+      "author": "Amy M. Sorrell",
+      "year": 2019,
+      "tags": [
+        "ching-psychic",
+        "peace-harmony",
+        "adviser-using",
+        "write-attitude",
+        "oracle-roderic",
+        "sorrell-contents"
+      ],
+      "filename": "I Ching Made Easy - Amy M. Sorrell.epub",
+      "filetype": "epub",
+      "last_modified": 1768850365.6697073
+    },
+    {
+      "id": "i_ching_the_book_of_change_translated_-_david_hinton",
+      "title": "I Ching",
+      "author": "David Hinton",
+      "year": null,
+      "tags": [
+        "introduction-ching",
+        "dragons-ancient",
+        "page-copyright",
+        "change-book",
+        "author-david",
+        "prosperity-mountain"
+      ],
+      "filename": "I Ching The Book of Change translated - David Hinton.epub",
+      "filetype": "epub",
+      "last_modified": 1768850365.9617846
+    },
+    {
+      "id": "i_ching_in_plain_english_-_george_hulskramer",
+      "title": "I Ching in Plain English",
+      "author": "George Hulskramer",
+      "year": 2012,
+      "tags": [
+        "ching-book",
+        "entailed-yin",
+        "hulskramer-translated",
+        "liberation-41",
+        "characterised-decisiveness",
+        "tradition-origin"
+      ],
+      "filename": "I Ching in Plain English - George Hulskramer.epub",
+      "filetype": "epub",
+      "last_modified": 1768850365.6811419
+    },
+    {
+      "id": "i_ching_in_plain_english",
+      "title": "I Ching in Plain English",
+      "author": "George Hulskramer",
+      "year": 2012,
+      "tags": [
+        "ching-book",
+        "entailed-yin",
+        "hulskramer-translated",
+        "liberation-41",
+        "characterised-decisiveness",
+        "tradition-origin"
+      ],
+      "filename": "I Ching in Plain English.epub",
+      "filetype": "epub",
+      "last_modified": 1767921943.4758275
+    },
+    {
+      "id": "i_ching_translated_-_john_minford",
+      "title": "I Ching",
+      "author": "John Minford",
+      "year": 2014,
+      "tags": [
+        "yi-calligraphy",
+        "chinese-oracle",
+        "scribes-divination",
+        "penguin-books",
+        "confucius-shang",
+        "frontispiece"
+      ],
+      "filename": "I Ching translated - John Minford.epub",
+      "filetype": "epub",
+      "last_modified": 1768850365.858233
+    },
+    {
+      "id": "i_ching_the_oracle_of_the_cosmic_way_-_carol_k_anthony",
+      "title": "I Ching, The Oracle of the Cosmic Way",
+      "author": "Moog, Hanna",
+      "year": 2011,
+      "tags": [
+        "ching-oracle",
+        "introduction-cosmic",
+        "trigrams-hexagrams",
+        "judgments-purpose",
+        "meditations",
+        "use-language"
+      ],
+      "filename": "I Ching, The Oracle of the Cosmic Way - Carol K. Anthony.epub",
+      "filetype": "epub",
+      "last_modified": 1768850365.8994687
+    },
+    {
+      "id": "i_ching_the_oracle_of_the_cosmic_way",
+      "title": "I Ching, The Oracle of the Cosmic Way",
+      "author": "Moog, Hanna",
+      "year": 2011,
+      "tags": [
+        "ching-oracle",
+        "introduction-cosmic",
+        "trigrams-hexagrams",
+        "judgments-purpose",
+        "meditations",
+        "use-language"
+      ],
+      "filename": "I Ching, The Oracle of the Cosmic Way.epub",
+      "filetype": "epub",
+      "last_modified": 1767749501.952156
+    },
+    {
+      "id": "i_ching_the_oracle_-_kerson_huang",
+      "title": "I Ching: The Oracle (Revised Edition)",
+      "author": "Huang, Kerson;",
+      "year": null,
+      "tags": [
+        "ching-oracle",
+        "data-catalogue",
+        "printed-singapore",
+        "including-photocopying",
+        "analyzed-annotated",
+        "ceaseless-interchange"
+      ],
+      "filename": "I Ching. The Oracle - Kerson Huang .epub",
+      "filetype": "epub",
+      "last_modified": 1768850369.1719546
+    },
+    {
+      "id": "i-ching_of_mi_lo_-_lon_milo_duquette",
+      "title": "I-Ching of Mi Lo (The Magical Antiquarian Curiosity Shoppe)",
+      "author": "DuQuette, Lon Milo",
+      "year": 2012,
+      "tags": [
+        "falsehood-opposite",
+        "great-truths",
+        "antiquarian-curiosity",
+        "ching-mi",
+        "duquette-magical",
+        "lottery-buy"
+      ],
+      "filename": "I-Ching of Mi Lo - Lon Milo DuQuette.epub",
+      "filetype": "epub",
+      "last_modified": 1768850368.5007362
+    },
+    {
+      "id": "the_complete_i_ching_-_alfred_huang",
+      "title": "The Complete I Ching - 10th Anniversary Edition",
+      "author": "Taoist Master Alfred Huang",
+      "year": 2010,
+      "tags": [
+        "tao-understanding",
+        "change-book",
+        "new-translation",
+        "dedicated-longing",
+        "hexagram-discussed",
+        "benefit-novice"
+      ],
+      "filename": "The Complete I Ching - Alfred Huang.epub",
+      "filetype": "epub",
+      "last_modified": 1768850368.6543782
+    },
+    {
+      "id": "the_everyday_i_ching_-_sarah_dening",
+      "title": "The Everyday I Ching",
+      "author": "Sarah Dening",
+      "year": null,
+      "tags": [
+        "ching-book",
+        "creative-force",
+        "dedication-acknowledgements",
+        "overall-harmony",
+        "exercising-restraint",
+        "difficulty-beginning"
+      ],
+      "filename": "The Everyday I Ching - Sarah Dening.epub",
+      "filetype": "epub",
+      "last_modified": 1768850368.459558
+    },
+    {
+      "id": "the_i_ching_or_book_of_changes_translated_-_richard_wilhelm",
+      "title": "The I Ching or Book of Changes",
+      "author": "Hellmut Wilhelm",
+      "year": 2010,
+      "tags": [
+        "jung-preface",
+        "wilhelm-translation",
+        "iii-commentaries",
+        "book-changes",
+        "chun-difficulty",
+        "rendered-english"
+      ],
+      "filename": "The I Ching or Book of Changes translated - Richard Wilhelm.epub",
+      "filetype": "epub",
+      "last_modified": 1768850368.497627
+    },
+    {
+      "id": "the_i_ching_or_book_of_changes",
+      "title": "The I Ching or Book of Changes",
+      "author": "Hellmut Wilhelm",
+      "year": 2010,
+      "tags": [
+        "jung-preface",
+        "wilhelm-translation",
+        "iii-commentaries",
+        "book-changes",
+        "chun-difficulty",
+        "rendered-english"
+      ],
+      "filename": "The I Ching or Book of Changes.epub",
+      "filetype": "epub",
+      "last_modified": 1767921943.7519932
+    },
+    {
+      "id": "the_occult_i_ching_-_maja_daoust",
+      "title": "The Occult I Ching",
+      "author": "Maja D'Aoust",
+      "year": 2019,
+      "tags": [
+        "ching-occult",
+        "philosophy-consciousness",
+        "intriguing-investigations",
+        "dna-worth",
+        "karcher-genius",
+        "oracle-instructions"
+      ],
+      "filename": "The Occult I Ching - Maja D'Aoust.epub",
+      "filetype": "epub",
+      "last_modified": 1768850369.3417604
+    },
+    {
+      "id": "the_occult_i_ching",
+      "title": "The Occult I Ching",
+      "author": "Maja D'Aoust",
+      "year": 2019,
+      "tags": [
+        "ching-occult",
+        "philosophy-consciousness",
+        "intriguing-investigations",
+        "dna-worth",
+        "karcher-genius",
+        "oracle-instructions"
+      ],
+      "filename": "The Occult I Ching.epub",
+      "filetype": "epub",
+      "last_modified": 1767921946.9402437
+    },
+    {
+      "id": "the_original_i_ching_-_margaret_j_pearson",
+      "title": "The Original I Ching",
+      "author": "Margaret J. Pearson",
+      "year": null,
+      "tags": [
+        "chinese-sources",
+        "women-scholars",
+        "translate-hexagram",
+        "clare-hall",
+        "provided-meanings",
+        "grateful-pioneering"
+      ],
+      "filename": "The Original I Ching - Margaret J. Pearson.epub",
+      "filetype": "epub",
+      "last_modified": 1768850369.4558613
+    },
+    {
+      "id": "the_psyche_revealed_through_the_i_ching",
+      "title": "The Psyche Revealed Through The I Ching",
+      "author": "Moog, Hanna",
+      "year": 2011,
+      "tags": [
+        "psyche-revealed",
+        "introduction-darkest",
+        "chinese-understood",
+        "effect-possession",
+        "cosmic-principle",
+        "www-ichingbooks"
+      ],
+      "filename": "The Psyche Revealed Through The I Ching.epub",
+      "filetype": "epub",
+      "last_modified": 1768547573.99775
+    },
+    {
+      "id": "the_visionary_i_ching",
+      "title": "The Visionary I Ching",
+      "author": "Paul O'Brien",
+      "year": 2018,
+      "tags": [
+        "ching-book",
+        "divination",
+        "construct-hexagram",
+        "coins-times",
+        "seriously-scribbled",
+        "power-difficulty"
+      ],
+      "filename": "The Visionary I Ching.epub",
+      "filetype": "epub",
+      "last_modified": 1768850371.518499
+    }
+  ]
+}

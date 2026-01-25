@@ -1,0 +1,319 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "theory_system",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "68082ce9b1fbaa92e4eadc5a5936f5ae43f9d19153ac7b27683c5686645414ec",
+  "books": [
+    {
+      "id": "a_thousand_years_of_nonlinear_history",
+      "title": "A Thousand Years of Nonlinear History",
+      "author": "Manuel DeLanda",
+      "year": 2000,
+      "tags": [
+        "atoms-travelling",
+        "downwards-abyss",
+        "space-weight",
+        "nature-created",
+        "manuel-landa",
+        "reserved-ebook"
+      ],
+      "filename": "A Thousand Years of Nonlinear History.epub",
+      "filetype": "epub",
+      "last_modified": 1762276841.2024436
+    },
+    {
+      "id": "a-thousand-plateaus",
+      "title": "Microsoft Word - Deleuze, Guattari- A Thousand Plateaus",
+      "author": "Bobo",
+      "year": 2014,
+      "tags": [
+        "capitalism-schizophrenia",
+        "thousand-plateaus",
+        "deleuze-guattari",
+        "means",
+        "mn",
+        "reserved-publication"
+      ],
+      "filename": "A-Thousand-Plateaus.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.1796603
+    },
+    {
+      "id": "anti-oedipus",
+      "title": "Anti-Oedipus",
+      "author": "Gilles Deleuze and Felix Guattari",
+      "year": 2008,
+      "tags": [
+        "capitalism-schizophrenia",
+        "social-psychiatry",
+        "delirium-psychoanalysis",
+        "anti-oedipus",
+        "deleuze-gilles",
+        "rethinking-anthropology"
+      ],
+      "filename": "Anti-Oedipus.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.1901367
+    },
+    {
+      "id": "cybernetics",
+      "title": "Cybernetics or Control and Communication in the Animal and the Machine, Reissue of the 1961",
+      "author": "Norbert Wiener",
+      "year": 2019,
+      "tags": [
+        "machines-brain",
+        "oscillation-computing",
+        "self-organizing",
+        "waves-self",
+        "bergsonian-time",
+        "xlii-xliii"
+      ],
+      "filename": "Cybernetics.epub",
+      "filetype": "epub",
+      "last_modified": 1767910286.8266902
+    },
+    {
+      "id": "debt",
+      "title": "Debt",
+      "author": "David Graeber",
+      "year": 2011,
+      "tags": [
+        "debt-history",
+        "graeber-melville",
+        "barter-primordial",
+        "capitalist-empires",
+        "middle-ages",
+        "moral-grounds"
+      ],
+      "filename": "Debt.epub",
+      "filetype": "epub",
+      "last_modified": 1768539487.0483663
+    },
+    {
+      "id": "earth_system_governance",
+      "title": "Earth System Governance",
+      "author": "Biermann, Frank;Young, Oran R.;",
+      "year": 2014,
+      "tags": [
+        "environmental-governance",
+        "world-politics",
+        "anthropocene-related",
+        "change-earth",
+        "term-international",
+        "biermann-oran"
+      ],
+      "filename": "Earth System Governance.epub",
+      "filetype": "epub",
+      "last_modified": 1768539487.0777946
+    },
+    {
+      "id": "hyperobjects",
+      "title": "Hyperobjects",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "critique-animal",
+        "alien-phenomenology",
+        "ethics-biopolitics",
+        "16-ecological",
+        "cary-wolfe",
+        "reserved-publication"
+      ],
+      "filename": "Hyperobjects.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.2137055
+    },
+    {
+      "id": "intensive_science_and_virtual_philosophy",
+      "title": "Intensive Science and Virtual Philosophy",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "virtual-philosophy",
+        "manuel-delanda",
+        "physics-deleuze",
+        "tve-sci",
+        "lctions-piii",
+        "scientists-analytical"
+      ],
+      "filename": "Intensive Science and Virtual Philosophy.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.4047766
+    },
+    {
+      "id": "lines_of_flight",
+      "title": "Lines of Flight",
+      "author": "Felix Guattari",
+      "year": 2015,
+      "tags": [
+        "research-semiotic",
+        "writings-alain",
+        "ranci\u00e8re-senses",
+        "schizoanalytic-cartographies",
+        "machines-unconscious",
+        "f\u00e9lix-guattari"
+      ],
+      "filename": "Lines of Flight.epub",
+      "filetype": "epub",
+      "last_modified": 1768539487.057141
+    },
+    {
+      "id": "new_philosophy_of_society",
+      "title": "New Philosophy of Society: Assemblage Theory and Social Complexity",
+      "author": "DeLanda, Manuel",
+      "year": 2006,
+      "tags": [
+        "philosophy-society",
+        "www-continuumbooks",
+        "copyright-designs",
+        "entities-conceptions",
+        "manuel-delanda",
+        "patents-act"
+      ],
+      "filename": "New Philosophy of Society.epub",
+      "filetype": "epub",
+      "last_modified": 1762276843.1154964
+    },
+    {
+      "id": "philosophy_and_simulation",
+      "title": "Philosophy and Simulation: The Emergence of Synthetic Reason",
+      "author": "Manuel DeLanda",
+      "year": 2011,
+      "tags": [
+        "philosophy-gilles",
+        "virtual-philosophy",
+        "emergentist-philosophers",
+        "theoretical-writings",
+        "deleuze-cinema",
+        "intensive-science"
+      ],
+      "filename": "Philosophy and Simulation.epub",
+      "filetype": "epub",
+      "last_modified": 1653339106.0
+    },
+    {
+      "id": "postscript_on_the_societies_of_control",
+      "title": "Postscript on the Societies of Control",
+      "author": "Gilles Deleuze",
+      "year": 1990,
+      "tags": [
+        "societies-eighteenth",
+        "forces-prisons",
+        "foucault-located",
+        "enclosed-environment",
+        "translation-pourparlers",
+        "analogical-model"
+      ],
+      "filename": "Postscript on the Societies of Control.epub",
+      "filetype": "epub",
+      "last_modified": 1768539491.4115083
+    },
+    {
+      "id": "simulacra_and_simulation",
+      "title": "Simulacra and Simulation",
+      "author": "Jean Baudrillard",
+      "year": 1994,
+      "tags": [
+        "simulacra-history",
+        "borges-fable",
+        "true-ecclesiastes",
+        "story-holograms",
+        "implosion-meaning",
+        "apocalypse-beaubourg"
+      ],
+      "filename": "Simulacra and Simulation.epub",
+      "filetype": "epub",
+      "last_modified": 1768539491.4575005
+    },
+    {
+      "id": "spinoza_filosofia_practica",
+      "title": "Spinoza: filosof\u00eda pr\u00e1ctica",
+      "author": "Gilles Deleuze",
+      "year": 2013,
+      "tags": [
+        "spinoza-es",
+        "contribuido-al",
+        "filosof\u00eda-pr\u00e1ctica",
+        "libros-especulativos",
+        "actividades-conspirador",
+        "en-1632"
+      ],
+      "filename": "Spinoza Filosofia Pra\u0301ctica.epub",
+      "filetype": "epub",
+      "last_modified": 1768539491.460979
+    },
+    {
+      "id": "the_dawn_of_everything",
+      "title": "The Dawn of Everything",
+      "author": "David Graeber",
+      "year": 2021,
+      "tags": [
+        "beginnings-sovereignty",
+        "neolithic-peoples",
+        "civilization-wengrow",
+        "freedom-farming",
+        "slaves-californian",
+        "inequality-wicked"
+      ],
+      "filename": "The Dawn of Everything.epub",
+      "filetype": "epub",
+      "last_modified": 1768539491.5056314
+    },
+    {
+      "id": "the_macroscope",
+      "title": "The Macroscope",
+      "author": "\u05e4\u05e0\u05d7\u05e1 \u05d9\u05d7\u05d6\u05e7\u05d0\u05dc\u05d9",
+      "year": 2012,
+      "tags": [
+        "macroscope-ecology",
+        "economic-machine",
+        "dynamics-internal",
+        "evolution-genesis",
+        "cell-body",
+        "controlling-fermentation"
+      ],
+      "filename": "The Macroscope.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.4141898
+    },
+    {
+      "id": "the_rise_of_realism",
+      "title": "The Rise of Realism",
+      "author": "Manuel DeLanda,Graham Harman",
+      "year": 2017,
+      "tags": [
+        "realism-manuel",
+        "mind-phenomenologist",
+        "authors-work",
+        "irealism-materialism",
+        "graham-harman",
+        "table-contents"
+      ],
+      "filename": "The Rise of Realism.epub",
+      "filetype": "epub",
+      "last_modified": 1762276843.7765145
+    },
+    {
+      "id": "turings_cathedral",
+      "title": "Turing's Cathedral",
+      "author": "George Dyson",
+      "year": 2012,
+      "tags": [
+        "turing-universal",
+        "digital-universe",
+        "neumann-computer",
+        "george-dysonall",
+        "computers-history",
+        "random-access"
+      ],
+      "filename": "Turing's Cathedral.epub",
+      "filetype": "epub",
+      "last_modified": 1768539857.936592
+    }
+  ]
+}

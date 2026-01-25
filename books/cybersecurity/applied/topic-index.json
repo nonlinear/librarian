@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "cybersecurity_applied",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "b7e3bd6f01806c37eedf0b1fd3c904e248e66accc2e094f9aea973faa889bbd9",
+  "books": [
+    {
+      "id": "applied_cryptography",
+      "title": "Applied Cryptography",
+      "author": "Bruce Schneier",
+      "year": 2017,
+      "tags": [
+        "cryptography-today",
+        "cryptologia-encyclopedic",
+        "byte-book",
+        "encyclopedic-readable",
+        "ieee-software",
+        "scanning-permitted"
+      ],
+      "filename": "Applied Cryptography.epub",
+      "filetype": "epub",
+      "last_modified": 1768862220.753082
+    },
+    {
+      "id": "cryptography_engineering",
+      "title": "Cryptography Engineering",
+      "author": "Niels Ferguson",
+      "year": 2011,
+      "tags": [
+        "introduction-cryptographic",
+        "pki-attacks",
+        "message-security",
+        "secrets-quality",
+        "threat-model",
+        "definition-block"
+      ],
+      "filename": "Cryptography Engineering.epub",
+      "filetype": "epub",
+      "last_modified": 1768862574.8139532
+    },
+    {
+      "id": "hacking_the_art_of_exploitation",
+      "title": "Hacking The Art of Exploitation, 2nd Edition",
+      "author": "Jon Erickson",
+      "year": 2011,
+      "tags": [
+        "programming-0x210",
+        "assembly-language",
+        "exploit-techniques",
+        "byte-order",
+        "binding-shellcode",
+        "arithmetic-operators"
+      ],
+      "filename": "Hacking The Art of Exploitation.epub",
+      "filetype": "epub",
+      "last_modified": 1768862603.7223482
+    },
+    {
+      "id": "practical_malware_analysis",
+      "title": "Practical Malware Analysis: The Hands-On Guide to Dissecting Malicious Software",
+      "author": "Michael Sikorski and Andrew Honig",
+      "year": 2012,
+      "tags": [
+        "analysis-malware",
+        "security-windows",
+        "basics-hacking",
+        "ida-pro",
+        "taosecurity-book",
+        "comprehensive"
+      ],
+      "filename": "Practical Malware Analysis.epub",
+      "filetype": "epub",
+      "last_modified": 1768863358.3601255
+    },
+    {
+      "id": "the_cathedral__the_bazaar",
+      "title": "The Cathedral & the Bazaar: Musings on Linux and Open Source by an Accidental Revolutionary",
+      "author": "Eric S. Raymond",
+      "year": 2001,
+      "tags": [
+        "cathedral-bazaar",
+        "open-source",
+        "software-infrastructure",
+        "adoption-linux",
+        "information-economy",
+        "influential-paper"
+      ],
+      "filename": "The Cathedral & the Bazaar.epub",
+      "filetype": "epub",
+      "last_modified": 1768862583.216377
+    },
+    {
+      "id": "the_web_application_hackers_handbook",
+      "title": "The Web Application Hacker's Handbook: Finding and Exploiting Security Flaws",
+      "author": "Dafydd Stuttard",
+      "year": 2011,
+      "tags": [
+        "application-security",
+        "attacks-summary",
+        "session-management",
+        "http-requests",
+        "summary-questions",
+        "injecting-xpath"
+      ],
+      "filename": "The Web Application Hacker's Handbook.epub",
+      "filetype": "epub",
+      "last_modified": 1768862887.3178253
+    }
+  ]
+}

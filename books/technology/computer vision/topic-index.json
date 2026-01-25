@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "technology_computer_vision",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "87be3598ba05ff69d72fd8dd94054af8813b5f4880e423e6b75816a54276d126",
+  "books": [
+    {
+      "id": "14-trendreport",
+      "title": "14. Trendreport",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "digitale-gesundheitstechnologien",
+        "medizinprodukte-trend",
+        "der-bundesregierung2",
+        "medial",
+        "corona",
+        "5791046-https"
+      ],
+      "filename": "14.-Trendreport.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.8215084
+    },
+    {
+      "id": "31_debug_solutionspdf",
+      "title": "3.1 Debug Solutions.pdf",
+      "author": "Unknown",
+      "year": 2018,
+      "tags": [
+        "installing-pytorch",
+        "ipp_cvtcolor-resolvepackagenotfound",
+        "virtual_platform-erases",
+        "dll-error",
+        "egg_info-error",
+        "conda-env"
+      ],
+      "filename": "3.1 Debug Solutions.pdf.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.822213
+    },
+    {
+      "id": "computer_vision__-_a_modern_approach",
+      "title": "Computer Vision - A Modern Approach",
+      "author": "Forsyth - Ponce",
+      "year": 2004,
+      "tags": [
+        "light-surfaces",
+        "lambertian-specular",
+        "reference-radiometric",
+        "photogrammetry-143",
+        "normal-albedo",
+        "hemispheric-re\ufb02ectance"
+      ],
+      "filename": "Computer Vision  - A modern Approach.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.0288787
+    },
+    {
+      "id": "computer_vision_-_algorithms_and_applications",
+      "title": "Computer Vision - Algorithms and Applications",
+      "author": "Unknown",
+      "year": 2010,
+      "tags": [
+        "issued-copyright",
+        "microsoft-research",
+        "catalogue",
+        "szeliski-computer",
+        "reprographic-reproduction",
+        "errors-omissions"
+      ],
+      "filename": "Computer Vision - Algorithms and Applications.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.2332547
+    },
+    {
+      "id": "machine_vision",
+      "title": "Machine vision",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Machine vision.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.2356358
+    },
+    {
+      "id": "readings_in_computer_vision",
+      "title": "Readings in computer vision",
+      "author": "Unknown",
+      "year": 2014,
+      "tags": [
+        "readings-knowledge",
+        "vision-bibliography",
+        "morgan-kaufmann",
+        "intelligence-edited",
+        "congress-cataloging",
+        "cybernetics-reprinted"
+      ],
+      "filename": "Readings in computer vision.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.4861548
+    },
+    {
+      "id": "the_latest_computer_vision_for_beginners_and_experts",
+      "title": "THE LATEST COMPUTER VISION For Beginners And Experts : Procedure And Demand",
+      "author": "LEONARD , HARRY",
+      "year": 2021,
+      "tags": [
+        "analogue-computers",
+        "computer-m\u0456n\u0456",
+        "calculate-pc",
+        "wheel-difference",
+        "analytical-engine",
+        "\u0441\u043em\u0440ut\u0435r-programming"
+      ],
+      "filename": "The Latest Computer Vision for Beginners and Experts.epub",
+      "filetype": "epub",
+      "last_modified": 1767910018.5333464
+    }
+  ]
+}

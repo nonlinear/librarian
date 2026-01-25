@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "theory_anthropocene",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": 1769348357.240335,
+  "content_hash": "e876d7b90cc6087c954f75082c004b5688741ec13d7ef6414e642fbced7f9e54",
+  "books": [
+    {
+      "id": "how_infrastructure_works",
+      "title": "How Infrastructure Works",
+      "author": "Deb Chachra",
+      "year": 2023,
+      "tags": [
+        "riverhead-books",
+        "infrastructure-rethinking",
+        "bridges-roadbed",
+        "world-deb",
+        "systems-shape",
+        "colophon-registered"
+      ],
+      "filename": "How Infrastructure Works.epub",
+      "filetype": "epub",
+      "last_modified": 1767923358.3857512
+    },
+    {
+      "id": "how_forests_think",
+      "title": "How Forests Think",
+      "author": "Kohn, Eduardo; ",
+      "year": null,
+      "tags": [
+        "forests-think",
+        "anthropology-human",
+        "quechua-mythology",
+        "ecology-amazon",
+        "\u00e1vila-grandparents",
+        "cataloging-publication"
+      ],
+      "filename": "How forests think.epub",
+      "filetype": "epub",
+      "last_modified": 1767749501.960639
+    },
+    {
+      "id": "marx_in_the_anthropocene",
+      "title": "Marx in the Anthropocene",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "marx-anthropocene",
+        "critique-capitalism",
+        "ecosocialism-capital",
+        "ecological-critique",
+        "saito-kohei",
+        "new-materials"
+      ],
+      "filename": "Marx in the Anthropocene.epub",
+      "filetype": "epub",
+      "last_modified": 1767923358.1984456
+    },
+    {
+      "id": "molecular_red",
+      "title": "Molecular Red: Theory for the Anthropocene",
+      "author": "Mckenzie Wark",
+      "year": 2015,
+      "tags": [
+        "molecular-red",
+        "theory-anthropocene",
+        "paperback-alkaline",
+        "tektology-4kim",
+        "2015-mckenzie",
+        "wark-pages"
+      ],
+      "filename": "Molecular Red.epub",
+      "filetype": "epub",
+      "last_modified": 1767923358.2252285
+    },
+    {
+      "id": "psychopolitics",
+      "title": "Psychopolitics",
+      "author": "Byung-Chul Han",
+      "year": null,
+      "tags": [
+        "psychopolitics-verso",
+        "government-precarious",
+        "neoliberalism-newtechnologies",
+        "futures-law",
+        "suicide-franco",
+        "han-translated"
+      ],
+      "filename": "Psychopolitics.epub",
+      "filetype": "epub",
+      "last_modified": 1767923357.765177
+    }
+  ]
+}

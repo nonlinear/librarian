@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "theory_information",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "7aee41713e30459fd20802ab48c54c4bb3bc9f4bef4c0f5fae0c021521fe83e3",
+  "books": [
+    {
+      "id": "data_feminism",
+      "title": "Data Feminism",
+      "author": "Catherine D'Ignazio",
+      "year": 2020,
+      "tags": [
+        "data-feminism",
+        "technology-affecting",
+        "contemporary-society",
+        "power-social",
+        "thinkers-makers",
+        "cataloging-publication"
+      ],
+      "filename": "Data Feminism.epub",
+      "filetype": "epub",
+      "last_modified": 1769281644.8039088
+    },
+    {
+      "id": "liars_and_outliers",
+      "title": "Liars and Outliers: Enabling the Trust that Society Needs to Thrive",
+      "author": "Schneier, Bruce",
+      "year": 2012,
+      "tags": [
+        "trust-society",
+        "schneier-liars",
+        "security-economics",
+        "moral-pressures",
+        "outliers-provides",
+        "crisis-identification"
+      ],
+      "filename": "Liars and Outliers.epub",
+      "filetype": "epub",
+      "last_modified": 1768539641.2534351
+    },
+    {
+      "id": "the_attention_merchants",
+      "title": "The Attention Merchants: The Epic Scramble to Get Inside Our Heads",
+      "author": "Tim Wu",
+      "year": 2016,
+      "tags": [
+        "attention-merchants",
+        "advertising-psychological",
+        "tim-author",
+        "epic-scramble",
+        "inside-heads",
+        "wu-description"
+      ],
+      "filename": "The Attention Merchants.epub",
+      "filetype": "epub",
+      "last_modified": 1769283479.7635906
+    },
+    {
+      "id": "the_gutenberg_galaxy",
+      "title": "The Gutenberg Galaxy: The Making of Typographic Man",
+      "author": "Marshall McLuhan",
+      "year": 2011,
+      "tags": [
+        "swedish-printed",
+        "gutenberg-galaxy",
+        "manuscript-mechanical",
+        "glosses-mcluhan",
+        "typographic-man",
+        "includes-bibliographical"
+      ],
+      "filename": "The Gutenberg Galaxy.epub",
+      "filetype": "epub",
+      "last_modified": 1768539642.4364188
+    },
+    {
+      "id": "the_information",
+      "title": "The Information",
+      "author": "Gleick, James",
+      "year": 2011,
+      "tags": [
+        "pantheon-books",
+        "theory-flood",
+        "information-history",
+        "time-different",
+        "archie-wondered",
+        "simple-grand"
+      ],
+      "filename": "The Information.epub",
+      "filetype": "epub",
+      "last_modified": 1768539641.3115878
+    },
+    {
+      "id": "understanding_media",
+      "title": "Understanding Media",
+      "author": "Marshall  McLuhan",
+      "year": 2013,
+      "tags": [
+        "dangereuses-media",
+        "society-extended",
+        "man-introduction",
+        "comics-mad",
+        "narcissus-narcosis",
+        "brothel-walls"
+      ],
+      "filename": "Understanding Media.epub",
+      "filetype": "epub",
+      "last_modified": 1768539641.2764041
+    }
+  ]
+}

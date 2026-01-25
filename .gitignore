@@ -1,6 +1,7 @@
-# Books metadata/indices (EPUBs ignored in .git/info/exclude)
+# Books metadata/indices (books themselves excluded via .git/info/exclude + .vscode/settings.json)
 books/**/*.pkl
 books/**/*.index
+books/metadata.json
 
 # Failed books log (contains PII)
 engine/docs/FAILED.md
@@ -15,6 +16,9 @@ engine/docs/FAILED.md
 
 # Storage (deprecated - now inside books/)
 storage/
+
+# Embedding models (large downloads, rebuild locally)
+models/
 
 # Environment
 .env

@@ -1,0 +1,42 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "technology_hugo",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "56e42adcdbe3978746d6a588fc99cd01c2cf62b113c3614e464ca9eeefbb91b2",
+  "books": [
+    {
+      "id": "build_websites_with_hugo",
+      "title": "Build Websites with Hugo",
+      "author": "Brian P. Hogan",
+      "year": 2020,
+      "tags": [
+        "trademarks-pragmatic",
+        "programmers-pragmatic",
+        "hugo-outputyour",
+        "markdown-brian",
+        "web-development",
+        "bookshelf-linking"
+      ],
+      "filename": "Build websites with Hugo.epub",
+      "filetype": "epub",
+      "last_modified": 1768935247.0685484
+    },
+    {
+      "id": "static_site_generators",
+      "title": "Static Site Generators",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Static Site Generators.epub",
+      "filetype": "epub",
+      "last_modified": 1768935455.1426647
+    }
+  ]
+}

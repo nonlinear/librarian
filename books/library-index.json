@@ -1,0 +1,227 @@
+{
+  "schema_version": "2.0",
+  "library_path": "/Users/nfrota/Documents/personal library/books",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "topics": [
+    {
+      "id": "ai_policy",
+      "path": "AI/policy"
+    },
+    {
+      "id": "ai_prompt_engineering",
+      "path": "AI/prompt engineering"
+    },
+    {
+      "id": "ai_theory",
+      "path": "AI/theory"
+    },
+    {
+      "id": "anarchy_david_graeber",
+      "path": "anarchy/david graeber"
+    },
+    {
+      "id": "anarchy_hakim_bey",
+      "path": "anarchy/hakim bey"
+    },
+    {
+      "id": "anarchy_james_c_scott",
+      "path": "anarchy/james c scott"
+    },
+    {
+      "id": "anarchy_zines",
+      "path": "anarchy/zines"
+    },
+    {
+      "id": "art_direction",
+      "path": "art direction"
+    },
+    {
+      "id": "cooking",
+      "path": "cooking"
+    },
+    {
+      "id": "creativity_brand_strategy",
+      "path": "creativity/brand strategy"
+    },
+    {
+      "id": "cybersecurity_applied",
+      "path": "cybersecurity/applied"
+    },
+    {
+      "id": "cybersecurity_history",
+      "path": "cybersecurity/history"
+    },
+    {
+      "id": "cybersecurity_strategy",
+      "path": "cybersecurity/strategy"
+    },
+    {
+      "id": "design_character",
+      "path": "design/character"
+    },
+    {
+      "id": "design_circular",
+      "path": "design/circular"
+    },
+    {
+      "id": "design_data_visualization",
+      "path": "design/data visualization"
+    },
+    {
+      "id": "design_generative",
+      "path": "design/generative"
+    },
+    {
+      "id": "design_interaction",
+      "path": "design/interaction"
+    },
+    {
+      "id": "design_system",
+      "path": "design/system"
+    },
+    {
+      "id": "design_theory",
+      "path": "design/theory"
+    },
+    {
+      "id": "design_typography",
+      "path": "design/typography"
+    },
+    {
+      "id": "design_usability",
+      "path": "design/usability"
+    },
+    {
+      "id": "drawing_andrew_loomis",
+      "path": "drawing/andrew loomis"
+    },
+    {
+      "id": "drawing_basics",
+      "path": "drawing/basics"
+    },
+    {
+      "id": "drawing_clothes",
+      "path": "drawing/clothes"
+    },
+    {
+      "id": "drawing_figure_drawing",
+      "path": "drawing/figure drawing"
+    },
+    {
+      "id": "drawing_nature",
+      "path": "drawing/nature"
+    },
+    {
+      "id": "drawing_portrait",
+      "path": "drawing/portrait"
+    },
+    {
+      "id": "fiction_brasil",
+      "path": "fiction/brasil"
+    },
+    {
+      "id": "fiction_earthsea_cycle",
+      "path": "fiction/earthsea cycle"
+    },
+    {
+      "id": "fiction_science",
+      "path": "fiction/science"
+    },
+    {
+      "id": "fitness",
+      "path": "fitness"
+    },
+    {
+      "id": "magick_chaos",
+      "path": "magick/chaos"
+    },
+    {
+      "id": "magick_i_ching",
+      "path": "magick/i ching"
+    },
+    {
+      "id": "magick_manifestation",
+      "path": "magick/manifestation"
+    },
+    {
+      "id": "magick_tarot",
+      "path": "magick/tarot"
+    },
+    {
+      "id": "management_activism",
+      "path": "management/activism"
+    },
+    {
+      "id": "management_commons",
+      "path": "management/commons"
+    },
+    {
+      "id": "management_ideation",
+      "path": "management/ideation"
+    },
+    {
+      "id": "management_product",
+      "path": "management/product"
+    },
+    {
+      "id": "plants",
+      "path": "plants"
+    },
+    {
+      "id": "poetry_clarisse_lispector",
+      "path": "poetry/Clarisse Lispector"
+    },
+    {
+      "id": "poetry_fernando_pessoa",
+      "path": "poetry/Fernando Pessoa"
+    },
+    {
+      "id": "poetry_rumi",
+      "path": "poetry/Rumi"
+    },
+    {
+      "id": "technology_computer_vision",
+      "path": "technology/computer vision"
+    },
+    {
+      "id": "technology_hugo",
+      "path": "technology/hugo"
+    },
+    {
+      "id": "technology_processing",
+      "path": "technology/processing"
+    },
+    {
+      "id": "technology_vscode",
+      "path": "technology/vscode"
+    },
+    {
+      "id": "theory_anthropocene",
+      "path": "theory/anthropocene"
+    },
+    {
+      "id": "theory_feminism",
+      "path": "theory/feminism"
+    },
+    {
+      "id": "theory_game",
+      "path": "theory/game"
+    },
+    {
+      "id": "theory_information",
+      "path": "theory/information"
+    },
+    {
+      "id": "theory_system",
+      "path": "theory/system"
+    },
+    {
+      "id": "topology",
+      "path": "topology"
+    }
+  ]
+}

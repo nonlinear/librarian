@@ -1,0 +1,47 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "fitness",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "06a9cee9d459e0d74e316c6ee6021f9285b7b3ad764c499a3b78cf54b68f0dc3",
+  "books": [
+    {
+      "id": "overcoming_gravity",
+      "title": "Overcoming Gravity: A Systematic Approach to Gymnastics and Bodyweight Strength (Second Edition)",
+      "author": "Steven Low",
+      "year": 2019,
+      "tags": [
+        "gymnastics-bodyweight",
+        "overcoming-gravity",
+        "exercises-descriptions",
+        "fitness-fatigue",
+        "supercompensation-fitness",
+        "www-battlegroundcreative"
+      ],
+      "filename": "Overcoming Gravity.epub",
+      "filetype": "epub",
+      "last_modified": 1768539563.4316478
+    },
+    {
+      "id": "resistance_band_workbook_illustrated_step-by-step",
+      "title": "Resistance Band Workbook",
+      "author": "Karl Knopf",
+      "year": null,
+      "tags": [
+        "fitness-therapist",
+        "shoulder-handbook",
+        "strength-50",
+        "knopf-author",
+        "handbook-healthy",
+        "roller-workbook"
+      ],
+      "filename": "Resistance Band Workbook Illustrated Step-by-Step .epub",
+      "filetype": "epub",
+      "last_modified": 1768539563.391013
+    }
+  ]
+}

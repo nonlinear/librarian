@@ -1,0 +1,81 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "ai_policy",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "bf523e179e00304e5a1a59f655505d75b773f10c1797a1527101f545148b4d5d",
+  "books": [
+    {
+      "id": "a_framework_to_contest_and_justify_algorithmic_decisions",
+      "title": "A framework to contest and justify algorithmic decisions",
+      "author": "Cl\u00e9ment Henin ",
+      "year": 2021,
+      "tags": [
+        "justify-algorithmic",
+        "contestations-justifications",
+        "ai-ethics",
+        "contestation-ads",
+        "example-decisions",
+        "definition"
+      ],
+      "filename": "A framework to contest and justify algorithmic decisions.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.402502
+    },
+    {
+      "id": "ssrn-id3015350",
+      "title": "Microsoft Word - AI Policy Roadmap SSRN.docx",
+      "author": "Unknown",
+      "year": 2017,
+      "tags": [
+        "ai-today",
+        "robots-jobs",
+        "machine-bias",
+        "technology-threat",
+        "discriminate-unfairly",
+        "term-coined"
+      ],
+      "filename": "SSRN-id3015350.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.4038286
+    },
+    {
+      "id": "technology__ethos",
+      "title": "Technology & Ethos",
+      "author": "Unknown",
+      "year": 2018,
+      "tags": [
+        "creation-powered",
+        "machines-morality",
+        "western-technology",
+        "humanistic-white",
+        "man-freedom",
+        "imamu-amiri"
+      ],
+      "filename": "Technology & Ethos.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.4053526
+    },
+    {
+      "id": "the_moral_character_of_cryptographic_work",
+      "title": "The Moral Character of Cryptographic Work",
+      "author": "Unknown",
+      "year": 2016,
+      "tags": [
+        "cryptography-ethics",
+        "mass-surveillance",
+        "dimension-snowden",
+        "responsibility-scientists",
+        "math-societal",
+        "inherently-political"
+      ],
+      "filename": "The Moral Character of Cryptographic Work.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.4072814
+    }
+  ]
+}

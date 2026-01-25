@@ -1,0 +1,59 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "drawing_clothes",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "44aba9c22c9d9e4d144e96a58fa7dae599ee61cfbf6c20bfdd7ca806717a6851",
+  "books": [
+    {
+      "id": "drawing_the_draped_figure",
+      "title": "Drawing the Draped Figure",
+      "author": "Bridgman, George B.",
+      "year": 2012,
+      "tags": [
+        "rhythm-drawing",
+        "draped-figure",
+        "laws-folds",
+        "words-expressed",
+        "sea-tides",
+        "grasses-clouds"
+      ],
+      "filename": "Drawing the Draped Figure.epub",
+      "filetype": "epub",
+      "last_modified": 1769143092.720227
+    },
+    {
+      "id": "dynamic_wrinkles_and_drapery",
+      "title": "Dynamic Wrinkles and Drapery",
+      "author": "Unknown",
+      "year": 2006,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Dynamic Wrinkles and Drapery.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291067.2496037
+    },
+    {
+      "id": "the_art_of_drawing_folds",
+      "title": "The Art Of Drawing Folds: An Illustrator\u2019s Guide to Drawing the Clothed Figure",
+      "author": "Kelly Gordon Brine",
+      "year": 2017,
+      "tags": [
+        "drawing-clothed",
+        "behavior-cloth",
+        "reasons-fold",
+        "reference-animators",
+        "brine-storyboard",
+        "figure-kelly"
+      ],
+      "filename": "The Art of Drawing Folds.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291067.3528388
+    }
+  ]
+}

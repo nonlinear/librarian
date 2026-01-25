@@ -1,0 +1,569 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_usability",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "a15e52ca2e98eacc3e12ff602fe1a0cace358b766435c5ce75ee8fa7afac46a8",
+  "books": [
+    {
+      "id": "a_web_for_everyone",
+      "title": "A Web for Everyone",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "A Web for Everyone.epub",
+      "filetype": "epub",
+      "last_modified": 1768539918.2156081
+    },
+    {
+      "id": "build_better_products",
+      "title": "Build Better Products",
+      "author": "Laura Klein",
+      "year": 2016,
+      "tags": [
+        "methodologies-expert",
+        "interviewing-exercise",
+        "ideas-ideas",
+        "customer-journey",
+        "building-empathy",
+        "advice-christina"
+      ],
+      "filename": "Build Better Products.epub",
+      "filetype": "epub",
+      "last_modified": 1768539918.905799
+    },
+    {
+      "id": "card_sorting",
+      "title": "Card Sorting: Designing Usable Categories",
+      "author": "Donna Spencer",
+      "year": 2009,
+      "tags": [
+        "books-cardsorting",
+        "organize-things",
+        "insights-card",
+        "diagrams-book",
+        "architecture-projects",
+        "practical-tips"
+      ],
+      "filename": "Card Sorting.epub",
+      "filetype": "epub",
+      "last_modified": 1768539918.6569786
+    },
+    {
+      "id": "content_everywhere",
+      "title": "Content Everywhere: Strategy and Structure for Future-Ready Content",
+      "author": "Sara Wachter-Boettcher",
+      "year": 2012,
+      "tags": [
+        "content-strategy",
+        "experiences-devices",
+        "channels-increasingly",
+        "unfixed-future",
+        "responsive-adaptive",
+        "sustainable-book"
+      ],
+      "filename": "Content Everywhere.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.216358
+    },
+    {
+      "id": "design_for_care",
+      "title": "Design for Care",
+      "author": "Peter H. Jones",
+      "year": 2013,
+      "tags": [
+        "healthcare-design",
+        "care-written",
+        "surviving-cancers",
+        "resilience-shines",
+        "book-product",
+        "rosenfeld-developmental"
+      ],
+      "filename": "Design for care.epub",
+      "filetype": "epub",
+      "last_modified": 1768539921.665348
+    },
+    {
+      "id": "design_for_kids",
+      "title": "Design For Kids",
+      "author": "Debra Levin Gelman",
+      "year": 2014,
+      "tags": [
+        "designing-kids",
+        "development-sensorimotor",
+        "theory-cognitive",
+        "ages-egocentrism",
+        "assess-chapter",
+        "inhalt"
+      ],
+      "filename": "Design for kids.epub",
+      "filetype": "epub",
+      "last_modified": 1768539921.0749707
+    },
+    {
+      "id": "design_is_the_problem",
+      "title": "Design is the Problem: The Future of Design Must Be Sustainable",
+      "author": "Nathan Shedroff",
+      "year": 2009,
+      "tags": [
+        "design-sustainable",
+        "written-designer",
+        "change-world",
+        "economy-understanding",
+        "errata-rosenfeldmedia",
+        "book-organized"
+      ],
+      "filename": "Design is the problem.epub",
+      "filetype": "epub",
+      "last_modified": 1768539921.8177307
+    },
+    {
+      "id": "designing_voice_user_interfaces",
+      "title": "Designing Voice User Interfaces: Principles of Conversational Experiences",
+      "author": "Cathy Pearl",
+      "year": 2016,
+      "tags": [
+        "conversational-design",
+        "user-interfaces",
+        "voice-enabled",
+        "prompts-tools",
+        "testing-vuis",
+        "universals-latency"
+      ],
+      "filename": "Designing Voice User Interfaces.epub",
+      "filetype": "epub",
+      "last_modified": 1768539921.0020542
+    },
+    {
+      "id": "doorbells_danger_and_dead_batteries_-_user_research_war_stories",
+      "title": "DOORBELLS, DANGER, AND DEAD BATTERIES",
+      "author": "Unknown",
+      "year": 2019,
+      "tags": [
+        "doorbells-danger",
+        "batteries-user",
+        "book-experience",
+        "email-story",
+        "portigal-rosenfeld",
+        "development-spend"
+      ],
+      "filename": "Doorbells, danger, and dead batteries - user research war stories.epub",
+      "filetype": "epub",
+      "last_modified": 1768539921.0437443
+    },
+    {
+      "id": "engaged_-_designing_for_behavior_change",
+      "title": "Engaged",
+      "author": "Amy Bucher;",
+      "year": 2020,
+      "tags": [
+        "make-decisions",
+        "motivation-behavior",
+        "change-perspective",
+        "teach-design",
+        "contents-foreword",
+        "product-love"
+      ],
+      "filename": "Engaged - Designing for Behavior Change.epub",
+      "filetype": "epub",
+      "last_modified": 1768539923.2763999
+    },
+    {
+      "id": "interviewing_users",
+      "title": "Interviewing Users: How to Uncover Compelling Insights",
+      "author": "Steve Portigal",
+      "year": 2013,
+      "tags": [
+        "insights-design",
+        "making-book",
+        "designer",
+        "portigal-rosenfeld",
+        "improve-interviewer",
+        "customers"
+      ],
+      "filename": "Interviewing Users.epub",
+      "filetype": "epub",
+      "last_modified": 1768539922.0332837
+    },
+    {
+      "id": "liftoff",
+      "title": "Liftoff!: Practical Design Leadership to Elevate Your Team, Your Organization, and You",
+      "author": "Chris Avore",
+      "year": 2020,
+      "tags": [
+        "interviewing-design",
+        "job-descriptions",
+        "designing-diversity",
+        "performance-profiles",
+        "cover-page",
+        "inclusion-teams"
+      ],
+      "filename": "Liftoff.epub",
+      "filetype": "epub",
+      "last_modified": 1768539922.1419463
+    },
+    {
+      "id": "make_it_so",
+      "title": "Make It So: Interaction Design Lessons From Science Fiction",
+      "author": "Nathan Shedroff and Christopher Noessel",
+      "year": 2012,
+      "tags": [
+        "interaction-design",
+        "combat-barbie",
+        "shedroff-nieces",
+        "book-make",
+        "developmental",
+        "www-scifiinterfaces"
+      ],
+      "filename": "Make It So.epub",
+      "filetype": "epub",
+      "last_modified": 1768539925.453528
+    },
+    {
+      "id": "managing_chaos",
+      "title": "Managing Chaos",
+      "author": "Lisa Welchman",
+      "year": 2015,
+      "tags": [
+        "digital-governance",
+        "book-managing",
+        "managing-chaos",
+        "enterprise-architects",
+        "clarifying-roles",
+        "rosenfeld-managing"
+      ],
+      "filename": "Managing Chaos.epub",
+      "filetype": "epub",
+      "last_modified": 1768539923.116494
+    },
+    {
+      "id": "on_intelligence",
+      "title": "On Intelligence",
+      "author": "Unknown",
+      "year": 101,
+      "tags": [
+        "intelligence-cortex",
+        "build-machines",
+        "palm-computing",
+        "tech-world",
+        "explore-universe",
+        "prologue-book"
+      ],
+      "filename": "On Intelligence.epub",
+      "filetype": "epub",
+      "last_modified": 1768539922.2126484
+    },
+    {
+      "id": "play_anything",
+      "title": "Play Anything",
+      "author": "Ian Bogost",
+      "year": 2016,
+      "tags": [
+        "persuasive-games",
+        "videogames-geek",
+        "perseus-books",
+        "racing-beam",
+        "page-pale",
+        "alien-phenomenology"
+      ],
+      "filename": "Play Anything.epub",
+      "filetype": "epub",
+      "last_modified": 1768539922.3593655
+    },
+    {
+      "id": "playful_design",
+      "title": "Playful Design: Creating Game Experiences in Everyday Interfaces",
+      "author": "John Ferrara",
+      "year": 2012,
+      "tags": [
+        "playful-design",
+        "application-game",
+        "everyday-interfacesjohn",
+        "ferraraon-web",
+        "book-reviews",
+        "errata-rosenfeldmedia"
+      ],
+      "filename": "Playful Design.epub",
+      "filetype": "epub",
+      "last_modified": 1768539922.9851234
+    },
+    {
+      "id": "prototyping",
+      "title": "Prototyping",
+      "author": "Todd Zaki Warfel",
+      "year": 2009,
+      "tags": [
+        "prototyping-tutorial",
+        "flash-dreamweaver",
+        "book-chose",
+        "javascript-shortage",
+        "experience-practitioners",
+        "improve-communication"
+      ],
+      "filename": "Prototyping.epub",
+      "filetype": "epub",
+      "last_modified": 1768539922.952256
+    },
+    {
+      "id": "remote_research",
+      "title": "Remote Research",
+      "author": "Nate Bolt and Tony Tulathimutte",
+      "year": 2010,
+      "tags": [
+        "remote-research",
+        "experience-book",
+        "technology-user",
+        "book-http",
+        "site-companion",
+        "people-interact"
+      ],
+      "filename": "Remote Research.epub",
+      "filetype": "epub",
+      "last_modified": 1768539923.4983525
+    },
+    {
+      "id": "search_analytics_for_your_site",
+      "title": "Search Analytics for Your Site: Conversations with Your Customers",
+      "author": "Louis Rosenfeld",
+      "year": 2011,
+      "tags": [
+        "user-research",
+        "book-web",
+        "customers-louis",
+        "errata-rosenfeldmedia",
+        "site-intranet",
+        "section-introduces"
+      ],
+      "filename": "Search Analytics for Your Site.epub",
+      "filetype": "epub",
+      "last_modified": 1768539923.4982734
+    },
+    {
+      "id": "service_design",
+      "title": "Service Design: From Insight to Implementation",
+      "author": "Andrew Polaine",
+      "year": 2013,
+      "tags": [
+        "enlightening-design",
+        "head-writing",
+        "interior-layout",
+        "andy-polaine",
+        "book-service",
+        "rosenfeld-developmental"
+      ],
+      "filename": "Service Design.epub",
+      "filetype": "epub",
+      "last_modified": 1768539926.8270063
+    },
+    {
+      "id": "simple_conquering_the_crisis_of_complexity_by_irene_etzkorn_alan_m_siegel",
+      "title": "Simple",
+      "author": "Alan Siegel",
+      "year": 2013,
+      "tags": [
+        "hachette-book",
+        "newsletters-copyright",
+        "book-permission",
+        "table-contents",
+        "unlawful-piracy",
+        "scanning-uploading"
+      ],
+      "filename": "Simple Conquering the Crisis of Complexity by Irene Etzkorn, Alan M. Siegel.epub",
+      "filetype": "epub",
+      "last_modified": 1768539923.820435
+    },
+    {
+      "id": "storytelling_for_user_experience",
+      "title": "Storytelling for User Experience",
+      "author": "Whitney Quesenbery & Kevin Brooks",
+      "year": 2010,
+      "tags": [
+        "design-stories",
+        "book-help",
+        "brother-blue",
+        "york-rosenfeld",
+        "enrich-practice",
+        "change-world"
+      ],
+      "filename": "Storytelling for User Experience.epub",
+      "filetype": "epub",
+      "last_modified": 1768539924.135821
+    },
+    {
+      "id": "strategic_writing_for_ux",
+      "title": "Strategic Writing for UX",
+      "author": "Torrey Podmajersky",
+      "year": 2019,
+      "tags": [
+        "strategic-writing",
+        "experience-design",
+        "improve-product",
+        "ux-copy",
+        "content-review",
+        "trademarks-designations"
+      ],
+      "filename": "Strategic Writing for UX.epub",
+      "filetype": "epub",
+      "last_modified": 1768539924.4331906
+    },
+    {
+      "id": "the_best_interface_is_no_interface",
+      "title": "The Best Interface Is No Interface: The simple path to brilliant technology (Voices That Matter)",
+      "author": "Golden Krishna",
+      "year": 2015,
+      "tags": [
+        "best-interface",
+        "technology-golden",
+        "drawing-refrigerator",
+        "permissions-peachpit",
+        "riderswww-newriders",
+        "krishna-criticality"
+      ],
+      "filename": "The Best Interface Is No Interface.epub",
+      "filetype": "epub",
+      "last_modified": 1768539924.4234622
+    },
+    {
+      "id": "the_elements_of_voice_first_style",
+      "title": "The Elements of Voice First Style",
+      "author": "Ahmed  Bouzid",
+      "year": 2022,
+      "tags": [
+        "design-voice",
+        "conversational-technologies",
+        "style-establishes",
+        "fundamentals-beginners",
+        "sophistication-bouzid",
+        "william-strunk"
+      ],
+      "filename": "The Elements of Voice First Style.epub",
+      "filetype": "epub",
+      "last_modified": 1768539924.6220279
+    },
+    {
+      "id": "the_mobile_frontier",
+      "title": "The Mobile Frontier: A Guide for Designing Mobile Experiences",
+      "author": "Rachel Hinman",
+      "year": 2012,
+      "tags": [
+        "mobile-design",
+        "book-designed",
+        "experience-practitioners",
+        "tech-danielle",
+        "frontier-chapter",
+        "woman-sets"
+      ],
+      "filename": "The Mobile Frontier.epub",
+      "filetype": "epub",
+      "last_modified": 1768539927.1421993
+    },
+    {
+      "id": "the_user_experience_team_of_one",
+      "title": "The User Experience Team of One",
+      "author": "Leah Buley",
+      "year": 2013,
+      "tags": [
+        "methods-ux",
+        "ux-questionnaire",
+        "project-hours",
+        "topic-guidance",
+        "design-brief",
+        "appendix-guide"
+      ],
+      "filename": "The User Experience Team of One.epub",
+      "filetype": "epub",
+      "last_modified": 1768539925.6346972
+    },
+    {
+      "id": "the_users_journey",
+      "title": "The User's Journey",
+      "author": "Donna Lichaw",
+      "year": 2016,
+      "tags": [
+        "book-storytelling",
+        "product-chapters",
+        "concepts-jog",
+        "cover-design",
+        "errata-rosenfeldmedia",
+        "love-donna"
+      ],
+      "filename": "The User\u2019s Journey.epub",
+      "filetype": "epub",
+      "last_modified": 1768539925.4003253
+    },
+    {
+      "id": "validating_product_ideas",
+      "title": "Validating Product Ideas: Through Lean User Research",
+      "author": "Tomer Sharon",
+      "year": 2016,
+      "tags": [
+        "product-users",
+        "question-design",
+        "validating",
+        "ideas-lean",
+        "identify-burning",
+        "proofreader-sue"
+      ],
+      "filename": "Validating Product Ideas.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.240658
+    },
+    {
+      "id": "web_form_design",
+      "title": "Web Form Design: Filling in the Blanks",
+      "author": "Luke Wroblewski",
+      "year": 2008,
+      "tags": [
+        "web-forms",
+        "checkout-forms",
+        "ecommerce",
+        "filling-blanks",
+        "arbiters-checkout",
+        "chapter-design"
+      ],
+      "filename": "Web Form Design.epub",
+      "filetype": "epub",
+      "last_modified": 1768539926.0907156
+    },
+    {
+      "id": "why_we_fail",
+      "title": "Why We Fail",
+      "author": "Victor Lombardi",
+      "year": 2013,
+      "tags": [
+        "book-designers",
+        "design-reflection",
+        "experience-failure",
+        "managers-derive",
+        "product-concept",
+        "rosenfeld-media"
+      ],
+      "filename": "Why We Fail.epub",
+      "filetype": "epub",
+      "last_modified": 1768539926.7000902
+    },
+    {
+      "id": "writing_is_designing",
+      "title": "Writing Is Designing: Words and the User Experience",
+      "author": "Michael J. Metts",
+      "year": 2020,
+      "tags": [
+        "writing-design",
+        "words-users",
+        "read-interact",
+        "comes-book",
+        "content-strategist",
+        "rosenfeld-managing"
+      ],
+      "filename": "Writing Is Designing.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.2310734
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_system",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "779edaa39474b7c0087a7c734465765fa73a7543047512568997f09a02630809",
+  "books": [
+    {
+      "id": "atomic_design",
+      "title": "Atomic Design by Brad Frost",
+      "author": "Brad Frost",
+      "year": 2016,
+      "tags": [
+        "making-design",
+        "atomic-design",
+        "artboard-1table",
+        "website-techcrunch",
+        "pages-atomic",
+        "systems-stand"
+      ],
+      "filename": "Atomic Design.epub",
+      "filetype": "epub",
+      "last_modified": 1768540534.666488
+    },
+    {
+      "id": "building_design_systems",
+      "title": "Building Design Systems",
+      "author": "Sarrah Vesselov",
+      "year": null,
+      "tags": [
+        "design-files",
+        "taurie-davisbuilding",
+        "body-matter",
+        "languagesarrah-vesselovdade",
+        "landmarks-cover",
+        "systemsunify"
+      ],
+      "filename": "Building Design Systems.epub",
+      "filetype": "epub",
+      "last_modified": 1768540461.6154993
+    },
+    {
+      "id": "design_that_scales",
+      "title": "Design That Scales",
+      "author": "Dan Mall",
+      "year": null,
+      "tags": [
+        "design-systems",
+        "chapter-governance",
+        "rebranding-end",
+        "pilots-improving",
+        "ecosystem-consisting",
+        "contribution-wordpress"
+      ],
+      "filename": "Design That Scales.epub",
+      "filetype": "epub",
+      "last_modified": 1768540485.004247
+    },
+    {
+      "id": "expressive_design_systems",
+      "title": "Expressive Design Systems",
+      "author": "Yesenia Perez-Cruz",
+      "year": 2019,
+      "tags": [
+        "managing-design",
+        "flexible-typesetting",
+        "apart-resilient",
+        "available-resources",
+        "create-functional",
+        "brand-chapter"
+      ],
+      "filename": "Expressive Design Systems.epub",
+      "filetype": "epub",
+      "last_modified": 1768540345.7898736
+    },
+    {
+      "id": "laying_the_foundations",
+      "title": "Laying the Foundations",
+      "author": "Andrew Couldwell",
+      "year": 2019,
+      "tags": [
+        "selling-design",
+        "systems-brand",
+        "responsive-design",
+        "andrew-couldwell",
+        "office-politics",
+        "language-foundations"
+      ],
+      "filename": "Laying the Foundations.epub",
+      "filetype": "epub",
+      "last_modified": 1768540505.5590956
+    }
+  ]
+}

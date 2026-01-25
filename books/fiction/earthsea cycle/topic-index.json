@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "fiction_earthsea_cycle",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "35565f609636cd28fa92db8e0958cda2ead4a361b2ae868d0e0034c6ee91665d",
+  "books": [
+    {
+      "id": "a_critical_companion",
+      "title": "Ursula K. Le Guin\u2019s \u201cA Wizard of Earthsea\u201d: A Critical Companion",
+      "author": "Miller, Timothy S.",
+      "year": 2023,
+      "tags": [
+        "fiction-fantasy",
+        "wizard-earthsea",
+        "palgrave-science",
+        "texts-relevant",
+        "canon-isbn",
+        "sff-speaking"
+      ],
+      "filename": "A Critical Companion.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.4498837
+    },
+    {
+      "id": "earthsea_1_-_a_wizard_of_earthsea",
+      "title": "Earthsea 1 - A Wizard Of Earthsea",
+      "author": "Unknown",
+      "year": 2009,
+      "tags": [
+        "wizard-earthsea",
+        "lords-archipelago",
+        "like-gontish",
+        "called-sparrowhawk",
+        "greatest-voyager",
+        "word-dark"
+      ],
+      "filename": "Earthsea 1 - A Wizard Of Earthsea.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.4523919
+    },
+    {
+      "id": "earthsea_2-_the_tombs_of_atuan",
+      "title": "The Tombs of Atuan",
+      "author": "Ursula K. Le Guin",
+      "year": 1980,
+      "tags": [
+        "tombs-atuan",
+        "book-earthsea",
+        "prologue-eaten",
+        "orchards-evening",
+        "figure-running",
+        "child-climbed"
+      ],
+      "filename": "Earthsea 2- The Tombs of Atuan.epub",
+      "filetype": "epub",
+      "last_modified": 1769143215.390436
+    },
+    {
+      "id": "earthsea_3_-_the_farthest_shore",
+      "title": "The Farthest Shore",
+      "author": "Ursula K. Le Guin",
+      "year": 2008,
+      "tags": [
+        "place-wizardry",
+        "roke-isle",
+        "nearest-fountain",
+        "rowan-tree",
+        "water-leapt",
+        "golden-roofs"
+      ],
+      "filename": "Earthsea 3 - The Farthest Shore.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.4545221
+    },
+    {
+      "id": "earthsea_4_-_tehanu",
+      "title": "Earthsea 4 - Tehanu",
+      "author": "Abbas",
+      "year": 2009,
+      "tags": [
+        "spider-gont",
+        "tehanu-ursula",
+        "gossiped-white",
+        "widow-old",
+        "stone-farmhouse",
+        "mage-ogion"
+      ],
+      "filename": "Earthsea 4 - Tehanu.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.4577444
+    },
+    {
+      "id": "earthsea_5_-_tales_from_earthsea",
+      "title": "Tales from Earthsea",
+      "author": "Ursula K. Le Guin",
+      "year": 2001,
+      "tags": [
+        "earthsea-tales",
+        "fantasy-fiction",
+        "explores-magical",
+        "guin-ursula",
+        "dragonfly-description",
+        "darkrose-diamond"
+      ],
+      "filename": "Earthsea 5 - Tales from Earthsea.epub",
+      "filetype": "epub",
+      "last_modified": 1769143215.3687673
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_character",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "69e47bd1c362f10815060c6a40c1080a44342108ff7789965deacaaa74735128",
+  "books": [
+    {
+      "id": "creating_characters_with_personality",
+      "title": "Creating Characters with Personality",
+      "author": "Unknown",
+      "year": 2012,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Creating Characters with Personality.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291063.7239547
+    },
+    {
+      "id": "creative_character_design",
+      "title": "Creative character design",
+      "author": "Unknown",
+      "year": 2019,
+      "tags": [
+        "character-design",
+        "edition-creative",
+        "reader-strongly",
+        "omissions-publishers",
+        "liability-errors",
+        "supplement-medical"
+      ],
+      "filename": "Creative character design.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291064.3710005
+    },
+    {
+      "id": "drawn_from_life",
+      "title": "Drawn from Life",
+      "author": "Helen Birch",
+      "year": 2017,
+      "tags": [
+        "life-drawing",
+        "helen-artist",
+        "researching-pose",
+        "lcsh-figure",
+        "tips-tricks",
+        "isheeta-mustaficommissioning"
+      ],
+      "filename": "Drawn From Life.epub",
+      "filetype": "epub",
+      "last_modified": 1769143038.7185304
+    },
+    {
+      "id": "force_character_design_from_life_drawing",
+      "title": "Force: Character Design from Life Drawing",
+      "author": "Michael D. Mattesi",
+      "year": 2008,
+      "tags": [
+        "character-design",
+        "elsevier-science",
+        "press-imprint",
+        "blank-force",
+        "acquisitions-editor",
+        "visit-drawingforce"
+      ],
+      "filename": "Force, Character Design from Life Drawing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291064.4815574
+    },
+    {
+      "id": "zbrush_character_creation",
+      "title": "ZBrush Character Creation",
+      "author": "Spencer, Scott.",
+      "year": 2011,
+      "tags": [
+        "zbrush-character",
+        "digital-sculpting",
+        "cover-designer",
+        "pixologic-trademarks",
+        "make-readers",
+        "consistently-exceptional"
+      ],
+      "filename": "ZBrush Character Creation.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291064.6154263
+    }
+  ]
+}

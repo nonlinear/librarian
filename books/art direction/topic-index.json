@@ -1,0 +1,81 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "art_direction",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "3d212276b063f777e32a71ee8d24be9fa114baca1327205026bbb7c008ff3b58",
+  "books": [
+    {
+      "id": "code_as_creative_medium",
+      "title": "Code as Creative Medium",
+      "author": "Golan Levin",
+      "year": 2021,
+      "tags": [
+        "code-creative",
+        "computational-art",
+        "author-brain",
+        "medium-handbook",
+        "lcsh-computer",
+        "unpredictability-arrays"
+      ],
+      "filename": "Code as Creative Medium.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.0267365
+    },
+    {
+      "id": "generative_design",
+      "title": "Generative Design",
+      "author": "Benedikt Gross",
+      "year": 2017,
+      "tags": [
+        "creative-coding",
+        "js-editor",
+        "button-generative",
+        "functionality-p5",
+        "dynamic-stunning",
+        "processing-vvvv"
+      ],
+      "filename": "Generative Design.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.1970036
+    },
+    {
+      "id": "introducaoeletronicaartistas",
+      "title": "Microsoft Word - Introdu\u00e7\u00e3oEletronicaArtistas.docx",
+      "author": "Unknown",
+      "year": 2017,
+      "tags": [
+        "texto-fotografias",
+        "rocha-introdu\u00e7\u00e3o",
+        "inspirados-ou",
+        "modifica\u00e7\u00f5es-circuitos",
+        "http-creativecommons",
+        "legalcode"
+      ],
+      "filename": "IntroducaoEletronicaArtistas.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291063.1695585
+    },
+    {
+      "id": "the_nature_of_code",
+      "title": "The Nature of Code",
+      "author": "Unknown",
+      "year": 2018,
+      "tags": [
+        "bella-manel",
+        "woman-mathematics",
+        "code-nature",
+        "established-nyu",
+        "inspiration-book",
+        "phd-1939"
+      ],
+      "filename": "The Nature of Code.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291063.2409954
+    }
+  ]
+}

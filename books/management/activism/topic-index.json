@@ -1,0 +1,64 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "management_activism",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "3b30a45f4c1a48ea0d263c9bbeac792fa18f7c0ac92ef517070cb101db96aa81",
+  "books": [
+    {
+      "id": "collaborate",
+      "title": "Collaborate: Bring people together around digital projects",
+      "author": "Ellen de Vries",
+      "year": 101,
+      "tags": [
+        "start-collaboration",
+        "multidisciplinary-teams",
+        "nurture-group",
+        "culture-maintain",
+        "guide-digital",
+        "tasks-giving"
+      ],
+      "filename": "Collaborate.epub",
+      "filetype": "epub",
+      "last_modified": 1768539689.0629616
+    },
+    {
+      "id": "the_art_of_community",
+      "title": "The Art of Community",
+      "author": "Jono Bacon",
+      "year": 2012,
+      "tags": [
+        "trademarks-reilly",
+        "communityjono-baconeditorandy",
+        "handbook-logo",
+        "media-art",
+        "nutshell-handbook",
+        "oramcopyright-2012"
+      ],
+      "filename": "The Art of Community.epub",
+      "filetype": "epub",
+      "last_modified": 1768075110.6328897
+    },
+    {
+      "id": "the_open_organization",
+      "title": "The Open Organization: Igniting Passion and Performance",
+      "author": "Jim Whitehurst",
+      "year": 2015,
+      "tags": [
+        "open-leadership",
+        "ceo-dell",
+        "organization-igniting",
+        "creativity-jim",
+        "technology-blueprint",
+        "survive-whitehurst"
+      ],
+      "filename": "The open organization .epub",
+      "filetype": "epub",
+      "last_modified": 1768075233.1753526
+    }
+  ]
+}

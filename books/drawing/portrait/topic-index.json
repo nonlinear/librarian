@@ -1,0 +1,78 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "drawing_portrait",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "af829d6e78d530bac74d16e61f397acfe6b0a01bd95bcbc5da08ca02e951b163",
+  "books": [
+    {
+      "id": "drawing_the_human_head",
+      "title": "Drawing the Human head",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Drawing the Human head.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291071.3762238
+    },
+    {
+      "id": "head_and_figure",
+      "title": "Head and figure",
+      "author": "Unknown",
+      "year": 2009,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Head and figure.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291072.1807475
+    },
+    {
+      "id": "portrait_drawing",
+      "title": "Portrait Drawing",
+      "author": "Pawel",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Portrait Drawing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291072.359122
+    },
+    {
+      "id": "the_art_of_the_portrait",
+      "title": "The Art of the Portrait",
+      "author": "Unknown",
+      "year": 2010,
+      "tags": [
+        "portraits-renaissance",
+        "norbert-schneider",
+        "kunst-und",
+        "176-biographies",
+        "medici-undated",
+        "1420-1670"
+      ],
+      "filename": "The Art of the Portrait.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291072.898839
+    },
+    {
+      "id": "the_artists_complete_guide_to_facial_expression",
+      "title": "The Artist's Complete Guide To Facial Expression",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "The Artist's Complete Guide To Facial Expression.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.4407947
+    }
+  ]
+}

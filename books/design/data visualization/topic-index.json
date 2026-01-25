@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_data_visualization",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "b384de302f7e8c7e012a82d2fc219b9957f056183c3e4e81a1fbb598cd695f57",
+  "books": [
+    {
+      "id": "beautiful_visualization",
+      "title": "Beautiful Visualization",
+      "author": "Edited by Julie Steele and Noah Iliinsky",
+      "year": 2010,
+      "tags": [
+        "dress-trademarks",
+        "beauty-context",
+        "beautiful-visualization",
+        "bringing-design",
+        "reilly-media",
+        "iliinsky-offers"
+      ],
+      "filename": "Beautiful Visualization.epub",
+      "filetype": "epub",
+      "last_modified": 1768539529.9169767
+    },
+    {
+      "id": "d3js_tips_and_tricks",
+      "title": "D3 Tips and Tricks v4.x",
+      "author": "Malcolm Maclean",
+      "year": 2016,
+      "tags": [
+        "d3js-org",
+        "visualization-web",
+        "js-introduction",
+        "lean-publishing",
+        "styles-cascading",
+        "tools-iterations"
+      ],
+      "filename": "D3js Tips and Tricks.epub",
+      "filetype": "epub",
+      "last_modified": 1768539574.1843376
+    },
+    {
+      "id": "data_visualization_with_d3js",
+      "title": "Data Visualization with D3.js Cookbook",
+      "author": "Nick Qi Zhu",
+      "year": 2013,
+      "tags": [
+        "d3-development",
+        "js-cookbook",
+        "chart-introduction",
+        "npm-based",
+        "server-python",
+        "contents-data"
+      ],
+      "filename": "Data Visualization with D3.js.epub",
+      "filetype": "epub",
+      "last_modified": 1768539529.5833662
+    },
+    {
+      "id": "interactive_data_visualization_for_the_web_-_scott_murray",
+      "title": "Interactive Data Visualization for the Web",
+      "author": "Scott Murray",
+      "year": 2013,
+      "tags": [
+        "ebook",
+        "supplemental-files",
+        "data-visualizations",
+        "accompanying-disc",
+        "handbook-mapping",
+        "benefits-drm"
+      ],
+      "filename": "Interactive Data Visualization for the Web - Scott Murray.epub",
+      "filetype": "epub",
+      "last_modified": 1768539574.0582833
+    },
+    {
+      "id": "interactive_data_visualization_for_the_web",
+      "title": "Interactive Data Visualization for the Web",
+      "author": "Scott Murray",
+      "year": 2013,
+      "tags": [
+        "ebook",
+        "supplemental-files",
+        "data-visualizations",
+        "accompanying-disc",
+        "handbook-mapping",
+        "benefits-drm"
+      ],
+      "filename": "Interactive Data Visualization for the Web.epub",
+      "filetype": "epub",
+      "last_modified": 1768539529.7253463
+    },
+    {
+      "id": "d3-t-and-t-v4",
+      "title": "D3 Tips and Tricks v4.x",
+      "author": "Malcolm Maclean",
+      "year": 2016,
+      "tags": [
+        "d3js-org",
+        "visualization-web",
+        "js-introduction",
+        "lean-publishing",
+        "styles-cascading",
+        "tools-iterations"
+      ],
+      "filename": "d3-t-and-t-v4.epub",
+      "filetype": "epub",
+      "last_modified": 1768539574.113748
+    }
+  ]
+}
