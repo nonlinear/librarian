@@ -17,7 +17,7 @@ MCP servers can be configured at two levels:
 
 ---
 
-## Setup Personal Library MCP
+## Setup Librarian MCP
 
 ### Option 1: Via VS Code UI (Easiest)
 
@@ -28,7 +28,7 @@ MCP servers can be configured at two levels:
 ```json
 {
   "chat.mcp.servers": {
-    "personal-library": {
+    "librarian": {
       "command": "/opt/homebrew/bin/python3.11",
       "args": [
         "/Users/nfrota/Documents/personal library/scripts/mcp_server.py"
@@ -41,7 +41,7 @@ MCP servers can be configured at two levels:
 ```
 
 4. Save and reload VS Code
-5. Check "MCP Servers" view - should show "personal-library" running
+5. Check "MCP Servers" view - should show "librarian" running
 
 ---
 
@@ -91,7 +91,7 @@ Or delete the entire "literature" entry.
 ### In VS Code:
 
 1. Open "MCP Servers" view (sidebar)
-2. Look for "personal-library"
+2. Look for "librarian"
 3. Status should be "Running"
 
 ### Test via terminal:
@@ -163,7 +163,7 @@ Should return available tools.
 ```json
 {
   "chat.mcp.servers": {
-    "personal-library": {
+    "librarian": {
       "command": "/opt/homebrew/bin/python3.11",
       "args": ["/path/to/mcp_server.py"],
       "env": {
@@ -185,7 +185,7 @@ You can run multiple MCP servers:
 ```json
 {
   "chat.mcp.servers": {
-    "personal-library": { ... },
+    "librarian": { ... },
     "figma": { ... },
     "pylance": { ... }
   }

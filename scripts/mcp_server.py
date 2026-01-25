@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Personal Library MCP Server - Partitioned Lazy Loading
+Librarian MCP Server - Partitioned Lazy Loading
 
 Loads only library-index.json on startup (instant <100ms).
 Topic-specific FAISS + chunks loaded on-demand during queries.
@@ -423,7 +423,7 @@ async def handle_mcp_request(request: Dict) -> Dict:
                     "tools": {}
                 },
                 "serverInfo": {
-                    "name": "personal-library",
+                    "name": "librarian",
                     "version": "1.0.0"
                 }
             }
@@ -437,7 +437,7 @@ async def handle_mcp_request(request: Dict) -> Dict:
                 "tools": [
                     {
                         "name": "query_library",
-                        "description": "Search personal library for relevant book passages",
+                        "description": "Search librarian for relevant book passages",
                         "inputSchema": {
                             "type": "object",
                             "properties": {
@@ -510,7 +510,7 @@ async def main():
     import time
 
     start = time.time()
-    print(f"[{time.time()-start:.3f}s] Personal Library MCP Server starting...", file=sys.stderr, flush=True)
+    print(f"[{time.time()-start:.3f}s] Librarian MCP Server starting...", file=sys.stderr, flush=True)
 
     # Load ONLY metadata (19KB - instant)
     t1 = time.time()

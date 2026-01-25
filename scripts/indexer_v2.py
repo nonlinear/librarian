@@ -433,7 +433,7 @@ def main():
 
     args = parser.parse_args()
 
-    print("🚀 Personal Library Indexer v2.0")
+    print("🚀 Librarian Indexer v2.0")
     print("=" * 60)
     print("✓ Using local embedding model: all-MiniLM-L6-v2 (384-dim)")
     print("✓ Chunking: 1024 chars, 200 overlap")
