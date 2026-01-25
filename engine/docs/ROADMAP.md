@@ -2,34 +2,34 @@
 
 ## v0.4.0
 
-### [🚧](https://github.com/nonlinear/personal-library/tree/v0.4.0) Source Granularity | [notes](epic-notes/v0.4.0.md)
+### [🚧](https://github.com/nonlinear/personal-library/tree/v0.4.0) Epic Workflow Infrastructure | [notes](gaps/gaps/epic-notes/v0.4.0.md)
 
-⏳ Add page/chapter granularity to citations for direct navigation in PDFs and EPUBs.
+Epic-based development workflow and VS Code citation limitations discovery.
 
-**Problem:** Current citations use text snippets requiring manual Ctrl+F. Users should click and jump directly to exact page/location.
+**What we built:**
 
-**Solution:**
+- [x] Epic workflow documentation (8-step process in CONTRIBUTING.md)
+- [x] Branch naming convention: `v0.X.0` (version only)
+- [x] Epic notes location: `engine/docs/gaps/epic-notes/v0.X.0.md`
+- [x] Two-tier checks policy (soft-fail branches, hard-fail main)
+- [x] Gaps workflow for session documentation
+- [x] ADHD-friendly workflow improvements
 
-- PDF citations → `Book.pdf#page=42` (RFC 3778 standard)
-- EPUB citations → chapter/CFI when possible
-- Text snippets as verification fallback
+**Critical Discovery:**
 
-**Tasks:**
+🔴 **VS Code pill validation breaks with URL fragments** (`#page=42`, `#chapter3`)
 
-- [ ] Test VS Code extensions for PDF/EPUB navigation with anchors
-- [ ] Verify pill validation works with `#page=N` and `#chapter` anchors
-- [ ] 6DF chunking: Extract page number during indexing
-- [ ] EPUB chunking: Extract chapter/section during indexing
-- [ ] Update chunks.json schema to v2.0 (add `page`, `chapter`, `cfi` fields)
-- [ ] Modify research.py output format to include new fields
-- [ ] Update research.prompt.md citation format for clickable links
-- [ ] Handle backward compatibility (old chunks without page/chapter)
-- [ ] Force reindex all topics with new schema
-- [ ] Document VS Code extensions setup (tomoki1207.pdf, cweijan.epub-reader)
-- [ ] Testing & validation checklist
+- Tested 6 different anchor syntaxes - all failed
+- Any `#` in URL prevents pill from rendering
+- Blocker for clickable page/chapter navigation
+- Documented in epic notes with test methodology
 
-✅ research.prompt.md already hardened with error codes (E001-E013)
-🗒️ Se7 industry standards: PDF uses `#page=N`, EPUB uses CFI or chapter anchors
+**Deferred to future epic:**
+
+Source Granularity features (page/chapter anchors) blocked by VS Code limitation.
+See v0.7.0 for workarounds and alternatives.
+
+🗒️ Epic pivoted from feature work to workflow infrastructure due to technical blocker
 
 ## v0.5.0
 
@@ -73,6 +73,28 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
 - [ ] Integration with /research prompt
 - [ ] Support direct book queries
 - [ ] Extension configuration
+
+## v0.7.0
+
+### Source Granularity (Deferred from v0.4.0)
+
+⏳ Add page/chapter references to citations (VS Code pill limitation workaround).
+
+**Problem:** VS Code pill validation breaks with URL fragments, blocking clickable navigation.
+
+**Alternative approaches:**
+
+- [ ] Two-link format: `[Book.pdf](path) - See page 42`
+- [ ] Text-only granularity: `[Book.pdf](path) (page 42)`
+- [ ] File VS Code issue requesting fragment support
+- [ ] Research custom extension for citation handling
+- [ ] Extract page numbers during PDF chunking
+- [ ] Extract chapters during EPUB chunking
+- [ ] Update chunks.json schema to v2.0 (add page/chapter fields)
+- [ ] Modify research.py output format
+- [ ] Testing & validation
+
+🗒️ Requires VS Code team response or custom extension development
 
 ## v0.8.0
 

@@ -85,7 +85,7 @@ books/metadata.json
 models/
 ```
 
-**Why:** Keeps your library private + enables autocomplete for book links. See [epic-notes/v0.4.0.md](epic-notes/v0.4.0.md#autocomplete-investigation) for technical details.
+**Why:** Keeps your library private + enables autocomplete for book links. See [gaps/epic-notes/v0.4.0.md](gaps/epic-notes/v0.4.0.md#autocomplete-investigation) for technical details.
 
 **2. Add your books:**
 
@@ -133,10 +133,10 @@ v0.5-automation (feature branch)
 
 ```bash
 # List all epic notes
-ls engine/docs/epic-notes/
+ls engine/docs/gaps/epic-notes/
 
 # Search for relevant keywords
-grep -r "keyword" engine/docs/epic-notes/
+grep -r "keyword" engine/docs/gaps/epic-notes/
 ```
 
 **Why epic notes matter:**
@@ -224,13 +224,13 @@ Replace ⏳ with 🚧 and add branch link:
 **Structure (v0.4.0 and earlier):**
 
 ```
-engine/docs/epic-notes/v0.X.0.md  # Single file for all notes
+engine/docs/gaps/epic-notes/v0.X.0.md  # Single file for all notes
 ```
 
 **Structure (v0.5.0+):**
 
 ```
-engine/docs/epic-notes/v0.X.0/
+engine/docs/gaps/epic-notes/v0.X.0/
   ├── MAIN.md                      # Primary epic documentation
   ├── pill-validation.md           # Specific finding/experiment
   └── autocomplete-fix.md          # Another finding
@@ -239,11 +239,11 @@ engine/docs/epic-notes/v0.X.0/
 Add notes link to ROADMAP on same line as branch:
 
 ```markdown
-### [🚧](branch-link) Source Granularity | [notes](epic-notes/v0.4.0.md)
+### [🚧](branch-link) Source Granularity | [notes](gaps/epic-notes/v0.4.0.md)
 
 # OR for folder structure:
 
-### [🚧](branch-link) Source Granularity | [notes](epic-notes/v0.4.0/)
+### [🚧](branch-link) Source Granularity | [notes](gaps/epic-notes/v0.4.0/)
 ```
 
 **Notes purpose:**

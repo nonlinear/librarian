@@ -60,7 +60,7 @@
 
 - ✅ Still allowed to push
 - ⚠️ Must document failures in commit message
-- 📝 Track known issues in epic notes (`engine/docs/epic-notes/v0.X.0.md`)
+- 📝 Track known issues in epic notes (`engine/docs/gaps/epic-notes/v0.X.0.md`)
 - 🎯 Must be fixed before merging to main
 
 **Commit message format when checks fail:**

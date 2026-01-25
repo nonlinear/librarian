@@ -191,6 +191,57 @@ cat ./engine/docs/CHANGELOG.md
 
 ---
 
+## Workflow Start
+
+### Branch Detection (Run First)
+
+**Get current branch:**
+
+```bash
+git branch --show-current
+```
+
+**Decision tree:**
+
+**A. On epic branch (e.g., `v0.4.0`)**
+→ **Status Update Mode** (skip epic selection)
+
+```
+🔍 You're on: v0.4.0
+
+Reading epic notes from ROADMAP.md...
+```
+
+**Show:**
+
+- ✅ What's done (from session notes)
+- ⏳ What's left (unchecked tasks)
+- 🚫 Blockers (if any)
+- 📊 Quick stats (files changed, hours worked)
+
+**Then ask:**
+
+```
+Continue working? Or:
+1. Run CHECKS and commit
+2. /wrap-it-up (pause session)
+3. Switch to different epic
+```
+
+**B. On main branch**
+→ **Normal Flow** (choose epic or groom)
+
+```
+🌟 You're on: main
+
+Options:
+1. Choose epic to work on
+2. Groom ROADMAP
+3. Create new epic
+```
+
+---
+
 ## 📊 STEP 1: Compare Work vs Documentation
 
 **AI: What actually changed vs what's documented?**
