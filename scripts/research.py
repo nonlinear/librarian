@@ -136,7 +136,7 @@ def query_library(query, topic=None, book=None, k=5):
             filename = book_info.get('filename', chunk.get('filename', ''))
 
             # Compute relative path from workspace root to book file
-            rel_path = os.path.join('books', topic_path, filename) if filename and topic_path else ''
+            rel_path = os.path.join('../librarian/books', topic_path, filename) if filename and topic_path else ''
 
             # Extract page/paragraph (chunks v2.0)
             page = chunk.get('page')  # PDF page number or None

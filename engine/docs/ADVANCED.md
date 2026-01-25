@@ -4,117 +4,44 @@ Advanced features and troubleshooting for Librarian MCP.
 
 ## Command-Line Flags
 
-### `indexer_v2.py`
+### `index_library.py`
 
-Main indexing script with delta detection.
+Main indexing script with delta detection and model selection.
 
 ```bash
-# Index all topics
-python3.11 scripts/indexer_v2.py --all
+# Smart mode: detect file changes, only reindex affected topics
+python3.11 scripts/index_library.py --smart
+
+# Index all topics (with hash-based delta detection)
+python3.11 scripts/index_library.py --all
 
 # Index specific topic
-python3.11 scripts/indexer_v2.py --topic "theory/anthropocene"
+python3.11 scripts/index_library.py --topic "theory/anthropocene"
 
-# Force reindex (ignore hash-based delta detection)
-python3.11 scripts/indexer_v2.py --all --force
-python3.11 scripts/indexer_v2.py --topic "plants" --force
+# Force reindex (ignore delta detection)
+python3.11 scripts/index_library.py --all --force
+
+# Use different embedding model
+python3.11 scripts/index_library.py --all --model bge      # Better quality, slower
+python3.11 scripts/index_library.py --all --model minilm   # Faster, lightweight
 
 # Show help
-python3.11 scripts/indexer_v2.py --help
+python3.11 scripts/index_library.py --help
 ```
 
 **Flags:**
 
+- `--smart`: Smart mode - detect file-level changes, only reindex affected topics
+- `--all`: Index all topics (with hash-based delta detection)
 - `--topic <name>`: Index single topic (e.g., "AI/policy", "theory/anthropocene")
-- `--all`: Index all topics
 - `--force`: Skip delta detection, reindex everything
+- `--model <name>`: Embedding model: `bge` (better quality, default) or `minilm` (faster)
 - `--help`: Show usage information
 
 **Delta Detection:**
 Without `--force`, indexer only reindexes topics where files changed (using content hashes).
 
-⚠️ **Note:** `reindex_topic.py` is deprecated. Use `indexer_v2.py --topic "topic_name"` instead.
-
----
-
-### `watch_library.py`
-
-File watcher for automatic reindexing.
-
-```bash
-# Watch with live reindexing
-python3.11 scripts/watch_library.py
-
-# Dry run (show what would be reindexed, don't actually reindex)
-python3.11 scripts/watch_library.py --dry-run
-
-# Custom check interval (default: 60 seconds)
-python3.11 scripts/watch_library.py --interval 30
-```
-
-**Flags:**
-
-- `--dry-run`: Log changes without reindexing
-- `--interval <seconds>`: Check interval (default: 60)
-
-**Use Case:**
-Run in background while adding/editing books. Auto-reindexes changed topics.
-
-#### Run as LaunchAgent (macOS)
-
-Keep watchdog running even when VSCode is closed:
-
-```bash
-# Load the LaunchAgent (runs at login, auto-restarts)
-launchctl load ~/Library/LaunchAgents/com.librarian.watchdog.plist
-
-# Check status
-launchctl list | grep librarian
-
-# View logs
-tail -f ~/Documents/librarian/watchdog.log
-tail -f ~/Documents/librarian/watchdog.error.log
-
-# Stop watchdog
-launchctl unload ~/Library/LaunchAgents/com.librarian.watchdog.plist
-
-# Restart after code changes
-launchctl kickstart -k gui/$UID/com.librarian.watchdog
-```
-
-**Configuration:** [~/Library/LaunchAgents/com.librarian.watchdog.plist](file://~/Library/LaunchAgents/com.librarian.watchdog.plist)
-
-**Properties:**
-
-- `RunAtLoad`: Starts on login
-- `KeepAlive`: Auto-restarts if crashes
-- `ThrottleInterval`: 10s cooldown between restarts
-
-#### Verify Watchdog Indexed Books
-
-If you add books while VSCode is closed, check if watchdog auto-indexed:
-
-```bash
-# Check watchdog log for reindex activity
-tail -50 watchdog.log | grep -E "(📖|✅|❌)"
-
-# Check when topic was last indexed
-ls -lh books/theory/anthropocene/topic-index.json
-# Compare timestamp with book file timestamps
-
-# Quick check: compare topic-index.json vs book files
-find books/theory/anthropocene -name "*.epub" -o -name "*.pdf" -exec ls -lt {} + | head -1
-ls -lt books/theory/anthropocene/topic-index.json
-
-# If watchdog missed it, manually reindex
-python3.11 scripts/indexer_v2.py --topic "theory/anthropocene"
-```
-
-**What to look for in logs:**
-
-- `📖 Indexing: <topic>` - Watchdog detected change
-- `✅ Reindex completed` - Success
-- `❌ Reindex failed` - Check error
+⚠️ **Note:** `reindex_topic.py` is deprecated. Use `index_library.py --topic "topic_name"` instead.
 
 ---
 
@@ -160,7 +87,7 @@ ls -la books/library-index.json
 If missing, run:
 
 ```bash
-python3.11 scripts/indexer_v2.py --all
+python3.11 scripts/index_library.py --all
 ```
 
 ---
@@ -191,7 +118,7 @@ ls -la books/<topic>/
 **Force rebuild:**
 
 ```bash
-python3.11 scripts/indexer_v2.py --topic "<topic>" --force
+python3.11 scripts/index_library.py --topic "<topic>" --force
 ```
 
 ---
@@ -211,7 +138,7 @@ python3.11 scripts/indexer_v2.py --topic "<topic>" --force
 ```bash
 # Kill watch_library.py (Ctrl+C)
 # Manually reindex
-python3.11 scripts/indexer_v2.py --topic "<changed-topic>"
+python3.11 scripts/index_library.py --topic "<changed-topic>"
 # Restart watch
 python3.11 scripts/watch_library.py
 ```
@@ -252,7 +179,7 @@ Default: `sentence-transformers/all-MiniLM-L6-v2` (90MB, fast)
 **Switch to better model:**
 
 ```python
-# In mcp_server.py and indexer_v2.py, change:
+# In mcp_server.py and index_library.py, change:
 model = SentenceTransformer('all-mpnet-base-v2')  # 420MB, more accurate
 ```
 
@@ -262,7 +189,7 @@ See [embedding-models.md](embedding-models.md) for comparison.
 
 ### Partition Storage
 
-**Current:** Per-topic indices (`books/<topic>/faiss.index`)
+**Current:** Per-topic indices (`books/<topic>/faiss.index`)wihch faile? why
 
 **Why:** Delta detection, faster queries on single topics
 

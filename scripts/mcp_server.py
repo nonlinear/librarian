@@ -53,9 +53,9 @@ def _ensure_imports():
     faiss = faiss_module
     SentenceTransformer = ST
 
-    # Load embedding model
+    # Load embedding model (BGE for better quality)
     os.environ['SENTENCE_TRANSFORMERS_HOME'] = 'models'
-    embedding_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+    embedding_model = SentenceTransformer('BAAI/bge-small-en-v1.5')
 
     _lazy_imports_loaded = True
     print("✅ Loaded heavy dependencies (local embeddings)", file=sys.stderr, flush=True)

@@ -1,66 +1,45 @@
 {
   "schema_version": "2.0",
   "topic_id": "drawing_andrew_loomis",
-  "embedding_model": "all-MiniLM-L6-v2",
+  "embedding_model": "pending",
   "chunk_settings": {
     "size": 1024,
     "overlap": 200
   },
-  "last_indexed_at": null,
+  "last_indexed_at": 1769365143.757004,
   "content_hash": "78647c02d0a1b520e3aed67fb07a937869eb07befd75eaeba21bce58e9e0bd34",
   "books": [
     {
-      "id": "drawing_the_head_and_hands",
-      "title": "Drawing the Head and Hands",
+      "id": "successful_drawing",
+      "title": "Successful Drawing",
+      "filename": "Successful Drawing.pdf",
       "author": "Unknown",
-      "year": 2002,
-      "tags": [
-        "untagged"
-      ],
-      "filename": "Drawing the Head and Hands.pdf",
-      "filetype": "pdf",
-      "last_modified": 1769291066.4064178
+      "tags": [],
+      "last_modified": 1769291066.599186
     },
     {
-      "id": "figure_drawing_for_all_its_worth",
+      "id": "figure_drawing_for_all_it's_worth",
       "title": "Figure Drawing for all it's Worth",
-      "author": "Unknown",
-      "year": 2001,
-      "tags": [
-        "untagged"
-      ],
       "filename": "Figure Drawing for all it's Worth.pdf",
-      "filetype": "pdf",
+      "author": "Unknown",
+      "tags": [],
       "last_modified": 1769291066.4879146
     },
     {
       "id": "fun_with_a_pencil",
-      "title": "fun2.p65",
-      "author": "Xander",
-      "year": 2002,
-      "tags": [
-        "fun-pencil",
-        "drawing-head",
-        "2001-drawings",
-        "loomis-published",
-        "hands-dimensional",
-        "1939-andrew"
-      ],
+      "title": "Fun With A Pencil",
       "filename": "Fun With A Pencil.pdf",
-      "filetype": "pdf",
+      "author": "Unknown",
+      "tags": [],
       "last_modified": 1769291066.5272148
     },
     {
-      "id": "successful_drawing",
-      "title": "Successful Drawing by Andrew Loomis",
-      "author": "MR2",
-      "year": 2002,
-      "tags": [
-        "untagged"
-      ],
-      "filename": "Successful Drawing.pdf",
-      "filetype": "pdf",
-      "last_modified": 1769291066.599186
+      "id": "drawing_the_head_and_hands",
+      "title": "Drawing the Head and Hands",
+      "filename": "Drawing the Head and Hands.pdf",
+      "author": "Unknown",
+      "tags": [],
+      "last_modified": 1769291066.4064178
     }
   ]
 }

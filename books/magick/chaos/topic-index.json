@@ -1,29 +1,20 @@
 {
   "schema_version": "2.0",
   "topic_id": "magick_chaos",
-  "embedding_model": "all-MiniLM-L6-v2",
+  "embedding_model": "pending",
   "chunk_settings": {
     "size": 1024,
     "overlap": 200
   },
-  "last_indexed_at": null,
+  "last_indexed_at": 1769367722.912992,
   "content_hash": "703d3fa1026c78e9a01afea51a10de4f07c7fa0d8f8bda838bb89b51aa6964c4",
   "books": [
     {
       "id": "the_chaos_apple_by_thumper_forge",
-      "title": "The Chaos Apple: Magic & Discordianism for the Postmodern Witch",
-      "author": "Thumper Forge",
-      "year": 2025,
-      "tags": [
-        "chaos-witchcraft",
-        "magic-discordianism",
-        "author-psychic",
-        "author-thumper",
-        "forge-delightfully",
-        "principia-discordia"
-      ],
+      "title": "The Chaos Apple by Thumper Forge",
       "filename": "The Chaos Apple by Thumper Forge.epub",
-      "filetype": "epub",
+      "author": "Unknown",
+      "tags": [],
       "last_modified": 1762816392.719323
     }
   ]

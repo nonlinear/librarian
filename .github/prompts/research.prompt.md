@@ -260,6 +260,7 @@ python3.11 "/Users/nfrota/Documents/librarian/scripts/research.py" "security ris
       "text": "...chunk text...",
       "book_title": "Book Title",
       "topic": "topic_id",
+      "folder_path": "anarchy/david graeber",
       "similarity": 0.85
     }
   ]
@@ -283,6 +284,7 @@ python3.11 "/Users/nfrota/Documents/librarian/scripts/research.py" "security ris
 - `results[].text` - Book chunk content
 - `results[].book_title` - Source book
 - `results[].topic` - Topic ID
+- `results[].folder_path` - Folder path (e.g., "anarchy/david graeber")
 - `results[].similarity` - Relevance score
 
 **Generate answer by:**
@@ -290,7 +292,7 @@ python3.11 "/Users/nfrota/Documents/librarian/scripts/research.py" "security ris
 1. **Synthesize** information from results
 2. **Ground** every claim in specific chunks
 3. **Cite** sources inline with emoji numbers: 1️⃣ 2️⃣ 3️⃣ etc.
-4. **Show topic** above citations
+4. **Show folder_path** (not topic ID) above citations using format: **Topic:** {folder_path}
 5. **Acknowledge gaps** if incomplete
 
 **Example answer format:**
@@ -298,7 +300,9 @@ python3.11 "/Users/nfrota/Documents/librarian/scripts/research.py" "security ris
 ```
 According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to Deleuze's concept 2️⃣.
 
-**Topic:** anthropocene
+---
+
+**Topic:** anthropocene/theory
 
 ---
 
