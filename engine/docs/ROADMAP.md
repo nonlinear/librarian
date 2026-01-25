@@ -39,13 +39,6 @@ graph LR
     style ADMIN fill:#E6E6FA
 ```
 
-> 🤖 **AI: Update this mermaid graph when grooming roadmap**
->
-> - Move epics between subgraphs as status changes
-> - Add new nodes for new epics
-> - Update dependencies (arrows) when priorities shift
-> - Keep it visual - this is the "subway map" of the project
-
 ---
 
 ## v0.5.0
