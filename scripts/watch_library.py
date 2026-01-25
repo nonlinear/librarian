@@ -145,7 +145,7 @@ def main():
 
     args = parser.parse_args()
 
-    print("👀 Personal Library Watcher")
+    print("👀 Librarian Watcher")
     print("=" * 60)
     print(f"📁 Watching: {LIBRARY_ROOT}")
 

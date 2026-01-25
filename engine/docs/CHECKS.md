@@ -1,4 +1,4 @@
-# Personal Library MCP - Stability Checks
+# Librarian MCP - Stability Checks
 
 > **Formatting Standard:**
 >
@@ -666,7 +666,7 @@ git diff main scripts/setup.sh | wc -l
 
 set -e  # Exit on error
 
-echo "🔍 Personal Library MCP - Stability Check"
+echo "🔍 Librarian MCP - Stability Check"
 echo "=========================================="
 echo ""
 
@@ -687,7 +687,7 @@ echo ""
 
 # 3. MCP server startup
 echo "🚀 3. Testing MCP server startup..."
-timeout 3 python3.11 scripts/mcp_server.py 2>&1 | grep -q "Personal Library MCP Server ready" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
+timeout 3 python3.11 scripts/mcp_server.py 2>&1 | grep -q "Librarian MCP Server" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
 echo ""
 
 # 4. Quick query test (if query.py exists)

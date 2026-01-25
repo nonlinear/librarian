@@ -1,4 +1,4 @@
-# Personal Library MCP - Changelog
+# Librarian MCP - Changelog
 
 ---
 
@@ -392,7 +392,7 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 ### Initial Release
 
-**Core infrastructure for Personal Library MCP**
+**Core infrastructure for Librarian MCP**
 
 - [x] Model cached in `models/` (90MB, not tracked by git)
 - [x] Zero API keys required

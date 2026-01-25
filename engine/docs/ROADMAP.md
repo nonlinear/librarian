@@ -1,4 +1,4 @@
-# Personal Library MCP - Roadmap
+# Librarian MCP - Roadmap
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
