@@ -1,6 +1,11 @@
-# Books metadata/indices (EPUBs ignored in .git/info/exclude)
+# Books - Keep out of commits but show in autocomplete (#file:books)
+books/**/*.epub
+books/**/*.pdf
+
+# Books metadata/indices
 books/**/*.pkl
 books/**/*.index
+books/metadata.json
 
 # Failed books log (contains PII)
 engine/docs/FAILED.md
@@ -15,6 +20,9 @@ engine/docs/FAILED.md
 
 # Storage (deprecated - now inside books/)
 storage/
+
+# Embedding models (large downloads, rebuild locally)
+models/
 
 # Environment
 .env
