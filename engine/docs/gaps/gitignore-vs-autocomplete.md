@@ -1,32 +1,145 @@
-# Gap: Gitignore vs VS Code Autocomplete
+# Gap: VS Code File Picker Size Limit
 
-**Status:** ✅ SOLVED
-**Impact:** Low (workaround implemented)
+**Status:** ❌ UNSOLVABLE (VS Code limitation)
+**Impact:** Medium (affects UX, workaround available)
 **Epic:** v0.5.0 Smart Indexing
 
 ---
 
 ## Problem
 
-**VS Code `#file:` autocomplete only shows files tracked by git.**
+**Books (EPUBs/PDFs) don't appear in VS Code `#file:` autocomplete** (chat, Quick Open, etc.), even when:
 
-Files in `.gitignore` don't appear in autocomplete, even when they exist on disk.
+- Removed from `.gitignore`
+- Removed from `files.exclude`
+- Removed from `.git/info/exclude`
+- Tracked by git (showing as `??` untracked)
 
-**Key Discovery:** There is **NO** VS Code setting to decouple gitignore from file picker autocomplete. The file picker ALWAYS uses git index.
+## Root Cause
 
-**However:** You CAN separate git exclusion from Explorer/Search visibility using `.git/info/exclude` + `.vscode/settings.json`.
+**VS Code file picker has an undocumented hardcoded file size limit** (~1-2MB threshold):
+
+- ✅ Small files (< 1MB) appear in autocomplete
+- ❌ Large files (> 1MB) don't appear, **regardless of git/exclude settings**
+- ✅ **Folders always appear**, regardless of size
+
+## Validation
+
+Tested multiple hypotheses:
+
+### 1. .gitignore blocking ❌
+
+- **Hypothesis:** `.gitignore` prevents autocomplete
+- **Test:** Removed books from `.gitignore`
+- **Result:** Still don't appear
+
+### 2. files.exclude blocking ❌
+
+- **Hypothesis:** `files.exclude` hides from autocomplete
+- **Test:** Removed `files.exclude` from settings.json
+- **Result:** Books appear in Explorer, but still not in autocomplete
+
+### 3. .git/info/exclude blocking ❌
+
+- **Hypothesis:** `.git/info/exclude` treated differently than `.gitignore`
+- **Test:** Cleared `.git/info/exclude`, books show as `??` untracked
+- **Result:** Still don't appear in autocomplete (gray out in Explorer)
+- **Discovery:** VS Code treats `.git/info/exclude` same as `.gitignore` for UI
+
+### 4. File size discrimination ✅ **ROOT CAUSE**
+
+- **Hypothesis:** Large files filtered by size
+- **Test:** Created `test.txt` (5 bytes) → ✅ **Appears in autocomplete!**
+- **Result:** Size is the discriminator
+
+**Test Results:**
+
+```
+test.txt (5 bytes)                   → ✅ Appears
+Marx in the Anthropocene (342KB)     → ❌ Doesn't appear
+Molecular Red (314KB)                → ❌ Doesn't appear
+Psychopolitics (701KB)               → ❌ Doesn't appear
+How forests think (2.5MB)            → ❌ Doesn't appear
+How Infrastructure Works (8.4MB)     → ❌ Doesn't appear
+```
+
+**Folders (always work):**
+
+```
+books/design/              → ✅ Appears
+books/theory/anthropocene/ → ✅ Appears
+books/cooking/             → ✅ Appears
+```
 
 ---
 
-## Solution: Three-Layer Exclusion Strategy
+## Attempted Solutions
 
-\*\*TImplementation Details
+### 1. Three-Layer Exclusion Strategy ❌ DOESN'T WORK
+
+**Strategy:**
+
+- `.gitignore` → metadata only
+- `.git/info/exclude` → books
+- `.vscode/settings.json` → search.exclude only
+
+**Result:** VS Code treats all exclusion patterns the same for UI. `.git/info/exclude` causes "gray out" just like `.gitignore`.
+
+### 2. search.maxFileSize Setting ❌ DOESN'T WORK
+
+```json
+{
+  "search.maxFileSize": 50 // MB
+}
+```
+
+**Result:** Only affects **search index** (Cmd+Shift+F), **NOT file picker** (Cmd+P, `#file:`).
+
+### 3. Remove files.exclude ❌ DOESN'T HELP
+
+**Result:** Files appear in Explorer, but size limit still blocks autocomplete.
+
+---
+
+## Workaround: Use Folder Autocomplete
+
+**Instead of:**
+
+```
+❌ #file: Marx in the Anthropocene.epub
+❌ #file: How Infrastructure Works.epub
+```
+
+**Use:**
+
+```
+✅ #file: anthropocene
+✅ #file: design
+✅ #file: cooking
+```
+
+Folders always appear regardless of size. Then manually specify book name in prompt.
+
+---
+
+## Future Enhancement (v0.6.0)
+
+**NLP book name extraction** from user text:
+
+```
+User: "what does Marx in the Anthropocene say about..."
+Agent: [extracts "Marx in the Anthropocene"]
+      → searches books/theory/anthropocene/
+      → finds Marx in the Anthropocene.epub
+```
+
+This removes need for `#file:` autocomplete entirely.
+
+---
+
+## Implementation Details
 
 ### `.git/info/exclude` (Local git ignore)
-
-**Purpose:** Exclude files from git WITHOUT blocking autocomplete.
-
-**Location:** `.git/info/exclude` (not committed, local only)
 
 ```bash
 # BYOB: Bring Your Own Books - Local files (not shared via .gitignore)
