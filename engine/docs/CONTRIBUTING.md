@@ -165,12 +165,19 @@ grep -r "keyword" engine/docs/gaps/epic-notes/
 
 1. **Add epic to ROADMAP.md** as next v0.X.0 (top of list)
 2. **Renumber all existing epics** (+1 each)
-3. **Write epic with:**
+3. **Update mermaid subway map** at top of ROADMAP.md:
+   - Add new node for epic
+   - Place in correct subgraph (Ready/Blocked/Future)
+   - Add dependency arrows if needed
+   - Update node styles (colors) based on status
+4. **Write epic with:**
    - ⏳ Status indicator (planned, no branch yet)
    - Problem statement
    - Solution approach
    - Task checklist
-4. **Review and refine** tasks (can spend time here)
+5. **Review and refine** tasks (can spend time here)
+
+> 🤖 **AI: Always update mermaid graph when adding/moving/completing epics**
 
 **Example:**
 

@@ -1,6 +1,85 @@
 # Personal Library MCP - Roadmap
 
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
+graph LR
+    subgraph "🎯 Ready"
+        V5A[v0.5.0<br/>Index Granularity]
+        V5B[v0.5.1<br/>Hygiene]
+        V5C[v0.5.2<br/>User Testing]
+    end
+
+    subgraph "⏳ Blocked/Waiting"
+        V7[v0.7.0<br/>Citation Expression<br/><small>VS Code limitation</small>]
+        V6[v0.6.0<br/>Better Feedback]
+    end
+
+    subgraph "📅 Future"
+        V8[v0.8.0<br/>FAILED→REPORT]
+        V9[v0.9.0<br/>Error Handling]
+        V10[v0.10.0<br/>Multi-User]
+        ADMIN[v1.0.0<br/>Admin Generalization<br/><small>Status files repo</small>]
+    end
+
+    V5A --> V7
+    V5A -.data ready.-> V7
+    V5B --> V6
+    V5C --> V6
+    V6 --> V7
+    V7 --> V8
+    V8 --> V9
+    V9 --> V10
+    V10 --> ADMIN
+
+    style V5A fill:#90EE90
+    style V5B fill:#90EE90
+    style V5C fill:#90EE90
+    style V7 fill:#FFE4B5
+    style V6 fill:#FFE4B5
+    style ADMIN fill:#E6E6FA
+```
+
+> 🤖 **AI: Update this mermaid graph when grooming roadmap**
+>
+> - Move epics between subgraphs as status changes
+> - Add new nodes for new epics
+> - Update dependencies (arrows) when priorities shift
+> - Keep it visual - this is the "subway map" of the project
+
+---
+
 ## v0.5.0
+
+### Index Granularity
+
+⏳ Prepare chunking data for future citation granularity (NO display changes yet).
+
+**Goal:** Add page/chapter metadata to index so it's ready when we solve the VS Code pill limitation.
+
+**What we're building:**
+
+- [ ] Update chunks.json schema to v2.0 (add `page`, `chapter`, `cfi` fields)
+- [ ] PDF chunking: Extract page numbers during indexing
+- [ ] EPUB chunking: Extract chapter/section during indexing
+- [ ] Store metadata in chunks.json (no changes to research.py output yet)
+- [ ] Handle backward compatibility (old chunks without page/chapter)
+- [ ] Add validation: chunks have expected metadata
+- [ ] Test reindexing with new schema
+- [ ] Force reindex all topics with new schema
+
+**NOT included:**
+
+- ❌ No changes to citation format (still plain file pills)
+- ❌ No changes to research.py output
+- ❌ No VS Code extension work
+
+**Why split from Citation Expression:** Data preparation can happen now, display waits for VS Code solution.
+
+🗒️ Deferred display/navigation to v0.7.0 (Citation Expression)
+
+## v0.5.1
+
+## v0.5.1
 
 ### Hygiene
 
@@ -18,6 +97,8 @@ Repository structure and code hygiene improvements for long-term maintainability
       🗒️ Previous attempts failed due to path/test breakage—requires careful, coordinated update.
 
 ## v0.5.0
+
+## v0.5.2
 
 ### User testing
 
@@ -107,6 +188,68 @@ Implement granular error reporting for MCP research pipeline
 Add support for multi-user environments (permissions, access control)
 
 - [ ] Permission/access error handling
+
+## v1.0.0
+
+### Admin Generalization
+
+⏳ Extract workflow infrastructure to reusable admin toolkit for all projects.
+
+**Goal:** Status files and workflow prompts become a separate repo/package that ANY project can use.
+
+**Problem:** Current workflow (whatsup, wrap-it-up, ROADMAP, CHANGELOG, CHECKS) is project-specific but the pattern is universal.
+
+**Solution:**
+
+**Status Files Architecture:**
+
+- [ ] Create new repo: `nonlinear/admin-toolkit` or similar
+- [ ] Separate global files (templates) from project files (instances)
+  - **Global (toolkit repo):**
+    - ROADMAP.template.md (with mermaid instructions)
+    - CHANGELOG.template.md (format spec)
+    - CHECKS.template.md (test framework)
+    - CONTRIBUTING.template.md (workflow rules)
+  - **Project (this repo):**
+    - ROADMAP.md (this project's epics)
+    - CHANGELOG.md (this project's history)
+    - CHECKS.md (this project's tests)
+    - CONTRIBUTING.md (this project's conventions + global rules)
+
+**Command Generalization:**
+
+- [ ] Rename prompts to admin commands:
+  - `/whatsup` → `admin start` (check status, choose work)
+  - `/wrap-it-up` → `admin stop` (pause session, document progress)
+  - `/research` → stays project-specific
+- [ ] Commands live in toolkit repo
+- [ ] Projects import/reference admin toolkit
+
+**Update Propagation:**
+
+- [ ] When toolkit updates global rules, all projects get improvements
+- [ ] Projects can override with local rules (inheritance pattern)
+- [ ] Template updates don't break project-specific content
+
+**Implementation:**
+
+- [ ] Design architecture: git submodule vs npm package vs simple clone
+- [ ] Create toolkit repo structure
+- [ ] Extract global prompts (admin start, admin stop)
+- [ ] Extract global templates (status files)
+- [ ] Document how projects adopt toolkit
+- [ ] Migrate personal-library to use toolkit
+- [ ] Test with 2+ different project types
+- [ ] Version toolkit (semver for breaking changes)
+
+**Benefits:**
+
+- ✅ Any project gets instant workflow infrastructure
+- ✅ Improvements propagate to all projects
+- ✅ Project-specific rules stay isolated
+- ✅ Reduces duplication across projects
+
+🗒️ This IS the meta-workflow becoming a product
 
 ## v0.11.0
 
