@@ -2,6 +2,45 @@
 
 ---
 
+## v0.4.0
+
+### ✅ Epic Workflow Infrastructure | [notes](gaps/epic-notes/v0.4.0.md)
+
+[commit](https://github.com/nonlinear/personal-library/commit/467e8f6)
+
+**Completed:** 2026-01-25
+
+Epic-based development workflow and VS Code citation limitations discovery.
+
+**What we built:**
+
+- [x] Epic workflow documentation (8-step process in CONTRIBUTING.md)
+- [x] Branch naming convention: `v0.X.0` (version only)
+- [x] Epic notes location: `engine/docs/gaps/epic-notes/v0.X.0.md`
+- [x] Two-tier checks policy (soft-fail branches, hard-fail main)
+- [x] Gaps workflow for session documentation
+- [x] ADHD-friendly workflow improvements
+- [x] wrap-it-up.prompt.md for pausing sessions
+- [x] Branch detection in whatsup.prompt.md (light workflow for epic branches)
+
+**Critical Discovery:**
+
+🔴 **VS Code pill validation breaks with URL fragments** (`#page=42`, `#chapter3`)
+
+- Tested 6 different anchor syntaxes - all failed
+- Any `#` in URL prevents pill from rendering
+- Blocker for clickable page/chapter navigation
+- Documented in epic notes with test methodology
+
+**Impact:**
+
+Source Granularity features (page/chapter anchors) blocked by VS Code limitation.
+Deferred to v0.7.0 for workarounds and alternatives.
+
+**Migration:** None (workflow improvements)
+
+---
+
 ## v0.3.1
 
 ### Epic-per-branch workflow

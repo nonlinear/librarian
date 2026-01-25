@@ -1,36 +1,5 @@
 # Personal Library MCP - Roadmap
 
-## v0.4.0
-
-### [🚧](https://github.com/nonlinear/personal-library/tree/v0.4.0) Epic Workflow Infrastructure | [notes](gaps/gaps/epic-notes/v0.4.0.md)
-
-Epic-based development workflow and VS Code citation limitations discovery.
-
-**What we built:**
-
-- [x] Epic workflow documentation (8-step process in CONTRIBUTING.md)
-- [x] Branch naming convention: `v0.X.0` (version only)
-- [x] Epic notes location: `engine/docs/gaps/epic-notes/v0.X.0.md`
-- [x] Two-tier checks policy (soft-fail branches, hard-fail main)
-- [x] Gaps workflow for session documentation
-- [x] ADHD-friendly workflow improvements
-
-**Critical Discovery:**
-
-🔴 **VS Code pill validation breaks with URL fragments** (`#page=42`, `#chapter3`)
-
-- Tested 6 different anchor syntaxes - all failed
-- Any `#` in URL prevents pill from rendering
-- Blocker for clickable page/chapter navigation
-- Documented in epic notes with test methodology
-
-**Deferred to future epic:**
-
-Source Granularity features (page/chapter anchors) blocked by VS Code limitation.
-See v0.7.0 for workarounds and alternatives.
-
-🗒️ Epic pivoted from feature work to workflow infrastructure due to technical blocker
-
 ## v0.5.0
 
 ### Hygiene
