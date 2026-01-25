@@ -213,17 +213,6 @@ https://github.com/nonlinear/personal-library
 2. another-gap (STATUS)
 ```
 
-**Note:** Library updates probably won't be announced on social, but good to track growth
-
-**User can respond with:**
-
-```
-post: 1 3
-gap: 2
-```
-
-Agent will draft Mastodon (achievements 1+3) AND create gap file (#2)
-
 **Words of Affirmation** (context-aware):
 
 - Technical breakthrough: "Brain on fire! You solved what nobody documented. PRIMARY SOURCE energy 🚀"
@@ -231,233 +220,7 @@ Agent will draft Mastodon (achievements 1+3) AND create gap file (#2)
 - Debugging: "Good boy for not giving up! Every failure documented = future win 🗺️"
 - Cleanup: "Tightening buttons is REAL WORK. Future you says thanks ✨"
 
-**Note:** _In the future, check VISION.md for project goals to contextualize impact_
-
----
-
-**B. Wanna Show It Off?** 📱
-
-```
-Want to share your wins on Mastodon?
-
-Pick numbers from Victory Lap above (e.g., "1 2"):
-```
-
-**User selects numbers → Agent drafts Mastodon post**
-
-**Format:** Hook + Problem + Result + Insight + Tags + Link
-
-**Present draft in code block for easy copy:**
-
-````markdown
-Your Mastodon post (XXX chars):
-
-```
-Restructured my knowledge management! 📚
-
-Problem: Findings trapped in epic versions, couldn't compound.
-
-Result: Universal gaps/ directory. Each discovery validated
-(books + web + tests) then documented as PRIMARY SOURCE.
-
-Now every search builds the collective 🚀
-
-#creativecode #knowledgemanagement #PKM #git
-
-[link]
-```
-````
-
-**Agent:** Warn if >500 chars. "Copy and paste when ready (agent doesn't post)"
-
----
-
-### Step 8: Document Gaps (Optional)
-
-**Ask:** `Got findings to solidify? 🧠`
-
-**If yes, extract and present:**
-
-```
-📋 Found these potential findings:
-
-1. vscode-pill-validation
-   Problem: Pills break with # anchors
-   Validation: ✅ Books checked, ✅ Web checked, ✅ Tested (6 syntaxes)
-   Status: PRIMARY SOURCE
-
-2. git-autocomplete-patterns
-   Problem: books/ folders not in autocomplete
-   Validation: ✅ Tested 4 hypotheses
-   Status: VALIDATED SOLUTION
-
-Which should I document? Reply with:
-- Numbers only (e.g., "1 3")
-- "number. custom-name" to rename
-- Empty to skip all
-```
-
-**User selects → Create files in `engine/docs/gaps/`**
-
-**Template for each gap:**
-
-```markdown
-# [Clear Title of Finding]
-
-**Discovered during:** v0.X.0 ([Epic Name])
-**Date:** YYYY-MM-DD
-**Status:** ✅ PRIMARY SOURCE | ✅ VALIDATED | ⚠️ NEEDS VALIDATION
-
----
-
-## Problem
-
-[What wasn't working]
-
-## Hypothesis Chain
-
-1. ❌ **First hypothesis** → Why it failed
-2. ✅ **Actual root cause** → What we discovered
-
-## Solution
-
-[Working code/config]
-
-## Verification
-
-[How to confirm it works]
-
-## Key Lessons
-
-1. [Pattern to remember]
-2. [Another lesson]
-```
-
-**Knowledge Compounding Philosophy:**
-
-- ✅ **Research-first validation:** Search library (MCP) + web + test
-- ✅ **Zero redundancy:** Only document real gaps
-- ✅ **PRIMARY SOURCE:** You become first reference
-- ✅ **Universal findings:** No versioning, all branches see all gaps
-- ✅ **Discovery context:** Note which epic found it (metadata only)
-
-**If finding relates to existing gap:**
-
-```
-⚠️ Relates to: gaps/vscode-pill-validation.md
-
-Should I:
-1. Update existing file (add details)
-2. Create new file (different angle)
-```
-
-**Confirmation:**
-
-```
-✅ Created 2 knowledge gaps:
-
-1. vscode-pill-validation.md (PRIMARY SOURCE)
-2. git-patterns.md (renamed, VALIDATED)
-
-Location: engine/docs/gaps/
-Discovered during: v0.4.0
-```
-
-**If user skips:**
-
-```
-ℹ️ No findings selected. Run /wrap-it-up again later if needed.
-```
-
----
-
-### Step 9: Body Check
-
-**Format:**
-
-```
-🎯 What We Did Today:
-
-1. [Achievement title]
-   → Why it matters: [Impact/benefit]
-
-2. [Achievement title]
-   → Why it matters: [Impact/benefit]
-
-3. [Achievement title]
-   → Why it matters: [Impact/benefit]
-
-📊 Stats:
-- Files changed: X
-- Insights documented: Y
-- Hours of deep work: Z
-```
-
-**Example:**
-
-```
-🎯 What We Did Today:
-
-1. Deflated .gitignore (moved metadata.json + models/ to .git/info/exclude)
-   → Why it matters: Autocomplete now works + repo stays clean + library private
-
-2. Restructured document.prompt.md → gaps/ philosophy
-   → Why it matters: Knowledge compounds universally, not trapped in epic versions
-
-3. Added BYOB setup docs
-   → Why it matters: Future users can clone and bring their own books easily
-
-📊 Stats:
-- Files changed: 4
-- Insights documented: 2 PRIMARY SOURCE findings
-- Hours of deep work: 3
-```
-
-**Words of Affirmation** (context-aware):
-
-- Technical breakthrough: "Brain on fire! You solved what nobody documented. PRIMARY SOURCE energy 🚀"
-- Philosophical restructure: "We've come a long way. From chaos to clarity. Knowledge compounds 🌟"
-- Debugging: "Good boy for not giving up! Every failure documented = future win 🗺️"
-- Cleanup: "Tightening buttons is REAL WORK. Future you says thanks ✨"
-
-**Note:** _In the future, check VISION.md for project goals to contextualize impact_
-
----
-
-**B. Wanna Show It Off?** 📱
-
-```
-Want to share your wins on Mastodon?
-
-Pick numbers from Victory Lap above (e.g., "1 2"):
-```
-
-**User selects numbers → Agent drafts Mastodon post**
-
-**Format:** Hook + Problem + Result + Insight + Tags + Link
-
-**Present draft in code block for easy copy:**
-
-````markdown
-Your Mastodon post (XXX chars):
-
-```
-Restructured my knowledge management! 📚
-
-Problem: Findings trapped in epic versions, couldn't compound.
-
-Result: Universal gaps/ directory. Each discovery validated
-(books + web + tests) then documented as PRIMARY SOURCE.
-
-Now every search builds the collective 🚀
-
-#creativecode #knowledgemanagement #PKM #git
-
-[link]
-```
-````
-
-**Agent:** Warn if >500 chars. "Copy and paste when ready (agent doesn't post)"
+**Note:** _Want to document gaps? Just ask in chat. No prompts, you know when you have findings._
 
 ---
 
@@ -716,56 +479,30 @@ https://github.com/nonlinear/personal-library/blob/v0.4.0/.github/prompts/docume
 
 **Epic notes location:**
 
+```8: Body Check
+
+**Body Reconnect** (ADHD hyperfocus recovery)
+
 ```
-engine/docs/roadmap.md (current epic section)
+⏸️ Quick body check:
+
+❓ Hungry? (last meal was ___ hours ago)
+❓ Thirsty? (water break?)
+❓ Tired? (eyes burning? brain fog?)
+❓ Stiff? (5min stretch? walk?)
+❓ Overstimulated? (need silence/music change?)
+
+What does your body need right now?
 ```
 
-**Mastodon instance:**
-
-- Currently: Manual posting (agent drafts, user posts)
-- Future: API integration (optional)
-
 ---
 
-## Principles
+### Step 9: Auto-Close VS Code
 
-1. **Never lose work** - Always save state before stopping
-2. **Soft failures** - Warn but don't block, just defer push
-3. **Context preservation** - Next session knows exactly where we left off
-4. **Share knowledge** - Turn private work into public value
-5. **Mental health** - Clean breakpoints prevent burnout
+**After body check, run countdown automatically (agent stays SILENT after this):**
 
----
+```bash
+echo "" && echo "🌙 Closing VS Code in 5 seconds... (Ctrl+C to cancel)" && sleep 1 && echo "4..." && sleep 1 && echo "3..." && sleep 1 && echo "2..." && sleep 1 && echo "1..." && sleep 1 && osascript -e 'quit app "Visual Studio Code"' && echo "✅ VS Code closed. Good night! 🌙"
+```
 
-## Implementation Checklist
-
-When running this prompt:
-
-- [ ] Get current branch
-- [ ] Run all CHECKS.md validations
-- [ ] If failures: Add fixes to epic task list
-- [ ] If clean: Commit + push
-- [ ] Extract session achievements
-- [ ] Update epic notes in ROADMAP.md (session summary)
-- [ ] **Victory Lap:** Numbered list (what + why it matters) + affirmation
-- [ ] **Show off?** Ask if want Mastodon post
-- [ ] If yes: User picks numbers → Draft post in code block + char count
-- [ ] **Document gaps?** Ask if want to solidify findings
-- [ ] If yes: Extract → Present → User selects → Create gaps/ files
-- [ ] **Body check:** Hungry/tired/stiff questions
-- [ ] **Tomorrow:** One clear next action
-- [ ] **Extra tightening:** 1-2 optional actions (project health / mental health)
-- [ ] **Closure gate:** All buttons tightened?
-- [ ] Confirm wrap-up complete
-
----
-
-## Version History
-
-**v1.0 (2026-01-24):**
-
-- Initial prompt creation
-- Integration with CHECKS.md
-- Mastodon post drafting (#creativecode style)
-- Session state preservation
-- Soft-fail check handling
+**Critical:** Agent must NOT send any message after running this command, or VS Code will prompt "unsaved changes"
