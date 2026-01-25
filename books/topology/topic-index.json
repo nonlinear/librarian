@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "topology",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "2c2d03e01e16edc82ca6078ee3e6bdf7598cfccabb56b7eb43f674811d09a623",
+  "books": [
+    {
+      "id": "6002",
+      "title": "The Fourth Dimension",
+      "author": "Rudy Rucker",
+      "year": 2014,
+      "tags": [
+        "fourth-dimension",
+        "higher-universes",
+        "hyperspace-quantum",
+        "geometry-higher",
+        "rucker-book",
+        "reality-rudy"
+      ],
+      "filename": "6002.epub",
+      "filetype": "epub",
+      "last_modified": 1768539893.9652472
+    },
+    {
+      "id": "circles__a_mathematical_view_-_dan_pedoe",
+      "title": "Circles: A Mathematical View",
+      "author": "Dan Pedoe",
+      "year": 1995,
+      "tags": [
+        "published-mathematical",
+        "america-spectrum",
+        "representation-circle",
+        "range-books",
+        "geometrical-terms",
+        "20036-800"
+      ],
+      "filename": "Circles_ A Mathematical View - Dan Pedoe.epub",
+      "filetype": "epub",
+      "last_modified": 1768539893.6655846
+    },
+    {
+      "id": "geometries_and_transformations_-_norman_w_johnson",
+      "title": "Geometries and Transformations",
+      "author": "Norman W. Johnson",
+      "year": 2018,
+      "tags": [
+        "classical-geometries",
+        "transformations-euclidean",
+        "convex-polyhedra",
+        "johnson-solids",
+        "finite-symmetry",
+        "groups-book"
+      ],
+      "filename": "Geometries and Transformations - Norman W. Johnson.epub",
+      "filetype": "epub",
+      "last_modified": 1768539893.7552319
+    },
+    {
+      "id": "polyhedra_-_peter_r_cromwell",
+      "title": "Polyhedra",
+      "author": "Peter R. Cromwell",
+      "year": 1999,
+      "tags": [
+        "introduction-polyhedra",
+        "polyhedra-cromwell",
+        "geometry-peter",
+        "disputed-foundations",
+        "symmetries-crystallography",
+        "cromwell-cambridge"
+      ],
+      "filename": "Polyhedra - Peter R. Cromwell.epub",
+      "filetype": "epub",
+      "last_modified": 1768539893.7250485
+    },
+    {
+      "id": "the_fourth_dimension",
+      "title": "The Fourth Dimension",
+      "author": "Rudy Rucker",
+      "year": 2014,
+      "tags": [
+        "fourth-dimension",
+        "higher-universes",
+        "hyperspace-quantum",
+        "geometry-higher",
+        "rucker-book",
+        "reality-rudy"
+      ],
+      "filename": "The Fourth Dimension.epub",
+      "filetype": "epub",
+      "last_modified": 1768539894.044251
+    }
+  ]
+}

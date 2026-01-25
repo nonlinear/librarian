@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "plants",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "a377c38d0f09d7bd299a151875de11b9a9816c5c6cf7017c29cb248117dc3874",
+  "books": [
+    {
+      "id": "energetic_herbalism",
+      "title": "Energetic Herbalism",
+      "author": "Kat Maier",
+      "year": null,
+      "tags": [
+        "energetic-herbalism",
+        "elements-ayurvedic",
+        "botanical-sanctuaries",
+        "spirits-developing",
+        "traditions-chapter",
+        "moisture"
+      ],
+      "filename": "Energetic Herbalism.epub",
+      "filetype": "epub",
+      "last_modified": 1768850352.2253087
+    },
+    {
+      "id": "entangled_life",
+      "title": "Entangled Life",
+      "author": "Merlin Sheldrake",
+      "year": 2020,
+      "tags": [
+        "fungus-chapter",
+        "radical-mycology",
+        "boggling-biology",
+        "delightfully-granular",
+        "cultures-surrounding",
+        "adventurous-daring"
+      ],
+      "filename": "Entangled Life.epub",
+      "filetype": "epub",
+      "last_modified": 1768539734.1106963
+    },
+    {
+      "id": "herbal_tea_magic_for_the_modern_witch_by_elsie_wild",
+      "title": "Herbal Tea Magic for the Modern Witch",
+      "author": "Elsie Wild",
+      "year": 2021,
+      "tags": [
+        "herbs-tea",
+        "tea-astrological",
+        "cup-magic",
+        "worried-ritual",
+        "spell-components",
+        "reading-predicting"
+      ],
+      "filename": "Herbal Tea Magic for the Modern Witch by Elsie Wild.epub",
+      "filetype": "epub",
+      "last_modified": 1768850350.7436264
+    },
+    {
+      "id": "the_lost_book_of_herbal_remedies",
+      "title": "The Lost Book of Herbal Remedies",
+      "author": "Nicole Apelian",
+      "year": 2019,
+      "tags": [
+        "book-herbal",
+        "remedies-lost",
+        "consult-caring",
+        "xanama-qgum",
+        "nicole-memory",
+        "misuse-misidentification"
+      ],
+      "filename": "The Lost Book of Herbal Remedies.epub",
+      "filetype": "epub",
+      "last_modified": 1768850351.888345
+    },
+    {
+      "id": "the_front_yard_forager",
+      "title": "Front Yard Forager",
+      "author": "Melany Vorass",
+      "year": 2013,
+      "tags": [
+        "urban-weeds",
+        "yard-foraging",
+        "wild-fennel",
+        "collecting-cooking",
+        "30-common",
+        "congress-cataloging"
+      ],
+      "filename": "The front yard forager.epub",
+      "filetype": "epub",
+      "last_modified": 1768539721.6688223
+    }
+  ]
+}

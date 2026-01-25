@@ -1,0 +1,446 @@
+🚀 Personal Library Indexer v2.0
+============================================================
+✓ Using local embedding model: all-MiniLM-L6-v2 (384-dim)
+✓ Chunking: 1024 chars, 200 overlap
+✓ Schema: chunks.json v2.0 (page/paragraph metadata)
+
+📋 Indexing all 54 topics
+
+============================================================
+📖 Indexing: ai_policy
+   Path: books/AI/policy
+============================================================
+   📚 Books: 4
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: ai_prompt_engineering
+   Path: books/AI/prompt engineering
+============================================================
+   📚 Books: 10
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: ai_theory
+   Path: books/AI/theory
+============================================================
+   📚 Books: 8
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: anarchy_david_graeber
+   Path: books/anarchy/david graeber
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: anarchy_hakim_bey
+   Path: books/anarchy/hakim bey
+============================================================
+   📚 Books: 19
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: anarchy_james_c_scott
+   Path: books/anarchy/james c scott
+============================================================
+   📚 Books: 2
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: anarchy_zines
+   Path: books/anarchy/zines
+============================================================
+   📚 Books: 8
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: art_direction
+   Path: books/art direction
+============================================================
+   📚 Books: 4
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: cooking
+   Path: books/cooking
+============================================================
+   📚 Books: 1
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: creativity_brand_strategy
+   Path: books/creativity/brand strategy
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: cybersecurity_applied
+   Path: books/cybersecurity/applied
+============================================================
+   📚 Books: 6
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: cybersecurity_history
+   Path: books/cybersecurity/history
+============================================================
+   📚 Books: 4
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: cybersecurity_strategy
+   Path: books/cybersecurity/strategy
+============================================================
+   📚 Books: 8
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_character
+   Path: books/design/character
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_circular
+   Path: books/design/circular
+============================================================
+   📚 Books: 3
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_data_visualization
+   Path: books/design/data visualization
+============================================================
+   📚 Books: 6
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_generative
+   Path: books/design/generative
+============================================================
+   📚 Books: 11
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_interaction
+   Path: books/design/interaction
+============================================================
+   📚 Books: 28
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_system
+   Path: books/design/system
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_theory
+   Path: books/design/theory
+============================================================
+   📚 Books: 15
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_typography
+   Path: books/design/typography
+============================================================
+   📚 Books: 1
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: design_usability
+   Path: books/design/usability
+============================================================
+   📚 Books: 33
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: drawing_andrew_loomis
+   Path: books/drawing/andrew loomis
+============================================================
+   📚 Books: 4
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: drawing_basics
+   Path: books/drawing/basics
+============================================================
+   📚 Books: 3
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: drawing_clothes
+   Path: books/drawing/clothes
+============================================================
+   📚 Books: 3
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: drawing_figure_drawing
+   Path: books/drawing/figure drawing
+============================================================
+   📚 Books: 10
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: drawing_nature
+   Path: books/drawing/nature
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: drawing_portrait
+   Path: books/drawing/portrait
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: fiction_brasil
+   Path: books/fiction/brasil
+============================================================
+   📚 Books: 1
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: fiction_earthsea_cycle
+   Path: books/fiction/earthsea cycle
+============================================================
+   📚 Books: 6
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: fiction_science
+   Path: books/fiction/science
+============================================================
+   📚 Books: 22
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: fitness
+   Path: books/fitness
+============================================================
+   📚 Books: 2
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: magick_chaos
+   Path: books/magick/chaos
+============================================================
+   📚 Books: 1
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: magick_i_ching
+   Path: books/magick/i ching
+============================================================
+   📚 Books: 18
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: magick_manifestation
+   Path: books/magick/manifestation
+============================================================
+   📚 Books: 1
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: magick_tarot
+   Path: books/magick/tarot
+============================================================
+   📚 Books: 3
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: management_activism
+   Path: books/management/activism
+============================================================
+   📚 Books: 3
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: management_commons
+   Path: books/management/commons
+============================================================
+   📚 Books: 22
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: management_ideation
+   Path: books/management/ideation
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: management_product
+   Path: books/management/product
+============================================================
+   📚 Books: 6
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: plants
+   Path: books/plants
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: poetry_clarisse_lispector
+   Path: books/poetry/Clarisse Lispector
+============================================================
+   📚 Books: 17
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: poetry_fernando_pessoa
+   Path: books/poetry/Fernando Pessoa
+============================================================
+   📚 Books: 17
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: poetry_rumi
+   Path: books/poetry/Rumi
+============================================================
+   📚 Books: 16
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: technology_computer_vision
+   Path: books/technology/computer vision
+============================================================
+   📚 Books: 7
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: technology_hugo
+   Path: books/technology/hugo
+============================================================
+   📚 Books: 2
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: technology_processing
+   Path: books/technology/processing
+============================================================
+   📚 Books: 7
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: technology_vscode
+   Path: books/technology/vscode
+============================================================
+   📚 Books: 2
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: theory_anthropocene
+   Path: books/theory/anthropocene
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: theory_feminism
+   Path: books/theory/feminism
+============================================================
+   📚 Books: 7
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: theory_game
+   Path: books/theory/game
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: theory_information
+   Path: books/theory/information
+============================================================
+   📚 Books: 6
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: theory_system
+   Path: books/theory/system
+============================================================
+   📚 Books: 18
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+📖 Indexing: topology
+   Path: books/topology
+============================================================
+   📚 Books: 5
+   ⏭️  No changes detected (hash match)
+   💡 Use --force to reindex anyway
+
+============================================================
+🎉 Indexing Complete
+============================================================
+
+📊 Summary:
+   ✅ Success: 54 topics

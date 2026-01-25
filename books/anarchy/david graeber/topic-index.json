@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "anarchy_david_graeber",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "061bab6574ef3d12ef7779dde58a1289bbb538259d802a01e8bbd0ee9c16ff22",
+  "books": [
+    {
+      "id": "debt",
+      "title": "Debt",
+      "author": "David Graeber",
+      "year": 2011,
+      "tags": [
+        "debt-history",
+        "graeber-melville",
+        "barter-primordial",
+        "capitalist-empires",
+        "middle-ages",
+        "moral-grounds"
+      ],
+      "filename": "Debt.epub",
+      "filetype": "epub",
+      "last_modified": 1769143154.0684965
+    },
+    {
+      "id": "fragments_of_an_anarchist_anthropology",
+      "title": "Fragments of an Anarchist Anthropology",
+      "author": "David Graeber",
+      "year": null,
+      "tags": [
+        "anarchist-anthropology",
+        "utopianist-schmuck",
+        "theories-tiny",
+        "increasingly-abandoned",
+        "ought-exist",
+        "contradiction-terms"
+      ],
+      "filename": "Fragments of an Anarchist Anthropology.epub",
+      "filetype": "epub",
+      "last_modified": 1769143154.1002154
+    },
+    {
+      "id": "o_anarquismo_no_seculo_21",
+      "title": "O Anarquismo no Seculo 21",
+      "author": "Unknown",
+      "year": 2017,
+      "tags": [
+        "anarquistas-54",
+        "ocaso-vanguardismo",
+        "revolucion\u00e1rio-s\u00e9culo",
+        "magalh\u00e3es-corr\u00eaa",
+        "resposta-pode",
+        "eletronico-david"
+      ],
+      "filename": "O Anarquismo no Seculo 21.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6790426
+    },
+    {
+      "id": "revolutions_in_reverse",
+      "title": "Revolutions in Reverse: Essays on Politics, Violence, Art, and Imagination",
+      "author": "David Graeber",
+      "year": 2011,
+      "tags": [
+        "graeber-revolutions",
+        "violence-art",
+        "szukis-interior",
+        "compositions-london",
+        "shock-victory",
+        "reverse-david"
+      ],
+      "filename": "Revolutions in Reverse.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.682901
+    },
+    {
+      "id": "the_utopia_of_rules",
+      "title": "The Utopia of Rules: On Technology, Stupidity, and the Secret Joys of Bureaucracy",
+      "author": "David Graeber",
+      "year": 101,
+      "tags": [
+        "anarchist-anthropology",
+        "slavery-madagascar",
+        "comics-collected",
+        "imaginationan-essay",
+        "rebellion-desire",
+        "absurdities-bureaucratic"
+      ],
+      "filename": "The Utopia of Rules.epub",
+      "filetype": "epub",
+      "last_modified": 1769143154.427738
+    }
+  ]
+}

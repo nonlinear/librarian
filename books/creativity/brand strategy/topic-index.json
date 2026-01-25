@@ -1,0 +1,93 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "creativity_brand_strategy",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "67232343b68349b4b9eb520eded83a61ff7cfb7dbbcb317b385636700672e268",
+  "books": [
+    {
+      "id": "burn_your_portfolio",
+      "title": "Burn Your Portfolio: Stuff they don't teach you in design school, but should",
+      "author": "Janda, Michael",
+      "year": 2013,
+      "tags": [
+        "portfolio-stuff",
+        "teach-design",
+        "educationcopyright-2013",
+        "author-peachpit",
+        "notice-liability",
+        "outlined-burn"
+      ],
+      "filename": "Burn Your Portfolio.epub",
+      "filetype": "epub",
+      "last_modified": 1769143005.542047
+    },
+    {
+      "id": "designing_brand_identity",
+      "title": "Designing Brand Identity",
+      "author": "Wheeler, Alina.",
+      "year": 2016,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Designing Brand Identity.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291063.3442132
+    },
+    {
+      "id": "logo_design_love",
+      "title": "Logo Design Love",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "airey-logo",
+        "brand-identities",
+        "design-david",
+        "new-riders",
+        "author-peachpit",
+        "notice-liability"
+      ],
+      "filename": "Logo Design Love.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291063.374946
+    },
+    {
+      "id": "the_crowdsourceress",
+      "title": "The Crowdsourceress: Get Smart, Get Funded, and Kickstart Your Next Big Idea",
+      "author": "Alex Daly",
+      "year": 2018,
+      "tags": [
+        "markets-perseusbooks",
+        "congress-cataloging",
+        "publicaffairs-imprint",
+        "crowdsourceress-smart",
+        "description-edition",
+        "kickstart-big"
+      ],
+      "filename": "The Crowdsourceress.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291063.3851097
+    },
+    {
+      "id": "the_status_game",
+      "title": "The Status Game: On Social Position and How We Use It",
+      "author": "Will Storr",
+      "year": 2021,
+      "tags": [
+        "storr-publisher",
+        "ireland-ebook",
+        "permission-harpercollins",
+        "london-bridge",
+        "games-form",
+        "loaded-decompiled"
+      ],
+      "filename": "The Status Game.epub",
+      "filetype": "epub",
+      "last_modified": 1769284580.7820964
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "magick_manifestation",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "38771da80161d0cf02fa1641c4dd179ec50816ffea3d571dbea68b196651a9b3",
+  "books": [
+    {
+      "id": "manifesting_love_and_abundance_from_the_dark_night",
+      "title": "tCgVvMpr4D6Q84fa6VHci6i6hZb5sg2KPFkejEoA",
+      "author": "Rachel McNassor",
+      "year": 2025,
+      "tags": [
+        "experience-dark",
+        "night-soul",
+        "profound-spiritual",
+        "catalyzes-soul",
+        "crumbling-relationships",
+        "distractions"
+      ],
+      "filename": "Manifesting Love and Abundance from the Dark Night.epub",
+      "filetype": "epub",
+      "last_modified": 1768548848.4727385
+    }
+  ]
+}

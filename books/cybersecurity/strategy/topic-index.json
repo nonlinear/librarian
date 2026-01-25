@@ -1,0 +1,149 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "cybersecurity_strategy",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "35715c7c185f64e5c72fe9a4fcb01836c748c09ff90d12aa17e3f673828114d1",
+  "books": [
+    {
+      "id": "beyond_fear",
+      "title": "Beyond Fear: Thinking Sensibly About Security in an Uncertain World.",
+      "author": "Bruce Schneier",
+      "year": 2011,
+      "tags": [
+        "security-book",
+        "economist-schneier",
+        "widely-read",
+        "fear-uncertainty",
+        "oversight-lives",
+        "potter-reference"
+      ],
+      "filename": "Beyond Fear.epub",
+      "filetype": "epub",
+      "last_modified": 1768859224.1171913
+    },
+    {
+      "id": "capital_is_dead",
+      "title": "Capital Is Dead",
+      "author": "McKenzie Wark;",
+      "year": null,
+      "tags": [
+        "left-books",
+        "verso-uk",
+        "dead-capitalis",
+        "introduction-sublime",
+        "bourgeois-concept",
+        "time-machine"
+      ],
+      "filename": "Capital Is Dead.epub",
+      "filetype": "epub",
+      "last_modified": 1768861654.4889183
+    },
+    {
+      "id": "carry_on",
+      "title": "Carry On: Sound Advice from Schneier on Security",
+      "author": "Schneier, Bruce",
+      "year": 2013,
+      "tags": [
+        "security-mindset",
+        "safe-cameras",
+        "chinese-cyberattacks",
+        "survival-journalists",
+        "rsa-conference",
+        "feudalism-control"
+      ],
+      "filename": "Carry On.epub",
+      "filetype": "epub",
+      "last_modified": 1768860677.4749358
+    },
+    {
+      "id": "how_to_measure_anything_in_cybersecurity_risk",
+      "title": "How to Measure Anything in Cybersecurity Risk",
+      "author": "Douglas W. Hubbard",
+      "year": 2016,
+      "tags": [
+        "cybersecurity-contents",
+        "scanning-permitted",
+        "istockphoto-internet",
+        "cloud-computing",
+        "measurements-risk",
+        "photocopying-recording"
+      ],
+      "filename": "How to Measure Anything in Cybersecurity Risk.epub",
+      "filetype": "epub",
+      "last_modified": 1768860939.092129
+    },
+    {
+      "id": "schneier_on_security",
+      "title": "Schneier on Security",
+      "author": "Schneier, Bruce",
+      "year": 2010,
+      "tags": [
+        "privacy-surveillance",
+        "security-mindset",
+        "nsa-bush",
+        "cyberterrorism-chapter",
+        "vs-citizen",
+        "academic-freedom"
+      ],
+      "filename": "Schneier on Security.epub",
+      "filetype": "epub",
+      "last_modified": 1768860554.842289
+    },
+    {
+      "id": "secrets_and_lies",
+      "title": "Secrets and Lies: Digital Security in a Networked World",
+      "author": "Bruce Schneier",
+      "year": 101,
+      "tags": [
+        "increasing-security",
+        "information-theft",
+        "cyberterrorism",
+        "computer-worms",
+        "fraud-common",
+        "numbers-worse"
+      ],
+      "filename": "Secrets and Lies.epub",
+      "filetype": "epub",
+      "last_modified": 1768860404.571855
+    },
+    {
+      "id": "security_engineering",
+      "title": "Security Engineering: A Guide to Building Dependable Distributed Systems",
+      "author": "Ross J. Anderson",
+      "year": 2010,
+      "tags": [
+        "security-economics",
+        "access-control",
+        "systems-introduction",
+        "passwords-issues",
+        "managing-encryption",
+        "bank-example"
+      ],
+      "filename": "Security Engineering.epub",
+      "filetype": "epub",
+      "last_modified": 1768860744.7118702
+    },
+    {
+      "id": "the_age_of_surveillance_capitalism",
+      "title": "The Age of Surveillance Capitalism",
+      "author": "Shoshana Zuboff",
+      "year": 2019,
+      "tags": [
+        "hachette-book",
+        "perseus-books",
+        "pentland-copyright",
+        "publicaffairs-imprint",
+        "authors-speaking",
+        "permissions-hbgusa"
+      ],
+      "filename": "The Age of Surveillance Capitalism.epub",
+      "filetype": "epub",
+      "last_modified": 1768861863.187837
+    }
+  ]
+}

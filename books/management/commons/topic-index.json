@@ -1,0 +1,382 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "management_commons",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "cf45e3855d3c6d8115934d9cb2c330cd6da89f73c54ce04c57411599c8784042",
+  "books": [
+    {
+      "id": "aesthetics_of_the_commons",
+      "title": "stalder_commons_buch.indb",
+      "author": "Unknown",
+      "year": 2021,
+      "tags": [
+        "commons-aesthetics",
+        "art-feminist",
+        "relational-critique",
+        "postdigital-politics",
+        "kleesattel-situated",
+        "magdalena-tyzlik"
+      ],
+      "filename": "Aesthetics of the Commons.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.5601022
+    },
+    {
+      "id": "after_the_internet",
+      "title": "After the Internet: Digital Networks between Capital and the Common",
+      "author": "Tiziana Terranova",
+      "year": 2024,
+      "tags": [
+        "terranova-internet",
+        "brought-technologies",
+        "planetary-epidemic",
+        "published-semiotext",
+        "2021-global",
+        "accelerationist-years"
+      ],
+      "filename": "After the Internet.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.5628757
+    },
+    {
+      "id": "building_a_new_approach_to_policy_and_the_social_sciences",
+      "title": "Building a New Approach to Policy and the Social Sciences",
+      "author": "Unknown",
+      "year": 2021,
+      "tags": [
+        "policy-social",
+        "introduction-bloomington",
+        "civilization-embraces",
+        "debate-efciency",
+        "reuniting-virginia",
+        "jayme-lemke"
+      ],
+      "filename": "Building a New Approach to Policy and the Social Sciences.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.5762053
+    },
+    {
+      "id": "distributed_computing_through_combinatorial_topology",
+      "title": "Distributed computing through combinatorial topology",
+      "author": "\u00104<8=8AB@0B>@",
+      "year": 2013,
+      "tags": [
+        "distributed-computing",
+        "combinatorial-topology",
+        "elsevier",
+        "cataloguing-publication",
+        "govindaradjane-designer",
+        "permissions-book"
+      ],
+      "filename": "Distributed computing through combinatorial topology.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.6168125
+    },
+    {
+      "id": "doughnut_economics",
+      "title": "Doughnut Economics: Seven Ways to Think Like a 21st-Century Economist",
+      "author": "Raworth, Kate",
+      "year": 2017,
+      "tags": [
+        "doughnut-economics",
+        "economist-change",
+        "sustainable-prosperity",
+        "growth-agnostic",
+        "regenerative-design",
+        "book"
+      ],
+      "filename": "Doughnut Economics.epub",
+      "filetype": "epub",
+      "last_modified": 1769143122.3837962
+    },
+    {
+      "id": "elinor_ostrom_an_intellectual_biography",
+      "title": "Elinor Ostrom: An Intellectual Biography",
+      "author": "Vlad Tarko",
+      "year": 101,
+      "tags": [
+        "cataloging",
+        "ostrom-elinor",
+        "published-rowman",
+        "eubanks-analyze",
+        "588-cloth",
+        "mechanical-means"
+      ],
+      "filename": "Elinor Ostrom An Intellectual Biography.epub",
+      "filetype": "epub",
+      "last_modified": 1769143122.4701421
+    },
+    {
+      "id": "elinor_ostrom_and_the_bloomington_school",
+      "title": "Elinor Ostrom and the Bloomington School",
+      "author": "Unknown",
+      "year": 2021,
+      "tags": [
+        "policy-social",
+        "introduction-bloomington",
+        "civilization-embraces",
+        "debate-efciency",
+        "reuniting-virginia",
+        "jayme-lemke"
+      ],
+      "filename": "Elinor Ostrom and the Bloomington School.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.622872
+    },
+    {
+      "id": "exit_voice_and_loyalty",
+      "title": "Exit, Voice, and Loyalty",
+      "author": "Albert O. Hirschman",
+      "year": null,
+      "tags": [
+        "declinein-firms",
+        "economic-thought",
+        "grow-preface",
+        "difficult-exit",
+        "transport-nigeria",
+        "assumptions-hiding"
+      ],
+      "filename": "Exit, voice, and loyalty.epub",
+      "filetype": "epub",
+      "last_modified": 1769281710.749405
+    },
+    {
+      "id": "governing_the_commons",
+      "title": "Governing the Commons",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "888-jg",
+        "rs-tt",
+        "1s-c3o",
+        "arrangements-devised",
+        "cl-li",
+        "assume-robust"
+      ],
+      "filename": "Governing the Commons.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.6402164
+    },
+    {
+      "id": "institutions_ecosystems_and_sustainability",
+      "title": "Institutions, Ecosystems, and Sustainability",
+      "author": "Robert Costanza, Bobbi Low, Elinor Ostrom, James Wilson",
+      "year": 2000,
+      "tags": [
+        "ecosystems-sustainability",
+        "environmental-economics",
+        "lawn-institutions",
+        "privileged-goods",
+        "economics-series",
+        "robert-costanza"
+      ],
+      "filename": "Institutions, Ecosystems, and Sustainability.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.6587684
+    },
+    {
+      "id": "linking_the_formal_and_informal_economy",
+      "title": "Linking the Formal and Informal Economy",
+      "author": "Unknown",
+      "year": 2010,
+      "tags": [
+        "international-development",
+        "research-unu",
+        "swedish-policymakers",
+        "finland-www",
+        "egdi-consists",
+        "wider-katajanokanlaituri"
+      ],
+      "filename": "Linking the Formal and Informal Economy.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.664647
+    },
+    {
+      "id": "local_commons_and_global_interdependence",
+      "title": "Local Commons and Global Interdependence",
+      "author": "Keohane, Robert O.(Editor)",
+      "year": 2011,
+      "tags": [
+        "local-commons",
+        "international-affairs",
+        "cataloguing-publication",
+        "delhi-sage",
+        "edited-robert",
+        "recording-permission"
+      ],
+      "filename": "Local Commons and Global Interdependence.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.7297988
+    },
+    {
+      "id": "people_and_forests",
+      "title": "People and Forests",
+      "author": "Unknown",
+      "year": 2010,
+      "tags": [
+        "forests-politics",
+        "climate-change",
+        "southeast-asia",
+        "optimal-foraging",
+        "permission-writing",
+        "mation-storage"
+      ],
+      "filename": "People and Forests.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291073.7390225
+    },
+    {
+      "id": "protecting_the_commons",
+      "title": "Protecting the Commons",
+      "author": "Joanna Burger,Elinor Ostrom,Richard Norgaard,David Policansky,Bernard D. Goldstein",
+      "year": 2010,
+      "tags": [
+        "island-press",
+        "purpose-publication",
+        "nongovernmental-nonprofit",
+        "concerns-growing",
+        "respect-environmental",
+        "bullitt-foundation"
+      ],
+      "filename": "Protecting the Commons.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.2087905
+    },
+    {
+      "id": "rules_games_and_common-pool_resources",
+      "title": "Rules, Games, and Common-Pool Resources",
+      "author": "Elinor Ostrom",
+      "year": 2009,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Rules, Games, and Common-Pool Resources.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.28654
+    },
+    {
+      "id": "seeing_the_forest_and_the_trees",
+      "title": "Seeing the Forest and the Trees: Human-Environment Interactions in Forest Ecosystemsin ",
+      "author": "Emilio F. Moran, Elinor Ostrom",
+      "year": null,
+      "tags": [
+        "forest-ecology",
+        "interactions-forest",
+        "tree-human",
+        "environment-interactions",
+        "congress-cataloging",
+        "effect-human"
+      ],
+      "filename": "Seeing the Forest and the Trees.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.3041687
+    },
+    {
+      "id": "the_augmented_commons",
+      "title": "MergedFile",
+      "author": "Unknown",
+      "year": 2017,
+      "tags": [
+        "reality-augmented",
+        "conceptualize-ar",
+        "applications-conceptualize",
+        "things-iot",
+        "agile-self",
+        "tracking-usage"
+      ],
+      "filename": "The Augmented Commons.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.3109598
+    },
+    {
+      "id": "the_commons_in_the_new_millennium",
+      "title": "The Commons in the New Millennium",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "environmental-governance",
+        "biodiversity-forthcoming",
+        "forest-japan",
+        "commons-new",
+        "responses-climate",
+        "manage-global"
+      ],
+      "filename": "The Commons in the New Millennium.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.3165128
+    },
+    {
+      "id": "the_samaritans_dilemma",
+      "title": "Samaritan's Dilemma : The Political Economy of Development Aid",
+      "author": "Gibson, Clark C.",
+      "year": 2007,
+      "tags": [
+        "university-oxford",
+        "samaritan-dilemma",
+        "economy-development",
+        "countries-published",
+        "form-means",
+        "19-927884"
+      ],
+      "filename": "The Samaritan's Dilemma.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.3228743
+    },
+    {
+      "id": "the_sustainable_economics_of_elinor_ostrom",
+      "title": "The Sustainable Economics of Elinor Ostrom: Commons, contestation and craft",
+      "author": "Derek Wall",
+      "year": 2013,
+      "tags": [
+        "commons-scholar",
+        "ostrom-elinor",
+        "political-thought",
+        "sustainable-self",
+        "lund-discourse",
+        "human-coopera"
+      ],
+      "filename": "The Sustainable Economics of Elinor Ostrom.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.3386962
+    },
+    {
+      "id": "understanding_institutional_diversity",
+      "title": "OSTROMFRNT",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "institutional-diversity",
+        "workplace-multiculturalism",
+        "diversity-elinor",
+        "oxfordshire-ox20",
+        "cloth-alk",
+        "cataloging-publication"
+      ],
+      "filename": "Understanding Institutional Diversity.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.3445425
+    },
+    {
+      "id": "understanding_knowledge_as_a_commons",
+      "title": "Understanding Knowledge as a Commons",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "knowledge-commons",
+        "hardcover-knowledge",
+        "data-understanding",
+        "congress-cataloging",
+        "theory-practice",
+        "mechanical-means"
+      ],
+      "filename": "Understanding Knowledge as a Commons.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.3505573
+    }
+  ]
+}

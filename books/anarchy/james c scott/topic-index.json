@@ -1,0 +1,47 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "anarchy_james_c_scott",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "89cfd85640bf1e41f57fb0fb37601aca9c6942bea7f141af6efe238f5b5ef97d",
+  "books": [
+    {
+      "id": "seeing_like_a_state",
+      "title": "Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed",
+      "author": "Professor James C. Scott",
+      "year": 2009,
+      "tags": [
+        "tanzania-aesthetics",
+        "stateyale-agrarian",
+        "chapter-revolutionary",
+        "modernist-city",
+        "social-policy",
+        "legibility-simplification"
+      ],
+      "filename": "Seeing Like a State.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.2062504
+    },
+    {
+      "id": "weapons_of_the_weak",
+      "title": "Weapons of the Weak",
+      "author": "Unknown",
+      "year": 2010,
+      "tags": [
+        "peasant-resistance",
+        "iii-weapons",
+        "book-longevity",
+        "connecticut-printed",
+        "production-guidelines",
+        "point-pillage"
+      ],
+      "filename": "Weapons of the Weak.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.745417
+    }
+  ]
+}

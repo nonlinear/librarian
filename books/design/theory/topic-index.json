@@ -1,0 +1,268 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_theory",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "05dbdcb1959173caf4602ed58725cd0e4cf089f347070735f6a3c3b579fc3e7f",
+  "books": [
+    {
+      "id": "book_a_futurists_manifesto",
+      "title": "Book: A Futurist's Manifesto",
+      "author": "Hugh McGuire and Brian O'Leary",
+      "year": null,
+      "tags": [
+        "books-digital",
+        "leary-designing",
+        "outlook-living",
+        "talk-metadata",
+        "widespread-consumer",
+        "iphone-debuted"
+      ],
+      "filename": "Book, A Futurist's Manifesto.epub",
+      "filetype": "epub",
+      "last_modified": 1769143168.7760916
+    },
+    {
+      "id": "designing_with_the_mind_in_mind",
+      "title": "Morgan Kaufmann - Designing with the Mind in Mind (2010) (ATTiCA)",
+      "author": "Unknown",
+      "year": 2010,
+      "tags": [
+        "copyright-publisher",
+        "design-guidelines",
+        "designing-mind",
+        "staff-elsevier",
+        "permission-information",
+        "information-morgan"
+      ],
+      "filename": "Designing With The Mind In Mind.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.0568173
+    },
+    {
+      "id": "ethically_aligned_design",
+      "title": "Ethically Aligned Design",
+      "author": "Unknown",
+      "year": 2017,
+      "tags": [
+        "prioritize-ethical",
+        "systems-ieee",
+        "technical-humanistic",
+        "creation-standards",
+        "global-initiative",
+        "aligned-design"
+      ],
+      "filename": "Ethically Aligned Design.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.0766308
+    },
+    {
+      "id": "mental_models",
+      "title": "Mental Models: Aligning Design Strategy with Human Behavior",
+      "author": "Indi Young",
+      "year": 2008,
+      "tags": [
+        "design-sharpened",
+        "invention-historically",
+        "saw-diagrams",
+        "mental-model",
+        "tool-place",
+        "strategy-directors"
+      ],
+      "filename": "Mental Models.epub",
+      "filetype": "epub",
+      "last_modified": 1769143169.3877027
+    },
+    {
+      "id": "on_intelligence",
+      "title": "On Intelligence",
+      "author": "Unknown",
+      "year": 101,
+      "tags": [
+        "intelligence-cortex",
+        "build-machines",
+        "palm-computing",
+        "tech-world",
+        "explore-universe",
+        "prologue-book"
+      ],
+      "filename": "On Intelligence.epub",
+      "filetype": "epub",
+      "last_modified": 1769143169.309585
+    },
+    {
+      "id": "play_anything_-_ian_bogost",
+      "title": "Play Anything",
+      "author": "Ian Bogost",
+      "year": 2016,
+      "tags": [
+        "persuasive-games",
+        "videogames-geek",
+        "perseus-books",
+        "racing-beam",
+        "page-pale",
+        "alien-phenomenology"
+      ],
+      "filename": "Play Anything - Ian Bogost.epub",
+      "filetype": "epub",
+      "last_modified": 1769143169.3677237
+    },
+    {
+      "id": "play_anything",
+      "title": "Play Anything",
+      "author": "Ian Bogost",
+      "year": 2016,
+      "tags": [
+        "persuasive-games",
+        "videogames-geek",
+        "perseus-books",
+        "racing-beam",
+        "page-pale",
+        "alien-phenomenology"
+      ],
+      "filename": "Play Anything.epub",
+      "filetype": "epub",
+      "last_modified": 1769143169.5678606
+    },
+    {
+      "id": "reclaiming_art_in_the_age_of_artifice",
+      "title": "Reclaiming Art in the Age of Artifice",
+      "author": "J.F. Martel",
+      "year": 2019,
+      "tags": [
+        "paintings-martel",
+        "reclaiming-art",
+        "argues-beauty",
+        "invigorating-book",
+        "colonization-mind",
+        "return-quetzalcoatl"
+      ],
+      "filename": "Reclaiming Art in the Age of Artifice.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.0819871
+    },
+    {
+      "id": "simple_conquering_the_crisis_of_complexity_by_irene_etzkorn_alan_m_siegel",
+      "title": "Simple",
+      "author": "Alan Siegel",
+      "year": 2013,
+      "tags": [
+        "hachette-book",
+        "newsletters-copyright",
+        "book-permission",
+        "table-contents",
+        "unlawful-piracy",
+        "scanning-uploading"
+      ],
+      "filename": "Simple Conquering the Crisis of Complexity by Irene Etzkorn, Alan M. Siegel.epub",
+      "filetype": "epub",
+      "last_modified": 1769143170.0679839
+    },
+    {
+      "id": "speculative_aesthetics",
+      "title": "Speculative Aesthetics",
+      "author": "Robin Mackay & James Trafford & Luke Pendrell & Amanda Beech & Benedict Singleton & Tom Trevatt & Nick Srnicek & Alex Williams & Ray Brassier & Mark Fisher & Ben Woodard",
+      "year": 2019,
+      "tags": [
+        "speculative-aesthetics",
+        "room-artworkers",
+        "urbanomic-media",
+        "published-2014",
+        "windsor-quarry",
+        "photocopying-recording"
+      ],
+      "filename": "Speculative Aesthetics.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.0978577
+    },
+    {
+      "id": "the_best_interface_is_no_interface",
+      "title": "The Best Interface Is No Interface: The simple path to brilliant technology (Voices That Matter)",
+      "author": "Golden Krishna",
+      "year": 2015,
+      "tags": [
+        "best-interface",
+        "technology-golden",
+        "drawing-refrigerator",
+        "permissions-peachpit",
+        "riderswww-newriders",
+        "krishna-criticality"
+      ],
+      "filename": "The Best Interface Is No Interface.epub",
+      "filetype": "epub",
+      "last_modified": 1769143169.9538672
+    },
+    {
+      "id": "the_design_of_everyday_things_-_don_norman",
+      "title": "The Design of Everyday Things",
+      "author": "Don Norman",
+      "year": 2013,
+      "tags": [
+        "things-design",
+        "reading-cognition",
+        "human-computer",
+        "ebook-industrial",
+        "hate-everyday",
+        "1981-user"
+      ],
+      "filename": "The Design of Everyday Things - Don Norman.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.1080377
+    },
+    {
+      "id": "the_politics_of_design",
+      "title": "The Politics of Design",
+      "author": "Unknown",
+      "year": 2016,
+      "tags": [
+        "book-global",
+        "population-literate",
+        "communication-ruben",
+        "politics-design",
+        "cultural-differences",
+        "privileged-just"
+      ],
+      "filename": "The Politics of Design.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.1696193
+    },
+    {
+      "id": "things_we_could_design",
+      "title": "Things We Could Design",
+      "author": "Wakkary, Ron.",
+      "year": 2021,
+      "tags": [
+        "making-design",
+        "politics-aesthetics",
+        "social-innovation",
+        "experience-centered",
+        "firesigns-semiotic",
+        "mechanical-means"
+      ],
+      "filename": "Things We Could Design.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.224111
+    },
+    {
+      "id": "chaum1985bigbrother",
+      "title": "chaum1985bigbrother",
+      "author": "Unknown",
+      "year": 1999,
+      "tags": [
+        "privacy-maintain",
+        "computerization-robbing",
+        "automated-transaction",
+        "big-brother",
+        "abuses-individuals",
+        "organizations-paper"
+      ],
+      "filename": "chaum1985bigbrother.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.2289684
+    }
+  ]
+}

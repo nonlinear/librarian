@@ -1,0 +1,387 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "fiction_science",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "f1cc6c75626cd0c2b294c2bab1fafcd0db93d34d6181686a355a11d096e61089",
+  "books": [
+    {
+      "id": "apex",
+      "title": "Apex: Nexus Arc Book 3",
+      "author": "Ramez Naam",
+      "year": 2015,
+      "tags": [
+        "trillions-synapses",
+        "simulated-brain",
+        "university-chaos",
+        "information-intermeshed",
+        "entangled-qubits",
+        "ends-cavernous"
+      ],
+      "filename": "Apex.epub",
+      "filetype": "epub",
+      "last_modified": 1768539804.5113955
+    },
+    {
+      "id": "axiomatic",
+      "title": "Axiomatic",
+      "author": "Greg Egan",
+      "year": 101,
+      "tags": [
+        "alike-worlds",
+        "infinite-assassin",
+        "wonder-stability",
+        "axiomatic-safe",
+        "definitions-roughly",
+        "psychologists"
+      ],
+      "filename": "Axiomatic.epub",
+      "filetype": "epub",
+      "last_modified": 1768539796.8777084
+    },
+    {
+      "id": "crux",
+      "title": "Crux",
+      "author": "Ramez Naam",
+      "year": 2013,
+      "tags": [
+        "pianist-mind",
+        "drummers-enter",
+        "nexus-feel",
+        "bones-resonated",
+        "flashed-kade",
+        "invoked-doors"
+      ],
+      "filename": "Crux.epub",
+      "filetype": "epub",
+      "last_modified": 1768539804.504597
+    },
+    {
+      "id": "diaspora",
+      "title": "Diaspora: A Novel",
+      "author": "Greg Egan",
+      "year": 1997,
+      "tags": [
+        "driven-diaspora",
+        "history-transmuters",
+        "introdus-histories",
+        "quarks-planetary",
+        "doppler-shifted",
+        "yatima-read"
+      ],
+      "filename": "Diaspora.epub",
+      "filetype": "epub",
+      "last_modified": 1768539796.8946757
+    },
+    {
+      "id": "distress",
+      "title": "Distress",
+      "author": "Greg Egan",
+      "year": 1998,
+      "tags": [
+        "distressa-novel",
+        "resuscitation",
+        "necrotic-tissue",
+        "dose-neuropreser",
+        "antioxidants-halt",
+        "pathologist-hurried"
+      ],
+      "filename": "Distress.epub",
+      "filetype": "epub",
+      "last_modified": 1768539796.8855953
+    },
+    {
+      "id": "heavenly_tyrant",
+      "title": "Heavenly Tyrant (Iron Widow, Book 2)",
+      "author": "Xiran Jay Zhao",
+      "year": 2024,
+      "tags": [
+        "teen-book",
+        "sequel-iron",
+        "reviews-series",
+        "bestselling-author",
+        "award-2022winner",
+        "feminism-kirkus"
+      ],
+      "filename": "Heavenly Tyrant.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.1994932
+    },
+    {
+      "id": "incandesence",
+      "title": "Incandesence",
+      "author": "Greg Egan",
+      "year": 2012,
+      "tags": [
+        "incandescence",
+        "information-stranger",
+        "books-greg",
+        "rakesh-affronted",
+        "night-shade",
+        "cultural-traits"
+      ],
+      "filename": "Incandesence.epub",
+      "filetype": "epub",
+      "last_modified": 1768539796.9073777
+    },
+    {
+      "id": "jim_and_the_flims",
+      "title": "Jim and the Flims",
+      "author": "Rucker, Rudy",
+      "year": 2011,
+      "tags": [
+        "flims-novel",
+        "night-shade",
+        "novel-rudy",
+        "francisco-jim",
+        "surf-lived",
+        "engineer-mother"
+      ],
+      "filename": "Jim and the Flims.epub",
+      "filetype": "epub",
+      "last_modified": 1768539816.2842996
+    },
+    {
+      "id": "nexus",
+      "title": "Nexus",
+      "author": "Naam, Ramez",
+      "year": 2012,
+      "tags": [
+        "nexus-brilliant",
+        "pace-bourne",
+        "non-fiction",
+        "roller-coaster",
+        "gripping-describes",
+        "look-future"
+      ],
+      "filename": "Nexus.epub",
+      "filetype": "epub",
+      "last_modified": 1768539804.507487
+    },
+    {
+      "id": "permutation_city",
+      "title": "Permutation City",
+      "author": "Greg Egan",
+      "year": 2010,
+      "tags": [
+        "permutation-city",
+        "meiotic-tyrant",
+        "mute-crypt",
+        "asimov-science",
+        "trace-impunity",
+        "tempt-outcry"
+      ],
+      "filename": "Permutation City.epub",
+      "filetype": "epub",
+      "last_modified": 1768539796.8928106
+    },
+    {
+      "id": "postsingular",
+      "title": "Postsingular",
+      "author": "Rudy Rucker",
+      "year": 2009,
+      "tags": [
+        "jeff-took",
+        "georgia-rudy",
+        "ignition-chapter",
+        "friend-carlos",
+        "pig-posse",
+        "mieux-champagne"
+      ],
+      "filename": "Postsingular.epub",
+      "filetype": "epub",
+      "last_modified": 1768539816.2422023
+    },
+    {
+      "id": "quarantine",
+      "title": "Quarantine",
+      "author": "Egan, Greg",
+      "year": 2013,
+      "tags": [
+        "quarantine",
+        "security-brain",
+        "phone-sleep",
+        "dandruff-eavesdrop",
+        "electronically-decoded",
+        "visual-auditory"
+      ],
+      "filename": "Quarantine.epub",
+      "filetype": "epub",
+      "last_modified": 1768539796.9898112
+    },
+    {
+      "id": "schilds_ladder",
+      "title": "Schild's Ladder",
+      "author": "Greg Egan",
+      "year": 2001,
+      "tags": [
+        "graph-consisted",
+        "big-bang",
+        "schild-laddergreg",
+        "pattern-linger",
+        "cass-traveled",
+        "beginning-waking"
+      ],
+      "filename": "Schild's Ladder.epub",
+      "filetype": "epub",
+      "last_modified": 1768539796.9935586
+    },
+    {
+      "id": "teranesia",
+      "title": "Teranesia",
+      "author": "Greg Egan",
+      "year": 2008,
+      "tags": [
+        "themes-egan",
+        "fiction-wonderful",
+        "distant-future",
+        "review-science",
+        "luminous-amazon",
+        "starburst-greg"
+      ],
+      "filename": "Teranesia.epub",
+      "filetype": "epub",
+      "last_modified": 1768539797.0104945
+    },
+    {
+      "id": "the_arrows_of_time",
+      "title": "The Arrows of Time: Orthogonal Book Three",
+      "author": "Greg Egan",
+      "year": 2013,
+      "tags": [
+        "arrows-timeorthogonal",
+        "telescope-field",
+        "previous-books",
+        "notional",
+        "symmetry-dark",
+        "lag-light"
+      ],
+      "filename": "The Arrows of Time.epub",
+      "filetype": "epub",
+      "last_modified": 1768539797.0106874
+    },
+    {
+      "id": "the_big_aha",
+      "title": "The Big Aha",
+      "author": "Rucker, Rudy",
+      "year": 2013,
+      "tags": [
+        "ruckertransreal-bookspublished",
+        "big-aha",
+        "publication-big",
+        "crowdfunding-stratagem",
+        "design-rudy",
+        "sylviacontents1-qwet"
+      ],
+      "filename": "The Big Aha.epub",
+      "filetype": "epub",
+      "last_modified": 1768539816.2746012
+    },
+    {
+      "id": "the_clockwork_rocket",
+      "title": "The Clockwork Rocket",
+      "author": "Greg Egan",
+      "year": 2011,
+      "tags": [
+        "orthogonal-book",
+        "yalda-suspected",
+        "onetheclockworkrocketgreg-egannight",
+        "sunlight-dario",
+        "bearing-grandfather",
+        "family-slept"
+      ],
+      "filename": "The Clockwork Rocket.epub",
+      "filetype": "epub",
+      "last_modified": 1768539797.0501466
+    },
+    {
+      "id": "the_diamond_age",
+      "title": "The Diamond Age (Bantam Spectra Book)",
+      "author": "Neal Stephenson",
+      "year": 2003,
+      "tags": [
+        "diamond-age",
+        "pendulum-alternations",
+        "victorians-thete",
+        "armaments-bells",
+        "stephenson-bantam",
+        "confucius-moral"
+      ],
+      "filename": "The Diamond Age.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.1990228
+    },
+    {
+      "id": "the_eternal_flame",
+      "title": "The Eternal Flame",
+      "author": "Greg Egan",
+      "year": 2012,
+      "tags": [
+        "shade-books",
+        "flame-carlo",
+        "citydistressdiasporateranesiaschild-ladderincandescencezendegi",
+        "rocket-orthogonal",
+        "paraphernalia-moved",
+        "fragment-wheat"
+      ],
+      "filename": "The Eternal Flame.epub",
+      "filetype": "epub",
+      "last_modified": 1768539797.1053011
+    },
+    {
+      "id": "the_ministry_for_the_future",
+      "title": "The Ministry for the Future",
+      "author": "Kim Stanley Robinson",
+      "year": 2020,
+      "tags": [
+        "hachette-book",
+        "www-orbitbooks",
+        "author-imagination",
+        "ny-orbit",
+        "characters-places",
+        "dead-coincidental"
+      ],
+      "filename": "The Ministry for the Future.epub",
+      "filetype": "epub",
+      "last_modified": 1767749502.2027645
+    },
+    {
+      "id": "turing__burroughs",
+      "title": "Turing & Burroughs",
+      "author": "Rudy Rucker",
+      "year": 2012,
+      "tags": [
+        "turing-burroughs",
+        "imitation-game",
+        "rucker-chapter",
+        "ebook-print",
+        "painting-skugger",
+        "bird-lives"
+      ],
+      "filename": "Turing & Burroughs.epub",
+      "filetype": "epub",
+      "last_modified": 1768539816.2710521
+    },
+    {
+      "id": "zendegi",
+      "title": "Zendegi",
+      "author": "Greg Egan",
+      "year": 2010,
+      "tags": [
+        "orionbooks-uk",
+        "ladder-incandescence",
+        "diaspora-schild",
+        "quarantine-teranesia",
+        "publication-reproduced",
+        "luminous-permutation"
+      ],
+      "filename": "Zendegi.epub",
+      "filetype": "epub",
+      "last_modified": 1768539797.0888238
+    }
+  ]
+}

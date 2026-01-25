@@ -1,0 +1,49 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "drawing_basics",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "5f95af26a27564a2a23e1cde261907835b70bfc13058a0294232f6ef82200c89",
+  "books": [
+    {
+      "id": "david_lewis_-_pencil_drawing_techniques",
+      "title": "Pencil Drawing Techniques",
+      "author": "Edited by David Lewis (Watson-Guptill Publications)",
+      "year": 2006,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "David lewis - Pencil Drawing Techniques.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.778721
+    },
+    {
+      "id": "drawing_realistic_textures_in_pencil",
+      "title": "Drawing Realistic Textures In Pencil",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Drawing Realistic Textures In Pencil.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291067.0045595
+    },
+    {
+      "id": "teach_yourself_visually_drawing",
+      "title": "Teach Yourself Visually Drawing",
+      "author": "Fisher, Dean.; Robinson, Josephine.",
+      "year": 2007,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Teach Yourself VISUALLY Drawing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291067.0883803
+    }
+  ]
+}

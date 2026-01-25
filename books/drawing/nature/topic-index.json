@@ -1,0 +1,73 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "drawing_nature",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "96f8e6c4caa84a8ffaa8579fce617a7536852abe7beb755846472fe63ef7e168",
+  "books": [
+    {
+      "id": "drawing_nature",
+      "title": "Drawing Nature",
+      "author": "Unknown",
+      "year": 2006,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Drawing Nature.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291070.0105944
+    },
+    {
+      "id": "drawing_scenery_seascapes_and_landscapes",
+      "title": "Drawing Scenery Seascapes And Landscapes",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Drawing Scenery Seascapes And Landscapes.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291070.868472
+    },
+    {
+      "id": "how_to_draw_baby_animals",
+      "title": "How to Draw Baby Animals",
+      "author": "Unknown",
+      "year": 2003,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "How to Draw Baby Animals.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291070.8845804
+    },
+    {
+      "id": "on_drawing_trees_and_nature",
+      "title": "On Drawing Trees and Nature",
+      "author": "Unknown",
+      "year": 2006,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "On Drawing Trees and Nature.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291071.1159086
+    },
+    {
+      "id": "the_art_of_animal_drawing",
+      "title": "The Art of Animal Drawing",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "The Art of Animal Drawing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291071.236781
+    }
+  ]
+}

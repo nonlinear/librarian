@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "theory_game",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "cf3bcc2f71d03d794a1eac54f2aed482ee1b992234aeab525ef2636eca738ecf",
+  "books": [
+    {
+      "id": "a_comprehensive_survey_on_graph_neural_net",
+      "title": "A Comprehensive Survey on Graph Neural Net",
+      "author": "Unknown",
+      "year": 2019,
+      "tags": [
+        "graph-neural",
+        "cnns-long",
+        "autoencoder-network",
+        "euclidean-domains",
+        "class-files",
+        "gpu-availability"
+      ],
+      "filename": "A Comprehensive Survey on Graph Neural Net.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.1063216
+    },
+    {
+      "id": "a_mini-introduction_to_information_theory",
+      "title": "A Mini-Introduction To Information Theory",
+      "author": "Unknown",
+      "year": 2018,
+      "tags": [
+        "quantum-entropy",
+        "information-quantum",
+        "theory-shannon",
+        "mutual-information",
+        "concepts-von",
+        "messages-asymptotically"
+      ],
+      "filename": "A Mini-Introduction To Information Theory.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.109075
+    },
+    {
+      "id": "complexity_theory_game_theory_and_economics",
+      "title": "Complexity Theory, Game Theory, and Economics",
+      "author": "Unknown",
+      "year": 2018,
+      "tags": [
+        "complexity-theory",
+        "economics-game",
+        "approximate-nash",
+        "equilibria-lunar",
+        "simulation-theorems",
+        "solar-lectures"
+      ],
+      "filename": "Complexity Theory, Game Theory, and Economics.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.1212168
+    },
+    {
+      "id": "finite_and_infinite_games",
+      "title": "Finite and Infinite Games",
+      "author": "Unknown",
+      "year": 2017,
+      "tags": [
+        "infinite-games",
+        "james-finite",
+        "symbolic-aspects",
+        "religion-philosophy",
+        "carse-iffil",
+        "dedicated-alisa"
+      ],
+      "filename": "Finite and Infinite Games.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.1428454
+    },
+    {
+      "id": "game_theory-based_opponent_modeling_in_large_imperfect-information_games",
+      "title": "Game Theory-Based Opponent Modeling in Large Imperfect-Information Games",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "opponent-modeling",
+        "equilibrium-exploit",
+        "imperfect-information",
+        "reserved-games",
+        "sandholm-computer",
+        "limit-texas"
+      ],
+      "filename": "Game Theory-Based Opponent Modeling in Large Imperfect-Information Games.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291076.1450555
+    }
+  ]
+}

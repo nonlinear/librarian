@@ -1,0 +1,115 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "management_product",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "7ea3c3ea25154d34ff945d24b1f8b12f7aac9d9a64e34ed2f816c6f77fff59cd",
+  "books": [
+    {
+      "id": "continuous_discovery_habits",
+      "title": "Continuous Discovery Habits: Discover Products that Create Customer Value and Business Value",
+      "author": "Teresa Torres",
+      "year": 2021,
+      "tags": [
+        "discovery-continuous",
+        "creative-interior",
+        "reports-presentations",
+        "confidence-habits",
+        "mechanical-photocopying",
+        "business-outcomes"
+      ],
+      "filename": "Continuous Discovery Habits.epub",
+      "filetype": "epub",
+      "last_modified": 1768539751.6227953
+    },
+    {
+      "id": "designing_data-intensive_applications",
+      "title": "Designing Data-Intensive Applications The Big Ideas Behind Reliable, Scalable, and Maintainable Systems",
+      "author": "Unknown",
+      "year": 2014,
+      "tags": [
+        "trademarks-reilly",
+        "media-designations",
+        "trade-dress",
+        "nutshell-handbook",
+        "kleppmann-beijing",
+        "data-intensive"
+      ],
+      "filename": "Designing Data-Intensive Applications.epub",
+      "filetype": "epub",
+      "last_modified": 1768074659.8430243
+    },
+    {
+      "id": "handbook_of_usability_and_user_experience",
+      "title": "Handbook of Usability and User Experience: Methods and Techniques",
+      "author": "Edited by Marcelo M. Soares",
+      "year": 2022,
+      "tags": [
+        "handbook-usability",
+        "recording-information",
+        "transmit-ted",
+        "permission-photocopy",
+        "trademarks-used",
+        "reprinted-reproduced"
+      ],
+      "filename": "Handbook of Usability and User Experience.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.60052
+    },
+    {
+      "id": "mastering_visual_studio_code",
+      "title": "Mastering Visual Studio Code",
+      "author": "bin Uzayr, Sufyan;",
+      "year": 2022,
+      "tags": [
+        "visual-studio",
+        "differences-intellisense",
+        "editor-ides",
+        "sublime-vs",
+        "comparison-monodevelop",
+        "title-copyright"
+      ],
+      "filename": "Mastering Visual Studio Code.epub",
+      "filetype": "epub",
+      "last_modified": 1768075255.3314433
+    },
+    {
+      "id": "producing_open_source_software",
+      "title": "Producing Open Source Software",
+      "author": "Karl Fogel",
+      "year": 2009,
+      "tags": [
+        "innovation",
+        "idea-software",
+        "softwarekarl-fogeleditorandy",
+        "steve-jobs",
+        "effort-perspiration",
+        "source-definition"
+      ],
+      "filename": "Producing Open Source Software.epub",
+      "filetype": "epub",
+      "last_modified": 1768074933.8510623
+    },
+    {
+      "id": "version_control_with_git",
+      "title": "Version Control with Git",
+      "author": "Jon Loeliger and Matthew McCullough",
+      "year": 2012,
+      "tags": [
+        "basic-git",
+        "revision-control",
+        "comfortable-unix",
+        "environments-mac",
+        "root-access",
+        "chapters-19"
+      ],
+      "filename": "Version Control with Git.epub",
+      "filetype": "epub",
+      "last_modified": 1768075311.417041
+    }
+  ]
+}

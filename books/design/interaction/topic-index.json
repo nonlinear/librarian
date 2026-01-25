@@ -1,0 +1,474 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_interaction",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "774eb6938b7096bd885544eeebe12b74d831e281828377dd80bd239a1cec86df",
+  "books": [
+    {
+      "id": "book__a_futurists_manifesto_-_hugh_mcguire",
+      "title": "Book: A Futurist's Manifesto",
+      "author": "Hugh McGuire and Brian O'Leary",
+      "year": null,
+      "tags": [
+        "books-digital",
+        "leary-designing",
+        "outlook-living",
+        "talk-metadata",
+        "widespread-consumer",
+        "iphone-debuted"
+      ],
+      "filename": "Book_ A Futurist's Manifesto - Hugh McGuire.epub",
+      "filetype": "epub",
+      "last_modified": 1768539671.3864567
+    },
+    {
+      "id": "gamer_theory_-_mckenzie_wark",
+      "title": "untitled",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "agony",
+        "play-just",
+        "cave-decide",
+        "discover-umpire",
+        "gamespace-leave",
+        "tnt-job"
+      ],
+      "filename": "Gamer Theory - Mckenzie Wark.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.7290905
+    },
+    {
+      "id": "hamlet_on_the_holodeck",
+      "title": "Hamlet on the Holodeck",
+      "author": "Unknown",
+      "year": 2008,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Hamlet on the Holodeck.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.7357252
+    },
+    {
+      "id": "learning_jekyll_by_example_-_andrew_munsell",
+      "title": "Learning Jekyll By Example",
+      "author": "Andrew Munsell",
+      "year": 2013,
+      "tags": [
+        "learning-jekyll",
+        "lean-publishing",
+        "ebook-using",
+        "moving-tumblr",
+        "website-start",
+        "_config-yml"
+      ],
+      "filename": "Learning Jekyll By Example - Andrew Munsell.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.7481806
+    },
+    {
+      "id": "liars_and_outliers_-_bruce_schneier",
+      "title": "Liars and Outliers: Enabling the Trust that Society Needs to Thrive",
+      "author": "Bruce Schneier",
+      "year": 2012,
+      "tags": [
+        "trust-society",
+        "schneier-liars",
+        "security-economics",
+        "moral-pressures",
+        "outliers-provides",
+        "crisis-identification"
+      ],
+      "filename": "Liars and Outliers - Bruce Schneier.epub",
+      "filetype": "epub",
+      "last_modified": 1768539671.5095627
+    },
+    {
+      "id": "nuts_and_bolts_of_encryption__a_primer_for_-_edward_w_felten",
+      "title": "Nuts and Bolts of Encryption_ A Primer for - Edward W. Felten",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "data-encryption",
+        "storage-malicious",
+        "protections",
+        "access-device",
+        "policy-discussions",
+        "modern-systems"
+      ],
+      "filename": "Nuts and Bolts of Encryption_ A Primer for - Edward W. Felten.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.7499478
+    },
+    {
+      "id": "online_social_networks_and_offline_protest_-_zachary_c_steinert-threlkeld",
+      "title": "Online social networks and offline protest",
+      "author": "Zachary C Steinert-Threlkeld",
+      "year": 2015,
+      "tags": [
+        "twitter-protests",
+        "hashtags-associated",
+        "violence-increases",
+        "keywords-social",
+        "networks-increasingly",
+        "country-arab"
+      ],
+      "filename": "Online social networks and offline protest - Zachary C Steinert-Threlkeld.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.7567992
+    },
+    {
+      "id": "ppp",
+      "title": "PPP\u2122.pdf",
+      "author": "Gyppsy",
+      "year": 2013,
+      "tags": [
+        "pixel-perfect",
+        "policies-rgb",
+        "pages-colour",
+        "precision-handbook",
+        "distracted-designs",
+        "ustwo-gyppsy"
+      ],
+      "filename": "PPP.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.8132117
+    },
+    {
+      "id": "practical_svg_-_chris_coyier",
+      "title": "Practical SVG",
+      "author": "Chris Coyier",
+      "year": 2016,
+      "tags": [
+        "responsive-design",
+        "web-typography",
+        "design-patterns",
+        "designer-jason",
+        "svg-capabilities",
+        "book-apart"
+      ],
+      "filename": "Practical SVG - Chris Coyier.epub",
+      "filetype": "epub",
+      "last_modified": 1768539672.8638089
+    },
+    {
+      "id": "science_in_the_age_of_computer_simulation_-_unknown",
+      "title": "Science in the Age of Computer Simulation - Unknown",
+      "author": "Unknown",
+      "year": 2014,
+      "tags": [
+        "simulation-imitates",
+        "winsberg-argues",
+        "age-computer",
+        "philosophers-science",
+        "appropriateness-model",
+        "synthese-issues"
+      ],
+      "filename": "Science in the Age of Computer Simulation - Unknown.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.814631
+    },
+    {
+      "id": "security_without_identification_-_david_chaum",
+      "title": "Security without Identification - David Chaum",
+      "author": "Unknown",
+      "year": 1999,
+      "tags": [
+        "privacy-maintain",
+        "computerization-robbing",
+        "automated-transaction",
+        "big-brother",
+        "abuses-individuals",
+        "organizations-paper"
+      ],
+      "filename": "Security without Identification - David Chaum.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.825646
+    },
+    {
+      "id": "shaping_things_-_bruce_sterling",
+      "title": "sot_9.indd",
+      "author": "Unknown",
+      "year": 2005,
+      "tags": [
+        "designers-thinkers",
+        "book-ambitious",
+        "spime-economics",
+        "old-wine",
+        "contents-ought",
+        "tomorrow-world"
+      ],
+      "filename": "Shaping Things - Bruce Sterling.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.831687
+    },
+    {
+      "id": "simple_conquering_the_crisis_of_complexity_by_irene_etzkorn_alan_m_siegel",
+      "title": "Simple",
+      "author": "Alan Siegel",
+      "year": 2013,
+      "tags": [
+        "hachette-book",
+        "newsletters-copyright",
+        "book-permission",
+        "table-contents",
+        "unlawful-piracy",
+        "scanning-uploading"
+      ],
+      "filename": "Simple Conquering the Crisis of Complexity by Irene Etzkorn, Alan M. Siegel.epub",
+      "filetype": "epub",
+      "last_modified": 1768539671.4302437
+    },
+    {
+      "id": "software_above_the_level_of_a_single_devic_-_tim_oreilly",
+      "title": "Software Above the Level of a Single Device",
+      "author": "Tim O'Reilly",
+      "year": 2015,
+      "tags": [
+        "reilly-software",
+        "device-implications",
+        "online-editions",
+        "dress-trademarks",
+        "objects-appear",
+        "writing-create"
+      ],
+      "filename": "Software Above the Level of a Single Devic - Tim O'Reilly.epub",
+      "filetype": "epub",
+      "last_modified": 1768539672.5542555
+    },
+    {
+      "id": "stochastic_alpha_-_unknown",
+      "title": "Stochastic Alpha - Unknown",
+      "author": "Unknown",
+      "year": 2016,
+      "tags": [
+        "lognormal-stochasticity",
+        "mean-bias",
+        "fat-tails",
+        "power-law",
+        "asymmetric-decreases",
+        "distributions-sums"
+      ],
+      "filename": "Stochastic Alpha - Unknown.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.8330956
+    },
+    {
+      "id": "the_best_interface_is_no_interface_golden_krishna",
+      "title": "The Best Interface Is No Interface: The simple path to brilliant technology (Voices That Matter)",
+      "author": "Golden Krishna",
+      "year": 2015,
+      "tags": [
+        "best-interface",
+        "technology-golden",
+        "drawing-refrigerator",
+        "permissions-peachpit",
+        "riderswww-newriders",
+        "krishna-criticality"
+      ],
+      "filename": "The Best Interface Is No Interface Golden Krishna.epub",
+      "filetype": "epub",
+      "last_modified": 1768539671.7270637
+    },
+    {
+      "id": "the_cybernetic_brain__sketches_of_another_-_andrew_pickering",
+      "title": "The Cybernetic Brain: Sketches of Another Future",
+      "author": "Andrew Pickering",
+      "year": 2012,
+      "tags": [
+        "cybernetic-brain",
+        "quarks-ciological",
+        "sociology-philosophy",
+        "sketches-future",
+        "history-particle",
+        "data-pickering"
+      ],
+      "filename": "The Cybernetic Brain_ Sketches of Another - Andrew Pickering.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.8546278
+    },
+    {
+      "id": "the_grammar_of_graphics",
+      "title": "The Grammar of Graphics",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "The Grammar of Graphics.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.8629017
+    },
+    {
+      "id": "the_guide_to_wireframing_-_uxpin_team",
+      "title": "The Guide to Wireframing",
+      "author": "UXPin Team",
+      "year": 2014,
+      "tags": [
+        "application-wireframes",
+        "design-patterns",
+        "sketching",
+        "style-practice",
+        "libraries-guide",
+        "weapons-25"
+      ],
+      "filename": "The Guide to Wireframing - UXPin Team.epub",
+      "filetype": "epub",
+      "last_modified": 1768539672.2507076
+    },
+    {
+      "id": "the_icon_handbook_-_jon_hicks",
+      "title": "The Icon Handbook",
+      "author": "Jon Hicks",
+      "year": 2011,
+      "tags": [
+        "satellite-pioneer",
+        "billion-miles",
+        "requiring-icons",
+        "hicksdesign-uk",
+        "steps-editor",
+        "information-effortlessly"
+      ],
+      "filename": "The Icon Handbook - Jon Hicks.epub",
+      "filetype": "epub",
+      "last_modified": 1768539672.1190708
+    },
+    {
+      "id": "the_lean_startup_-_eric_ries",
+      "title": "The Lean Startup: How Today\u2019s Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses",
+      "author": "Eric Ries",
+      "year": null,
+      "tags": [
+        "lean-startup",
+        "entrepreneurship-reveals",
+        "innovative-steps",
+        "read-founders",
+        "start-great",
+        "proposes-scienti0c"
+      ],
+      "filename": "The Lean Startup - Eric Ries.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.8750706
+    },
+    {
+      "id": "the_strength_of_weak_ties__a_network_theor_-_mark_granovetter",
+      "title": "The Strength of Weak Ties: A Network Theory Revisited",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "jstor-archive",
+        "terms-jsp",
+        "forms-scholarship",
+        "6wuhqjwk",
+        "review-empirical",
+        "digital"
+      ],
+      "filename": "The Strength of Weak Ties_ A Network Theor - Mark Granovetter.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.9022055
+    },
+    {
+      "id": "thoughts_on_interaction_design",
+      "title": "Thoughts on Interaction Design",
+      "author": "Jon Kolko",
+      "year": 2007,
+      "tags": [
+        "204-designers",
+        "cognitive",
+        "collection-essays",
+        "compiled-jon",
+        "participants-steps",
+        "social-19"
+      ],
+      "filename": "Thoughts on Interaction Design.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.91169
+    },
+    {
+      "id": "topological_phase_transitions_and_topologi_-_unknown",
+      "title": "Topological Phase Transitions and Topologi - Unknown",
+      "author": "Unknown",
+      "year": 2014,
+      "tags": [
+        "phases-matter",
+        "topological-defects",
+        "magnets-superconducting",
+        "dimensional-electron",
+        "consecutive-nobel",
+        "box-50005"
+      ],
+      "filename": "Topological Phase Transitions and Topologi - Unknown.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.919271
+    },
+    {
+      "id": "about_face_3_interaction_design",
+      "title": "about face 3 interaction design",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "about face 3 interaction design.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291065.926873
+    },
+    {
+      "id": "princeton_bitcoin_book_-_unknown",
+      "title": "princeton bitcoin book - Unknown",
+      "author": "Unknown",
+      "year": 2016,
+      "tags": [
+        "bitcoin-fundamentally",
+        "excitement-bitcoin",
+        "cryptocurrencies-optimists",
+        "introduction-book",
+        "change-future",
+        "welcome"
+      ],
+      "filename": "princeton bitcoin book - Unknown.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.0057232
+    },
+    {
+      "id": "rules_of_ml_-_unknown",
+      "title": "rules of ml - Unknown",
+      "author": "Unknown",
+      "year": 2016,
+      "tags": [
+        "ml-engineering",
+        "learning-rule",
+        "best-practices",
+        "pipelines-rule",
+        "turn-heuristics",
+        "features-log"
+      ],
+      "filename": "rules of ml - Unknown.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.0080628
+    },
+    {
+      "id": "tactical_awareness_-_unknown",
+      "title": "tactical awareness - Unknown",
+      "author": "Unknown",
+      "year": 2016,
+      "tags": [
+        "narrative-paranoia",
+        "tactical-awareness",
+        "burroughs-hack",
+        "companion-habilis",
+        "hell-simurgh",
+        "child-arsonists"
+      ],
+      "filename": "tactical awareness - Unknown.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291066.0091236
+    }
+  ]
+}

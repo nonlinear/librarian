@@ -1,0 +1,336 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "anarchy_hakim_bey",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "6d72c187f96b0b8e659b9d8f7232eac29cf6891c7c50d6ae5d15c7a9d609f244",
+  "books": [
+    {
+      "id": "a_arquitectonalidade_da_psicogeografia",
+      "title": "A Arquitectonalidade da Psicogeografia",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "perdoar-humano",
+        "ritual-ou",
+        "imitando-serpentes",
+        "esquecer-divino",
+        "alhambra-reitera",
+        "formas-constru"
+      ],
+      "filename": "A Arquitectonalidade da Psicogeografia.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6920648
+    },
+    {
+      "id": "anarco-monarquismo_e_anarco-misticismo",
+      "title": "Anarco-monarquismo e anarco-misticismo",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "formas-governo",
+        "dormindo-sonhamos",
+        "anarco-monarquismo",
+        "mutabilidade",
+        "absolutamente-nada",
+        "n\u02c6omades-dia"
+      ],
+      "filename": "Anarco-monarquismo e anarco-misticismo.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6932633
+    },
+    {
+      "id": "ataque_oculto_as_instituicoes",
+      "title": "Ataque oculto as instituicoes",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "uma-revolta",
+        "categoria-sendo",
+        "exemplos-encontro",
+        "oculto-institui",
+        "contra-produtividade",
+        "ser-plane"
+      ],
+      "filename": "Ataque oculto as instituicoes.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6941512
+    },
+    {
+      "id": "caos",
+      "title": "Microsoft Word - CAOS.rtf",
+      "author": "PERE",
+      "year": 2006,
+      "tags": [
+        "descenso-aplicado",
+        "la-encarnaci\u00f3n",
+        "b\u00e1rbaros-excoriados",
+        "ninguna-ideolog\u00eda",
+        "paleol\u00edtica-dulces",
+        "caos-precede"
+      ],
+      "filename": "CAOS.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6953878
+    },
+    {
+      "id": "caos_terrorismo_poetico_e_outros_crimes_ex",
+      "title": "Caos terrorismo poetico e outros crimes ex",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "caos-terrorismo",
+        "selvagens-paganismo",
+        "falta-aten",
+        "perfeitamente",
+        "11-crime",
+        "shtml-esta"
+      ],
+      "filename": "Caos terrorismo poetico e outros crimes ex.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.696797
+    },
+    {
+      "id": "cybernetics__entheogenics__from_cyberspac",
+      "title": "Cybernetics & Entheogenics: From Cyberspace to Neurospace",
+      "author": "Kuschel",
+      "year": 2004,
+      "tags": [
+        "cyberspace-neurospace",
+        "experience-psychedelics",
+        "space-hallucinations",
+        "cognition-historically",
+        "similarities-differences",
+        "term-meaningful"
+      ],
+      "filename": "Cybernetics & Entheogenics_ From Cyberspac.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.6980164
+    },
+    {
+      "id": "hakim_bey_and_ontological_anarchy",
+      "title": "Hakim Bey and Ontological Anarchy",
+      "author": "Unknown",
+      "year": 2002,
+      "tags": [
+        "bey-ontological",
+        "anarchy-writings",
+        "psychogeographicism-hieroglyphics",
+        "millennium-hakim",
+        "zone-evil",
+        "blues-architectonality"
+      ],
+      "filename": "Hakim Bey and Ontological Anarchy.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7064874
+    },
+    {
+      "id": "immediatism",
+      "title": "Immediatism",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "iatism-essays",
+        "ontological-anarchy",
+        "vs-capitalism",
+        "immediatist-potlatch",
+        "mme",
+        "british-library"
+      ],
+      "filename": "Immediatism.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.716484
+    },
+    {
+      "id": "instrucoes_para_kali_yuga",
+      "title": "Instrucoes para Kali Yuga",
+      "author": "Unknown",
+      "year": 2009,
+      "tags": [
+        "para-kali",
+        "cegas-\ufb01nalmente",
+        "governo-bengala",
+        "antiga",
+        "refugiados-tibetanos",
+        "uma-epidemia"
+      ],
+      "filename": "Instrucoes para Kali Yuga.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.717865
+    },
+    {
+      "id": "o_status_ontologico_da_teoria_da_conspirac",
+      "title": "O status ontologico da teoria da conspirac",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "extremismo-esquerda",
+        "anticapitalismo-ou",
+        "fascistas-como",
+        "internacionalistas-liberais",
+        "revisionismo-hist",
+        "administrativo-poderia"
+      ],
+      "filename": "O status ontologico da teoria da conspirac.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7191489
+    },
+    {
+      "id": "paleolitismo_psiquico_e_alta_tecnologia",
+      "title": "Paleolitismo psiquico e alta tecnologia",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "um-paleolitismo",
+        "queremos-tribalismo",
+        "tecnologia-anarquia",
+        "aceitemos-potencial",
+        "voltar-terra",
+        "povos-sem"
+      ],
+      "filename": "Paleolitismo psiquico e alta tecnologia.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7203481
+    },
+    {
+      "id": "por_um_congresso_de_religioes_esquisitas",
+      "title": "Por um Congresso de Religioes Esquisitas",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "conceitos-como",
+        "congresso-religi",
+        "caso-slogan",
+        "arturianos-buscando",
+        "alguma-forma",
+        "semana"
+      ],
+      "filename": "Por um Congresso de Religioes Esquisitas.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.720981
+    },
+    {
+      "id": "seducao_dos_zumbis_ciberneticos",
+      "title": "Seducao dos zumbis ciberneticos",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "comunicatividade-em",
+        "redes-obviamente",
+        "rede-net",
+        "tv-talvez",
+        "con\ufb01guradas-mantidas",
+        "cyber-soteriologia"
+      ],
+      "filename": "Seducao dos zumbis ciberneticos.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7215114
+    },
+    {
+      "id": "superando_o_turismo",
+      "title": "Superando o turismo",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "turismo-uma",
+        "nos-velhos",
+        "cultura-porqu\u02c6e",
+        "climas-estrangeiros",
+        "esses-motivos",
+        "19-um"
+      ],
+      "filename": "Superando o turismo.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7226639
+    },
+    {
+      "id": "taz",
+      "title": "TAZ",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "cora\u00e7\u00e3o-revolta",
+        "assentamentos-utopias",
+        "direito-autorai",
+        "tempo-nietzsche",
+        "sabotagem-contra",
+        "zona-aut\u00f4noma"
+      ],
+      "filename": "TAZ.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7246
+    },
+    {
+      "id": "terrorismo_poetico",
+      "title": "Terrorismo poetico",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "\ufb01nitivo-terrorista",
+        "alguns-momentos",
+        "inteira-em",
+        "para-simbolizar",
+        "manuscritos-alquimia",
+        "vandalize-apenas"
+      ],
+      "filename": "Terrorismo poetico.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7256823
+    },
+    {
+      "id": "the_temporary_autonomous_zone",
+      "title": "The Temporary Autonomous Zone",
+      "author": "Hakim Bey",
+      "year": 2011,
+      "tags": [
+        "chaos-poetic",
+        "ontological-anarchism",
+        "consciousness-absolutely",
+        "existed-demons",
+        "ultraviolet-mythology",
+        "ustad-mahmud"
+      ],
+      "filename": "The Temporary Autonomous Zone.epub",
+      "filetype": "epub",
+      "last_modified": 1769143306.5981355
+    },
+    {
+      "id": "vernissage",
+      "title": "Vernissage",
+      "author": "Unknown",
+      "year": 2007,
+      "tags": [
+        "consignado-museus",
+        "este-teatro",
+        "que-agir",
+        "em-arte",
+        "gargalhada-morte",
+        "mover-uma"
+      ],
+      "filename": "Vernissage.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.726649
+    },
+    {
+      "id": "zta",
+      "title": "ZTA",
+      "author": "David Ugarte",
+      "year": 2006,
+      "tags": [
+        "zonas-temporalmente",
+        "www-deugarte",
+        "m\u00edstica-suf\u00ed",
+        "ir\u00e1n-donde",
+        "modificaciones-introducci\u00f3n",
+        "el-underground"
+      ],
+      "filename": "ZTA.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.727821
+    }
+  ]
+}

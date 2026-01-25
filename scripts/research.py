@@ -18,7 +18,7 @@ SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent
 BOOKS_DIR = PROJECT_DIR / "books"
 MODELS_DIR = PROJECT_DIR / "models"
-METADATA_FILE = BOOKS_DIR / "metadata.json"
+METADATA_FILE = BOOKS_DIR / "library-index.json"
 
 # Set model cache to local models/ directory
 os.environ['SENTENCE_TRANSFORMERS_HOME'] = str(MODELS_DIR)
@@ -31,44 +31,69 @@ def load_metadata():
         return json.load(f)
 
 def load_topic(topic_id):
-    """Load FAISS index + chunks for a topic."""
-    # Get folder path from metadata
+    """Load FAISS index + chunks for a topic (v2.0 structure)."""
+    # Get topic path from library-index.json
     metadata = load_metadata()
-    folder_path = None
+    topic_path = None
     for topic in metadata['topics']:
         if topic['id'] == topic_id:
-            folder_path = topic.get('folder_path', topic['label'])
+            topic_path = topic.get('path')  # v2.0 uses 'path' not 'folder_path'
             break
-    if not folder_path:
+    if not topic_path:
         return None
 
-    topic_dir = BOOKS_DIR / folder_path
+    topic_dir = BOOKS_DIR / topic_path
 
     faiss_file = topic_dir / "faiss.index"
     chunks_file_json = topic_dir / "chunks.json"
+    topic_index_file = topic_dir / "topic-index.json"
 
     if not faiss_file.exists() or not chunks_file_json.exists():
         return None
 
+    # Load FAISS index
     index = faiss.read_index(str(faiss_file))
+
+    # Load chunks
     with open(chunks_file_json, 'r', encoding='utf-8') as f:
         chunks = json.load(f)
 
-    return {'index': index, 'chunks': chunks}
+    # Load topic-index.json for book metadata
+    book_metadata = {}
+    if topic_index_file.exists():
+        with open(topic_index_file, 'r', encoding='utf-8') as f:
+            topic_meta = json.load(f)
+            for book in topic_meta.get('books', []):
+                book_metadata[book['id']] = book
+
+    return {
+        'index': index,
+        'chunks': chunks,
+        'book_metadata': book_metadata,
+        'topic_path': topic_path
+    }
 
 def get_embedding(text):
     """Get local embedding for text."""
     return EMBEDDING_MODEL.encode(text, convert_to_numpy=True).astype(np.float32)
 
-def query_library(query, topic=None, k=5):
-    """Query the library."""
+def query_library(query, topic=None, book=None, k=5):
+    """Query the library and return top-k results.
+
+    Args:
+        query: Search query string
+        topic: Filter by topic ID (optional)
+        book: Filter by book filename (optional)
+        k: Number of results to return
+    """
     metadata = load_metadata()
 
     # Find topic
     topic_id = None
     if topic:
         for t in metadata['topics']:
-            if t['id'] == topic or topic.lower() in t['label'].lower():
+            # v2.0: topics only have 'id' and 'path', no 'label'
+            if t['id'] == topic or topic.lower() in t['id'].lower():
                 topic_id = t['id']
                 break
 
@@ -95,19 +120,9 @@ def query_library(query, topic=None, k=5):
         k
     )
 
-    # Build book_id → (filename, folder_path) map for this topic
-    topic_meta = None
-    for t in metadata['topics']:
-        if t['id'] == topic_id:
-            topic_meta = t
-            break
-    book_id_to_file = {}
-    if topic_meta:
-        for b in topic_meta.get('books', []):
-            book_id_to_file[b['id']] = {
-                'filename': b['filename'],
-                'folder_path': topic_meta.get('folder_path', topic_meta['label'])
-            }
+    # Use book metadata from topic-index.json (v2.0)
+    book_metadata = topic_data.get('book_metadata', {})
+    topic_path = topic_data.get('topic_path', topic_id)
 
     # Format results with filename and relative path
     results = []
@@ -115,28 +130,59 @@ def query_library(query, topic=None, k=5):
         if idx < len(topic_data['chunks']):
             chunk = topic_data['chunks'][idx]
             book_id = chunk.get('book_id')
-            file_info = book_id_to_file.get(book_id, {})
-            filename = file_info.get('filename', '')
-            folder_path = file_info.get('folder_path', '')
+
+            # Get book info from topic-index.json (v2.0)
+            book_info = book_metadata.get(book_id, {})
+            filename = book_info.get('filename', chunk.get('filename', ''))
+
             # Compute relative path from workspace root to book file
-            # (Assume cwd is workspace root)
-            rel_path = os.path.join('books', folder_path, filename) if filename and folder_path else ''
+            rel_path = os.path.join('books', topic_path, filename) if filename and topic_path else ''
+
+            # Extract page/paragraph (chunks v2.0)
+            page = chunk.get('page')  # PDF page number or None
+            chapter = chunk.get('chapter')  # EPUB chapter or None
+            paragraph = chunk.get('paragraph')  # Paragraph number
+            filetype = chunk.get('filetype', 'unknown')
+
+            # Build location string
+            location = None
+            if filetype == 'pdf' and page:
+                if paragraph:
+                    location = f"p.{page}, ¶{paragraph}"
+                else:
+                    location = f"p.{page}"
+            elif filetype == 'epub' and chapter:
+                if paragraph:
+                    location = f"{chapter}, ¶{paragraph}"
+                else:
+                    location = chapter
+
             results.append({
                 'text': chunk.get('chunk_full', ''),
                 'book_title': chunk.get('book_title', ''),
                 'topic': topic_id,
                 'similarity': float(1 - dist),  # Convert distance to similarity
                 'filename': filename,
-                'folder_path': folder_path,
-                'relative_path': rel_path
+                'folder_path': topic_path,  # Use topic path from v2.0
+                'relative_path': rel_path,
+                'location': location,  # NEW: page/paragraph
+                'page': page,
+                'chapter': chapter,
+                'paragraph': paragraph,
+                'filetype': filetype
             })
+
+    # Filter by book if specified
+    if book:
+        results = [r for r in results if r['filename'] == book]
 
     return results
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('query', help='Search query')
-    parser.add_argument('--topic', help='Topic filter')
+    parser.add_argument('--topic', help='Filter by topic ID')
+    parser.add_argument('--book', help='Filter by book filename (e.g. "Book.pdf")')
     parser.add_argument('--top-k', type=int, default=5, help='Number of results')
 
     args = parser.parse_args()
@@ -145,6 +191,7 @@ def main():
         results = query_library(
             query=args.query,
             topic=args.topic,
+            book=args.book,
             k=args.top_k
         )
         print(json.dumps({'results': results}, ensure_ascii=False, indent=2))

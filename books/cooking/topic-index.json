@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "cooking",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": 1769345117.7267818,
+  "content_hash": "335730d6b9d39ed5e7b3faea2b2d39517a9da6f197c3736672462db8e1533dc7",
+  "books": [
+    {
+      "id": "bread_handbook_pdf",
+      "title": "Bread Handbook PDF",
+      "author": "Unknown",
+      "year": 2020,
+      "tags": [
+        "dough-mixing",
+        "butter-instructions",
+        "philly-cheesesteak",
+        "long-roll",
+        "amylase-enzyme",
+        "ferment-overnight"
+      ],
+      "filename": "Bread Handbook PDF.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291063.2688408
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "ai_theory",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "79d730dea8f6cdca27802299b6584a2cc0ec185d58d1f41137f13e8b1fa6a39d",
+  "books": [
+    {
+      "id": "ai_and_ux",
+      "title": "AI and UX",
+      "author": "Gavin Lew",
+      "year": null,
+      "tags": [
+        "journeys-ai",
+        "matter-introduction",
+        "landmarks-cover",
+        "ux-parallel",
+        "design-product",
+        "storage-retrieval"
+      ],
+      "filename": "AI and UX.epub",
+      "filetype": "epub",
+      "last_modified": 1767749501.9625635
+    },
+    {
+      "id": "beyond_boundaries",
+      "title": "Beyond Boundaries: The New Neuroscience of Connecting Brains with Machines---and How It Will Change Our Lives",
+      "author": "Nicolelis, Miguel",
+      "year": 2011,
+      "tags": [
+        "brain-self",
+        "waldo-emerson",
+        "mind-voyage",
+        "epigraph-prologue",
+        "escape-cats",
+        "musical-recital"
+      ],
+      "filename": "Beyond Boundaries.epub",
+      "filetype": "epub",
+      "last_modified": 1768539521.6327176
+    },
+    {
+      "id": "machine_learning_for_designers",
+      "title": "Machine Learning for Designers",
+      "author": "Patrick Hebron",
+      "year": 2016,
+      "tags": [
+        "learning-design",
+        "designers-patrick",
+        "trademark-reilly",
+        "customized-machine",
+        "describing-object",
+        "media-1005"
+      ],
+      "filename": "Machine Learning for Designers.epub",
+      "filetype": "epub",
+      "last_modified": 1768539522.1978688
+    },
+    {
+      "id": "making_kin_with_the_machines",
+      "title": "Making Kin with the Machines",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "indigenous-epistemologies",
+        "disciplinewahkohtawin-kinship",
+        "otherswak\u021f\u00e1\u014b-understoodresisting",
+        "human-kin",
+        "extend-animals",
+        "rocks-trees"
+      ],
+      "filename": "Making Kin with the Machines.epub",
+      "filetype": "epub",
+      "last_modified": 1768539521.5450509
+    },
+    {
+      "id": "revolutionary_mathematics",
+      "title": "Revolutionary Mathematics",
+      "author": "Justin Joque",
+      "year": null,
+      "tags": [
+        "frequentist-knowledge",
+        "mathematics-revolutionarymathematics",
+        "logic-capitalism",
+        "bayesian-dreams",
+        "algorithm-spent",
+        "published-verso"
+      ],
+      "filename": "Revolutionary Mathematics.epub",
+      "filetype": "epub",
+      "last_modified": 1768539522.023025
+    },
+    {
+      "id": "superintelligence",
+      "title": "Superintelligence: Paths, Dangers, Strategies",
+      "author": "Nick Bostrom",
+      "year": 2014,
+      "tags": [
+        "oxford-registered",
+        "british-library",
+        "reprographics-rights",
+        "superintelligence-protect",
+        "education-publishing",
+        "retrieval-transmitted"
+      ],
+      "filename": "Superintelligence.epub",
+      "filetype": "epub",
+      "last_modified": 1768539522.0493302
+    },
+    {
+      "id": "the_atlas_of_ai",
+      "title": "The Atlas of AI",
+      "author": "Kate Crawford",
+      "year": 2021,
+      "tags": [
+        "ai-power",
+        "planetary-costs",
+        "requirements-ansi",
+        "atlas",
+        "permanence-paper",
+        "labor-data"
+      ],
+      "filename": "The Atlas of AI.epub",
+      "filetype": "epub",
+      "last_modified": 1767749501.969568
+    },
+    {
+      "id": "software_above_device",
+      "title": "Software Above the Level of a Single Device",
+      "author": "Tim O'Reilly",
+      "year": 2015,
+      "tags": [
+        "reilly-software",
+        "device-implications",
+        "online-editions",
+        "dress-trademarks",
+        "objects-appear",
+        "writing-create"
+      ],
+      "filename": "software above device.epub",
+      "filetype": "epub",
+      "last_modified": 1767749501.986619
+    }
+  ]
+}

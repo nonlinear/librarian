@@ -1,0 +1,280 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "poetry_rumi",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "06a4ff16a4dc6210d94a05d1f85361e77130f9af820227605226e6b0316689a9",
+  "books": [
+    {
+      "id": "a_selection_of_poetry_by_rumi",
+      "title": "A Selection of Poetry by Rumi",
+      "author": "Rick Snook",
+      "year": 2009,
+      "tags": [
+        "poetry-rumi",
+        "know-alchemy",
+        "thou-qualities",
+        "wished-treasure",
+        "produced-mirror",
+        "child-zephyr"
+      ],
+      "filename": "A Selection of Poetry by Rumi.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.699099
+    },
+    {
+      "id": "bridge_to_the_soul",
+      "title": "Rumi: Bridge to the Soul",
+      "author": "Coleman Barks",
+      "year": 2007,
+      "tags": [
+        "translations-coleman",
+        "rt-translations",
+        "robert-bly",
+        "barks-arberry",
+        "nevit-ergin",
+        "ys-rt"
+      ],
+      "filename": "Bridge to the Soul.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.703487
+    },
+    {
+      "id": "discourses_of_rumi",
+      "title": "Discourses of Rumi",
+      "author": "Omphaloskepsis",
+      "year": 1999,
+      "tags": [
+        "rumi-text",
+        "ascii-keystrokes",
+        "iii-omphaloskepsis",
+        "translation-arberry",
+        "reprinted-permission",
+        "ames-iowa"
+      ],
+      "filename": "Discourses of Rumi.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7062676
+    },
+    {
+      "id": "masnavi_i_manavi",
+      "title": "Masnavi i Ma'navi",
+      "author": "\u00a92001 Omphaloskepsis",
+      "year": 2001,
+      "tags": [
+        "rumi-spiritual",
+        "content-masnavi",
+        "abridged-whin\ufb01eld",
+        "longing",
+        "banishment-home",
+        "flute-complains"
+      ],
+      "filename": "Masnavi i Ma'navi.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7113528
+    },
+    {
+      "id": "rumi_-_selected_poems",
+      "title": "C:\\My Documents\\My Library\\txt to convert\\Kali best\\rumi\\rumi_for pfd.wpd",
+      "author": "Computer",
+      "year": 2001,
+      "tags": [
+        "poems-rumi",
+        "giddiness-untitled",
+        "candle-heart",
+        "flirtation-surrender",
+        "ebook",
+        "worry-seen"
+      ],
+      "filename": "Rumi - Selected Poems.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7124345
+    },
+    {
+      "id": "rumi_-_the_book_of_love",
+      "title": "Rumi: The Book of Love",
+      "author": "Coleman Barks",
+      "year": 2007,
+      "tags": [
+        "rumi-translations",
+        "poems-ecstasy",
+        "longing-judith",
+        "sohbet-talking",
+        "love-drumsound",
+        "distracted-light"
+      ],
+      "filename": "Rumi - The Book of Love.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7176578
+    },
+    {
+      "id": "selected_poems_17p",
+      "title": "C:\\My Documents\\My Library\\txt to convert\\Kali best\\rumi\\rumi_for pfd.wpd",
+      "author": "Computer",
+      "year": 2001,
+      "tags": [
+        "poems-rumi",
+        "giddiness-untitled",
+        "candle-heart",
+        "flirtation-surrender",
+        "ebook",
+        "worry-seen"
+      ],
+      "filename": "Selected Poems (17p).pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.718346
+    },
+    {
+      "id": "the_mathnawi",
+      "title": "THE MATHNAW\u00cd",
+      "author": "Gabe McCallum",
+      "year": 2008,
+      "tags": [
+        "mathnaw\u00ed-jal\u00e1lu",
+        "sabbatical-year",
+        "manuscripts-available",
+        "work-idiomatic",
+        "predecessors-method",
+        "discussed-refer"
+      ],
+      "filename": "THE MATHNAWI.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.726476
+    },
+    {
+      "id": "the_book_of_love_poems_of_ecstasy_and_longing_-_coleman_barks_234p",
+      "title": "Rumi: The Book of Love",
+      "author": "Coleman Barks",
+      "year": 2007,
+      "tags": [
+        "rumi-translations",
+        "poems-ecstasy",
+        "longing-judith",
+        "sohbet-talking",
+        "love-drumsound",
+        "distracted-light"
+      ],
+      "filename": "The Book of Love Poems of Ecstasy and Longing - Coleman Barks (234p).pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7296734
+    },
+    {
+      "id": "the_discourses_of_rumi_-_a_j_arberry_451p",
+      "title": "Discourses of Rumi",
+      "author": "Omphaloskepsis",
+      "year": 1999,
+      "tags": [
+        "rumi-text",
+        "ascii-keystrokes",
+        "iii-omphaloskepsis",
+        "translation-arberry",
+        "reprinted-permission",
+        "ames-iowa"
+      ],
+      "filename": "The Discourses Of Rumi - A J Arberry (451p).pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.731277
+    },
+    {
+      "id": "the_mathnawi_-_vol_1_and_2",
+      "title": "The Mathnawi - vol 1 and 2",
+      "author": "Semazen",
+      "year": 2008,
+      "tags": [
+        "verse-mathnaw\u00ed",
+        "persian-poems",
+        "professor-arabic",
+        "r\u016bm\u012b-book",
+        "european-readers",
+        "translated-whinfield"
+      ],
+      "filename": "The Mathnawi - vol 1 and 2.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7384737
+    },
+    {
+      "id": "the_mathnawi_-_vol_3_and_4",
+      "title": "THE MATHNAW\u00cd",
+      "author": "Gabe McCallum",
+      "year": 2008,
+      "tags": [
+        "books-mathnaw\u00ed",
+        "translated-whinfield",
+        "poem-hitherto",
+        "doubtful-passages",
+        "r\u00fam\u00ed-edited",
+        "oldest-manuscripts"
+      ],
+      "filename": "The Mathnawi - vol 3 and 4.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.744142
+    },
+    {
+      "id": "the_mathnawi_-_vol_5_and_6",
+      "title": "THE MATHNAW\u00cd",
+      "author": "Gabe McCallum",
+      "year": 2008,
+      "tags": [
+        "mathnaw\u00ed-jal\u00e1lu",
+        "sabbatical-year",
+        "manuscripts-available",
+        "work-idiomatic",
+        "predecessors-method",
+        "discussed-refer"
+      ],
+      "filename": "The Mathnawi - vol 5 and 6.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7484744
+    },
+    {
+      "id": "the_spiritual_couplets_of_rumi",
+      "title": "The Masnavi Book I",
+      "author": "Unknown",
+      "year": 2003,
+      "tags": [
+        "masnavi-book",
+        "texts-islam",
+        "weep-interprets",
+        "index-spiritual",
+        "flute-complains",
+        "muhammad-rumi"
+      ],
+      "filename": "The Spiritual Couplets Of Rumi.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7498379
+    },
+    {
+      "id": "the_wisdom_of_the_east_-_persian_mystics",
+      "title": "The Wisdom of the East - Persian Mystics",
+      "author": "Unknown",
+      "year": 2006,
+      "tags": [
+        "east-persian",
+        "poetry-jalalu",
+        "glasgow-poems",
+        "author-valley",
+        "festival-spring",
+        "dfn-preface"
+      ],
+      "filename": "The Wisdom of the East - Persian Mystics.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.7604284
+    },
+    {
+      "id": "words_of_paradise_-_selected_poems_of_rumi",
+      "title": "Selected.Poems.of.Rumi_nhy&Yesi.PDF",
+      "author": "Mustafa FINDIK",
+      "year": 2006,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Words of Paradise - Selected Poems of Rumi.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.797919
+    }
+  ]
+}

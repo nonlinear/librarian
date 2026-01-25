@@ -1,0 +1,302 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "poetry_fernando_pessoa",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "4a2437e634572763eb84a67e13def8da237c5bfa428a26c60b1d5522fcc671ca",
+  "books": [
+    {
+      "id": "cancioneiro",
+      "title": "Cancioneiro",
+      "author": "Fernando Pessoa",
+      "year": 2012,
+      "tags": [
+        "momento-atividade",
+        "pensamentos-s\u00e3o",
+        "cancioneiro-htm",
+        "nossa-percep\u00e7\u00e3o",
+        "frases-tudo",
+        "paisagem-tempos"
+      ],
+      "filename": "Cancioneiro.epub",
+      "filetype": "epub",
+      "last_modified": 1769143370.97389
+    },
+    {
+      "id": "ficcoes_do_interludio",
+      "title": "Fic\u00e7\u00f5es do interl\u00fadio",
+      "author": "Fernando Pessoa",
+      "year": 1998,
+      "tags": [
+        "caeiro-conte\u00fado",
+        "pacheco-anota\u00e7\u00f5es",
+        "devemos-associar",
+        "pagina\u00e7\u00e3o-orpheu",
+        "ecos-estranhos",
+        "epis\u00f3dio-heter\u00f4nimo"
+      ],
+      "filename": "Ficc\u0327o\u0303es do interlu\u0301dio.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.088079
+    },
+    {
+      "id": "livro_do_desassossego",
+      "title": "Livro do desassossego",
+      "author": "Fernando Pessoa",
+      "year": 2008,
+      "tags": [
+        "cora\u00e7\u00e3o-se",
+        "pararia-considero",
+        "bernardo-soares",
+        "dizeres-expressos",
+        "consider\u00e1-la",
+        "patr\u00f5es-abstractos"
+      ],
+      "filename": "Livro do Desassossego.epub",
+      "filetype": "epub",
+      "last_modified": 1769143370.9175432
+    },
+    {
+      "id": "mensagem",
+      "title": "Mensagem",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "entendimento-s\u00edmbolos",
+        "eles-primeira",
+        "intui\u00e7\u00e3o-n\u00e3o",
+        "interpretado-quarta",
+        "condi\u00e7\u00f5es-sem",
+        "prop\u00f5e-interpretar"
+      ],
+      "filename": "Mensagem.epub",
+      "filetype": "epub",
+      "last_modified": 1769143370.990941
+    },
+    {
+      "id": "navegar_e_preciso",
+      "title": "Navegar \u00e9 preciso",
+      "author": "Fernando Pessoa",
+      "year": 2013,
+      "tags": [
+        "quero-torn\u00e1",
+        "penssamento-para",
+        "preciso-navegadores",
+        "ess\u00eancia-an\u00edmica",
+        "n\u00e3o-necess\u00e1rio",
+        "html-navegar"
+      ],
+      "filename": "Navegar e\u0301 preciso.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.1225114
+    },
+    {
+      "id": "o_banqueiro_anarquista",
+      "title": "O Banqueiro anarquista",
+      "author": "Fernando Pessoa",
+      "year": 1922,
+      "tags": [
+        "anarquistas-n\u00e3o",
+        "ou-ent\u00e3o",
+        "vida-quero",
+        "mim-banqueiro",
+        "medita\u00e7\u00e3o-voltei",
+        "bancanarco-htm"
+      ],
+      "filename": "O Banqueiro Anarquista.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.1447208
+    },
+    {
+      "id": "o_eu_profundo_e_os_outros_eus",
+      "title": "O Eu profundo e os outros Eus",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "literatura-narrativa",
+        "dram\u00e1tica-uma",
+        "como-forma",
+        "ratura-qualidades",
+        "objetividade-na",
+        "verbal-desses"
+      ],
+      "filename": "O Eu profundo e os outros Eus.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.1094723
+    },
+    {
+      "id": "o_guardador_de_rebanhos",
+      "title": "O Guardador de Rebanhos",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "guardei-rebanhos",
+        "pensamento-sinto",
+        "sentidos-se",
+        "esfria-fundo",
+        "como-uma",
+        "flores-sem"
+      ],
+      "filename": "O Guardador de Rebanhos.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.1528015
+    },
+    {
+      "id": "o_pastor_amoroso",
+      "title": "O Pastor Amoroso",
+      "author": "Fernando Pessoa",
+      "year": 1993,
+      "tags": [
+        "se-amado",
+        "maria-religiosamente",
+        "dantes-mas",
+        "alberto-caeiro",
+        "10-pastor",
+        "ningu\u00e9m-amor"
+      ],
+      "filename": "O Pastor Amoroso.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.14488
+    },
+    {
+      "id": "poemas_dramaticos_poemas_ingleses_poemas",
+      "title": "Poemas Traduzidos",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "poemas-corvo",
+        "que-batia",
+        "umbrais-uma",
+        "dezembro-fogo",
+        "visita-eu",
+        "fpesso-html"
+      ],
+      "filename": "Poemas Dramaticos, Poemas Ingleses, Poemas.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.797117
+    },
+    {
+      "id": "poemas_inconjuntos",
+      "title": "Poemas Inconjuntos",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "poemas-s\u00e3o",
+        "que-existir",
+        "bocados",
+        "\u00e1gua-sem",
+        "crian\u00e7a-desconhecida",
+        "sorrio"
+      ],
+      "filename": "Poemas Inconjuntos.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.7884324
+    },
+    {
+      "id": "poemas_traduzidos",
+      "title": "Poemas Traduzidos",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "poemas-corvo",
+        "que-batia",
+        "umbrais-uma",
+        "dezembro-fogo",
+        "visita-eu",
+        "fpesso-html"
+      ],
+      "filename": "Poemas Traduzidos.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.7983978
+    },
+    {
+      "id": "poemas_de_alvaro_de_campos",
+      "title": "Poemas de A\u0301lvaro de Campos",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "poemas-campos",
+        "que-aquela",
+        "capacidade-express\u00e3o",
+        "c\u00e1lculo-contudo",
+        "pal\u00e1cios-desertos",
+        "facam-html"
+      ],
+      "filename": "Poemas de A\u0301lvaro de Campos.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.7913268
+    },
+    {
+      "id": "poemas_de_ricardo_reis",
+      "title": "Poemas de Ricardo Reis",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "poemas-ricardo",
+        "reis-heter\u00f4nimo",
+        "mis\u00e9rrimo-desterro",
+        "ma-ap\u00f3s",
+        "uns-faz",
+        "elizes-lores"
+      ],
+      "filename": "Poemas de Ricardo Reis.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.2259462
+    },
+    {
+      "id": "poemas_em_ingles",
+      "title": "Poemas em Ingl\u00eas",
+      "author": "Fernando Pessoa",
+      "year": 1918,
+      "tags": [
+        "poemas",
+        "imersos-s\u00e3o",
+        "horizonte-f\u00f4sco",
+        "dia-bride",
+        "despertando-noiva",
+        "useless-shade"
+      ],
+      "filename": "Poemas em Ingle\u0302s.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.806837
+    },
+    {
+      "id": "poesias_ineditas",
+      "title": "Poesias In\u00e9ditas",
+      "author": "Fernando Pessoa",
+      "year": 2013,
+      "tags": [
+        "s\u00e3o-cansa",
+        "poesias-in\u00e9ditas",
+        "html-poemas",
+        "floresta-crian\u00e7a",
+        "foi-disperso",
+        "sempre-sempre"
+      ],
+      "filename": "Poesias Ine\u0301ditas.epub",
+      "filetype": "epub",
+      "last_modified": 1769143372.005708
+    },
+    {
+      "id": "primeiro_fausto",
+      "title": "Primeiro Fausto",
+      "author": "Fernando Pessoa",
+      "year": 101,
+      "tags": [
+        "ordeira-misteriosidade",
+        "pessoa-fonte",
+        "meu-seio",
+        "s\u00edmbolo-analogia",
+        "at\u00e9-ao",
+        "htm-primeiro"
+      ],
+      "filename": "Primeiro Fausto.epub",
+      "filetype": "epub",
+      "last_modified": 1769143371.9859743
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "design_typography",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "56381b4f0135f33d7a8d0c807f6c6f9d9dde9d0dd018af103e759772a84e3826",
+  "books": [
+    {
+      "id": "twenty_bits_i_learned_about_making_fonts",
+      "title": "Twenty Bits I Learned About Making Fonts",
+      "author": "Dan Cederholm",
+      "year": 2021,
+      "tags": [
+        "design-fonts",
+        "letters-fascinating",
+        "start-caps",
+        "sanity-monoline",
+        "kerning-kerning",
+        "cederholm-copyright"
+      ],
+      "filename": "Twenty Bits I Learned About Making Fonts.epub",
+      "filetype": "epub",
+      "last_modified": 1769143170.437621
+    }
+  ]
+}

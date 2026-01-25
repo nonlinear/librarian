@@ -1,0 +1,302 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "poetry_clarisse_lispector",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "db33fad679706057909639302f837ee6610492c97ea753617752231bf22bd1fb",
+  "books": [
+    {
+      "id": "a_hora_da_estrela",
+      "title": "A Hora da Estrela",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "sua-produ\u00e7\u00e3o",
+        "recusadas-hist\u00f3rias",
+        "estrela-ou",
+        "forma-dedicat\u00f3ria",
+        "conseq\u00fc\u00eancias",
+        "discreta-pela"
+      ],
+      "filename": "A Hora da Estrela.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.624149
+    },
+    {
+      "id": "a_legiao_estrangeira",
+      "title": "A Legia\u0303o Estrangeira",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "exaustivamente-texto",
+        "percep\u00e7\u00e3o-disponibilidade",
+        "seus-contrastes",
+        "arte-verbal",
+        "habitual-ora\u00e7\u00f5es",
+        "sabedoria-palavras"
+      ],
+      "filename": "A Legia\u0303o Estrangeira.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6270318
+    },
+    {
+      "id": "a_maca_no_escuro",
+      "title": "A Mac\u0327a no Escuro",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "ma\u00e7\u00e3-escuro",
+        "aplica\u00e7\u00e3o-cuidadosa",
+        "tornou-se",
+        "criando-todas",
+        "um-homem",
+        "algum-modo"
+      ],
+      "filename": "A Mac\u0327a no Escuro.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6322308
+    },
+    {
+      "id": "a_mulher_que_matou_o_peixe",
+      "title": "A Mulher que Matou o Peixe",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "s\u00e3o-ambiciosos",
+        "ser-bom",
+        "viver-pessoas",
+        "peixes-infelizmente",
+        "rocco-digitalizado",
+        "logo-eu"
+      ],
+      "filename": "A Mulher que Matou o Peixe.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6359406
+    },
+    {
+      "id": "a_via_crucis_do_corpo",
+      "title": "A Via Crucis do Corpo",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "felicidade-clandestina",
+        "lustre-romance",
+        "contos-crucis",
+        "corpo-clarice",
+        "revisores-ou",
+        "infantil-copyright"
+      ],
+      "filename": "A Via Crucis do Corpo.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6383743
+    },
+    {
+      "id": "a_vida_intima_de_laura",
+      "title": "A Vida I\u0301ntima de Laura",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "vida-\u00edntima",
+        "dines-f\u00e1tima",
+        "logo-laura",
+        "mas-voc\u00ea",
+        "adivinhe-quem",
+        "algrante-andr\u00e1a"
+      ],
+      "filename": "A Vida I\u0301ntima de Laura.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6434774
+    },
+    {
+      "id": "bela_e_a_fera",
+      "title": "Bela e a Fera",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "sem-significa\u00e7\u00e3o",
+        "que-retrucar",
+        "sum\u00e1rio-hist\u00f3ria",
+        "uns-vermelhos",
+        "outros-ba\u00e7os",
+        "interrompida-gertrudes"
+      ],
+      "filename": "Bela e a Fera.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6455967
+    },
+    {
+      "id": "cidade_sitiada",
+      "title": "Cidade Sitiada",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "cora\u00e7\u00e3o-selvagem",
+        "ela-n\u00e3o",
+        "verbal-diferente",
+        "estil\u00edstico-singular",
+        "lispector-editora",
+        "primeiras-p\u00e1ginas"
+      ],
+      "filename": "Cidade Sitiada.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.649186
+    },
+    {
+      "id": "clarice_na_cabeceira",
+      "title": "Clarice na Cabeceira",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "hist\u00f3ria-apresentado",
+        "fernanda-torres",
+        "montero-2009",
+        "camurati-crime",
+        "lisboa-amor",
+        "dos-p\u00e3es"
+      ],
+      "filename": "Clarice na Cabeceira.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6529388
+    },
+    {
+      "id": "como_nasceram_as_estrelas",
+      "title": "Como Nasceram as Estrelas",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "como-nasceram",
+        "lendas-brasileiras",
+        "verdes-embaixo",
+        "estrelas-pisca",
+        "era-uma",
+        "floresta-curupira"
+      ],
+      "filename": "Como Nasceram as Estrelas.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.656053
+    },
+    {
+      "id": "felicidade_clandestina",
+      "title": "Felicidade Clandestina",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "felicidade-clandestina",
+        "literatura-brasileira",
+        "clarice-lispector",
+        "affonso-voc\u00ea",
+        "janeiro-rocco",
+        "cr\u00edtica-textual"
+      ],
+      "filename": "Felicidade Clandestina.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6587045
+    },
+    {
+      "id": "minhas_queridas",
+      "title": "Minhas Queridas",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "enorme-casar\u00e3o",
+        "rio-janeiro",
+        "probabilidade-em",
+        "antigas-clarice",
+        "1976-fil\u00f3sofo",
+        "mil"
+      ],
+      "filename": "Minhas Queridas.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.662056
+    },
+    {
+      "id": "o_lustre",
+      "title": "O Lustre",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "cr\u00edticos-lustre",
+        "penetrante-como",
+        "a\u00e7\u00f5es-epis\u00f3dicas",
+        "biografia-introdu\u00e7\u00e3o",
+        "\u00e0fal\u00eancia-os",
+        "ediouro-publica\u00e7\u00f5es"
+      ],
+      "filename": "O Lustre.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6665497
+    },
+    {
+      "id": "o_misterio_do_coelho_pensante",
+      "title": "O Miste\u0301rio do Coelho Pensante",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "coelhos-que",
+        "ser\u00e3o-obrigados",
+        "uso-dom\u00e9stico",
+        "pensante-ilustra\u00e7\u00f5es",
+        "pedido-ordem",
+        "uma-hist\u00f3ria"
+      ],
+      "filename": "O Miste\u0301rio do Coelho Pensante.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6718335
+    },
+    {
+      "id": "paixao_segundo_gh",
+      "title": "Paixa\u0303o segundo GH",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "como-livro",
+        "alegria-dif\u00edcil",
+        "genuinidade-clarice",
+        "aproxima\u00e7\u00e3o",
+        "enfim-grifo",
+        "lispector-editora"
+      ],
+      "filename": "Paixa\u0303o segundo GH.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.674991
+    },
+    {
+      "id": "perto_do_coracao_selvagem",
+      "title": "Perto do Corac\u0327a\u0303o Selvagem",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "cora\u00e7\u00e3o-selvagem",
+        "enredo-hist\u00f3ria",
+        "romances-clarice",
+        "joana-52",
+        "pequena-fam\u00edlia",
+        "\u00f3dio-ora"
+      ],
+      "filename": "Perto do Corac\u0327a\u0303o Selvagem.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6790245
+    },
+    {
+      "id": "quase_vedade",
+      "title": "Quase Vedade",
+      "author": "Unknown",
+      "year": 2011,
+      "tags": [
+        "para-uma",
+        "exemplo-eu",
+        "significado-meus",
+        "tudo-quero",
+        "verdade-quase",
+        "casa-antes"
+      ],
+      "filename": "Quase Vedade.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291074.6838129
+    }
+  ]
+}

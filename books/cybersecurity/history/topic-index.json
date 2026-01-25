@@ -1,0 +1,81 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "cybersecurity_history",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "a83a87af49739fa16c556c97f3421fa3d0cc42d1bb4376c0eb481dce47d4d0ee",
+  "books": [
+    {
+      "id": "countdown_to_zero_day",
+      "title": "Countdown to Zero Day: Stuxnet and the Launch of the World's First Digital Weapon",
+      "author": "Kim Zetter",
+      "year": 2014,
+      "tags": [
+        "crown-colophon",
+        "detectives-deciphered",
+        "mystery-centrifuges",
+        "copyright-wired",
+        "menacing-malware",
+        "random-house"
+      ],
+      "filename": "Countdown to Zero Day.epub",
+      "filetype": "epub",
+      "last_modified": 1768861616.2244627
+    },
+    {
+      "id": "spam_nation",
+      "title": "Spam Nation",
+      "author": "Brian Krebs",
+      "year": 2014,
+      "tags": [
+        "trademarks-sourcebooks",
+        "bizmgr",
+        "authoritative-information",
+        "legal-advice",
+        "internal-design",
+        "colophon-registered"
+      ],
+      "filename": "Spam Nation.epub",
+      "filetype": "epub",
+      "last_modified": 1768861649.209145
+    },
+    {
+      "id": "the_fifth_domain",
+      "title": "The Fifth Domain",
+      "author": "Richard A. Clarke",
+      "year": 2019,
+      "tags": [
+        "cyber-domain",
+        "emerging-threats",
+        "llc-penguinrandomhouse",
+        "dick-clarke",
+        "1951-author",
+        "copyright-fuels"
+      ],
+      "filename": "The Fifth Domain.epub",
+      "filetype": "epub",
+      "last_modified": 1768862196.4309838
+    },
+    {
+      "id": "the_cuckoos_egg",
+      "title": "Cuckoo's Egg",
+      "author": "Clifford Stoll",
+      "year": 2012,
+      "tags": [
+        "computer-espionage",
+        "cuckoo-egg",
+        "anchor-dolphin",
+        "doubleday-dell",
+        "stoll-clifford",
+        "cataloging-publication"
+      ],
+      "filename": "The cuckoo's egg.epub",
+      "filetype": "epub",
+      "last_modified": 1768861253.3137455
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "fiction_brasil",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "d192ae45657aea59203672fd77fadbe8af0059bd79f1360cb687d887dfc47e11",
+  "books": [
+    {
+      "id": "quarto_de_despejo",
+      "title": "Quarto de despejo-di\u00e1rio de uma favelada",
+      "author": "Carolina Maria de Jesus",
+      "year": 2014,
+      "tags": [
+        "distribuidores-livreiros",
+        "ivany-picasso",
+        "brasil-cataloga\u00e7\u00e3o",
+        "favelada-editora",
+        "grafia-acentua\u00e7\u00e3o",
+        "jesus-1992gerente"
+      ],
+      "filename": "Quarto de despejo.epub",
+      "filetype": "epub",
+      "last_modified": 1768547319.5850976
+    }
+  ]
+}

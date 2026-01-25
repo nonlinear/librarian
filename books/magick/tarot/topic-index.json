@@ -1,0 +1,64 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "magick_tarot",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "84d132b821a39df3fea2b0ca014fb6f8a402a08c068fcd33de4b860df0656350",
+  "books": [
+    {
+      "id": "365_tarot_spreads_-_sasha_graham",
+      "title": "365 Tarot Spreads: Revealing the Magic in Each Day",
+      "author": "Sasha Graham",
+      "year": 2014,
+      "tags": [
+        "tarot-reader",
+        "published-epub",
+        "copyright-information365",
+        "means-book",
+        "graham-rights",
+        "metropolitan-museum"
+      ],
+      "filename": "365 Tarot Spreads - Sasha Graham.epub",
+      "filetype": "epub",
+      "last_modified": 1767921896.858252
+    },
+    {
+      "id": "learn_tarot_a_step_-_step_guide_-_julian_de_burgh",
+      "title": "Learn Tarot a Step by Step Guide",
+      "author": "de Burgh, Julian",
+      "year": 2012,
+      "tags": [
+        "tarot-steps",
+        "arcana-pentacles",
+        "wands-73",
+        "25-empress",
+        "meanings-cards",
+        "astrological-influence"
+      ],
+      "filename": "Learn Tarot. A Step - Step Guide - Julian de Burgh.epub",
+      "filetype": "epub",
+      "last_modified": 1767921903.9487183
+    },
+    {
+      "id": "tarot_reading_explained",
+      "title": "Tarot Reading Explained",
+      "author": "Ricklef, James",
+      "year": 2013,
+      "tags": [
+        "reading-tarot",
+        "knighthawk-readings",
+        "pollack-author",
+        "advanced-readers",
+        "cards-meanings",
+        "greer-author"
+      ],
+      "filename": "Tarot Reading Explained.epub",
+      "filetype": "epub",
+      "last_modified": 1767921914.6606772
+    }
+  ]
+}

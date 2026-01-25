@@ -1,0 +1,127 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "technology_processing",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "a36119742285eaccd060aeaba276e4c8abd8ab03a3349aa481d90a0fb4c5402e",
+  "books": [
+    {
+      "id": "generative_art",
+      "title": "Generative Art: A Practical Guide Using Processing",
+      "author": "Matt Pearson",
+      "year": 2011,
+      "tags": [
+        "generative-art",
+        "holders-illustrations",
+        "mechanical-photocopying",
+        "creative-commons",
+        "guide-using",
+        "pearson-isbn"
+      ],
+      "filename": "Generative Art.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.5744877
+    },
+    {
+      "id": "getting_started_with_processing",
+      "title": "Getting Started with Processing, 2E",
+      "author": "Casey Reas and Ben Fry",
+      "year": 2015,
+      "tags": [
+        "programming-graphics",
+        "processing-book",
+        "computers-digital",
+        "media-make",
+        "getting-started",
+        "casey-reas"
+      ],
+      "filename": "Getting Started with Processing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.6304495
+    },
+    {
+      "id": "getting_started_with_p5_js",
+      "title": "Getting Started with p5.js",
+      "author": "Lauren McCarthy",
+      "year": 2015,
+      "tags": [
+        "p5-js",
+        "written-javascript",
+        "interact-html5",
+        "browser-canvas",
+        "interactive-graphics",
+        "webcam-audio"
+      ],
+      "filename": "Getting Started with p5 js.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.7282999
+    },
+    {
+      "id": "learning_processing",
+      "title": "Learning Processing: A Beginner's Guide to Programming Images, Animation, and Interaction (Morgan Kaufmann Series in Computer Graphics)",
+      "author": "Daniel Shiffman",
+      "year": 2008,
+      "tags": [
+        "maya-programming",
+        "graphics-modeling",
+        "guide-3d",
+        "animator-technical",
+        "processing-beginner",
+        "geometric-algebra"
+      ],
+      "filename": "Learning Processing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.7574728
+    },
+    {
+      "id": "processing",
+      "title": "Processing",
+      "author": "Casey Reas, Ben Fry",
+      "year": null,
+      "tags": [
+        "untagged"
+      ],
+      "filename": "Processing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.8485663
+    },
+    {
+      "id": "the_sparkfun_guide_to_processing",
+      "title": "The SparkFun Guide to Processing",
+      "author": "Unknown",
+      "year": 2015,
+      "tags": [
+        "art-code",
+        "processing-covers",
+        "create-interactive",
+        "william-pollock",
+        "isbn-978",
+        "sparkfun-guide"
+      ],
+      "filename": "The SparkFun Guide to Processing.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.8935962
+    },
+    {
+      "id": "visualizing_data",
+      "title": "Visualizing data",
+      "author": "Unknown",
+      "year": 2008,
+      "tags": [
+        "visualizing-data",
+        "trademarks-reilly",
+        "fry-beijing",
+        "image-owl",
+        "book-uses",
+        "zip-codes"
+      ],
+      "filename": "Visualizing data.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291075.9158142
+    }
+  ]
+}

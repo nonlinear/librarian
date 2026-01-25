@@ -1,0 +1,149 @@
+{
+  "schema_version": "2.0",
+  "topic_id": "anarchy_zines",
+  "embedding_model": "all-MiniLM-L6-v2",
+  "chunk_settings": {
+    "size": 1024,
+    "overlap": 200
+  },
+  "last_indexed_at": null,
+  "content_hash": "48f1bb421206dd3e7a547a2384fb9938737cb038e7abd1a295c7b99bcc59b39a",
+  "books": [
+    {
+      "id": "affinity_fraud",
+      "title": "Affinity fraud",
+      "author": "Unknown",
+      "year": 2023,
+      "tags": [
+        "group-leftism",
+        "explores-identity",
+        "mitigate-threats",
+        "art-copyright",
+        "vurmu\u015flar-sap\u0131",
+        "movements-zine"
+      ],
+      "filename": "Affinity fraud.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7580755
+    },
+    {
+      "id": "mobile_phone_security",
+      "title": "Mobile Phone Security",
+      "author": "H\u00e5kan Geijer",
+      "year": 2023,
+      "tags": [
+        "phones-threat",
+        "surveillance-privileged",
+        "countermeasures-action",
+        "based-misinformation",
+        "opsec-practices",
+        "lives-zine"
+      ],
+      "filename": "Mobile phone security.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7712016
+    },
+    {
+      "id": "prisma",
+      "title": "PRISMA: Primer on Radical Information for Secure Militant Actions",
+      "author": "Unknown",
+      "year": null,
+      "tags": [
+        "militant-actions",
+        "prisma-primer",
+        "radical-information",
+        "project-contents",
+        "phone-security",
+        "text-german"
+      ],
+      "filename": "PRISMA.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7735586
+    },
+    {
+      "id": "threat_modeling_fundamentals",
+      "title": "Threat modeling fundamentals",
+      "author": "Unknown",
+      "year": 2025,
+      "tags": [
+        "operate-threat",
+        "goals-repression",
+        "modeling-war",
+        "tension-anarchists",
+        "terms-used",
+        "opaque-dogmatic"
+      ],
+      "filename": "Threat modeling fundamentals.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.7772353
+    },
+    {
+      "id": "what_is_security_culture",
+      "title": "What Is Security Culture? A Guide To Staying Safe",
+      "author": "Sprout Anarchist Collective // www.sproutac.org",
+      "year": 2014,
+      "tags": [
+        "security-culture",
+        "anarchist-cookbook",
+        "crimethinc-collective",
+        "information-safer",
+        "federal-informants",
+        "government-designed"
+      ],
+      "filename": "What is Security Culture.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.77868
+    },
+    {
+      "id": "what_the_corona_virus_pandemic_can_teach_us_about_security_culture",
+      "title": "What the Corona Virus Pandemic Can Teach Us About Security Culture",
+      "author": "Unknown",
+      "year": 2024,
+      "tags": [
+        "security-culture",
+        "protecting-oneself",
+        "reduce-surveillance",
+        "form-pandemic",
+        "protesters-nazi",
+        "pseudonymous-online"
+      ],
+      "filename": "What the Corona Virus Pandemic Can Teach Us About Security Culture.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.8143106
+    },
+    {
+      "id": "cryptoanarchy",
+      "title": "Why cryptoanarchy is not a revolutionary movement",
+      "author": "Tatjana Adamov",
+      "year": 2019,
+      "tags": [
+        "cryptoanarchy-darknet",
+        "adamov-smuggler",
+        "interview-originally",
+        "movement-tatjana",
+        "infrastructures-learned",
+        "discuss-topics"
+      ],
+      "filename": "cryptoanarchy.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.8175182
+    },
+    {
+      "id": "dropgang",
+      "title": "Dropgangs, or the future of darknet markets",
+      "author": "Jonathan ``smuggler'' Logan",
+      "year": 2019,
+      "tags": [
+        "darknet-markets",
+        "development-dropgangs",
+        "activity-widespread",
+        "aspects-illegal",
+        "late-1990s",
+        "smuggler-logan"
+      ],
+      "filename": "dropgang.pdf",
+      "filetype": "pdf",
+      "last_modified": 1769291062.8184464
+    }
+  ]
+}
