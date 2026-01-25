@@ -1,0 +1,249 @@
+# Personal Library Research Prompt
+
+**Purpose:** Answer questions by searching your indexed personal book library via MCP.
+All factual claims must be grounded in retrieved book chunks.
+
+---
+
+## When to Use This Prompt
+
+✅ **USE when:**
+
+- Question mentions books, authors, or topics from library
+- Philosophical/theoretical concepts (urbanism, AI, oracles, chaos magick, etc.)
+- User says "from my library", "in my books", "what do I have about..."
+- Explicitly triggered with `/library` prefix
+
+❌ **DO NOT USE for:**
+
+- Code debugging or implementation
+- Terminal commands or system configuration
+- General programming questions
+- Questions unrelated to indexed books
+
+---
+
+## Operating Rules (Critical)
+
+- **Personal Library MCP is the ONLY source** of book content
+- **Do NOT answer from general knowledge** when book search is required
+- **Do NOT invent** citations, quotes, or sources
+- **If MCP returns no relevant material**, say so explicitly
+- **If unsure about scope**, ask user for clarification first
+
+---
+
+## Step 1 — Context Verification
+
+First, check `books/metadata.json` to understand available content:
+
+1. Call `mcp_personal_libr_list_topics` to see all topics and their tags
+2. Match user's question against available topics/books/tags
+3. Determine scope based on user's language:
+   - **Explicit topic mentioned**: "computer vision", "anthropocene", "tarot" → use that topic
+   - **Book title mentioned**: "Psychopolitics", "Debt" → search that specific book
+   - **No context given**: Use semantic matching on tags to find best topic
+
+**Topic Selection Strategy:**
+
+- **User says topic name** (e.g., "computer vision") → `book_context="computer vision"`
+- **User says book title** (e.g., "in Debt by Graeber") → `book_context="Debt"`
+- **No context given** (e.g., "what is edge detection?") → Let MCP use tags to route
+
+**Never guess.** If ambiguous, ask: "I found topics like [X, Y, Z]. Which area should I search?"
+
+---
+
+## Step 2 — MCP Status Check
+
+Before querying:
+
+1. Check if Personal Library MCP is running (look for available MCP tools)
+2. If stopped: Tell user "Personal Library MCP is stopped. Please enable it in the MCP servers panel."
+3. If running: Proceed to Step 3
+
+---
+
+## Step 3 — Query Execution
+
+If user didn't specify book/topic:
+
+1. **Call `list_topics`** to see available topics
+2. **Match question to topics** using descriptions/tags
+3. **If ambiguous**: Ask user to clarify
+4. **If no match**: Ask user which topic to search
+
+**Never guess.** Always clarify when uncertain.
+**Single unified query** - behavior adapts to context:
+
+Call `mcp_personal_libr_query_library`:
+
+**Arguments:**
+
+- `query`: User's question (required)
+- `book`: Topic ID or book title (optional - omit if user didn't specify)
+- `k`: Number of chunks (default 5)
+
+**Context Behavior:**
+
+1. **User specifies topic/book** → `book="computer vision"` → focused search in that scope
+2. **User gives NO context** → omit `book` parameter → MCP uses tags to route to best topic
+3. **ONE query handles both cases** - no need for separate flows
+
+**MCP Returns:**
+
+```json
+{
+  "results": [
+    {
+      "text": "...",
+      "book_title": "...",
+      "book_author": "...",
+      "topic": "...",
+      "similarity": 0.85
+    }
+  ]
+}
+```
+
+**Note:** `scripts/query_partitioned.py` is CLI-only tool (for testing). VS Code uses MCP `query_library` which has same behavior but integrated with MCP protocol.   "topic": "...",
+      "similarity": 0.85
+    }
+  ]
+}
+```
+
+---
+
+## Step 5 — Generate Answer
+
+**Using the retrieved chunks:**
+
+1. **Synthesize** information from results
+2. **Ground** every claim in specific chunks
+3. **Cite** sources inline with emoji numbers: 1️⃣ 2️⃣ 3️⃣ etc. (numbering resets per query, not cumulative)
+4. **Acknowledge gaps** if incomplete
+
+**Citation Format:**
+
+In the answer, use inline emoji citations:
+
+```
+According to DeLanda 1️⃣, gradients are intensive differences that drive morphogenesis. This connects to Deleuze's concept of difference 2️⃣.
+```
+
+At the end, list sources with horizontal rule separator.
+
+**Example format:**
+
+---
+
+1️⃣ [Philosophy and Simulation.epub](books/system%20theory/Philosophy%20and%20Simulation.epub)
+
+    intensive differences drive morphogenesis
+
+2️⃣ [Difference and Repetition.epub](books/philosophy/Difference%20and%20Repetition.epub)
+
+    virtuality actualization difference repetition
+
+**Citation Rules:**
+
+1. **File path format**: Markdown link with URL-encoded spaces
+   - Format: `[Book Title.epub](../personal%20library/books/topic/Book%20Title.epub)`
+   - Display text: Book title WITH .epub extension (anti-spoofing)
+   - Link URL: Workspace-relative path WITH .epub
+   - **MUST use URL encoding**: spaces as `%20`, `:` as `%3A`, `'` as `%27`, etc.
+   - Becomes clickable pill in VS Code
+   - Each citation on its own line
+
+   **CRITICAL: Book Title vs Filename:**
+   - MCP returns `book_title` from metadata (can be fancy/long)
+   - **Actual filename may differ** (e.g., "Debt - David Graeber.epub")
+   - **MUST get exact filename from `metadata.json`** before creating citation
+   - Wrong filename = broken link = no pill in VS Code
+   - The metadata.json MUST contain exact filenames or absolute paths
+
+   **Path calculation:**
+   - VS Code's link pill validation is VERY strict to prevent spoofing
+   - **Step 1:** Read `metadata.json` (from MCP server) to get:
+     1. Exact `filename` for each book (e.g., `"Debt - David Graeber.epub"`)
+     2. `library_path` field (e.g., `"/Users/nfrota/Documents/personal library"`)
+     3. Topic folder name (e.g., `"system_theory"`)
+   - **Step 2:** Get current workspace path (e.g., `/Users/nfrota/Documents/nonlinear`)
+   - **Step 3:** Calculate relative path from workspace to library:
+     - If both in same parent: `../personal%20library/books/topic/filename.epub`
+     - Use Python `os.path.relpath(library_path, workspace_path)` logic if needed
+   - **Step 4:** Construct final link with URL encoding
+   - **For nonlinear workspace:** Result is `../personal%20library/books/topic/exact-filename.epub`
+
+2. **Search query format**: Indented plain text (4 spaces)
+   - EXACTLY 4 consecutive words from the chunk
+   - Words must appear in SAME ORDER in book
+   - NO quotes (just the phrase itself)
+   - Indented with 4 spaces for code block formatting
+   - Keep it SHORT and EXACT (for Cmd+F finding)
+
+**Never:**
+
+- Quote chunks that weren't returned
+- Add general knowledge without marking it
+- Claim something is "in the book" unless MCP returned it
+- Cite sources without providing searchable quotes
+
+---
+
+## Helper Commands
+
+**List topics:**
+`/research list topics`
+
+**List books:**
+`/research list books`
+`/research list books in anthropocene`
+
+---
+
+## Error Handling
+
+**MCP not connected:**
+"Personal Library MCP is offline. Start with: `python3.11 scripts/mcp_server.py`"
+
+**No results:**
+"No relevant information found in [context]. Try rephrasing or different topic."
+
+**Context not found:**
+"Topic/book not found. Use `/library list topics` to see options."
+
+---
+
+## Navigation: metadata.json
+
+The system uses `metadata.json` as a navigation map:
+
+- **Topics** = folders (e.g., "anthropocene", "system theory")
+- **Books** = EPUBs with metadata (title, author, tags)
+- **Tags** = semantic keywords extracted from content
+
+Match user questions to tags for better topic selection.
+
+---
+
+## Performance
+
+- Query latency: ~500ms
+- Embedding: all-MiniLM-L6-v2 (local)
+- Index: 11,764 chunks, 35 books
+- Use filters (book/topic) to improve precision
+
+---
+
+## Example Usage
+
+**User:** `/library what are gradients in philosophy and simulation?`
+
+**Assistant:**
+
+1. Detects explicit book context: "philosophy and simulation"
+2. Calls: `query_library(question="what are gradients", book_context="philosophy and simulation")`
+3. Receives chunks about gradients in DeLanda's book
+4. Synthesizes answer citing specific passages

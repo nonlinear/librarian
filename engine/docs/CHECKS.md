@@ -48,6 +48,54 @@
 
 ---
 
+## 📋 Check Policy: Branches vs Main
+
+### Epic Branches (v0.X.0)
+
+⚠️ **Soft requirements** - Can push with warnings
+
+**Philosophy:** Epic branches are for experimentation and work-in-progress. Checks should run, but failures don't block commits.
+
+**When checks fail:**
+
+- ✅ Still allowed to push
+- ⚠️ Must document failures in commit message
+- 📝 Track known issues in epic notes (`engine/docs/gaps/epic-notes/v0.X.0.md`)
+- 🎯 Must be fixed before merging to main
+
+**Commit message format when checks fail:**
+
+```
+wip: [what you did]
+
+⚠️ Known issues:
+- Check X failed: [reason]
+- Plan: [how you'll fix it]
+
+See epic notes for full context
+```
+
+### Main Branch
+
+❌ **Hard requirements** - ALL checks must pass
+
+**Philosophy:** Main is production. No exceptions, no "will fix later".
+
+**Enforcement:**
+
+- GitHub branch protection requires all checks passing
+- Pull requests must be green
+- No direct pushes to main
+
+**Before merging epic branch to main:**
+
+1. All epic checks resolved
+2. All tests passing
+3. Epic notes reviewed and complete
+4. ROADMAP → CHANGELOG moved
+
+---
+
 ## 📐 Status File Formatting Check (MANDATORY)
 
 **All status files (CHECKS.md, ROADMAP.md, CHANGELOG.md, CONTRIBUTING.md) must follow the formatting standard above.**

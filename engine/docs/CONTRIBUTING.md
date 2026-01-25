@@ -54,6 +54,51 @@
 >
 > 🤖
 
+---
+
+## 🚨 About This Project
+
+**This is a personal library management system - NOT a collaborative repository.**
+
+Each person runs their own instance with their own books. Nothing syncs to GitHub except code/scripts.
+
+**Want to contribute code?** Contact me first to discuss environment setup - don't submit PRs directly.
+
+**Just want to use it?** Fork it, clone it, use it. Your books/data stay 100% local.
+
+### Setup After Clone
+
+**1. Verify `.git/info/exclude` exists:**
+
+```bash
+cat .git/info/exclude
+```
+
+Expected content:
+
+```
+# BYOB: Bring Your Own Books/Models - Local files (don't sync to GitHub)
+books/**/*.epub
+books/**/*.pkl
+books/**/*.index
+books/metadata.json
+models/
+```
+
+**Why:** Keeps your library private + enables autocomplete for book links. See [gaps/epic-notes/v0.4.0.md](gaps/epic-notes/v0.4.0.md#autocomplete-investigation) for technical details.
+
+**2. Add your books:**
+
+```bash
+# Organize books from Downloads
+python3.11 .github/scripts/organize_books.py
+
+# Generate metadata + indices
+python3.11 scripts/indexer.py
+```
+
+---
+
 ## Branch Strategy
 
 **One branch per epic:**
@@ -82,47 +127,183 @@ v0.5-automation (feature branch)
 
 ## Epic/Branch Workflow ("Epic Dance")
 
+### 🔍 Before Starting New Work: Review Epic Notes
+
+**CRITICAL:** Always check existing epic notes before starting similar work to avoid reinventing the wheel.
+
+```bash
+# List all epic notes
+ls engine/docs/gaps/epic-notes/
+
+# Search for relevant keywords
+grep -r "keyword" engine/docs/gaps/epic-notes/
+```
+
+**Why epic notes matter:**
+
+- **Discovered blockers:** Previous epics may have hit technical limitations
+  - Example: v0.4.0 found VS Code pill validation breaks with `#` fragments
+- **Tested solutions:** Multiple approaches already tried and documented
+  - Example: v0.4.0 tested 6 different anchor syntaxes (all failed)
+- **Documented workarounds:** Pragmatic solutions when ideal ones don't work
+- **Deferred features:** Features intentionally postponed with reasoning
+
+**When to check:**
+
+- Starting any new epic (especially similar features)
+- Encountering unexpected behavior
+- Considering a feature that "feels like it was tried before"
+- Planning technical approaches
+
+**Epic notes = knowledge base** - Treat them as first-class documentation, not just session logs.
+
+---
+
+### Step 1: Groom Epic in ROADMAP (on main)
+
+**Before creating branch:**
+
+1. **Add epic to ROADMAP.md** as next v0.X.0 (top of list)
+2. **Renumber all existing epics** (+1 each)
+3. **Write epic with:**
+   - ⏳ Status indicator (planned, no branch yet)
+   - Problem statement
+   - Solution approach
+   - Task checklist
+4. **Review and refine** tasks (can spend time here)
+
+**Example:**
+
+```markdown
+## v0.4.0
+
+### Source Granularity
+
+⏳ Add page/chapter granularity to citations
+
+**Problem:** Citations require manual Ctrl+F
+**Solution:** PDF `#page=N`, EPUB chapter links
+
+**Tasks:**
+
+- [ ] Test VS Code extensions
+- [ ] Extract page numbers during PDF chunking
+      ...
+```
+
+### Step 2: Name Conversation
+
+**AI conversation title:** `v0.X.0: Epic Title`
+
+Example: `v0.4.0: Source Granularity`
+
+### Step 3: Create Branch
+
 ```bash
 git checkout main
 git pull origin main
-git checkout -b v0.3-delta-indexing
+git checkout -b v0.X.0  # Just version number, no descriptive name
 ```
 
-2. **Link branch in ROADMAP.md:**
+**Branch naming:** `v0.X.0` (no epic name, just version)
 
-   ```markdown
-   ## Epic v0.3: Delta Indexing 🔶 (IN PROGRESS)
+### Step 4: Update ROADMAP with Branch Link
 
-   **Branch:** `v0.3-delta-indexing`
-   ```
+Replace ⏳ with 🚧 and add branch link:
 
-3. **Work on feature with regular commits:**
+```markdown
+## v0.4.0
 
-   ```bash
-   git add .
-   git commit -m "feat: implement change detection"
-   git push origin v0.3-delta-indexing
-   ```
+### [🚧](https://github.com/user/repo/tree/v0.4.0) Source Granularity
+```
 
-4. **Stay current - rebase from main regularly:**
+**Format:** `### [🚧](branch-url) Epic Title`
 
-   ```bash
-   git checkout main
-   git pull origin main
-   git checkout v0.3-delta-indexing
-   git rebase main
-   git push --force-with-lease origin v0.3-delta-indexing
-   ```
+### Step 5: Create Epic Notes
 
-   **Why rebase?**
-   - Keeps linear history
-   - Easier to review
-   - Cleaner when merging back to main
+**Structure (v0.4.0 and earlier):**
 
-   **When to rebase?**
-   - Daily if main is active
-   - Before creating PR
-   - After major main updates
+```
+engine/docs/gaps/epic-notes/v0.X.0.md  # Single file for all notes
+```
+
+**Structure (v0.5.0+):**
+
+```
+engine/docs/gaps/epic-notes/v0.X.0/
+  ├── MAIN.md                      # Primary epic documentation
+  ├── pill-validation.md           # Specific finding/experiment
+  └── autocomplete-fix.md          # Another finding
+```
+
+Add notes link to ROADMAP on same line as branch:
+
+```markdown
+### [🚧](branch-link) Source Granularity | [notes](gaps/epic-notes/v0.4.0.md)
+
+# OR for folder structure:
+
+### [🚧](branch-link) Source Granularity | [notes](gaps/epic-notes/v0.4.0/)
+```
+
+**Notes purpose:**
+
+- Session summaries (in MAIN.md)
+- Experiments and discoveries (separate files in v0.5.0+)
+- Testing results and root cause analysis
+- Implementation blockers and workarounds
+
+**When to use folder structure:**
+
+- Epic has multiple distinct findings (>3)
+- Single file exceeds ~500 lines
+- Findings are independent enough to reference separately
+
+**Migration:** When converting v0.X.0.md → v0.X.0/, rename to MAIN.md and extract major findings to separate files.
+
+### Step 6: Push Main Changes
+
+```bash
+git checkout main
+git add engine/docs/ROADMAP.md  # Updated with links
+git commit -m "docs: add v0.X.0 epic to roadmap"
+git push origin main
+```
+
+**Typical main changes when starting epic:**
+
+- ROADMAP.md (epic + renumbering + links)
+- Sometimes: prompts (if epic requires new prompt)
+
+### Step 7: Work on Epic (in branch)
+
+```bash
+git checkout v0.X.0
+git add .
+git commit -m "feat: implement feature"
+git push origin v0.X.0
+```
+
+### Step 8: Stay Current - Rebase Regularly
+
+```bash
+git checkout main
+git pull origin main
+git checkout v0.X.0
+git rebase main
+git push --force-with-lease origin v0.X.0
+```
+
+**Why rebase?**
+
+- Keeps linear history
+- Easier to review
+- Cleaner when merging back to main
+
+  **When to rebase?**
+  - Daily if main is active
+  - Before creating PR
+  - After major main updates
 
 5. **Before merging - use `/whatsup`:**
 

@@ -1,10 +1,14 @@
 # What's Up? (Project Status Check)
 
-**Purpose:** Universal pre-commit workflow ensuring documentation-code parity and stability.
+> **Universal pre-commit workflow for AI-assisted development.** Ensures documentation matches reality before every push.
+
+**Purpose:** Validate stability, sync docs, determine next steps.
 
 **When to use:** Before EVERY commit, especially after long breaks or major changes.
 
-**🚨 CRITICAL RULE:** Never push until ALL checks from CHECKS (see [README](/README.md)) pass. Return to fix or ask for clarification.
+**🚨 CRITICAL RULE:** Never push until ALL checks pass. Return to fix or ask for clarification.
+
+**How it works:** Read README's 🤖 navigation block → Run checks → Update docs → Commit
 
 ---
 
@@ -50,66 +54,191 @@ flowchart TD
 
 ---
 
-## 📋 STEP 0: Read README for Status Files Location
+## 📋 STEP 0: Find Status Files in README
 
-**AI: README is the ONLY source of truth for file locations AND navigation block**
+**🤖 CRITICAL: README's navigation block is the ONLY source of truth**
 
-**🚨 CRITICAL: READ-ONLY**
+**README's `> 🤖` block:**
 
-- ✅ **READ** README to find status files locations
-- ✅ **COPY** navigation block (🤖 markers) from README to all status files
-- ❌ **DO NOT EDIT** README without explicit user permission
-- ❌ **DO NOT** create custom navigation - always copy from README
-- README is the entry point - changes affect entire project discovery
+- ✅ **Source of truth** — Canonical list of all status file paths
+- ✅ **Must be distributed** — Copy to ALL status files (with adjusted relative paths)
+- ✅ **Read paths first** — Use these paths for all file operations
 
-### Read README First
+### What to Look For
 
-```bash
-# Step 1: Read README.md
-cat README.md | head -50
-
-# Step 2: Look for 🤖 navigation block
-# Example output should show:
-# > 🤖
-# >
-# > [CHANGELOG](...) - What we did
-# > [ROADMAP](...) - What we wanna do
-# > [CONTRIBUTING](...) - How we do it
-# > [CHECKS](...) - What we accept
-# >
-# > [/whatsup](...) - The prompt that keeps us sane
-# >
-# > 🤖
-```
-
-### Extract Navigation Block
-
-**What README MUST contain:**
+**Every README.md must contain a navigation block starting and ending with `> 🤖`:**
 
 ```markdown
 > 🤖
 >
-> [CHANGELOG](engine/docs/CHANGELOG.md) - What we did
-> [ROADMAP](engine/docs/ROADMAP.md) - What we wanna do
-> [CONTRIBUTING](.github/CONTRIBUTING.md) - How we do it
-> [CHECKS](engine/docs/CHECKS.md) - What we accept
->
-> [/whatsup](.github/prompts/whatsup.prompt.md) - The prompt that keeps us sane
+> - [README](./README.md) - Our project
+> - [CHANGELOG](path/to/CHANGELOG.md) — What we did
+> - [ROADMAP](path/to/ROADMAP.md) — What we wanna do
+> - [CONTRIBUTING](path/to/CONTRIBUTING.md) — How we do it
+> - [CHECKS](path/to/CHECKS.md) — What we accept
+> - [/whatsup](path/to/whatsup.prompt.md) — The prompt that keeps us sane
 >
 > 🤖
 ```
 
-**AI: Copy this block to ALL status files:**
+**This block contains ALL status file paths. Always read it first.**
 
-- Adjust paths relative to each file's location
-- Keep exact same format and descriptions
-- This ensures consistency across the project
+---
 
-**If README doesn't have navigation block:**
+### How to Extract Paths
 
-- ❌ **STOP:** Ask user "Where are your status files? (e.g., /docs/, /engine/docs/, root)"
-- ✅ Update README to document location
-- ✅ Create from templates if needed (see end of this file)
+```bash
+# Step 1: Read README.md
+cat README.md
+
+# Step 2: Look for lines between > 🤖 markers
+# Extract all paths from markdown links
+# Example: > - [CHANGELOG](./engine/docs/CHANGELOG.md) — What we did
+#          └─ Path is: ./engine/docs/CHANGELOG.md
+```
+
+### Critical Rules for Navigation Block
+
+**🚨 AI: NEVER proceed without finding the 🤖 block first**
+
+✅ **DO:**
+
+- Read README.md completely
+- Find the `> 🤖` ... `> 🤖` section
+- Extract all file paths from markdown links
+- Use ONLY these paths for all operations
+- Copy this navigation block to ALL status files (with adjusted relative paths)
+
+❌ **DON'T:**
+
+- Edit README without explicit permission
+- Create custom navigation - always copy from README
+- Assume file locations (even common ones like `/docs/`)
+- Hardcode paths anywhere
+
+### Status Files are AI Prompts
+
+**Each status file is an instruction set for AI:**
+
+- **CHECKS.md** → Executable tests/validation (treat as test suite)
+- **CONTRIBUTING.md** → Workflow rules and conventions (treat as process spec)
+- **ROADMAP.md** → Planned features with epic format (treat as backlog)
+- **CHANGELOG.md** → Version history (treat as append-only log)
+
+**AI workflow:**
+
+1. Read README → Extract 🤖 paths
+2. **Read status files as prompts** → Follow their instructions
+3. Execute CHECKS → Validate stability
+4. Follow CONTRIBUTING → Apply workflow rules
+5. Update ROADMAP/CHANGELOG → Sync docs with reality
+
+---
+
+**If README doesn't have `> 🤖` navigation block:**
+
+1. ❌ **STOP:** Ask user "Where are your status files? (e.g., /docs/, /engine/docs/, root)"
+2. ✅ Create navigation block in README first
+3. ✅ Then proceed with whatsup workflow
+
+**Example extraction:**
+
+```markdown
+From README:
+
+> - [CHANGELOG](./engine/docs/CHANGELOG.md) — What we did
+
+Extracted path:
+./engine/docs/CHANGELOG.md
+
+Use for:
+cat ./engine/docs/CHANGELOG.md
+```
+
+### Distributing the 🤖 Block
+
+**After reading README's 🤖 block, copy it to ALL status files:**
+
+```markdown
+# In README.md (source of truth):
+
+> 🤖
+>
+> - [CHANGELOG](./engine/docs/CHANGELOG.md) — What we did
+>   🤖
+
+# In engine/docs/CHANGELOG.md (adjusted paths):
+
+> 🤖
+>
+> - [CHANGELOG](CHANGELOG.md) — What we did ← relative to current file
+>   🤖
+
+# In engine/docs/ROADMAP.md (adjusted paths):
+
+> 🤖
+>
+> - [CHANGELOG](CHANGELOG.md) — What we did ← relative to current file
+>   🤖
+```
+
+**Path adjustment rules:**
+
+- Same directory → Use filename only: `CHANGELOG.md`
+- Parent directory → Use `../path`
+- Child directory → Use `subdir/file.md`
+- Keep description text identical across all files
+
+---
+
+## Workflow Start
+
+### Branch Detection (Run First)
+
+**Get current branch:**
+
+```bash
+git branch --show-current
+```
+
+**Decision tree:**
+
+**A. On epic branch (e.g., `v0.4.0`)**
+→ **Status Update Mode** (skip epic selection)
+
+```
+🔍 You're on: v0.4.0
+
+Reading epic notes from ROADMAP.md...
+```
+
+**Show:**
+
+- ✅ What's done (from session notes)
+- ⏳ What's left (unchecked tasks)
+- 🚫 Blockers (if any)
+- 📊 Quick stats (files changed, hours worked)
+
+**Then ask:**
+
+```
+Continue working? Or:
+1. Run CHECKS and commit
+2. /wrap-it-up (pause session)
+3. Switch to different epic
+```
+
+**B. On main branch**
+→ **Normal Flow** (choose epic or groom)
+
+```
+🌟 You're on: main
+
+Options:
+1. Choose epic to work on
+2. Groom ROADMAP
+3. Create new epic
+```
 
 ---
 
@@ -911,6 +1040,20 @@ Run workflow (5 steps → 5 outcomes)
 
 ---
 
-**Last updated:** 2026-01-19
-**Version:** 4.0 (Fully agnostic, 3-level system, README-only discovery)
+---
+
+## Key Principles
+
+1. **🤖 Navigation block in README = Single source of truth** — Must be distributed to all status files
+2. **Status files = AI prompts** — CHECKS and CONTRIBUTING contain executable instructions
+3. **Read paths from 🤖 block** → Never assume file locations
+4. **5 possible outcomes** → Each triggers different actions
+5. **Checks must pass** before any commit
+6. **Documentation auto-syncs** with reality
+7. **Works on ANY project** → No hardcoded paths
+
+---
+
+**Last updated:** 2026-01-23
+**Version:** 4.1 (Emphasized 🤖 navigation block requirement)
 **Flagship example:** Personal Library MCP (Level 2 project)

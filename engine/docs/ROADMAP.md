@@ -1,6 +1,6 @@
 # Personal Library MCP - Roadmap
 
-## v0.4.0
+## v0.5.0
 
 ### Hygiene
 
@@ -45,6 +45,28 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
 
 ## v0.7.0
 
+### Source Granularity (Deferred from v0.4.0)
+
+⏳ Add page/chapter references to citations (VS Code pill limitation workaround).
+
+**Problem:** VS Code pill validation breaks with URL fragments, blocking clickable navigation.
+
+**Alternative approaches:**
+
+- [ ] Two-link format: `[Book.pdf](path) - See page 42`
+- [ ] Text-only granularity: `[Book.pdf](path) (page 42)`
+- [ ] File VS Code issue requesting fragment support
+- [ ] Research custom extension for citation handling
+- [ ] Extract page numbers during PDF chunking
+- [ ] Extract chapters during EPUB chunking
+- [ ] Update chunks.json schema to v2.0 (add page/chapter fields)
+- [ ] Modify research.py output format
+- [ ] Testing & validation
+
+🗒️ Requires VS Code team response or custom extension development
+
+## v0.8.0
+
 ### FAILED to REPORT
 
 Visibility into indexing health and automatic detection of problems
@@ -61,7 +83,7 @@ Visibility into indexing health and automatic detection of problems
 - [ ] Store metrics in metadata.json
       **Current issue:** Only ~0.7 chunks/book (137 chunks from 197 books). Expected: 100+ chunks/book.
 
-## v0.8.0
+## v0.9.0
 
 ### Granular Error Handling
 
@@ -78,7 +100,7 @@ Implement granular error reporting for MCP research pipeline
 - [ ] On "success but empty" (no results for topic/book), clearly inform user and suggest similar concepts or related topics/books as follow-up
 - [ ] Document all error types and user-facing messages
 
-## v0.9.0
+## v0.10.0
 
 ### Multi-User Support
 
@@ -86,7 +108,7 @@ Add support for multi-user environments (permissions, access control)
 
 - [ ] Permission/access error handling
 
-## v0.10.0
+## v0.11.0
 
 ### Future Ideas
 
