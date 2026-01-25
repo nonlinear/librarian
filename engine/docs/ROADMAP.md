@@ -4,7 +4,7 @@
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
 graph LR
     subgraph "🎯 Ready"
-        V5A[v0.5.0<br/>Index Granularity]
+        V5A[v0.5.0<br/>Smart Indexing]
         V5B[v0.5.1<br/>Hygiene]
         V5C[v0.5.2<br/>User Testing]
     end
@@ -50,32 +50,49 @@ graph LR
 
 ## v0.5.0
 
-### Index Granularity
+### Smart Indexing
 
-⏳ Prepare chunking data for future citation granularity (NO display changes yet).
+⏳ Smarter indexing (delta detection) + deeper metadata (page/chapter).
 
-**Goal:** Add page/chapter metadata to index so it's ready when we solve the VS Code pill limitation.
+**Goal:** Only reindex what changed + capture page/chapter for future navigation.
 
 **What we're building:**
+
+**Delta Indexing (Smarter):**
+
+- [ ] Detect filesystem changes vs metadata.json
+- [ ] Compare book modification timestamps
+- [ ] Only reindex affected topics/books
+- [ ] Update metadata.json with last indexed timestamp
+- [ ] Add `--force` flag to reindex everything
+- [ ] Skip unchanged books (massive time savings)
+
+**Metadata Granularity (Deeper):**
 
 - [ ] Update chunks.json schema to v2.0 (add `page`, `chapter`, `cfi` fields)
 - [ ] PDF chunking: Extract page numbers during indexing
 - [ ] EPUB chunking: Extract chapter/section during indexing
-- [ ] Store metadata in chunks.json (no changes to research.py output yet)
+- [ ] Store metadata in chunks.json
 - [ ] Handle backward compatibility (old chunks without page/chapter)
 - [ ] Add validation: chunks have expected metadata
+
+**User-Visible Output:**
+
+- [ ] Show page/chapter in research.py output (as text, not links)
+- [ ] Format: "Book.pdf (page 42)" or "Book.epub (chapter 3)"
+- [ ] No pills/links yet (VS Code limitation)
+
+**Testing:**
+
+- [ ] Test delta detection accuracy
 - [ ] Test reindexing with new schema
-- [ ] Force reindex all topics with new schema
+- [ ] Validate metadata extraction quality
 
-**NOT included:**
+**Why merge delta + granularity:** Same code area (indexer), one schema upgrade, users get both improvements at once.
 
-- ❌ No changes to citation format (still plain file pills)
-- ❌ No changes to research.py output
-- ❌ No VS Code extension work
+🗒️ Deferred clickable navigation to v0.7.0 (Citation Expression - VS Code limitation)
 
-**Why split from Citation Expression:** Data preparation can happen now, display waits for VS Code solution.
-
-🗒️ Deferred display/navigation to v0.7.0 (Citation Expression)
+**Branch:** `v0.5.0`
 
 ## v0.5.1
 
@@ -242,12 +259,22 @@ Add support for multi-user environments (permissions, access control)
 - [ ] Test with 2+ different project types
 - [ ] Version toolkit (semver for breaking changes)
 
+**Command Syntax:**
+
+- [ ] Implement "global: do this" command routing to .github/ infrastructure
+- [ ] Implement "project: do that" command routing to project-specific code
+- [ ] AI automatically determines scope and routes to proper instruction files
+- [ ] Example: "global: update roadmap" → edits .github/prompts/, "project: reindex" → runs scripts/
+- [ ] Add command parser to distinguish global vs project intent
+- [ ] Document command syntax in CONTRIBUTING.md
+
 **Benefits:**
 
 - ✅ Any project gets instant workflow infrastructure
 - ✅ Improvements propagate to all projects
 - ✅ Project-specific rules stay isolated
 - ✅ Reduces duplication across projects
+- ✅ Clear separation: admin commands vs domain commands
 
 🗒️ This IS the meta-workflow becoming a product
 
