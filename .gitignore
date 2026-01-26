@@ -20,6 +20,5 @@ books/*
 # Failed books log (contains PII)
 engine/docs/FAILED.md
 
-# Watchdog logs (runtime files)
-watchdog.log
-watchdog.error.log
+# Runtime logs (auto-generated)
+engine/logs/*.log

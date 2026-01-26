@@ -130,12 +130,13 @@ python3.11 scripts/indexer.py
 **If two features can be delivered separately, create separate epics.**
 
 Example:
+
 - ✅ Good: `v1.1.0: Hidden Files` + `v1.2.0: User Testing` (separate)
 - ❌ Bad: `v1.1.0: Hygiene + Testing + Docs` (monolithic)
 
 ---
 
-**Last updated:** 2026-01-26  
+**Last updated:** 2026-01-26
 **Version:** 1.1 (Decoupled from global policy)
 
 Each person runs their own instance with their own books. Nothing syncs to GitHub except code/scripts.

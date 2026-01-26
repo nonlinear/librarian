@@ -552,15 +552,15 @@ find . -type d -name "__pycache__" | grep -v "/.venv/\|/venv/"
 ```bash
 # Compare installed vs documented dependencies
 python3.11 -m pip freeze > /tmp/requirements-actual.txt
-diff requirements.txt /tmp/requirements-actual.txt | grep -E "^<|^>" | head -10
+diff engine/requirements.txt /tmp/requirements-actual.txt | grep -E "^<|^>" | head -10
 rm /tmp/requirements-actual.txt
 
 # Check for unused dependencies (manual review)
-# For each line in requirements.txt, grep for import in scripts/
+# For each line in engine/requirements.txt, grep for import in scripts/
 while read -r pkg; do
   pkg_name=$(echo "$pkg" | cut -d'=' -f1 | tr '-' '_' | tr '[:upper:]' '[:lower:]')
   grep -r "import $pkg_name\|from $pkg_name" scripts/ > /dev/null || echo "⚠️  Unused: $pkg"
-done < requirements.txt
+done < engine/requirements.txt
 ```
 
 **Pass criteria:** ✅ Requirements match installed, no obvious unused deps
@@ -619,7 +619,7 @@ echo "📋 Manual check: Test Quick Start commands from README.md"
 git diff main scripts/setup.sh | wc -l
 # If >0, review changes:
 # [ ] setup.sh reflects current dependencies
-# [ ] setup.sh matches requirements.txt
+# [ ] setup.sh matches engine/requirements.txt
 # [ ] setup.sh has correct Python version check
 # [ ] Removed obsolete steps
 ```

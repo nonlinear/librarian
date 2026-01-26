@@ -32,7 +32,7 @@ _Example:_
 python3.11 -c "import llama_index.core; import sentence_transformers"
 ```
 
-Expected: No error, prints nothing.  
+Expected: No error, prints nothing.
 Pass: ✅ Dependencies OK
 
 ---
@@ -129,7 +129,7 @@ grep -r "keyword" MGMT/gaps/epic-notes/
 
 ⏳ Add page/chapter granularity to citations
 
-**Problem:** Citations require manual Ctrl+F  
+**Problem:** Citations require manual Ctrl+F
 **Solution:** PDF `#page=N`, EPUB chapter links
 
 **Tasks:**
@@ -459,6 +459,6 @@ refactor: consolidate folder structure
 
 ---
 
-**Last updated:** 2026-01-26  
-**Version:** 1.0 (Extracted from Librarian project)  
+**Last updated:** 2026-01-26
+**Version:** 1.0 (Extracted from Librarian project)
 **Source:** Elinor Ostrom's polycentric governance principles

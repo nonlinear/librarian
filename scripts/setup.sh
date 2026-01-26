@@ -74,11 +74,11 @@ echo ""
 
 $PYTHON -m pip install --upgrade pip --quiet
 
-if [ -f "requirements.txt" ]; then
-    $PYTHON -m pip install -r requirements.txt --quiet
+if [ -f "engine/requirements.txt" ]; then
+    $PYTHON -m pip install -r engine/requirements.txt --quiet
     echo "✅ All dependencies installed"
 else
-    echo "❌ requirements.txt not found"
+    echo "❌ engine/requirements.txt not found"
     exit 1
 fi
 
