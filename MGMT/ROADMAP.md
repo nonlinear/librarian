@@ -54,20 +54,30 @@ graph LR
 
 ## v1.1.0
 
-[🚧](gaps/epic-notes/v1.1.0.md) **Hygiene**
+[🚧](gaps/epic-notes/v1.1.0.md) **Hygiene + MGMT Generalization**
 
-Repository structure and code hygiene improvements for long-term maintainability. Includes "Tuck In: Hidden Object Files" epic.
+Repository structure improvements and status files system generalization. Combines folder reorganization with MGMT naming/structure.
 
-- [ ] Move all folders except books/ into engine/
-- [ ] Update all scripts, tests, and documentation to use new paths
-- [ ] Ensure all stability checks and workflows pass after refactor
-- [ ] Document migration steps and any breaking changes
-- [ ] Update all scripts and wiring to use hidden filenames (e.g., `.faiss.index`, `.chunks.json`, `.chunks.pkl`)
-- [ ] Ensure all read/write operations support hidden files
-- [ ] Document migration and update instructions
-- [ ] Test for compatibility across OSes
-- [ ] Add stability check for hidden object files
-      🗒️ Previous attempts failed due to path/test breakage—requires careful, coordinated update.
+**Part 1: MGMT System (DONE)**
+- [x] Create MGMT/ folder for all meta-documentation
+- [x] Move engine/docs/* → MGMT/
+- [x] Rename CONTRIBUTING.md → POLICY.md
+- [x] Create POLICY-global.md placeholder
+- [x] Update all navigation blocks
+- [x] Rename prompts (whatsup → MGMT-start, wrap-it-up → MGMT-end)
+- [x] Update all references in prompts
+
+**Part 2: Hidden Object Files (TODO)**
+- [ ] Update scripts to write/read .chunks.json, .faiss.index (hidden)
+- [ ] Test hidden files on macOS
+- [ ] Add migration helper script
+- [ ] Update CHECKS.md for new filenames
+
+**Part 3: Cleanup (TODO)**
+- [ ] Remove old engine/docs/ folder (or keep temporarily)
+- [ ] Test all scripts still work
+- [ ] Update README installation instructions if needed
+- [ ] Document migration steps
 
 ## v1.2.0
 
