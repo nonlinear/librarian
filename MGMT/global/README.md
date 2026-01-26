@@ -14,7 +14,63 @@
 
 MGMT uses a **polycentric structure**—not hierarchical "levels" but **overlapping jurisdictions** where global and project concerns coexist.
 
-**Key principles:**
+### What is Polycentric Governance?
+
+Traditional hierarchical systems assume clear separation: federal → state → local, with each level having distinct authority. **Polycentric systems reject this model.**
+
+Instead, polycentric governance recognizes:
+
+- **Multiple simultaneous centers of authority** operating at different scales
+- **Overlapping jurisdictions** rather than cleanly separated domains
+- **No single hierarchy** - conflicts and negotiations are normal, not bugs
+- **Self-organized innovation** at all scales, not just top-down mandates
+
+**Key insight from Ostrom:** "There is no hierarchy of governments" in effective federal systems. Different arenas (local, regional, national) are **available simultaneously** to citizens, who choose which level to engage based on their needs.
+
+### How MGMT Implements Polycentricity
+
+**Two centers of authority:**
+
+1. **Global MGMT** (universal framework) - Defines workflow patterns, epic syntax, validation rules
+2. **Your project** (local implementation) - Chooses which rules to adopt, when to deviate, how to extend
+
+**Overlapping concerns:**
+
+- Epic format lives in `global/POLICY.md` (universal)
+- Your epic *content* lives in `ROADMAP.md` (project-specific)
+- Project `POLICY.md` can **extend** global rules (e.g., "requires reindexing?" for database projects)
+
+**Self-organized correction:**
+
+- When MGMT updates, YOU decide whether/when to adopt changes
+- No forced upgrades - you evaluate if new patterns fit your context
+- Can stay on older MGMT version if it works better for your project
+
+**Bottom-up participation:**
+
+- Global MGMT improves based on lessons from real projects
+- Your discoveries in `gaps/` inform future MGMT updates
+- Community learns from each other's implementations
+
+### Why This Matters for AI-Assisted Development
+
+Traditional project management assumes **one source of truth** controlled top-down. AI collaboration requires **distributed authority**:
+
+- **AI agent** suggests changes following global MGMT patterns
+- **Human developer** evaluates fit for project context
+- **Both** can be right simultaneously - AI follows framework, human adapts to reality
+
+Ostrom showed that commons (shared resources) thrive under polycentric governance because:
+
+1. **Local knowledge matters** - Your project's constraints aren't in any global rulebook
+2. **Flexibility beats rigidity** - Adapt patterns instead of forcing compliance
+3. **Innovation happens everywhere** - Best practices emerge from experiments, not mandates
+
+**MGMT as commons:** The workflow patterns are shared infrastructure. You benefit from others' discoveries (via MGMT updates) while contributing your own (via gaps documentation). Polycentric structure keeps this sustainable.
+
+---
+
+### Key Principles
 
 1. **Multiple centers of power:** Global MGMT defines framework, projects adapt to context
 2. **Overlapping not separate:** Project POLICY.md **extends** (not replaces) global/POLICY.md
@@ -23,7 +79,7 @@ MGMT uses a **polycentric structure**—not hierarchical "levels" but **overlapp
 
 **Example:** Epic format syntax lives in global/POLICY.md, but Librarian's "requires reindexing?" column lives in project POLICY.md. Both valid simultaneously.
 
-**Why this matters:** Like Ostrom's federalism, MGMT allows "people to function through self-governing institutions among local, regional, and national communities" (Vincent Ostrom)—your project is a self-governing unit that imports shared infrastructure.
+**Further reading:** Elinor Ostrom - "Governing the Commons", Vincent Ostrom - "The Meaning of Federalism"
 
 ---
 
