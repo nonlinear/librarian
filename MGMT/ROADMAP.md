@@ -54,7 +54,7 @@ graph LR
 
 ## v1.1.0
 
-[🚧](gaps/epic-notes/v1.1.0.md) **Hygiene + MGMT Generalization**
+[🚧](epic-notes/v1.1.0.md) **Hygiene + MGMT Generalization**
 
 Repository structure improvements and status files system generalization. Combines folder reorganization with MGMT naming/structure.
 
@@ -63,24 +63,31 @@ Repository structure improvements and status files system generalization. Combin
 - [x] Create MGMT/ folder for all meta-documentation
 - [x] Move engine/docs/\* → MGMT/
 - [x] Rename CONTRIBUTING.md → POLICY.md
-- [x] Create POLICY-global.md placeholder
+- [x] Create global/ subfolder with universal MGMT framework
 - [x] Update all navigation blocks
 - [x] Rename prompts (whatsup → MGMT-start, wrap-it-up → MGMT-end)
-- [x] Update all references in prompts
+- [x] Research and document polycentric governance philosophy
+- [x] Add precedence rules (project overrides global)
 
-**Part 2: Hidden Object Files (TODO)**
+**Part 2: Hidden Object Files (DONE)**
 
-- [ ] Update scripts to write/read .chunks.json, .faiss.index (hidden)
-- [ ] Test hidden files on macOS
-- [ ] Add migration helper script
+- [x] Update all scripts to use hidden filenames (.library-index.json, .chunks.json, .faiss.index, .topic-index.json)
+- [x] Rename existing db files to hidden
+- [x] Update .gitignore to track hidden files
+- [x] Test on macOS (research.py works correctly)
 - [ ] Update CHECKS.md for new filenames
 
-**Part 3: Cleanup (TODO)**
+**Part 3: Repository Cleanup (DONE)**
 
-- [ ] Remove old engine/docs/ folder (or keep temporarily)
-- [ ] Test all scripts still work
-- [ ] Update README installation instructions if needed
-- [ ] Document migration steps
+- [x] Move requirements.txt → engine/requirements.txt
+- [x] Move scripts/ → engine/scripts/
+- [x] Move models/ → engine/models/
+- [x] Create engine/logs/ for runtime logs
+- [x] Fix all path references in 69 files
+- [x] Update README installation instructions
+- [x] Test all scripts work with new paths
+- [x] Delete legacy log files from root
+- [ ] Remove old engine/docs/ folder (duplicate of MGMT/)
 
 ## v1.2.0
 

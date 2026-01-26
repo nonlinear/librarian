@@ -283,5 +283,5 @@ def compute_content_hash(topic_path):
 ---
 
 > 🤖: Part of Epic v0.5.0 Smart Indexing
-> 🤖: See [v0.5.0 epic notes](../gaps/epic-notes/v0.5.0.md) for implementation details
+> 🤖: See [v0.5.0 epic notes](../epic-notes/v0.5.0.md) for implementation details
 > 🤖: See [chunks-v2.0.md](chunks-v2.0.md) for chunk schema changes

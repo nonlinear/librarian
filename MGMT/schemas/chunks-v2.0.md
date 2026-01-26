@@ -122,4 +122,4 @@ for chapter in book.get_items_of_type(ebooklib.ITEM_DOCUMENT):
 ---
 
 > 🤖: Part of Epic v0.5.0 Smart Indexing
-> 🤖: See [v0.5.0 epic notes](../gaps/epic-notes/v0.5.0.md) for implementation details
+> 🤖: See [v0.5.0 epic notes](../epic-notes/v0.5.0.md) for implementation details

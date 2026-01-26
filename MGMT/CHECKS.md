@@ -100,7 +100,7 @@ graph LR
 
 - ✅ Still allowed to push
 - ⚠️ Must document failures in commit message
-- 📝 Track known issues in epic notes (`MGMT/gaps/epic-notes/v0.X.0.md`)
+- 📝 Track known issues in epic notes (`MGMT/epic-notes/v0.X.0.md`)
 - 🎯 Must be fixed before merging to main
 
 **Commit message format when checks fail:**

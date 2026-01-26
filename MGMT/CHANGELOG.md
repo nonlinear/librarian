@@ -83,7 +83,7 @@ graph LR
 
 ## v0.5.0
 
-### ✅ Smart Indexing | [notes](gaps/epic-notes/v0.5.0.md)
+### ✅ Smart Indexing | [notes](epic-notes/v0.5.0.md)
 
 **Completed:** 2026-01-25
 
@@ -157,7 +157,7 @@ Users with large libraries (50+ topics) see massive speedups. Reindexing only ch
 
 ## v0.4.0
 
-### ✅ Epic Workflow Infrastructure | [notes](gaps/epic-notes/v0.4.0.md)
+### ✅ Epic Workflow Infrastructure | [notes](epic-notes/v0.4.0.md)
 
 [commit](https://github.com/nonlinear/librarian/commit/467e8f6)
 
@@ -169,7 +169,7 @@ Epic-based development workflow and VS Code citation limitations discovery.
 
 - [x] Epic workflow documentation (8-step process in CONTRIBUTING.md)
 - [x] Branch naming convention: `v0.X.0` (version only)
-- [x] Epic notes location: `MGMT/gaps/epic-notes/v0.X.0.md`
+- [x] Epic notes location: `MGMT/epic-notes/v0.X.0.md`
 - [x] Two-tier checks policy (soft-fail branches, hard-fail main)
 - [x] Gaps workflow for session documentation
 - [x] ADHD-friendly workflow improvements

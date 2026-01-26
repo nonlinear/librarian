@@ -76,10 +76,10 @@ v0.5-third-feature (feature branch)
 
 ```bash
 # List all epic notes
-ls MGMT/gaps/epic-notes/
+ls MGMT/epic-notes/
 
 # Search for relevant keywords
-grep -r "keyword" MGMT/gaps/epic-notes/
+grep -r "keyword" MGMT/epic-notes/
 ```
 
 **Why epic notes matter:**
@@ -172,13 +172,13 @@ Replace ⏳ with 🚧 and add branch link:
 **Structure (v0.4.0 and earlier):**
 
 ```
-MGMT/gaps/epic-notes/v0.X.0.md  # Single file for all notes
+MGMT/epic-notes/v0.X.0.md  # Single file for all notes
 ```
 
 **Structure (v0.5.0+):**
 
 ```
-MGMT/gaps/epic-notes/v0.X.0/
+MGMT/epic-notes/v0.X.0/
   ├── MAIN.md                      # Primary epic documentation
   ├── specific-finding.md          # Specific finding/experiment
   └── another-finding.md           # Another finding
@@ -187,11 +187,11 @@ MGMT/gaps/epic-notes/v0.X.0/
 Add notes link to ROADMAP on same line as branch:
 
 ```markdown
-### [🚧](branch-link) Source Granularity | [notes](gaps/epic-notes/v0.4.0.md)
+### [🚧](branch-link) Source Granularity | [notes](epic-notes/v0.4.0.md)
 
 # OR for folder structure:
 
-### [🚧](branch-link) Source Granularity | [notes](gaps/epic-notes/v0.4.0/)
+### [🚧](branch-link) Source Granularity | [notes](epic-notes/v0.4.0/)
 ```
 
 **Notes purpose:**
