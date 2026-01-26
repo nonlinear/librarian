@@ -150,7 +150,7 @@ Expected location: /Users/nfrota/Documents/librarian/books/library-index.json
 Possible fixes:
 1. Verify the library exists at the expected path
 2. Update the library path in this prompt's configuration section
-3. Run `bash ./scripts/setup.sh` to set up your environment
+3. Run `bash ./engine/engine/scripts/setup.sh` to set up your environment
 
 I cannot answer research questions without access to your library and a working research pipeline. No general knowledge or fallback answers will be provided.
 ```
@@ -229,13 +229,13 @@ python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/lib
 **Execute the search command (use LIBRARY_PATH from 🚧 2 of 6):**
 
 ```bash
-python3.11 "{LIBRARY_PATH}/scripts/research.py" "{query}" --topic {topic_id} --top-k {k}
+python3.11 "{LIBRARY_PATH}/engine/scripts/research.py" "{query}" --topic {topic_id} --top-k {k}
 ```
 
 **Example:**
 
 ```bash
-python3.11 "/Users/nfrota/Documents/librarian/scripts/research.py" "security risks in contact apps" --topic cybersecurity_applied --top-k 5
+python3.11 "/Users/nfrota/Documents/librarian/engine/scripts/research.py" "security risks in contact apps" --topic cybersecurity_applied --top-k 5
 ```
 
 **Parameters:**
@@ -271,9 +271,9 @@ python3.11 "/Users/nfrota/Documents/librarian/scripts/research.py" "security ris
 
 - Check if Python 3.11+ is installed
 - Verify `library_path` from metadata.json exists
-- Confirm `{library_path}/scripts/research.py` exists
+- Confirm `{library_path}/engine/scripts/research.py` exists
 - Confirm topic exists in `books/metadata.json`
-- Ask user to run setup: `bash {library_path}/scripts/setup.sh`
+- Ask user to run setup: `bash {library_path}/engine/scripts/setup.sh`
 
 ---
 
@@ -390,7 +390,7 @@ python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/per
 "I found multiple cybersecurity topics: applied, history, strategy. Which one?"
 
 **Execution failed:**
-"Could not execute research.py. Verify Python 3.11+ is installed and run `bash ./scripts/setup.sh`"
+"Could not execute research.py. Verify Python 3.11+ is installed and run `bash ./engine/engine/scripts/setup.sh`"
 
 **No results:**
 "No relevant information in `{topic}`. Try different topic or rephrase."
@@ -416,7 +416,7 @@ python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/per
 
 1. Reads metadata → gets `library_path = "/Users/nfrota/Documents/personal library"`
 2. Finds "Molecular Red" in `anthropocene` topic
-3. Executes: `python3.11 /Users/nfrota/Documents/personal\ library/scripts/research.py "what does Bogdanov say about Mars" --topic anthropocene --top-k 5`
+3. Executes: `python3.11 /Users/nfrota/Documents/personal\ library/engine/scripts/research.py "what does Bogdanov say about Mars" --topic anthropocene --top-k 5`
 4. Parses JSON response
 5. Synthesizes answer with citations
 
@@ -443,7 +443,7 @@ Bogdanov envisioned Mars as a socialist utopia 1️⃣ where collective labor tr
 **AI workflow:**
 
 1. Reads metadata → gets `library_path`
-2. Executes: `python3.11 {library_path}/scripts/research.py "spreads for decision-making" --topic tarot --top-k 5`
+2. Executes: `python3.11 {library_path}/engine/scripts/research.py "spreads for decision-making" --topic tarot --top-k 5`
 3. Parses results
 4. Formats answer with citations
 

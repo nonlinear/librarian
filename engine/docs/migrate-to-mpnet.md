@@ -46,7 +46,7 @@ import os
 os.environ['SENTENCE_TRANSFORMERS_HOME'] = 'models'
 print('Downloading all-mpnet-base-v2...')
 model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
-print(f'✅ Model downloaded to models/')
+print(f'✅ Model downloaded to engine/models/')
 print(f'   Dimension: {model.get_sentence_embedding_dimension()}')
 "
 ```
@@ -108,7 +108,7 @@ for topic in metadata['topics']:
     topic_id = topic['id']
     print(f'\n🔄 {topic[\"label\"]}...')
     result = subprocess.run(
-        [sys.executable, 'scripts/reindex_topic.py', topic_id],
+        [sys.executable, 'engine/scripts/reindex_topic.py', topic_id],
         capture_output=True,
         text=True
     )
@@ -125,10 +125,10 @@ print('\n🎉 All topics reindexed!')
 
 ```bash
 # Test with one topic first
-python3.11 scripts/reindex_topic.py AI
+python3.11 engine/engine/scripts/reindex_topic.py AI
 
 # If successful, continue with others
-python3.11 scripts/reindex_topic.py "design system"
+python3.11 engine/engine/scripts/reindex_topic.py "design system"
 # ... etc
 ```
 
@@ -185,7 +185,7 @@ print(f'Model dimension: {model.get_sentence_embedding_dimension()}')
 ### 3. Delete MPNet model (optional)
 
 ```bash
-rm -rf models/models--sentence-transformers--all-mpnet-base-v2
+rm -rf engine/models/models--sentence-transformers--all-mpnet-base-v2
 # Saves ~500MB disk space
 ```
 
@@ -227,15 +227,15 @@ _(Note: Actual results may vary - run your own test)_
 
 ```bash
 # Before migration
-du -sh models/
+du -sh engine/models/
 # ~100MB (just MiniLM)
 
 # After migration
-du -sh models/
+du -sh engine/models/
 # ~600MB (MiniLM + MPNet)
 
 # Delete MiniLM to save space (optional)
-rm -rf models/models--sentence-transformers--all-MiniLM-L6-v2
+rm -rf engine/models/models--sentence-transformers--all-MiniLM-L6-v2
 # Back to ~500MB (just MPNet)
 ```
 
@@ -262,7 +262,7 @@ from pathlib import Path
 with open('books/metadata.json') as f:
     for t in json.load(f)['topics']:
         print(f'\n🔄 {t[\"label\"]}')
-        subprocess.run([sys.executable, 'scripts/reindex_topic.py', t['id']])
+        subprocess.run([sys.executable, 'engine/scripts/reindex_topic.py', t['id']])
 print('\n✅ Done!')
 "
 
@@ -294,7 +294,7 @@ cd "books/AI" && python3.11 -c "import faiss; print('Dim:', faiss.read_index('fa
 
 ### Can I run both models side-by-side?
 
-Yes! Keep both models in `models/`, use different scripts:
+Yes! Keep both models in `engine/models/`, use different scripts:
 
 - `reindex_topic_minilm.py` (384-dim)
 - `reindex_topic_mpnet.py` (768-dim)

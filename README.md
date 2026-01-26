@@ -23,25 +23,20 @@
 
 1. **Clone this repo**
 2. **[Install Python](https://www.python.org/downloads/)**: 3.11 or higher
-3. **Run setup script**: `bash ./scripts/setup.sh`
-   - Installs Python dependencies
-   - Downloads local embedding model (all-MiniLM-L6-v2, ~90MB)
-   - Model saved in `models/` directory (not tracked by git)
+3. **Run setup**: `bash ./engine/engine/scripts/setup.sh`
+   - Installs dependencies
+   - Downloads embedding model: [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) (~130MB, 384-dim)
+   - Saved in `engine/engine/models/` (git-ignored)
 4. **BYOB**: Bring Your Own Books
    - Create folders in `books/` (one per topic)
-   - Add `.epub` and `.pdf` files to each topic folder
-   - Each folder becomes a searchable topic
-   - **Optional:** Organize with subfolders for better grouping
-     - Example: `books/cybersecurity/strategy/` → topic ID `cybersecurity_strategy`
-     - Subfolders create separate topics with underscore naming
-5. **Generate metadata**: `python3.11 scripts/generate_metadata.py`
-   - Scans `books/` folders and creates `books/metadata.json`
-6. **Build indices**: Choose one approach:
-   - **Full index** (all topics): `python3.11 scripts/indexer.py`
-   - **Per-topic** (recommended): `python3.11 scripts/reindex_topic.py <topic-id>`
-   - Indices saved per-topic in `books/<topic>/faiss.index`
-7. **Test (CLI)**: `bash
-python3.11 scripts/research.py "what books discuss AI ethics?" --topic ai`
+   - Add `.epub` and `.pdf` files
+   - **Optional:** Use subfolders for grouping
+     - Example: `books/cybersecurity/strategy/` → `cybersecurity_strategy`
+5. **Generate metadata**: `python3.11 engine/engine/scripts/generate_metadata.py`
+6. **Build indices**:
+   - Full: `python3.11 engine/engine/scripts/indexer.py`
+   - Per-topic: `python3.11 engine/engine/scripts/reindex_topic.py <topic-id>`
+7. **Test**: `python3.11 engine/engine/scripts/research.py "AI ethics?" --topic ai`
 
 ```mermaid
 graph TD
@@ -115,7 +110,7 @@ Librarian MCP is **provider-agnostic**. Use your favorite AI provider:
 
 | AI Provider        | Status                                                                                                                                                        |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Terminal**       | ✅ `python3.11 scripts/research.py "your question" --topic ai`                                                                                                |
+| **Terminal**       | ✅ `python3.11 engine/engine/scripts/research.py "your question" --topic ai`                                                                                                |
 | **VS Code**        | ✅ `bash   code --install-extension https://github.com/nonlinear/librarian/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix` |
 | **Claude Desktop** | 👷 Pending                                                                                                                                                    |
 | **OpenAI API**     | 👷 Pending                                                                                                                                                    |

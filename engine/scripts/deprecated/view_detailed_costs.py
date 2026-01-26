@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Detailed cost report for Literature RAG.
-Triggered by CLI: python3 scripts/view_detailed_costs.py
+Triggered by CLI: python3 engine/scripts/view_detailed_costs.py
 """
 
 import json

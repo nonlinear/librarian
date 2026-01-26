@@ -24,11 +24,11 @@
 
 **Files to modify:**
 
-1. **[reindex_topic.py](../scripts/reindex_topic.py)** (main indexer)
+1. **[reindex_topic.py](../engine/scripts/reindex_topic.py)** (main indexer)
    - Add PDF reader alongside EpubReader
    - Detect file type by extension
 
-2. **[generate_metadata.py](../scripts/generate_metadata.py)** (if it scans files)
+2. **[generate_metadata.py](../engine/scripts/generate_metadata.py)** (if it scans files)
    - Include `.pdf` files in book discovery
 
 ### 3. Implementation Plan
@@ -84,7 +84,7 @@ cp ~/Downloads/test.pdf "books/AI/test.pdf"
 }
 
 # 3. Reindex just that topic
-python3.11 scripts/reindex_topic.py AI
+python3.11 engine/engine/scripts/reindex_topic.py AI
 
 # 4. Verify index was created
 ls -lh "books/AI/faiss.index"
@@ -205,12 +205,12 @@ else:
 
 | File                                                      | Status                | Action Needed                              |
 | --------------------------------------------------------- | --------------------- | ------------------------------------------ |
-| [indexer_faiss.py](../scripts/indexer_faiss.py)           | ⚠️ Has Gemini code    | NOT actively used                          |
-| [mcp_server.py](../scripts/mcp_server.py)                 | ⚠️ Has Gemini code    | NOT actively used (lazy version is active) |
-| [faiss_only_indexer.py](../scripts/faiss_only_indexer.py) | ⚠️ Has Gemini code    | Legacy script                              |
-| [update_delta.py](../scripts/update_delta.py)             | ⚠️ Has Gemini code    | Legacy script                              |
+| [indexer_faiss.py](../engine/scripts/indexer_faiss.py)           | ⚠️ Has Gemini code    | NOT actively used                          |
+| [mcp_server.py](../engine/scripts/mcp_server.py)                 | ⚠️ Has Gemini code    | NOT actively used (lazy version is active) |
+| [faiss_only_indexer.py](../engine/scripts/faiss_only_indexer.py) | ⚠️ Has Gemini code    | Legacy script                              |
+| [update_delta.py](../engine/scripts/update_delta.py)             | ⚠️ Has Gemini code    | Legacy script                              |
 | `.env`                                                    | ❌ No GOOGLE_API_KEY  | ✅ Confirms not in use                     |
-| [scripts/deprecated/](../scripts/deprecated/)             | ⚠️ Old Gemini scripts | Archived (safe to ignore)                  |
+| [engine/scripts/deprecated/](../engine/scripts/deprecated/)             | ⚠️ Old Gemini scripts | Archived (safe to ignore)                  |
 
 **Verdict:** Gemini is **NOT being used** - only exists in legacy/unused scripts.
 
@@ -219,19 +219,19 @@ else:
 1. **Option A: Move to deprecated/** (recommended)
 
    ```bash
-   mv scripts/indexer_faiss.py scripts/deprecated/
-   mv scripts/mcp_server.py scripts/deprecated/
-   mv scripts/faiss_only_indexer.py scripts/deprecated/
-   mv scripts/update_delta.py scripts/deprecated/
+   mv engine/scripts/indexer_faiss.py engine/scripts/deprecated/
+   mv engine/scripts/mcp_server.py engine/scripts/deprecated/
+   mv engine/scripts/faiss_only_indexer.py engine/scripts/deprecated/
+   mv engine/scripts/update_delta.py engine/scripts/deprecated/
    ```
 
 2. **Option B: Delete entirely**
 
    ```bash
-   rm scripts/indexer_faiss.py
-   rm scripts/mcp_server.py
-   rm scripts/faiss_only_indexer.py
-   rm scripts/update_delta.py
+   rm engine/scripts/indexer_faiss.py
+   rm engine/scripts/mcp_server.py
+   rm engine/scripts/faiss_only_indexer.py
+   rm engine/scripts/update_delta.py
    ```
 
 3. **Option C: Keep as reference** (current state)
@@ -244,9 +244,9 @@ else:
 
 | Script                                          | Purpose              | Model Used   |
 | ----------------------------------------------- | -------------------- | ------------ |
-| [mcp_server.py](../scripts/mcp_server.py)       | MCP server (queries) | MiniLM-L6-v2 |
-| [reindex_topic.py](../scripts/reindex_topic.py) | Reindex single topic | MiniLM-L6-v2 |
-| [research.py](../scripts/research.py)           | CLI query tool       | MiniLM-L6-v2 |
+| [mcp_server.py](../engine/scripts/mcp_server.py)       | MCP server (queries) | MiniLM-L6-v2 |
+| [reindex_topic.py](../engine/scripts/reindex_topic.py) | Reindex single topic | MiniLM-L6-v2 |
+| [research.py](../engine/scripts/research.py)           | CLI query tool       | MiniLM-L6-v2 |
 
 **All use:** `sentence-transformers/all-MiniLM-L6-v2` (384-dim, local)
 
@@ -260,12 +260,12 @@ else:
   python3.11 -c "import fitz; print(fitz.__version__)"
   ```
 
-- [ ] **Step 2:** Add PDF reader to [reindex_topic.py](../scripts/reindex_topic.py)
+- [ ] **Step 2:** Add PDF reader to [reindex_topic.py](../engine/scripts/reindex_topic.py)
   - Import `PyMuPDFReader` from llama_index
   - Add file type detection (`.pdf` vs `.epub`)
   - Test with one PDF
 
-- [ ] **Step 3:** Update [generate_metadata.py](../scripts/generate_metadata.py)
+- [ ] **Step 3:** Update [generate_metadata.py](../engine/scripts/generate_metadata.py)
   - Include `.pdf` files in discovery
   - Extract PDF metadata (title, author)
 
@@ -312,6 +312,6 @@ else:
 
 **Want me to implement PDF support now?** I can:
 
-- Update [reindex_topic.py](../scripts/reindex_topic.py)
+- Update [reindex_topic.py](../engine/scripts/reindex_topic.py)
 - Add a test PDF
 - Verify end-to-end workflow

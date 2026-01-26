@@ -4,7 +4,7 @@
 
 set -e
 
-# Get to repo root (parent of scripts/)
+# Get to repo root (parent of engine/scripts/)
 cd "$(dirname "$0")/.."
 
 echo "🔧 Librarian MCP - Setup"
@@ -87,11 +87,11 @@ echo ""
 # Download local embedding model
 echo "📥 Downloading local embedding model..."
 echo "   Model: sentence-transformers/all-MiniLM-L6-v2 (~90MB)"
-echo "   Location: models/ (in project)"
+echo "   Location: engine/models/ (in project)"
 echo ""
 
 mkdir -p models
-$PYTHON -c "import os; os.environ['SENTENCE_TRANSFORMERS_HOME'] = 'models'; from sentence_transformers import SentenceTransformer; model = SentenceTransformer('all-MiniLM-L6-v2'); print('✅ Model downloaded to models/')"
+$PYTHON -c "import os; os.environ['SENTENCE_TRANSFORMERS_HOME'] = 'models'; from sentence_transformers import SentenceTransformer; model = SentenceTransformer('all-MiniLM-L6-v2'); print('✅ Model downloaded to engine/models/')"
 
 echo ""
 echo ""
@@ -99,6 +99,6 @@ echo "🎉 Setup complete!"
 echo ""
 echo "Next steps:"
 echo "  1. Add EPUB/PDF files to books/<topic>/"
-echo "  2. Run: $PYTHON scripts/generate_metadata.py"
-echo "  3. Run: $PYTHON scripts/indexer.py"
+echo "  2. Run: $PYTHON engine/scripts/generate_metadata.py"
+echo "  3. Run: $PYTHON engine/scripts/indexer.py"
 echo ""

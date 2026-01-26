@@ -10,23 +10,23 @@ Main indexing script with delta detection and model selection.
 
 ```bash
 # Smart mode: detect file changes, only reindex affected topics
-python3.11 scripts/index_library.py --smart
+python3.11 engine/engine/scripts/index_library.py --smart
 
 # Index all topics (with hash-based delta detection)
-python3.11 scripts/index_library.py --all
+python3.11 engine/engine/scripts/index_library.py --all
 
 # Index specific topic
-python3.11 scripts/index_library.py --topic "theory/anthropocene"
+python3.11 engine/engine/scripts/index_library.py --topic "theory/anthropocene"
 
 # Force reindex (ignore delta detection)
-python3.11 scripts/index_library.py --all --force
+python3.11 engine/engine/scripts/index_library.py --all --force
 
 # Use different embedding model
-python3.11 scripts/index_library.py --all --model bge      # Better quality, slower
-python3.11 scripts/index_library.py --all --model minilm   # Faster, lightweight
+python3.11 engine/engine/scripts/index_library.py --all --model bge      # Better quality, slower
+python3.11 engine/engine/scripts/index_library.py --all --model minilm   # Faster, lightweight
 
 # Show help
-python3.11 scripts/index_library.py --help
+python3.11 engine/engine/scripts/index_library.py --help
 ```
 
 **Flags:**
@@ -51,13 +51,13 @@ CLI wrapper for querying (used by VS Code extension).
 
 ```bash
 # Search all topics
-python3.11 scripts/research.py "design patterns" --top-k 5
+python3.11 engine/engine/scripts/research.py "design patterns" --top-k 5
 
 # Search specific topic
-python3.11 scripts/research.py "permaculture" --topic "plants" --top-k 3
+python3.11 engine/engine/scripts/research.py "permaculture" --topic "plants" --top-k 3
 
 # List available topics
-python3.11 scripts/research.py --list-topics
+python3.11 engine/engine/scripts/research.py --list-topics
 ```
 
 **Flags:**
@@ -87,7 +87,7 @@ ls -la books/library-index.json
 If missing, run:
 
 ```bash
-python3.11 scripts/index_library.py --all
+python3.11 engine/engine/scripts/index_library.py --all
 ```
 
 ---
@@ -104,7 +104,7 @@ python3.11 scripts/index_library.py --all
 
 ```bash
 # List all indexed topics
-python3.11 scripts/research.py --list-topics
+python3.11 engine/engine/scripts/research.py --list-topics
 
 # Check topic has index files
 ls -la books/<topic>/
@@ -118,7 +118,7 @@ ls -la books/<topic>/
 **Force rebuild:**
 
 ```bash
-python3.11 scripts/index_library.py --topic "<topic>" --force
+python3.11 engine/engine/scripts/index_library.py --topic "<topic>" --force
 ```
 
 ---
@@ -138,9 +138,9 @@ python3.11 scripts/index_library.py --topic "<topic>" --force
 ```bash
 # Kill watch_library.py (Ctrl+C)
 # Manually reindex
-python3.11 scripts/index_library.py --topic "<changed-topic>"
+python3.11 engine/engine/scripts/index_library.py --topic "<changed-topic>"
 # Restart watch
-python3.11 scripts/watch_library.py
+python3.11 engine/engine/scripts/watch_library.py
 ```
 
 ---
@@ -219,7 +219,7 @@ Current: `IndexFlatIP` (inner product, exact search)
 **Migrate:**
 
 ```bash
-python3.11 scripts/migrate_to_v2.py
+python3.11 engine/engine/scripts/migrate_to_v2.py
 ```
 
 **Result:**
@@ -246,7 +246,7 @@ python3.11 scripts/migrate_to_v2.py
     "librarian": {
       // Changed from "personal-library"
       "command": "/opt/homebrew/bin/python3.11",
-      "args": ["/Users/YOUR_USER/Documents/librarian/scripts/mcp_server.py"]
+      "args": ["/Users/YOUR_USER/Documents/librarian/engine/scripts/mcp_server.py"]
     }
   }
 }
@@ -267,8 +267,8 @@ Run before pushing to GitHub:
 cat engine/docs/CHECKS.md
 
 # Quick test
-python3.11 scripts/research.py "test query" --top-k 1
-python3.11 scripts/mcp_server.py  # Should start without errors (Ctrl+C to stop)
+python3.11 engine/engine/scripts/research.py "test query" --top-k 1
+python3.11 engine/engine/scripts/mcp_server.py  # Should start without errors (Ctrl+C to stop)
 ```
 
 ---
@@ -300,7 +300,7 @@ python3.11 scripts/mcp_server.py  # Should start without errors (Ctrl+C to stop)
 
 ### Adding New Scripts
 
-1. Add script to `scripts/`
+1. Add script to `engine/scripts/`
 2. Update [CHECKS.md](CHECKS.md) with test
 3. Add documentation to this file
 4. Update [CHANGELOG.md](CHANGELOG.md)
@@ -321,10 +321,10 @@ logging.basicConfig(level=logging.DEBUG)
 
 ```bash
 # Start server
-python3.11 scripts/mcp_server.py
+python3.11 engine/engine/scripts/mcp_server.py
 
 # In another terminal:
-python3.11 scripts/research.py "your query" --top-k 5
+python3.11 engine/engine/scripts/research.py "your query" --top-k 5
 ```
 
 ---

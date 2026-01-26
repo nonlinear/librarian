@@ -77,7 +77,7 @@ Test repo from the start, change docs or setup to comply.
 
 - [ ] End-to-end repo setup validation
 - [ ] Update documentation for onboarding
-- [ ] Add setup scripts/checks for new users
+- [ ] Add setup engine/scripts/checks for new users
 - [ ] Collect feedback from first-time users
 
 ## v1.3.0
@@ -218,7 +218,7 @@ Add support for multi-user environments (permissions, access control)
 - [ ] Implement "global: do this" command routing to .github/ infrastructure
 - [ ] Implement "project: do that" command routing to project-specific code
 - [ ] AI automatically determines scope and routes to proper instruction files
-- [ ] Example: "global: update roadmap" → edits .github/prompts/, "project: reindex" → runs scripts/
+- [ ] Example: "global: update roadmap" → edits .github/prompts/, "project: reindex" → runs engine/scripts/
 - [ ] Add command parser to distinguish global vs project intent
 - [ ] Document command syntax in CONTRIBUTING.md
 
@@ -257,7 +257,7 @@ Enhancements for later versions
 
 - [x] Sentence Transformers (`all-MiniLM-L6-v2`) ✅ ACTIVE
   - Pros: Free, fast, offline, 384-dim
-  - Model cached in `models/` (90MB)
+  - Model cached in `engine/models/` (90MB)
   - Stable, no crashes
 - [x] Tested `all-mpnet-base-v2` (Jan 18, 2026) ❌ ABANDONED
   - Pros: Better semantic quality (768-dim)

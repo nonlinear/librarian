@@ -54,7 +54,8 @@ def _ensure_imports():
     SentenceTransformer = ST
 
     # Load embedding model (BGE for better quality)
-    os.environ['SENTENCE_TRANSFORMERS_HOME'] = 'models'
+    models_dir = Path(__file__).parent.parent / 'models'
+    os.environ['SENTENCE_TRANSFORMERS_HOME'] = str(models_dir)
     embedding_model = SentenceTransformer('BAAI/bge-small-en-v1.5')
 
     _lazy_imports_loaded = True

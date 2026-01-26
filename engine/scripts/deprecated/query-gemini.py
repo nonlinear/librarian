@@ -3,7 +3,7 @@
 Query the personal library using LlamaIndex + Gemini.
 
 Usage:
-  python3.11 scripts/query.py "what books talk about AI?"
+  python3.11 engine/engine/scripts/query.py "what books talk about AI?"
 """
 
 import json
@@ -39,7 +39,7 @@ def query_library(question: str, top_k: int = 5):
 
     # Load index
     embed_model = GoogleGenAIEmbedding(
-        model_name="models/embedding-001",
+        model_name="engine/models/embedding-001",
         api_key=GOOGLE_API_KEY
     )
 
@@ -84,7 +84,7 @@ def query_library(question: str, top_k: int = 5):
 def main():
     """Main entry point."""
     if len(sys.argv) < 2:
-        print("Usage: python3.11 scripts/query.py \"your question\"")
+        print("Usage: python3.11 engine/engine/scripts/query.py \"your question\"")
         sys.exit(1)
 
     question = " ".join(sys.argv[1:])

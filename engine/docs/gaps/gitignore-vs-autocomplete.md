@@ -150,7 +150,7 @@ books/**/*.epub
 books/**/*.pdf
 
 # Embedding models (large downloads)
-models/
+engine/models/
 ```
 
 **Why this works:**
@@ -275,10 +275,10 @@ cat books/theory/anthropocene/topic-index.json | jq '.books[].title'
 
 ```bash
 # Query by topic (always works)
-python3.11 scripts/research.py "query" --topic anthropocene
+python3.11 engine/engine/scripts/research.py "query" --topic anthropocene
 
 # Query by book (copy/paste filename)
-python3.11 scripts/research.py "query" --book "How forests think.epub"
+python3.11 engine/engine/scripts/research.py "query" --book "How forests think.epub"
 ```
 
 ### Option 4: Attach topic folder instead
@@ -434,7 +434,7 @@ Extension provides custom autocomplete for books, bypassing git index.
    "Search for 'climate adaptation' in the book How Forests Think"
 
 3. Or use CLI directly:
-   python3.11 scripts/research.py "climate" --book "How forests think.epub"
+   python3.11 engine/engine/scripts/research.py "climate" --book "How forests think.epub"
 ```
 
 **Quick reference:**

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Rebuilds RAG index from scratch.
-Triggered by CLI: python3 scripts/rebuild_index.py (interactive, wipes and rebuilds index)
+Triggered by CLI: python3 engine/scripts/rebuild_index.py (interactive, wipes and rebuilds index)
 """
 
 import sys

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Test script for RAG with embeddings.
-Triggered by CLI: python3 scripts/test_gemini_rag.py (indexes a test EPUB and runs a query)
+Triggered by CLI: python3 engine/scripts/test_gemini_rag.py (indexes a test EPUB and runs a query)
 """
 
 import os
@@ -36,10 +36,10 @@ elif USE_GEMINI:
     print("\n🔧 Using Gemini embeddings and LLM (free tier)")
     api_key = os.getenv("GOOGLE_API_KEY")
     embed_model = GeminiEmbedding(
-        model_name="models/embedding-001",
+        model_name="engine/models/embedding-001",
         api_key=api_key
     )
-    llm = Gemini(model_name="models/gemini-pro", api_key=api_key)
+    llm = Gemini(model_name="engine/models/gemini-pro", api_key=api_key)
     Settings.llm = llm
     model_name = "gemini_embedding"
 else:

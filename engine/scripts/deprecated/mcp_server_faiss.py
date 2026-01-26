@@ -149,7 +149,7 @@ def query_library(
 
     # Generate query embedding using Gemini
     result = genai.embed_content(
-        model="models/embedding-001",
+        model="engine/models/embedding-001",
         content=question,
         task_type="retrieval_query"
     )

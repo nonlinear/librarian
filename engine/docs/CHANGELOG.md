@@ -144,7 +144,7 @@ Architecture-first modular indexing with delta detection and target metadata for
 Run migration script to convert v1 metadata to v2:
 
 ```bash
-python3.11 scripts/migrate_to_v2.py
+python3.11 engine/engine/scripts/migrate_to_v2.py
 ```
 
 Backup created automatically at `books/library-index.json.v1.backup`
@@ -268,14 +268,14 @@ fixing subtopics as flat ones
 **Prompt Improvements:**
 
 - Removed MCP-specific tool calls
-- Generic command execution: `python3.11 scripts/research.py "{query}" --topic {topic}`
+- Generic command execution: `python3.11 engine/engine/scripts/research.py "{query}" --topic {topic}`
 - Works with any AI provider: VS Code (run_in_terminal), Claude Desktop (MCP/shell), OpenAI (subprocess), Terminal (manual)
 
 **Files changed:**
 
 **🔧 Migration:**
 
-1. **Regenerate metadata:** `python3.11 scripts/generate_metadata.py` (adds folder_path to all topics)
+1. **Regenerate metadata:** `python3.11 engine/engine/scripts/generate_metadata.py` (adds folder_path to all topics)
 2. No reindexing needed - existing indices work fine
 
 **Example fixes:**
@@ -305,7 +305,7 @@ fixing subtopics as flat ones
 
 **🔧 Migration:**
 
-1. **Reindex required:** Run `python3.11 scripts/indexer.py` to rebuild all indices with proper chunking
+1. **Reindex required:** Run `python3.11 engine/engine/scripts/indexer.py` to rebuild all indices with proper chunking
 2. Takes 5-10 minutes for full library (worth it for 400x improvement!)
 
 **Example improvements:**
@@ -354,11 +354,11 @@ fixing subtopics as flat ones
 **🔧 Migration:**
 
 ```bash
-python3.11 scripts/indexer.py
+python3.11 engine/engine/scripts/indexer.py
 ```
 
 ```bash
-python3.11 scripts/reindex_topic.py <topic-name>
+python3.11 engine/engine/scripts/reindex_topic.py <topic-name>
 ```
 
 **Impact:** Correct indexing for all topic types, dramatically improved search quality
@@ -425,7 +425,7 @@ python3.11 scripts/reindex_topic.py <topic-name>
 - [x] Updated `mcp_server_lazy.py` to handle PDF documents
 - [x] Tested with 4 PDFs in computer vision topic (2460 chunks indexed)
 - ⚠️ MuPDF ICC profile warnings (cosmetic, don't affect indexing)
-- [x] Created `scripts/reindex_all.py`
+- [x] Created `engine/scripts/reindex_all.py`
 - [x] Loads embedding model **once**, reuses for all 23 topics
 - [x] 23× more memory efficient than subprocess approach
 - [x] Prevents Python crashes from repeated model loading
@@ -454,7 +454,7 @@ python3.11 scripts/reindex_topic.py <topic-name>
 **Solution Implemented:** Topic-Based Lazy Loading + Local Embeddings 🎉
 
 - [x] Replaced Gemini (768-dim) → sentence-transformers (384-dim)
-- [x] Model stored in `models/` (90MB, gitignored)
+- [x] Model stored in `engine/models/` (90MB, gitignored)
 - [x] Zero API keys required - fully offline
 - [x] Updated: `indexer.py`, `research.py`, `setup.sh`
 - [x] Removed: `.env` requirement, API key docs
@@ -462,7 +462,7 @@ python3.11 scripts/reindex_topic.py <topic-name>
 - [x] Lazy-loads topics on first query (~2s per topic)
 - [x] Topic caching prevents reload
 
-**🔧 Migration:** Run `python3.11 scripts/indexer.py` to regenerate partitioned storage
+**🔧 Migration:** Run `python3.11 engine/engine/scripts/indexer.py` to regenerate partitioned storage
 
 **Impact:** Mixed EPUB/PDF libraries now supported, 23× more efficient reindexing
 
@@ -474,7 +474,7 @@ python3.11 scripts/reindex_topic.py <topic-name>
 
 **Core infrastructure for Librarian MCP**
 
-- [x] Model cached in `models/` (90MB, not tracked by git)
+- [x] Model cached in `engine/models/` (90MB, not tracked by git)
 - [x] Zero API keys required
 - [x] Fully offline operation
 

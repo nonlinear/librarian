@@ -35,8 +35,8 @@ api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     raise ValueError("GOOGLE_API_KEY not found in .env")
 
-embed_model = GeminiEmbedding(model_name="models/embedding-001", api_key=api_key)
-llm = GoogleGenAI(model="models/gemini-2.5-flash", api_key=api_key)
+embed_model = GeminiEmbedding(model_name="engine/models/embedding-001", api_key=api_key)
+llm = GoogleGenAI(model="engine/models/gemini-2.5-flash", api_key=api_key)
 Settings.embed_model = embed_model
 Settings.llm = llm
 

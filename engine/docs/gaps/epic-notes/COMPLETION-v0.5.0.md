@@ -53,13 +53,13 @@
 
 **Created:**
 
-- `scripts/migrate_to_v2.py` - Migrate v1.0 → v2.0 structure
-- `scripts/indexer_v2.py` - Per-topic indexing with delta detection
-- `scripts/watch_library.py` - Filesystem watcher with auto-reindex
+- `engine/scripts/migrate_to_v2.py` - Migrate v1.0 → v2.0 structure
+- `engine/scripts/indexer_v2.py` - Per-topic indexing with delta detection
+- `engine/scripts/watch_library.py` - Filesystem watcher with auto-reindex
 
 **Updated:**
 
-- `scripts/research.py` - v2.0 compatibility + --book filter
+- `engine/scripts/research.py` - v2.0 compatibility + --book filter
 - `engine/docs/FAILED.md` - Track topics instead of individual books
 - `engine/docs/schemas/chunks-v2.0.md` - NEW schema documentation
 - `engine/docs/schemas/metadata-v2.0.md` - NEW architecture documentation

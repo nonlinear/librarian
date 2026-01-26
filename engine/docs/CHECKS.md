@@ -253,9 +253,9 @@ For each of the following sample queries (using real topics/books from metadata.
 
 ```bash
 # Test 1: Research pipeline returns valid results for real topics
-python3.11 scripts/research.py "What is the main argument?" --topic ai_policy --top-k 1
-python3.11 scripts/research.py "Who is Martin Ford?" --topic ai_prompt_engineering --top-k 1
-python3.11 scripts/research.py "What is UX in AI?" --topic ai_theory --top-k 1
+python3.11 engine/engine/scripts/research.py "What is the main argument?" --topic ai_policy --top-k 1
+python3.11 engine/engine/scripts/research.py "Who is Martin Ford?" --topic ai_prompt_engineering --top-k 1
+python3.11 engine/engine/scripts/research.py "What is UX in AI?" --topic ai_theory --top-k 1
 ```
 
 **Expected:** Each command returns a valid JSON object with at least one result (results[].text is non-empty).
@@ -270,17 +270,17 @@ If any query fails, MCP is considered broken for its primary use case.
 
 ```bash
 # Test: Reindex single topic (v0.5.0+)
-python3.11 scripts/indexer_v2.py --topic theory/anthropocene
+python3.11 engine/engine/scripts/indexer_v2.py --topic theory/anthropocene
 # Expected: Creates/updates topic-index.json, chunks.json, faiss.index in topic folder
 # Expected: Shows delta detection (hash comparison)
 # Expected: No crashes, completes successfully
 
 # Test: Force reindex (skip delta detection)
-python3.11 scripts/indexer_v2.py --topic theory/anthropocene --force
+python3.11 engine/engine/scripts/indexer_v2.py --topic theory/anthropocene --force
 # Expected: Rebuilds index even if unchanged
 
 # Test: Reindex all topics
-python3.11 scripts/indexer_v2.py --all
+python3.11 engine/engine/scripts/indexer_v2.py --all
 # Expected: Processes all topics with delta detection
 ```
 
@@ -294,7 +294,7 @@ python3.11 scripts/indexer_v2.py --all
 
 ```bash
 # Test: MCP server starts and loads metadata
-timeout 5 python3.11 scripts/mcp_server.py 2>&1 | grep -E "Ready|Loaded metadata" | head -5
+timeout 5 python3.11 engine/engine/scripts/mcp_server.py 2>&1 | grep -E "Ready|Loaded metadata" | head -5
 # Expected: Server starts, loads library-index.json (or metadata.json fallback), shows topic count
 # Expected: No import errors, no missing file errors
 ```
@@ -309,7 +309,7 @@ timeout 5 python3.11 scripts/mcp_server.py 2>&1 | grep -E "Ready|Loaded metadata
 
 ```bash
 # Test: watch_library.py monitors file changes
-python3.11 scripts/watch_library.py --dry-run
+python3.11 engine/engine/scripts/watch_library.py --dry-run
 # Expected: Scans books/ directory, detects structure, no crashes
 # Expected: Shows topics and books being watched
 ```
@@ -369,7 +369,7 @@ else:
 "
 
 # Test 6c: Run indexer to verify (v0.5.0+ happy path)
-python3.11 scripts/indexer_v2.py --all 2>&1 | grep -E "✅|⚠️" | head -10
+python3.11 engine/engine/scripts/indexer_v2.py --all 2>&1 | grep -E "✅|⚠️" | head -10
 # Expected: All topics process successfully, delta detection works
 ```
 
@@ -406,7 +406,7 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 
 ```bash
 # Test 8: Monitor memory during reindex (optional, for large libraries)
-/usr/bin/time -l python3.11 scripts/indexer_v2.py --topic AI/policy 2>&1 | grep "maximum resident set size"
+/usr/bin/time -l python3.11 engine/engine/scripts/indexer_v2.py --topic AI/policy 2>&1 | grep "maximum resident set size"
 # Expected: <2GB for most topics
 ```
 
@@ -421,19 +421,19 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 ### Issue 1: Model not downloaded
 
 **Symptom:** `ModuleNotFoundError: No module named 'sentence_transformers'`
-**Fix:** Run `bash scripts/setup.sh`
+**Fix:** Run `bash engine/engine/scripts/setup.sh`
 **Test:** `python3.11 -c "import sentence_transformers"`
 
 ### Issue 2: Missing library-index.json (v2.0)
 
 **Symptom:** MCP server starts but can't find books
-**Fix:** Run `python3.11 scripts/indexer_v2.py --all` (generates library-index.json + indexes)
+**Fix:** Run `python3.11 engine/engine/scripts/indexer_v2.py --all` (generates library-index.json + indexes)
 **Test:** `cat books/library-index.json | jq .`
 
 ### Issue 3: Corrupted index
 
 **Symptom:** Query returns no results or crashes
-**Fix:** Reindex affected topic: `python3.11 scripts/indexer_v2.py --topic <topic-path> --force`
+**Fix:** Reindex affected topic: `python3.11 engine/engine/scripts/indexer_v2.py --topic <topic-path> --force`
 **Test:** Query after reindex
 
 **Note:** v0.5.0+ use `--force` flag to skip delta detection and force rebuild
@@ -442,12 +442,12 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 
 **Symptom:** Segfault during reindexing with `all-mpnet-base-v2`
 **Fix:** Use `all-MiniLM-L6-v2` (current default since v0.5.0)
-**Test:** Check `scripts/indexer_v2.py` for model name
+**Test:** Check `engine/scripts/indexer_v2.py` for model name
 
 ### Issue 5: Migration from v1 to v2 schema
 
 **Symptom:** `metadata.json` exists but `library-index.json` missing
-**Fix:** Run `python3.11 scripts/migrate_to_v2.py`
+**Fix:** Run `python3.11 engine/engine/scripts/migrate_to_v2.py`
 **Test:** Check `books/library-index.json` exists, backup created at `books/library-index.json.v1.backup`
 
 ---
@@ -472,17 +472,17 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 
 ```bash
 # Startup time
-time python3.11 scripts/mcp_server.py &
+time python3.11 engine/engine/scripts/mcp_server.py &
 # Ctrl+C after "ready" message
 
 # Query time
-time python3.11 scripts/query.py "test query"
+time python3.11 engine/engine/scripts/query.py "test query"
 
 # Reindex time (v0.5.0+)
-time python3.11 scripts/indexer_v2.py --topic AI/policy
+time python3.11 engine/engine/scripts/indexer_v2.py --topic AI/policy
 
 # Delta reindex time (no changes)
-time python3.11 scripts/indexer_v2.py --all  # Should skip unchanged topics
+time python3.11 engine/engine/scripts/indexer_v2.py --all  # Should skip unchanged topics
 ```
 
 ---
@@ -495,11 +495,11 @@ time python3.11 scripts/indexer_v2.py --all  # Should skip unchanged topics
 
 ```bash
 # Check for debug print statements
-grep -r "print(" scripts/ --exclude-dir=deprecated | grep -v "#" | grep -v "def print"
+grep -r "print(" engine/scripts/ --exclude-dir=deprecated | grep -v "#" | grep -v "def print"
 # Expected: Only intentional logging, no debug prints
 
 # Check for commented-out code blocks
-grep -r "# .*def \|# .*class \|# .*import " scripts/ --exclude-dir=deprecated | wc -l
+grep -r "# .*def \|# .*class \|# .*import " engine/scripts/ --exclude-dir=deprecated | wc -l
 # Expected: 0 or only intentional comments
 ```
 
@@ -511,11 +511,11 @@ grep -r "# .*def \|# .*class \|# .*import " scripts/ --exclude-dir=deprecated | 
 
 ```bash
 # Check for hardcoded paths
-grep -r "/Users/\|C:\\\\\|/home/" scripts/ --exclude-dir=deprecated
+grep -r "/Users/\|C:\\\\\|/home/" engine/scripts/ --exclude-dir=deprecated
 # Expected: Empty (use relative paths)
 
 # Check for API keys in code
-grep -ri "api_key\|apikey\|secret\|password" scripts/ --exclude-dir=deprecated | grep -v "GOOGLE_API_KEY" | grep -v "# "
+grep -ri "api_key\|apikey\|secret\|password" engine/scripts/ --exclude-dir=deprecated | grep -v "GOOGLE_API_KEY" | grep -v "# "
 # Expected: Only environment variable references
 
 # Verify .gitignore coverage
@@ -531,11 +531,11 @@ cat .gitignore | grep -q "storage/" && echo "✅ storage/ ignored" || echo "⚠�
 
 ```bash
 # Check for duplicate scripts
-find scripts/ -name "*_old.py" -o -name "*_backup.py" -o -name "*_new.py"
+find engine/scripts/ -name "*_old.py" -o -name "*_backup.py" -o -name "*_new.py"
 # Expected: Empty (move to deprecated/ with timestamp)
 
 # Verify deprecated files have timestamps
-ls -la scripts/deprecated/ | grep -v "^d" | awk '{print $9}' | grep -v "2024\|2025\|2026"
+ls -la engine/scripts/deprecated/ | grep -v "^d" | awk '{print $9}' | grep -v "2024\|2025\|2026"
 # Expected: All deprecated files have date in name
 
 # Check for orphaned __pycache__
@@ -556,10 +556,10 @@ diff requirements.txt /tmp/requirements-actual.txt | grep -E "^<|^>" | head -10
 rm /tmp/requirements-actual.txt
 
 # Check for unused dependencies (manual review)
-# For each line in requirements.txt, grep for import in scripts/
+# For each line in requirements.txt, grep for import in engine/scripts/
 while read -r pkg; do
   pkg_name=$(echo "$pkg" | cut -d'=' -f1 | tr '-' '_' | tr '[:upper:]' '[:lower:]')
-  grep -r "import $pkg_name\|from $pkg_name" scripts/ > /dev/null || echo "⚠️  Unused: $pkg"
+  grep -r "import $pkg_name\|from $pkg_name" engine/scripts/ > /dev/null || echo "⚠️  Unused: $pkg"
 done < requirements.txt
 ```
 
@@ -571,7 +571,7 @@ done < requirements.txt
 
 ```bash
 # Check for missing docstrings in new scripts
-for file in scripts/*.py; do
+for file in engine/scripts/*.py; do
   if ! head -20 "$file" | grep -q '"""'; then
     echo "⚠️  Missing docstring: $file"
   fi
@@ -601,8 +601,8 @@ grep -q "$PY_VERSION" README.md && echo "✅ Python version documented" || echo 
 # Check if Technology Stack table needs update
 # (Manual review - compare README section with actual implementation)
 echo "📋 Manual check: Review Technology Stack table in README.md"
-echo "   - Embedding model: $(grep 'all-' scripts/indexer_v2.py | head -1)"
-echo "   - Vector store: $(grep -E 'faiss|llama_index|chromadb' scripts/indexer_v2.py | head -1)"
+echo "   - Embedding model: $(grep 'all-' engine/scripts/indexer_v2.py | head -1)"
+echo "   - Vector store: $(grep -E 'faiss|llama_index|chromadb' engine/scripts/indexer_v2.py | head -1)"
 
 # Verify Quick Start commands are accurate
 echo "📋 Manual check: Test Quick Start commands from README.md"
@@ -616,7 +616,7 @@ echo "📋 Manual check: Test Quick Start commands from README.md"
 
 ```bash
 # Compare committed vs current setup.sh
-git diff main scripts/setup.sh | wc -l
+git diff main engine/scripts/setup.sh | wc -l
 # If >0, review changes:
 # [ ] setup.sh reflects current dependencies
 # [ ] setup.sh matches requirements.txt
@@ -702,7 +702,7 @@ git diff main scripts/setup.sh | wc -l
 
 ```bash
 #!/bin/bash
-# File: scripts/pre-push-check.sh
+# File: engine/scripts/pre-push-check.sh
 
 set -e  # Exit on error
 
@@ -720,20 +720,20 @@ echo ""
 # 2. File structure (v2.0)
 echo "📂 2. Checking file structure..."
 test -f books/library-index.json || { echo "❌ books/library-index.json missing - run indexer_v2.py --all or migrate_to_v2.py"; exit 1; }
-test -d models/ || { echo "❌ models/ missing - run setup.sh"; exit 1; }
+test -d engine/models/ || { echo "❌ engine/models/ missing - run setup.sh"; exit 1; }
 ls books/*/topic-index.json >/dev/null 2>&1 || { echo "⚠️  No topic indices - run indexer_v2.py --all"; }
 echo "✅ File structure OK"
 echo ""
 
 # 3. MCP server startup
 echo "🚀 3. Testing MCP server startup..."
-timeout 3 python3.11 scripts/mcp_server.py 2>&1 | grep -q "Librarian MCP Server" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
+timeout 3 python3.11 engine/engine/scripts/mcp_server.py 2>&1 | grep -q "Librarian MCP Server" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
 echo ""
 
 # 4. Quick query test (if query.py exists)
-if [ -f scripts/query.py ]; then
+if [ -f engine/scripts/query.py ]; then
     echo "🔍 4. Testing query functionality..."
-    python3.11 scripts/query.py "test" > /dev/null 2>&1 && echo "✅ Query works" || echo "⚠️  Query test failed (check manually)"
+    python3.11 engine/engine/scripts/query.py "test" > /dev/null 2>&1 && echo "✅ Query works" || echo "⚠️  Query test failed (check manually)"
     echo ""
 fi
 
@@ -767,6 +767,6 @@ fi
 **Make executable:**
 
 ```bash
-chmod +x scripts/pre-push-check.sh
+chmod +x engine/scripts/pre-push-check.sh
 ```
 ````

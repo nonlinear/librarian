@@ -30,7 +30,7 @@ MCP servers can be configured at two levels:
     "librarian": {
       "command": "/opt/homebrew/bin/python3.11",
       "args": [
-        "/Users/nfrota/Documents/personal library/scripts/mcp_server.py"
+        "/Users/nfrota/Documents/personal library/engine/scripts/mcp_server.py"
       ],
       "description": "Personal book library RAG",
       "enabled": true
@@ -97,7 +97,7 @@ Or delete the entire "literature" entry.
 
 ```bash
 # Start MCP manually
-python3.11 scripts/mcp_server.py
+python3.11 engine/engine/scripts/mcp_server.py
 ```
 
 Should show:
@@ -125,7 +125,7 @@ Should return available tools.
 
 - MCP script crashed
 - Check logs: Look for Python errors in MCP Servers view
-- Run manually to see error: `python3.11 scripts/mcp_server.py`
+- Run manually to see error: `python3.11 engine/engine/scripts/mcp_server.py`
 
 **"MCP not connected"**
 
@@ -136,7 +136,7 @@ Should return available tools.
 **"Cannot find module"**
 
 - Missing dependencies
-- Run: `./scripts/setup.sh`
+- Run: `./engine/scripts/setup.sh`
 - Verify: `python3.11 -c "import faiss; import sentence_transformers"`
 
 **Path issues:**

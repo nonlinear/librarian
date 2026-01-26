@@ -10,4 +10,4 @@ echo "🚀 Starting Librarian Watchdog at $(date)" >> engine/logs/watchdog.log
 echo "===========================================" >> engine/logs/watchdog.log
 
 # -u forces unbuffered output so logs appear immediately
-/opt/homebrew/bin/python3.11 -u scripts/watch_library.py >> engine/logs/watchdog.log 2>> engine/logs/watchdog.error.log
+/opt/homebrew/bin/python3.11 -u engine/scripts/watch_library.py >> engine/logs/watchdog.log 2>> engine/logs/watchdog.error.log

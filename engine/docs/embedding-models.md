@@ -7,25 +7,25 @@
 - **Dimension:** 384 (verified in indices)
 - **Type:** Local (runs on your machine)
 - **Cost:** Free
-- **Location:** `/models/models--sentence-transformers--all-MiniLM-L6-v2/`
+- **Location:** `/engine/models/models--sentence-transformers--all-MiniLM-L6-v2/`
 - **Index storage:** Per-topic in `books/*/faiss.index`
 
 ### What Uses What
 
 | Script/Process                                      | Embedding Model | Status               |
 | --------------------------------------------------- | --------------- | -------------------- |
-| **[mcp_server.py](../scripts/mcp_server.py)**       | MiniLM-L6-v2    | ✅ Active (queries)  |
-| **[reindex_topic.py](../scripts/reindex_topic.py)** | MiniLM-L6-v2    | ✅ Active (indexing) |
-| **[indexer_faiss.py](../scripts/indexer_faiss.py)** | Gemini 768-dim  | ⚠️ NOT in use        |
+| **[mcp_server.py](../engine/scripts/mcp_server.py)**       | MiniLM-L6-v2    | ✅ Active (queries)  |
+| **[reindex_topic.py](../engine/scripts/reindex_topic.py)** | MiniLM-L6-v2    | ✅ Active (indexing) |
+| **[indexer_faiss.py](../engine/scripts/indexer_faiss.py)** | Gemini 768-dim  | ⚠️ NOT in use        |
 
 **Current indices:** All are 384-dim (MiniLM), so you're already fully local! ✅
 
 ### Can You Phase Out Gemini Completely?
 
-**You already have!** Your active indices are 384-dim (local model). The Gemini-based [indexer_faiss.py](../scripts/indexer_faiss.py) exists but isn't being used. You can either:
+**You already have!** Your active indices are 384-dim (local model). The Gemini-based [indexer_faiss.py](../engine/scripts/indexer_faiss.py) exists but isn't being used. You can either:
 
 1. **Keep it as-is** (Gemini code dormant, no API calls)
-2. **Update it to match** [reindex_topic.py](../scripts/reindex_topic.py) (optional cleanup)
+2. **Update it to match** [reindex_topic.py](../engine/scripts/reindex_topic.py) (optional cleanup)
 3. **Remove GOOGLE_API_KEY** from `.env` to verify nothing breaks
 
 ---
@@ -202,16 +202,16 @@ _Benchmark corpus: 35 books, 11,764 chunks on M3_
 
 **Scripts with Gemini imports (NOT actively used):**
 
-- [indexer_faiss.py](../scripts/indexer_faiss.py) - Legacy full indexer
-- [mcp_server.py](../scripts/mcp_server.py) - Old MCP server
-- [faiss_only_indexer.py](../scripts/faiss_only_indexer.py) - Legacy
-- [update_delta.py](../scripts/update_delta.py) - Legacy
+- [indexer_faiss.py](../engine/scripts/indexer_faiss.py) - Legacy full indexer
+- [mcp_server.py](../engine/scripts/mcp_server.py) - Old MCP server
+- [faiss_only_indexer.py](../engine/scripts/faiss_only_indexer.py) - Legacy
+- [update_delta.py](../engine/scripts/update_delta.py) - Legacy
 
 **Active scripts (local only):**
 
-- [mcp_server.py](../scripts/mcp_server.py) ✅
-- [reindex_topic.py](../scripts/reindex_topic.py) ✅
-- [research.py](../scripts/research.py) ✅
+- [mcp_server.py](../engine/scripts/mcp_server.py) ✅
+- [reindex_topic.py](../engine/scripts/reindex_topic.py) ✅
+- [research.py](../engine/scripts/research.py) ✅
 
 **Verification:**
 
@@ -230,10 +230,10 @@ grep GOOGLE_API_KEY .env
 Move legacy scripts to deprecated:
 
 ```bash
-mv scripts/indexer_faiss.py scripts/deprecated/
-mv scripts/mcp_server.py scripts/deprecated/
-mv scripts/faiss_only_indexer.py scripts/deprecated/
-mv scripts/update_delta.py scripts/deprecated/
+mv engine/scripts/indexer_faiss.py engine/scripts/deprecated/
+mv engine/scripts/mcp_server.py engine/scripts/deprecated/
+mv engine/scripts/faiss_only_indexer.py engine/scripts/deprecated/
+mv engine/scripts/update_delta.py engine/scripts/deprecated/
 ```
 
 ---

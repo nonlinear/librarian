@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Reindex a single topic (for auto-recovery when indices are missing)
-Usage: python3.11 scripts/reindex_topic.py <topic_id>
+Usage: python3.11 engine/engine/scripts/reindex_topic.py <topic_id>
 """
 
 import sys
@@ -150,7 +150,7 @@ def reindex_topic(topic_id: str):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3.11 scripts/reindex_topic.py <topic_id>")
+        print("Usage: python3.11 engine/engine/scripts/reindex_topic.py <topic_id>")
         sys.exit(1)
 
     topic_id = sys.argv[1]

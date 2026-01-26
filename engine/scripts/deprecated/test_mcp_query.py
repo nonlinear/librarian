@@ -20,7 +20,7 @@ query = {
 # Start MCP server as subprocess and send query
 proc = subprocess.Popen([
     "/opt/homebrew/bin/python3.11",
-    "/Users/nfrota/Documents/literature/scripts/literature_mcp_server.py"
+    "/Users/nfrota/Documents/literature/engine/scripts/literature_mcp_server.py"
 ], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 # Send query

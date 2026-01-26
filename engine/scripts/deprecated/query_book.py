@@ -29,7 +29,7 @@ def is_mcp_server_running():
 def start_mcp_server():
     subprocess.Popen([
         '/opt/homebrew/bin/python3.11',
-        '/Users/nfrota/Documents/literature/scripts/literature_mcp_server.py'
+        '/Users/nfrota/Documents/literature/engine/scripts/literature_mcp_server.py'
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 # Ensure MCP server is running before query
@@ -59,10 +59,10 @@ def setup_models():
 
         api_key = os.getenv("GOOGLE_API_KEY")
         embed_model = GoogleGenAIEmbedding(
-            model_name="models/embedding-001",
+            model_name="engine/models/embedding-001",
             api_key=api_key,
         )
-        llm = GoogleGenAI(model="models/gemini-2.5-flash", api_key=api_key)
+        llm = GoogleGenAI(model="engine/models/gemini-2.5-flash", api_key=api_key)
         Settings.embed_model = embed_model
         Settings.llm = llm
         return "gemini"

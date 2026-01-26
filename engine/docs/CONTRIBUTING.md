@@ -173,7 +173,7 @@ books/**/*.epub
 books/**/*.pkl
 books/**/*.index
 books/metadata.json
-models/
+engine/models/
 ```
 
 **Why:** Keeps your library private + enables autocomplete for book links. See [gaps/epic-notes/v0.4.0.md](gaps/epic-notes/v0.4.0.md#autocomplete-investigation) for technical details.
@@ -182,10 +182,10 @@ models/
 
 ```bash
 # Organize books from Downloads
-python3.11 .github/scripts/organize_books.py
+python3.11 .github/engine/scripts/organize_books.py
 
 # Generate metadata + indices
-python3.11 scripts/indexer.py
+python3.11 engine/engine/scripts/indexer.py
 ```
 
 ---

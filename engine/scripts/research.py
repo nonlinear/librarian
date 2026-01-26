@@ -20,7 +20,7 @@ BOOKS_DIR = PROJECT_DIR / "books"
 MODELS_DIR = PROJECT_DIR / "models"
 METADATA_FILE = BOOKS_DIR / "library-index.json"
 
-# Set model cache to local models/ directory
+# Set model cache to local engine/models/ directory
 os.environ['SENTENCE_TRANSFORMERS_HOME'] = str(MODELS_DIR)
 
 # Load local embedding model (384-dim)
