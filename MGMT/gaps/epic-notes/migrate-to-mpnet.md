@@ -125,10 +125,10 @@ print('\n🎉 All topics reindexed!')
 
 ```bash
 # Test with one topic first
-python3.11 engine/engine/scripts/reindex_topic.py AI
+python3.11 engine/scripts/reindex_topic.py AI
 
 # If successful, continue with others
-python3.11 engine/engine/scripts/reindex_topic.py "design system"
+python3.11 engine/scripts/reindex_topic.py "design system"
 # ... etc
 ```
 

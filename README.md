@@ -23,20 +23,20 @@
 
 1. **Clone this repo**
 2. **[Install Python](https://www.python.org/downloads/)**: 3.11 or higher
-3. **Run setup**: `bash ./engine/engine/scripts/setup.sh`
+3. **Run setup**: `bash ./engine/scripts/setup.sh`
    - Installs dependencies
    - Downloads embedding model: [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5) (~130MB, 384-dim)
-   - Saved in `engine/engine/models/` (git-ignored)
+   - Saved in `engine/models/` (git-ignored)
 4. **BYOB**: Bring Your Own Books
    - Create folders in `books/` (one per topic)
    - Add `.epub` and `.pdf` files
    - **Optional:** Use subfolders for grouping
      - Example: `books/cybersecurity/strategy/` → `cybersecurity_strategy`
-5. **Generate metadata**: `python3.11 engine/engine/scripts/generate_metadata.py`
+5. **Generate metadata**: `python3.11 engine/scripts/generate_metadata.py`
 6. **Build indices**:
-   - Full: `python3.11 engine/engine/scripts/indexer.py`
-   - Per-topic: `python3.11 engine/engine/scripts/reindex_topic.py <topic-id>`
-7. **Test**: `python3.11 engine/engine/scripts/research.py "AI ethics?" --topic ai`
+   - Full: `python3.11 engine/scripts/indexer.py`
+   - Per-topic: `python3.11 engine/scripts/reindex_topic.py <topic-id>`
+7. **Test**: `python3.11 engine/scripts/research.py "AI ethics?" --topic ai`
 
 ```mermaid
 graph TD
@@ -110,7 +110,7 @@ Librarian MCP is **provider-agnostic**. Use your favorite AI provider:
 
 | AI Provider        | Status                                                                                                                                                        |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Terminal**       | ✅ `python3.11 engine/engine/scripts/research.py "your question" --topic ai`                                                                                                |
+| **Terminal**       | ✅ `python3.11 engine/scripts/research.py "your question" --topic ai`                                                                                                |
 | **VS Code**        | ✅ `bash   code --install-extension https://github.com/nonlinear/librarian/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix` |
 | **Claude Desktop** | 👷 Pending                                                                                                                                                    |
 | **OpenAI API**     | 👷 Pending                                                                                                                                                    |

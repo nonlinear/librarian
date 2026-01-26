@@ -105,7 +105,7 @@ engine/models/
 python3.11 .github/engine/scripts/organize_books.py
 
 # Generate metadata + indices
-python3.11 engine/engine/scripts/indexer.py
+python3.11 engine/scripts/indexer.py
 ```
 
 ---
@@ -173,7 +173,7 @@ engine/models/
 python3.11 .github/engine/scripts/organize_books.py
 
 # Generate metadata + indices
-python3.11 engine/engine/scripts/indexer.py
+python3.11 engine/scripts/indexer.py
 ```
 
 ---
@@ -212,10 +212,10 @@ v0.5-automation (feature branch)
 
 ```bash
 # List all epic notes
-ls engine/docs/gaps/epic-notes/
+ls MGMT/gaps/epic-notes/
 
 # Search for relevant keywords
-grep -r "keyword" engine/docs/gaps/epic-notes/
+grep -r "keyword" MGMT/gaps/epic-notes/
 ```
 
 **Why epic notes matter:**
@@ -310,13 +310,13 @@ Replace ⏳ with 🚧 and add branch link:
 **Structure (v0.4.0 and earlier):**
 
 ```
-engine/docs/gaps/epic-notes/v0.X.0.md  # Single file for all notes
+MGMT/gaps/epic-notes/v0.X.0.md  # Single file for all notes
 ```
 
 **Structure (v0.5.0+):**
 
 ```
-engine/docs/gaps/epic-notes/v0.X.0/
+MGMT/gaps/epic-notes/v0.X.0/
   ├── MAIN.md                      # Primary epic documentation
   ├── pill-validation.md           # Specific finding/experiment
   └── autocomplete-fix.md          # Another finding
@@ -351,7 +351,7 @@ Add notes link to ROADMAP on same line as branch:
 
 ```bash
 git checkout main
-git add engine/docs/ROADMAP.md  # Updated with links
+git add MGMT/ROADMAP.md  # Updated with links
 git commit -m "docs: add v0.X.0 epic to roadmap"
 git push origin main
 ```
@@ -399,7 +399,7 @@ git push --force-with-lease origin v0.X.0
    ```
 
    **The `/whatsup` workflow will:**
-   - ✅ Run all CHECKS (see engine/docs/CHECKS.md)
+   - ✅ Run all CHECKS (see MGMT/CHECKS.md)
    - ✅ Update ROADMAP (mark completed checkboxes)
    - ✅ Move epic to CHANGELOG (if complete)
    - ✅ Bump version number (semantic versioning)

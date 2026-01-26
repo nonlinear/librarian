@@ -144,7 +144,7 @@ Architecture-first modular indexing with delta detection and target metadata for
 Run migration script to convert v1 metadata to v2:
 
 ```bash
-python3.11 engine/engine/scripts/migrate_to_v2.py
+python3.11 engine/scripts/migrate_to_v2.py
 ```
 
 Backup created automatically at `books/library-index.json.v1.backup`
@@ -169,7 +169,7 @@ Epic-based development workflow and VS Code citation limitations discovery.
 
 - [x] Epic workflow documentation (8-step process in CONTRIBUTING.md)
 - [x] Branch naming convention: `v0.X.0` (version only)
-- [x] Epic notes location: `engine/docs/gaps/epic-notes/v0.X.0.md`
+- [x] Epic notes location: `MGMT/gaps/epic-notes/v0.X.0.md`
 - [x] Two-tier checks policy (soft-fail branches, hard-fail main)
 - [x] Gaps workflow for session documentation
 - [x] ADHD-friendly workflow improvements
@@ -268,14 +268,14 @@ fixing subtopics as flat ones
 **Prompt Improvements:**
 
 - Removed MCP-specific tool calls
-- Generic command execution: `python3.11 engine/engine/scripts/research.py "{query}" --topic {topic}`
+- Generic command execution: `python3.11 engine/scripts/research.py "{query}" --topic {topic}`
 - Works with any AI provider: VS Code (run_in_terminal), Claude Desktop (MCP/shell), OpenAI (subprocess), Terminal (manual)
 
 **Files changed:**
 
 **🔧 Migration:**
 
-1. **Regenerate metadata:** `python3.11 engine/engine/scripts/generate_metadata.py` (adds folder_path to all topics)
+1. **Regenerate metadata:** `python3.11 engine/scripts/generate_metadata.py` (adds folder_path to all topics)
 2. No reindexing needed - existing indices work fine
 
 **Example fixes:**
@@ -305,7 +305,7 @@ fixing subtopics as flat ones
 
 **🔧 Migration:**
 
-1. **Reindex required:** Run `python3.11 engine/engine/scripts/indexer.py` to rebuild all indices with proper chunking
+1. **Reindex required:** Run `python3.11 engine/scripts/indexer.py` to rebuild all indices with proper chunking
 2. Takes 5-10 minutes for full library (worth it for 400x improvement!)
 
 **Example improvements:**
@@ -354,11 +354,11 @@ fixing subtopics as flat ones
 **🔧 Migration:**
 
 ```bash
-python3.11 engine/engine/scripts/indexer.py
+python3.11 engine/scripts/indexer.py
 ```
 
 ```bash
-python3.11 engine/engine/scripts/reindex_topic.py <topic-name>
+python3.11 engine/scripts/reindex_topic.py <topic-name>
 ```
 
 **Impact:** Correct indexing for all topic types, dramatically improved search quality
@@ -462,7 +462,7 @@ python3.11 engine/engine/scripts/reindex_topic.py <topic-name>
 - [x] Lazy-loads topics on first query (~2s per topic)
 - [x] Topic caching prevents reload
 
-**🔧 Migration:** Run `python3.11 engine/engine/scripts/indexer.py` to regenerate partitioned storage
+**🔧 Migration:** Run `python3.11 engine/scripts/indexer.py` to regenerate partitioned storage
 
 **Impact:** Mixed EPUB/PDF libraries now supported, 23× more efficient reindexing
 

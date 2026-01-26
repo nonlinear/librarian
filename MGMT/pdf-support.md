@@ -84,7 +84,7 @@ cp ~/Downloads/test.pdf "books/AI/test.pdf"
 }
 
 # 3. Reindex just that topic
-python3.11 engine/engine/scripts/reindex_topic.py AI
+python3.11 engine/scripts/reindex_topic.py AI
 
 # 4. Verify index was created
 ls -lh "books/AI/faiss.index"

@@ -100,7 +100,7 @@ graph LR
 
 - ✅ Still allowed to push
 - ⚠️ Must document failures in commit message
-- 📝 Track known issues in epic notes (`engine/docs/gaps/epic-notes/v0.X.0.md`)
+- 📝 Track known issues in epic notes (`MGMT/gaps/epic-notes/v0.X.0.md`)
 - 🎯 Must be fixed before merging to main
 
 **Commit message format when checks fail:**
@@ -143,9 +143,9 @@ See epic notes for full context
 **Test: Formatting compliance**
 
 ````bash
-grep -q 'Formatting Standard' engine/docs/CHECKS.md && \
-grep -q 'Formatting Standard' engine/docs/ROADMAP.md && \
-grep -q 'Formatting Standard' engine/docs/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
+grep -q 'Formatting Standard' MGMT/CHECKS.md && \
+grep -q 'Formatting Standard' MGMT/ROADMAP.md && \
+grep -q 'Formatting Standard' MGMT/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
 Expected: Prints '✅ All status files declare formatting standard'.
 Pass: ✅ All status files declare formatting standard
 
@@ -165,9 +165,9 @@ Pass: ✅ All status files are both human- and machine-readable
 echo "🔍 Running stability checks..."
 echo ""
 echo "0️⃣ Status file formatting check..."
-grep -q 'Formatting Standard' engine/docs/CHECKS.md && \
-grep -q 'Formatting Standard' engine/docs/ROADMAP.md && \
-grep -q 'Formatting Standard' engine/docs/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
+grep -q 'Formatting Standard' MGMT/CHECKS.md && \
+grep -q 'Formatting Standard' MGMT/ROADMAP.md && \
+grep -q 'Formatting Standard' MGMT/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
 echo "2️⃣ Dependencies test..."
 echo "3️⃣ File structure test (v2.0)..."
 test -f books/library-index.json && ls books/*/topic-index.json >/dev/null 2>&1 && echo "✅ v2.0 Files exist" || echo "❌ Files missing"
@@ -253,9 +253,9 @@ For each of the following sample queries (using real topics/books from metadata.
 
 ```bash
 # Test 1: Research pipeline returns valid results for real topics
-python3.11 engine/engine/scripts/research.py "What is the main argument?" --topic ai_policy --top-k 1
-python3.11 engine/engine/scripts/research.py "Who is Martin Ford?" --topic ai_prompt_engineering --top-k 1
-python3.11 engine/engine/scripts/research.py "What is UX in AI?" --topic ai_theory --top-k 1
+python3.11 engine/scripts/research.py "What is the main argument?" --topic ai_policy --top-k 1
+python3.11 engine/scripts/research.py "Who is Martin Ford?" --topic ai_prompt_engineering --top-k 1
+python3.11 engine/scripts/research.py "What is UX in AI?" --topic ai_theory --top-k 1
 ```
 
 **Expected:** Each command returns a valid JSON object with at least one result (results[].text is non-empty).
@@ -270,17 +270,17 @@ If any query fails, MCP is considered broken for its primary use case.
 
 ```bash
 # Test: Reindex single topic (v0.5.0+)
-python3.11 engine/engine/scripts/indexer_v2.py --topic theory/anthropocene
+python3.11 engine/scripts/indexer_v2.py --topic theory/anthropocene
 # Expected: Creates/updates topic-index.json, chunks.json, faiss.index in topic folder
 # Expected: Shows delta detection (hash comparison)
 # Expected: No crashes, completes successfully
 
 # Test: Force reindex (skip delta detection)
-python3.11 engine/engine/scripts/indexer_v2.py --topic theory/anthropocene --force
+python3.11 engine/scripts/indexer_v2.py --topic theory/anthropocene --force
 # Expected: Rebuilds index even if unchanged
 
 # Test: Reindex all topics
-python3.11 engine/engine/scripts/indexer_v2.py --all
+python3.11 engine/scripts/indexer_v2.py --all
 # Expected: Processes all topics with delta detection
 ```
 
@@ -294,7 +294,7 @@ python3.11 engine/engine/scripts/indexer_v2.py --all
 
 ```bash
 # Test: MCP server starts and loads metadata
-timeout 5 python3.11 engine/engine/scripts/mcp_server.py 2>&1 | grep -E "Ready|Loaded metadata" | head -5
+timeout 5 python3.11 engine/scripts/mcp_server.py 2>&1 | grep -E "Ready|Loaded metadata" | head -5
 # Expected: Server starts, loads library-index.json (or metadata.json fallback), shows topic count
 # Expected: No import errors, no missing file errors
 ```
@@ -309,7 +309,7 @@ timeout 5 python3.11 engine/engine/scripts/mcp_server.py 2>&1 | grep -E "Ready|L
 
 ```bash
 # Test: watch_library.py monitors file changes
-python3.11 engine/engine/scripts/watch_library.py --dry-run
+python3.11 engine/scripts/watch_library.py --dry-run
 # Expected: Scans books/ directory, detects structure, no crashes
 # Expected: Shows topics and books being watched
 ```
@@ -369,7 +369,7 @@ else:
 "
 
 # Test 6c: Run indexer to verify (v0.5.0+ happy path)
-python3.11 engine/engine/scripts/indexer_v2.py --all 2>&1 | grep -E "✅|⚠️" | head -10
+python3.11 engine/scripts/indexer_v2.py --all 2>&1 | grep -E "✅|⚠️" | head -10
 # Expected: All topics process successfully, delta detection works
 ```
 
@@ -406,7 +406,7 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 
 ```bash
 # Test 8: Monitor memory during reindex (optional, for large libraries)
-/usr/bin/time -l python3.11 engine/engine/scripts/indexer_v2.py --topic AI/policy 2>&1 | grep "maximum resident set size"
+/usr/bin/time -l python3.11 engine/scripts/indexer_v2.py --topic AI/policy 2>&1 | grep "maximum resident set size"
 # Expected: <2GB for most topics
 ```
 
@@ -421,19 +421,19 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 ### Issue 1: Model not downloaded
 
 **Symptom:** `ModuleNotFoundError: No module named 'sentence_transformers'`
-**Fix:** Run `bash engine/engine/scripts/setup.sh`
+**Fix:** Run `bash engine/scripts/setup.sh`
 **Test:** `python3.11 -c "import sentence_transformers"`
 
 ### Issue 2: Missing library-index.json (v2.0)
 
 **Symptom:** MCP server starts but can't find books
-**Fix:** Run `python3.11 engine/engine/scripts/indexer_v2.py --all` (generates library-index.json + indexes)
+**Fix:** Run `python3.11 engine/scripts/indexer_v2.py --all` (generates library-index.json + indexes)
 **Test:** `cat books/library-index.json | jq .`
 
 ### Issue 3: Corrupted index
 
 **Symptom:** Query returns no results or crashes
-**Fix:** Reindex affected topic: `python3.11 engine/engine/scripts/indexer_v2.py --topic <topic-path> --force`
+**Fix:** Reindex affected topic: `python3.11 engine/scripts/indexer_v2.py --topic <topic-path> --force`
 **Test:** Query after reindex
 
 **Note:** v0.5.0+ use `--force` flag to skip delta detection and force rebuild
@@ -447,7 +447,7 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 ### Issue 5: Migration from v1 to v2 schema
 
 **Symptom:** `metadata.json` exists but `library-index.json` missing
-**Fix:** Run `python3.11 engine/engine/scripts/migrate_to_v2.py`
+**Fix:** Run `python3.11 engine/scripts/migrate_to_v2.py`
 **Test:** Check `books/library-index.json` exists, backup created at `books/library-index.json.v1.backup`
 
 ---
@@ -472,17 +472,17 @@ ls books/*/chunks.json          # Should show topic-based chunks (v2.0 schema)
 
 ```bash
 # Startup time
-time python3.11 engine/engine/scripts/mcp_server.py &
+time python3.11 engine/scripts/mcp_server.py &
 # Ctrl+C after "ready" message
 
 # Query time
-time python3.11 engine/engine/scripts/query.py "test query"
+time python3.11 engine/scripts/query.py "test query"
 
 # Reindex time (v0.5.0+)
-time python3.11 engine/engine/scripts/indexer_v2.py --topic AI/policy
+time python3.11 engine/scripts/indexer_v2.py --topic AI/policy
 
 # Delta reindex time (no changes)
-time python3.11 engine/engine/scripts/indexer_v2.py --all  # Should skip unchanged topics
+time python3.11 engine/scripts/indexer_v2.py --all  # Should skip unchanged topics
 ```
 
 ---
@@ -727,13 +727,13 @@ echo ""
 
 # 3. MCP server startup
 echo "🚀 3. Testing MCP server startup..."
-timeout 3 python3.11 engine/engine/scripts/mcp_server.py 2>&1 | grep -q "Librarian MCP Server" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
+timeout 3 python3.11 engine/scripts/mcp_server.py 2>&1 | grep -q "Librarian MCP Server" && echo "✅ Server starts successfully" || { echo "❌ Server startup failed"; exit 1; }
 echo ""
 
 # 4. Quick query test (if query.py exists)
 if [ -f engine/scripts/query.py ]; then
     echo "🔍 4. Testing query functionality..."
-    python3.11 engine/engine/scripts/query.py "test" > /dev/null 2>&1 && echo "✅ Query works" || echo "⚠️  Query test failed (check manually)"
+    python3.11 engine/scripts/query.py "test" > /dev/null 2>&1 && echo "✅ Query works" || echo "⚠️  Query test failed (check manually)"
     echo ""
 fi
 
@@ -744,8 +744,8 @@ echo ""
 
 # 6. Documentation check
 echo "📚 6. Documentation parity..."
-grep -q "engine/docs/ROADMAP.md" README.md && echo "✅ README links to ROADMAP" || echo "⚠️  README missing ROADMAP link"
-grep -q "engine/docs/CHANGELOG.md" README.md && echo "✅ README links to CHANGELOG" || echo "⚠️  README missing CHANGELOG link"
+grep -q "MGMT/ROADMAP.md" README.md && echo "✅ README links to ROADMAP" || echo "⚠️  README missing ROADMAP link"
+grep -q "MGMT/CHANGELOG.md" README.md && echo "✅ README links to CHANGELOG" || echo "⚠️  README missing CHANGELOG link"
 echo ""
 
 # 7. Ready to commit

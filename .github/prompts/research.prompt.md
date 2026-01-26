@@ -150,7 +150,7 @@ Expected location: /Users/nfrota/Documents/librarian/books/library-index.json
 Possible fixes:
 1. Verify the library exists at the expected path
 2. Update the library path in this prompt's configuration section
-3. Run `bash ./engine/engine/scripts/setup.sh` to set up your environment
+3. Run `bash ./engine/scripts/setup.sh` to set up your environment
 
 I cannot answer research questions without access to your library and a working research pipeline. No general knowledge or fallback answers will be provided.
 ```
@@ -390,7 +390,7 @@ python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/per
 "I found multiple cybersecurity topics: applied, history, strategy. Which one?"
 
 **Execution failed:**
-"Could not execute research.py. Verify Python 3.11+ is installed and run `bash ./engine/engine/scripts/setup.sh`"
+"Could not execute research.py. Verify Python 3.11+ is installed and run `bash ./engine/scripts/setup.sh`"
 
 **No results:**
 "No relevant information in `{topic}`. Try different topic or rephrase."
