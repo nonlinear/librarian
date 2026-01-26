@@ -77,9 +77,9 @@ for topic in metadata['topics']:
     folder_path = topic.get('folder_path', topic['label'])
     topic_dir = BOOKS_DIR / folder_path
 
-    if (topic_dir / 'faiss.index').exists():
+    if (topic_dir / '.faiss.index').exists():
         topics_with_faiss.append(topic['id'])
-    if (topic_dir / 'chunks.json').exists():
+    if (topic_dir / '.chunks.json').exists():
         topics_with_chunks.append(topic['id'])
 
 print(f"   Topics with faiss.index: {len(topics_with_faiss)}/{len(metadata['topics'])}")

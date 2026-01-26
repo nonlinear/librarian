@@ -18,7 +18,7 @@ SCRIPT_DIR = Path(__file__).parent
 PROJECT_DIR = SCRIPT_DIR.parent.parent  # engine/scripts/ -> engine/ -> project root
 BOOKS_DIR = PROJECT_DIR / "books"
 MODELS_DIR = SCRIPT_DIR.parent / "models"  # engine/models/
-METADATA_FILE = BOOKS_DIR / "library-index.json"
+METADATA_FILE = BOOKS_DIR / ".library-index.json"
 
 # Set model cache to local engine/models/ directory
 os.environ['SENTENCE_TRANSFORMERS_HOME'] = str(MODELS_DIR)
@@ -44,9 +44,9 @@ def load_topic(topic_id):
 
     topic_dir = BOOKS_DIR / topic_path
 
-    faiss_file = topic_dir / "faiss.index"
-    chunks_file_json = topic_dir / "chunks.json"
-    topic_index_file = topic_dir / "topic-index.json"
+    faiss_file = topic_dir / ".faiss.index"
+    chunks_file_json = topic_dir / ".chunks.json"
+    topic_index_file = topic_dir / ".topic-index.json"
 
     if not faiss_file.exists() or not chunks_file_json.exists():
         return None
@@ -101,7 +101,7 @@ def query_library(query, topic=None, book=None, k=5):
         # Default to first topic with data
         for t in metadata['topics']:
             topic_dir = BOOKS_DIR / t['id']
-            if (topic_dir / "faiss.index").exists():
+            if (topic_dir / ".faiss.index").exists():
                 topic_id = t['id']
                 break
 

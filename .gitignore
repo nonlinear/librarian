@@ -2,9 +2,13 @@
 # Most patterns moved to .git/info/exclude per gaps/gitignore-vs-autocomplete.md
 # Only shared metadata/indices here to avoid autocomplete blocking
 
-# Books folder - ignore everything inside except .gitkeep
+# Books folder - ignore everything inside except .gitkeep and hidden db files
 books/*
 !books/.gitkeep
+!books/.library-index.json
+!books/**/.chunks.json
+!books/**/.faiss.index
+!books/**/.topic-index.json
 
 # GitHub configs - only allow specific prompts
 .github/chatmodes/**

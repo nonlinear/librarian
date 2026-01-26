@@ -21,7 +21,7 @@ import asyncio
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"
 # v2.0: library-index.json, fallback to v1.0 metadata.json for backwards compatibility
-METADATA_FILE = BOOKS_DIR / "library-index.json"
+METADATA_FILE = BOOKS_DIR / ".library-index.json"
 if not METADATA_FILE.exists():
     METADATA_FILE = BOOKS_DIR / "metadata.json"  # Fallback to v1.0 schema
 
@@ -129,7 +129,7 @@ def load_topic(topic_id: str) -> Dict:
     # Get folder path from metadata
     folder_path = topic_data.get('folder_path', topic_label)
     topic_dir = BOOKS_DIR / folder_path
-    faiss_file = topic_dir / "faiss.index"
+    faiss_file = topic_dir / ".faiss.index"
     chunks_file = topic_dir / "chunks.pkl"
 
     # Auto-rebuild if missing

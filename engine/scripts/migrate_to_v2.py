@@ -21,7 +21,7 @@ import argparse
 
 # Paths
 LIBRARY_ROOT = Path(__file__).parent.parent / "books"
-MAIN_METADATA = LIBRARY_ROOT / "library-index.json"
+MAIN_METADATA = LIBRARY_ROOT / ".library-index.json"
 
 
 def slugify(text):
@@ -258,7 +258,7 @@ def migrate_to_v2(dry_run=False):
         # Find topic data to get path
         topic_data = next(t for t in old_metadata['topics'] if t['id'] == topic_id)
         topic_path = LIBRARY_ROOT / find_topic_path(topic_data)
-        metadata_file = topic_path / "topic-index.json"
+        metadata_file = topic_path / ".topic-index.json"
 
         if dry_run:
             print(f"   • {metadata_file.relative_to(LIBRARY_ROOT.parent)}")

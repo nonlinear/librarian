@@ -22,7 +22,7 @@ import re
 
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"
-METADATA_FILE = BOOKS_DIR / "library-index.json"
+METADATA_FILE = BOOKS_DIR / ".library-index.json"
 FAILED_FILE = Path(__file__).parent.parent / "MGMT" / "FAILED.md"
 
 # Track failed books (reset on each run)

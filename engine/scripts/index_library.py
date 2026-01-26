@@ -67,7 +67,7 @@ node_parser = SentenceSplitter(chunk_size=1024, chunk_overlap=200)
 
 # Paths
 LIBRARY_ROOT = Path(__file__).parent.parent / "books"
-MAIN_METADATA = LIBRARY_ROOT / "library-index.json"
+MAIN_METADATA = LIBRARY_ROOT / ".library-index.json"
 
 # Readers
 epub_reader = EpubReader()
@@ -255,7 +255,7 @@ def bootstrap_topic_metadata(topic_data: Dict) -> bool:
     """
     topic_id = topic_data['id']
     topic_path = LIBRARY_ROOT / topic_data['path']
-    metadata_file = topic_path / "topic-index.json"
+    metadata_file = topic_path / ".topic-index.json"
 
     print(f"📋 {topic_id}")
 
@@ -267,7 +267,7 @@ def bootstrap_topic_metadata(topic_data: Dict) -> bool:
     for ext in ['*.epub', '*.pdf']:
         for book_path in topic_path.glob(ext):
             # Skip metadata files
-            if book_path.name in ['chunks.json', 'topic-index.json', 'faiss.index']:
+            if book_path.name in ['.chunks.json', '.topic-index.json', '.faiss.index']:
                 continue
 
             book_id = book_path.stem.lower().replace(' ', '_')
@@ -318,7 +318,7 @@ def detect_file_changes(library_root: Path, registry: Dict) -> set:
     for topic in registry.get('topics', []):
         topic_path_str = topic['path']
         topic_dir = library_root / topic_path_str
-        topic_index = topic_dir / 'topic-index.json'
+        topic_index = topic_dir / '.topic-index.json'
 
         if not topic_index.exists():
             # No index yet, needs indexing
@@ -380,7 +380,7 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
     """
     topic_id = topic_data['id']
     topic_path = LIBRARY_ROOT / topic_data['path']
-    metadata_file = topic_path / "topic-index.json"
+    metadata_file = topic_path / ".topic-index.json"
 
     print(f"\n{'='*60}")
     print(f"📖 Indexing: {topic_id}")
@@ -511,7 +511,7 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
     print(f"\n   💾 Saving...")
 
     # Build and save FAISS index
-    faiss_path = topic_path / "faiss.index"
+    faiss_path = topic_path / ".faiss.index"
     try:
         embeddings_array = np.array(embeddings_list, dtype=np.float32)
         dimension = embeddings_array.shape[1]
@@ -526,7 +526,7 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
         return False
 
     # Save chunks.json
-    chunks_file = topic_path / "chunks.json"
+    chunks_file = topic_path / ".chunks.json"
     chunks_list = []
     for i, node in enumerate(nodes):
         chunks_list.append({

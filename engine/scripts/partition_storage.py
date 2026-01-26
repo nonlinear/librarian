@@ -131,7 +131,7 @@ def main():
         topic_index.add(embeddings_array)
 
         # Save FAISS index
-        topic_faiss_file = topic_dir / "faiss.index"
+        topic_faiss_file = topic_dir / ".faiss.index"
         faiss.write_index(topic_index, str(topic_faiss_file))
 
         # Save chunks
@@ -140,7 +140,7 @@ def main():
             pickle.dump(topic_chunks, f)
 
         # Also save as JSON for debugging
-        topic_chunks_json = topic_dir / "chunks.json"
+        topic_chunks_json = topic_dir / ".chunks.json"
         chunks_for_json = [{
             'chunk_full': c['text'],
             'book_id': c['metadata'].get('book_id'),
@@ -170,7 +170,7 @@ def main():
         folder_path = topic_info[topic_id]['folder_path']
         topic_label = topic_info[topic_id]['label']
         topic_dir = BOOKS_DIR / folder_path
-        if topic_dir.exists() and (topic_dir / "faiss.index").exists():
+        if topic_dir.exists() and (topic_dir / ".faiss.index").exists():
             print(f"    {topic_label}/")
             print(f"      *.epub (books)")
             print(f"      faiss.index (lazy loaded)")

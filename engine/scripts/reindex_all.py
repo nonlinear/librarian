@@ -116,8 +116,8 @@ for i, topic_data in enumerate(metadata['topics'], 1):
     faiss_index.add(embeddings_array)
 
     # Save to topic folder
-    index_file = topic_dir / "faiss.index"
-    chunks_file = topic_dir / "chunks.json"
+    index_file = topic_dir / ".faiss.index"
+    chunks_file = topic_dir / ".chunks.json"
 
     faiss.write_index(faiss_index, str(index_file))
 
