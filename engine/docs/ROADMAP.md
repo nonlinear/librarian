@@ -54,7 +54,7 @@ graph LR
 
 ## v1.1.0
 
-### Hygiene
+[🚧](gaps/epic-notes/v1.1.0.md) **Hygiene**
 
 Repository structure and code hygiene improvements for long-term maintainability. Includes "Tuck In: Hidden Object Files" epic.
 
