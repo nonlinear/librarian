@@ -63,7 +63,7 @@ Repository structure improvements and status files system generalization. Combin
 **Part 1: MGMT System**
 
 - Created MGMT/ folder for all meta-documentation
-- Moved engine/docs/* → MGMT/
+- Moved engine/docs/\* → MGMT/
 - Renamed CONTRIBUTING.md → POLICY.md
 - Created global/ subfolder with universal MGMT framework
 - Updated all navigation blocks (🤖 markers in all status files)
