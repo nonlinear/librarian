@@ -1,19 +1,14 @@
 #!/usr/bin/env python3
 """
-Reindex ALL topics or specific topic (loads model once)
-Usage:
-  python3.11 reindex_all.py              # All topics
-  python3.11 reindex_all.py --topic cooking
+Reindex ALL topics at once (loads model once, reuses for all topics)
+Prevents memory crashes from loading MPNet 23 times
 """
 
-import argparse
 import json
 from pathlib import Path
 import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
-from llama_index.core import Settings, Document
-from llama_index.core.node_parser import SentenceSplitter
 from llama_index.readers.file import EpubReader, PyMuPDFReader
 import warnings
 import logging
@@ -24,59 +19,36 @@ logging.getLogger("fitz").setLevel(logging.ERROR)
 
 # Paths
 BOOKS_DIR = Path(__file__).parent.parent / "books"
-LIBRARY_INDEX = BOOKS_DIR / "library-index.json"
+METADATA_FILE = BOOKS_DIR / "metadata.json"
 MODELS_DIR = Path(__file__).parent.parent / "models"
-
-# Parse args
-parser = argparse.ArgumentParser()
-parser.add_argument('--topic', help='Topic folder (e.g. theory/anthropocene)')
-args = parser.parse_args()
 
 # Setup embeddings ONCE
 import os
 os.environ['SENTENCE_TRANSFORMERS_HOME'] = str(MODELS_DIR)
 
 print("Loading MiniLM model...")
-model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-print(f"✅ Model loaded (dim: {model.get_sentence_embedding_dimension()})")
+model = SentenceTransformer('BAAI/bge-small-en-v1.5')
+print(f"✅ Model loaded (dim: {model.get_sentence_embedding_dimension()})\n")
 
-# Setup chunking
-Settings.chunk_size = 1024
-Settings.chunk_overlap = 200
-node_parser = SentenceSplitter(chunk_size=1024, chunk_overlap=200)
-print(f"✅ Chunking: 1024 chars, 200 overlap\n")
-
-# Load library
-with open(LIBRARY_INDEX, 'r') as f:
-    library = json.load(f)
-
-# Filter topics
-topics = library['topics']
-if args.topic:
-    topics = [t for t in topics if t['path'] == args.topic]
-    if not topics:
-        print(f"❌ Topic '{args.topic}' not found")
-        exit(1)
-
-print(f"📚 Reindexing {len(topics)} topic(s)...\n")
+# Load metadata
+with open(METADATA_FILE, 'r') as f:
+    metadata = json.load(f)
 
 # Readers
 epub_reader = EpubReader()
 pdf_reader = PyMuPDFReader()
 
-for i, topic_meta in enumerate(topics, 1):
-    topic_id = topic_meta['id']
-    topic_folder = topic_meta['path']
-    topic_dir = BOOKS_DIR / topic_folder
+print(f"📚 Reindexing {len(metadata['topics'])} topics...\n")
 
-    # Load topic-index.json
-    with open(topic_dir / 'topic-index.json') as f:
-        topic_data = json.load(f)
+for i, topic_data in enumerate(metadata['topics'], 1):
+    topic_id = topic_data['id']
+    topic_label = topic_data['label']
+    topic_dir = BOOKS_DIR / topic_label
 
-    print(f"[{i}/{len(topics)}] 🔄 {topic_folder} ({len(topic_data['books'])} books)")
+    print(f"[{i}/{len(metadata['topics'])}] 🔄 {topic_label} ({len(topic_data['books'])} books)")
 
     # Load books for this topic
-    raw_documents = []
+    documents = []
 
     for book in topic_data['books']:
         book_path = topic_dir / book['filename']
@@ -97,54 +69,42 @@ for i, topic_meta in enumerate(topics, 1):
                 print(f"  ⚠️  Unsupported: {file_ext}")
                 continue
 
-            # Add metadata to raw documents
+            # Add metadata
             for doc in docs:
                 doc.metadata = {
                     'book_id': book['id'],
                     'book_title': book['title'],
-                    'book_author': book.get('author', 'Unknown'),
+                    'book_author': book['author'],
                     'topic_id': topic_id,
-                    'topic_folder': topic_folder,
-                    'tags': ','.join(book.get('tags', []))
+                    'topic_label': topic_label,
+                    'tags': ','.join(book['tags'])
                 }
 
-            raw_documents.extend(docs)
+            documents.extend(docs)
 
         except Exception as e:
             print(f"  ⚠️  Error loading {book['filename']}: {e}")
 
-    if not raw_documents:
+    if not documents:
         print(f"  ❌ No documents loaded\n")
         continue
 
-    # Apply chunking to raw documents
-    print(f"  ✂️  Chunking {len(raw_documents)} raw docs...")
-    nodes = node_parser.get_nodes_from_documents(raw_documents)
-    print(f"  📝 Generated {len(nodes)} chunks")
+    print(f"  📝 Generating embeddings for {len(documents)} chunks...")
 
-    if not nodes:
-        print(f"  ❌ No chunks generated\n")
-        continue
-
-    if not nodes:
-        print(f"  ❌ No chunks generated\n")
-        continue
-
-    # Generate embeddings from nodes
-    print(f"  🔢 Generating embeddings...")
-    texts = [node.text for node in nodes]
+    # Generate embeddings
+    texts = [doc.text for doc in documents]
     embeddings_list = model.encode(texts, show_progress_bar=False, batch_size=32)
 
     # Store chunks with metadata
     chunks_list = []
-    for i, node in enumerate(nodes):
+    for i, doc in enumerate(documents):
         chunks_list.append({
-            'chunk_full': node.text,
-            'book_id': node.metadata.get('book_id'),
-            'book_title': node.metadata.get('book_title'),
-            'book_author': node.metadata.get('book_author'),
-            'topic_id': node.metadata.get('topic_id'),
-            'topic_folder': node.metadata.get('topic_folder'),
+            'chunk_full': doc.text,
+            'book_id': doc.metadata.get('book_id'),
+            'book_title': doc.metadata.get('book_title'),
+            'book_author': doc.metadata.get('book_author'),
+            'topic_id': doc.metadata.get('topic_id'),
+            'topic_label': doc.metadata.get('topic_label'),
             'chunk_index': i
         })
 
@@ -156,14 +116,14 @@ for i, topic_meta in enumerate(topics, 1):
     faiss_index.add(embeddings_array)
 
     # Save to topic folder
-    index_file = topic_dir / "faiss.index"
-    chunks_file = topic_dir / "chunks.json"
+    index_file = topic_dir / ".faiss.index"
+    chunks_file = topic_dir / ".chunks.json"
 
     faiss.write_index(faiss_index, str(index_file))
 
     with open(chunks_file, 'w', encoding='utf-8') as f:
         json.dump(chunks_list, f, ensure_ascii=False, indent=2)
 
-    print(f"  ✅ {len(nodes)} chunks indexed → {index_file.name}\n")
+    print(f"  ✅ {len(documents)} chunks indexed → {index_file.name}\n")
 
 print("🎉 All topics reindexed!")

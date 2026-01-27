@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0",
   "library_path": "/Users/nfrota/Documents/librarian/books",
-  "embedding_model": "all-MiniLM-L6-v2",
+  "embedding_model": "bge-small-en-v1.5",
   "chunk_settings": {
     "size": 1024,
     "overlap": 200
@@ -44,8 +44,16 @@
       "path": "cooking"
     },
     {
+      "id": "creativity_art_direction",
+      "path": "creativity/art direction"
+    },
+    {
       "id": "creativity_brand_strategy",
       "path": "creativity/brand strategy"
+    },
+    {
+      "id": "creativity_writing",
+      "path": "creativity/writing"
     },
     {
       "id": "cybersecurity_applied",
@@ -94,6 +102,14 @@
     {
       "id": "design_usability",
       "path": "design/usability"
+    },
+    {
+      "id": "design_usability_general",
+      "path": "design/usability/general"
+    },
+    {
+      "id": "design_usability_rosenfeld",
+      "path": "design/usability/rosenfeld"
     },
     {
       "id": "drawing_andrew_loomis",
@@ -184,6 +200,10 @@
       "path": "poetry/Rumi"
     },
     {
+      "id": "science_topology",
+      "path": "science/topology"
+    },
+    {
       "id": "technology_computer_vision",
       "path": "technology/computer vision"
     },
@@ -192,12 +212,24 @@
       "path": "technology/hugo"
     },
     {
+      "id": "technology_internet_of_things",
+      "path": "technology/internet of things"
+    },
+    {
       "id": "technology_processing",
       "path": "technology/processing"
     },
     {
+      "id": "technology_threejs",
+      "path": "technology/threejs"
+    },
+    {
       "id": "technology_vscode",
       "path": "technology/vscode"
+    },
+    {
+      "id": "technology_web_animation",
+      "path": "technology/web animation"
     },
     {
       "id": "theory_anthropocene",

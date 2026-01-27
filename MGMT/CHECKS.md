@@ -140,6 +140,78 @@ Expected: Prints '✅ All status files declare formatting standard'.
 
 ---
 
+### 🔧 Active Script Tests (MANDATORY)
+
+**These tests ensure the 3 active scripts work correctly:**
+
+**Test 0a: Active scripts exist**
+
+```bash
+test -f engine/scripts/index_library.py && \
+test -f engine/scripts/research.py && \
+test -f engine/scripts/mcp_server.py && \
+echo '✅ All active scripts exist' || echo '❌ Active script missing'
+```
+
+Expected: Prints '✅ All active scripts exist'.
+
+**Test 0b: Library-index.json validity**
+
+```bash
+python3.11 -c "
+import json
+from pathlib import Path
+
+library_index = Path('books/.library-index.json')
+if not library_index.exists():
+    print('❌ books/.library-index.json missing')
+    exit(1)
+
+metadata = json.loads(library_index.read_text())
+topic_count = len(metadata.get('topics', []))
+print(f'✅ Valid: {topic_count} topics')
+
+# Verify all paths exist
+missing = [t['id'] for t in metadata['topics'] if not (Path('books') / t['path']).exists()]
+if missing:
+    print(f'❌ Missing paths: {missing[:3]}')
+    exit(1)
+print(f'✅ All topic paths exist')
+"
+```
+
+Expected: Prints topic count and all paths exist.
+
+**Test 0c: index_library.py --metadata mode (folder discovery)**
+
+```bash
+# This test ensures index_library.py can discover new folders
+timeout 120 python3.11 engine/scripts/index_library.py --metadata 2>&1 | head -20 | grep -q "Metadata mode"
+echo $?
+```
+
+Expected: Exit code 0 (success). This mode scans books/ and updates library-index.json.
+
+**Test 0d: index_library.py smart mode (default behavior)**
+
+```bash
+# This test ensures smart mode detects changes automatically
+timeout 60 python3.11 engine/scripts/index_library.py 2>&1 | head -30 | grep -E "Smart mode|No changes detected|All.*topics already registered"
+echo $?
+```
+
+Expected: Exit code 0. Smart mode is the default when no flags provided.
+
+**Why these tests matter:**
+
+- ❌ **Before:** Had `generate_metadata.py` (deprecated), checks didn't cover it
+- ✅ **After:** `index_library.py` does everything, checks verify it works
+- 🎯 **Problem solved:** Won't suggest deprecated scripts if these tests pass
+
+**Quick test script:** Run `bash engine/scripts/test_active_scripts.sh`
+
+---
+
 **Test 1: MCP query functionality (what research.prompt.md actually uses)**
 
 ```bash

@@ -79,6 +79,12 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
 - [ ] Integration with /research prompt
 - [ ] Support direct book queries
 - [ ] Extension configuration
+- [ ] **Document VS Code MCP setup** in README
+  - [ ] Add step to update global VS Code settings.json
+  - [ ] Include `update_mcp_config.sh` script usage
+  - [ ] Path: `~/Library/Application Support/Code/User/settings.json` (macOS)
+  - [ ] Alternative: workspace-level `.vscode/settings.json`
+  - [ ] Test instructions for verifying MCP connection
 
 ## v1.4.0
 

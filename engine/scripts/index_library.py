@@ -47,15 +47,10 @@ MODELS_DIR = Path(__file__).parent.parent / "models"
 
 # Available models
 EMBEDDING_MODELS = {
-    "minilm": {
-        "name": "BAAI/bge-small-en-v1.5",
-        "dim": 384,
-        "desc": "Fast, lightweight (90MB)"
-    },
     "bge": {
         "name": "BAAI/bge-small-en-v1.5",
         "dim": 384,
-        "desc": "Better quality, slower (~130MB)"
+        "desc": "Default embedding model (384-dim)"
     }
 }
 
@@ -66,7 +61,7 @@ embed_model = None
 node_parser = SentenceSplitter(chunk_size=1024, chunk_overlap=200)
 
 # Paths
-LIBRARY_ROOT = Path(__file__).parent.parent / "books"
+LIBRARY_ROOT = Path(__file__).parent.parent.parent / "books"
 MAIN_METADATA = LIBRARY_ROOT / ".library-index.json"
 
 # Readers
@@ -245,6 +240,93 @@ def compute_content_hash(topic_path: Path) -> str:
     return hashlib.sha256(combined.encode()).hexdigest()
 
 
+def scan_library_folders() -> List[Dict]:
+    """
+    Scan books/ directory and discover all topic folders.
+    Returns list of topic dictionaries with id and path.
+    """
+    import re
+
+    def slugify(text: str) -> str:
+        """Convert text to lowercase slug."""
+        return re.sub(r'[^\w\s-]', '', text.lower()).strip().replace(' ', '_')
+
+    topics = []
+
+    def scan_directory(base_path: Path, relative_path: str = ""):
+        """Recursively scan directory for topics."""
+        for item in sorted(base_path.iterdir()):
+            # Skip hidden files, system files, and metadata
+            if item.name.startswith('.') or item.name == '__pycache__':
+                continue
+
+            if item.is_dir():
+                # Build relative path
+                current_rel = f"{relative_path}/{item.name}" if relative_path else item.name
+
+                # Check if this directory has any books
+                has_books = any(
+                    f.suffix.lower() in ['.epub', '.pdf']
+                    for f in item.iterdir()
+                    if f.is_file()
+                )
+
+                if has_books:
+                    # This is a topic folder
+                    topic_id = slugify(current_rel.replace('/', '_'))
+                    topics.append({
+                        'id': topic_id,
+                        'path': current_rel
+                    })
+
+                # Recursively scan subdirectories
+                scan_directory(item, current_rel)
+
+    scan_directory(LIBRARY_ROOT)
+    return topics
+
+
+def update_library_index(discovered_topics: List[Dict]) -> Dict:
+    """
+    Update library-index.json with newly discovered topics.
+    Preserves existing topics and adds new ones.
+    """
+    # Load existing or create new
+    if MAIN_METADATA.exists():
+        with open(MAIN_METADATA, 'r') as f:
+            registry = json.load(f)
+    else:
+        registry = {
+            "schema_version": "2.0",
+            "library_path": str(LIBRARY_ROOT),
+            "embedding_model": "pending",
+            "chunk_settings": {
+                "size": 1024,
+                "overlap": 200
+            },
+            "topics": []
+        }
+
+    # Build map of existing topics
+    existing_ids = {t['id'] for t in registry.get('topics', [])}
+
+    # Add new topics
+    new_count = 0
+    for topic in discovered_topics:
+        if topic['id'] not in existing_ids:
+            registry['topics'].append(topic)
+            new_count += 1
+
+    # Sort topics by id for consistency
+    registry['topics'] = sorted(registry['topics'], key=lambda t: t['id'])
+
+    # Save
+    with open(MAIN_METADATA, 'w') as f:
+        json.dump(registry, f, indent=2)
+
+    return registry, new_count
+
+
 def bootstrap_topic_metadata(topic_data: Dict) -> bool:
     """
     Create/update topic-index.json with book list only (no embedding/indexing)
@@ -389,6 +471,26 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
 
     # 1. Load or create per-topic metadata
     if not metadata_file.exists():
+        # Scan for books in directory
+        books = []
+        for ext in ['*.epub', '*.pdf']:
+            for book_path in topic_path.glob(ext):
+                # Skip metadata files
+                if book_path.name.startswith('.'):
+                    continue
+
+                book_id = book_path.stem.lower().replace(' ', '_')
+                mtime = os.path.getmtime(book_path)
+
+                books.append({
+                    'id': book_id,
+                    'title': book_path.stem,
+                    'filename': book_path.name,
+                    'author': 'Unknown',
+                    'tags': [],
+                    'last_modified': mtime
+                })
+
         # Create minimal topic-index.json for force mode
         topic_meta = {
             "schema_version": "2.0",
@@ -400,9 +502,9 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
             },
             "last_indexed_at": None,
             "content_hash": None,
-            "books": []
+            "books": books
         }
-        print(f"   💡 Creating new topic-index.json")
+        print(f"   💡 Creating new topic-index.json with {len(books)} books")
     else:
         with open(metadata_file, 'r') as f:
             topic_meta = json.load(f)
@@ -571,12 +673,12 @@ def main():
     parser.add_argument('topics', nargs='*', help='Topic IDs to index')
     parser.add_argument('--all', action='store_true', help='Index all topics (with hash-based delta detection)')
     parser.add_argument('--smart', action='store_true', help='Smart mode: detect file changes and only reindex affected topics')
-    parser.add_argument('--bootstrap', action='store_true', help='Only create/update topic-index.json files (no embedding/indexing)')
+    parser.add_argument('--metadata', action='store_true', help='Only scan folders and create/update metadata files (no embedding/indexing)')
     parser.add_argument('--topic', help='Index specific topic (e.g., theory/anthropocene)')
     parser.add_argument('--force', action='store_true', help='Force reindex (skip delta detection)')
     parser.add_argument('--topics', dest='topic_list', nargs='+', help='List of topic IDs')
-    parser.add_argument('--model', choices=['minilm', 'bge'], default='bge',
-                        help='Embedding model: bge (better quality, default) or minilm (faster)')
+    parser.add_argument('--model', choices=['bge'], default='bge',
+                        help='Embedding model: bge (BAAI/bge-small-en-v1.5, 384-dim)')
 
     args = parser.parse_args()
 
@@ -598,18 +700,29 @@ def main():
     print("✓ Chunking: 1024 chars, 200 overlap")
     print("✓ Schema: chunks.json v2.0 (page/paragraph metadata)")
 
-    # Load registry
+    # Scan for new folders and update library-index.json
+    print(f"\n🔍 Scanning for new topic folders...")
+    discovered_topics = scan_library_folders()
+
     if not MAIN_METADATA.exists():
-        print(f"\n❌ Registry not found: {MAIN_METADATA}")
-        print(f"💡 Run migrate_to_v2.py first")
-        return 1
+        print(f"   📝 Creating new library-index.json")
+        registry, new_count = update_library_index(discovered_topics)
+        print(f"   ✅ Registered {len(discovered_topics)} topics")
+    else:
+        with open(MAIN_METADATA, 'r') as f:
+            registry = json.load(f)
 
-    with open(MAIN_METADATA, 'r') as f:
-        registry = json.load(f)
+        old_count = len(registry.get('topics', []))
+        registry, new_count = update_library_index(discovered_topics)
 
-    # Bootstrap mode: just create/update topic-index.json files
-    if args.bootstrap:
-        print(f"\n🏗️  Bootstrap mode: Creating/updating topic-index.json files...")
+        if new_count > 0:
+            print(f"   ✅ Found {new_count} new topic(s), total: {len(registry['topics'])}")
+        else:
+            print(f"   ✓ All {len(registry['topics'])} topics already registered")
+
+    # Metadata mode: just create/update topic-index.json files
+    if args.metadata:
+        print(f"\n📝 Metadata mode: Creating/updating topic-index.json files...")
         print(f"   (No embedding or indexing will be performed)\n")
 
         topics_to_bootstrap = registry['topics']
@@ -620,14 +733,14 @@ def main():
                 success_count += 1
 
         print(f"\n{'='*60}")
-        print(f"✅ Bootstrap Complete")
+        print(f"✅ Metadata Generation Complete")
         print(f"{'='*60}")
         print(f"   Created/updated: {success_count}/{len(topics_to_bootstrap)} topics")
-        print(f"\n💡 Run without --bootstrap to perform full indexing")
+        print(f"\n💡 Run without --metadata to perform full indexing")
         return 0
 
     # Default to smart mode if no mode specified
-    if not (args.smart or args.all or args.topic or args.topic_list or args.topics):
+    if not (args.smart or args.all or args.topic or args.topic_list or args.topics or args.metadata):
         args.smart = True
         print(f"\n💡 No mode specified, defaulting to --smart")
 
