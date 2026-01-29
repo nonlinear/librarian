@@ -570,8 +570,9 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
         else:
             print(f"   🆕 First indexing (no hash stored)")
 
-    # 2. Load all raw documents
+    # 2. Load all raw documents WITH METADATA (v2.0)
     raw_documents = []
+    all_chunks_metadata = []  # Store v2.0 metadata separately
     books_to_remove = []  # Track removed files
 
     for book in topic_meta['books']:
@@ -585,33 +586,53 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
         print(f"      Loading: {book['title']}")
 
         try:
-            # Detect file type and load
+            # Detect file type and extract with metadata
             file_ext = book_path.suffix.lower()
 
-            if file_ext == '.epub':
-                docs = epub_reader.load_data(str(book_path))
-            elif file_ext == '.pdf':
-                docs = pdf_reader.load_data(str(book_path))
+            # Add filetype to book metadata
+            book['filetype'] = file_ext[1:]  # Remove leading dot
+
+            # Use v2.0 extraction with page/chapter/paragraph
+            docs_with_meta, chunks_meta = load_book_with_metadata(
+                book_path,
+                book,
+                topic_id,
+                topic_data['path']
+            )
+
+            if docs_with_meta:
+                raw_documents.extend(docs_with_meta)
+                all_chunks_metadata.extend(chunks_meta)
+                print(f"         ✓ {len(docs_with_meta)} paragraphs with metadata")
             else:
-                print(f"         ⚠️  Unsupported: {file_ext}")
-                continue
+                # Fallback to simple loading if extraction fails
+                print(f"         ⚠️  Metadata extraction failed, using simple load")
+                if file_ext == '.epub':
+                    docs = epub_reader.load_data(str(book_path))
+                elif file_ext == '.pdf':
+                    docs = pdf_reader.load_data(str(book_path))
+                else:
+                    print(f"         ⚠️  Unsupported: {file_ext}")
+                    continue
 
-            # Add metadata to raw documents
-            for doc in docs:
-                doc.metadata = {
-                    'book_id': book['id'],
-                    'book_title': book['title'],
-                    'book_author': book.get('author', 'Unknown'),
-                    'topic_id': topic_id,
-                    'topic_folder': topic_data['path'],
-                    'tags': ','.join(book.get('tags', []))
-                }
+                # Add basic metadata to raw documents
+                for doc in docs:
+                    doc.metadata = {
+                        'book_id': book['id'],
+                        'book_title': book['title'],
+                        'book_author': book.get('author', 'Unknown'),
+                        'topic_id': topic_id,
+                        'topic_folder': topic_data['path'],
+                        'tags': ','.join(book.get('tags', []))
+                    }
 
-            raw_documents.extend(docs)
-            print(f"         ✓ {len(docs)} raw docs")
+                raw_documents.extend(docs)
+                print(f"         ✓ {len(docs)} raw docs (no metadata)")
 
         except Exception as e:
             print(f"         ❌ Error: {e}")
+            import traceback
+            traceback.print_exc()
             continue
 
     # Remove deleted books from metadata
@@ -689,10 +710,38 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
             print(f"   ❌ No documents loaded")
             return False
 
-    # 3. Apply chunking to raw documents
-    print(f"\n   ✂️  Chunking {len(raw_documents)} raw docs...")
-    nodes = node_parser.get_nodes_from_documents(raw_documents)
-    print(f"   📝 Generated {len(nodes)} chunks")
+    # 3. Skip chunking if we already have paragraphs with metadata
+    if all_chunks_metadata:
+        # Use pre-extracted paragraphs as chunks (already at ideal size)
+        print(f"\n   ✂️  Using {len(all_chunks_metadata)} pre-extracted paragraphs as chunks")
+        # Create dummy nodes just to hold metadata for embedding
+        from llama_index.core.schema import TextNode
+        nodes = []
+        for chunk_meta in all_chunks_metadata:
+            node = TextNode(
+                text=chunk_meta['chunk_full'],
+                metadata=chunk_meta
+            )
+            nodes.append(node)
+        chunks_to_save = all_chunks_metadata
+    else:
+        # Fallback: Apply chunking to raw documents
+        print(f"\n   ✂️  Chunking {len(raw_documents)} raw docs...")
+        nodes = node_parser.get_nodes_from_documents(raw_documents)
+        print(f"   📝 Generated {len(nodes)} chunks")
+
+        # Build chunks without v2.0 metadata
+        chunks_to_save = []
+        for i, node in enumerate(nodes):
+            chunks_to_save.append({
+                'chunk_full': node.text,
+                'book_id': node.metadata.get('book_id'),
+                'book_title': node.metadata.get('book_title'),
+                'book_author': node.metadata.get('book_author'),
+                'topic_id': node.metadata.get('topic_id'),
+                'topic_folder': node.metadata.get('topic_folder'),
+                'chunk_index': i
+            })
 
     if not nodes:
         print(f"   ❌ No chunks generated")
@@ -735,24 +784,13 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
         print(f"      ❌ Failed to save index: {e}")
         return False
 
-    # Save chunks.json
+    # Save chunks.json (using pre-built metadata)
     chunks_file = topic_path / ".chunks.json"
-    chunks_list = []
-    for i, node in enumerate(nodes):
-        chunks_list.append({
-            'chunk_full': node.text,
-            'book_id': node.metadata.get('book_id'),
-            'book_title': node.metadata.get('book_title'),
-            'book_author': node.metadata.get('book_author'),
-            'topic_id': node.metadata.get('topic_id'),
-            'topic_folder': node.metadata.get('topic_folder'),
-            'chunk_index': i
-        })
 
     try:
         with open(chunks_file, 'w', encoding='utf-8') as f:
-            json.dump(chunks_list, f, ensure_ascii=False, indent=2)
-        print(f"      ✓ {chunks_file.name} ({len(chunks_list)} chunks)")
+            json.dump(chunks_to_save, f, ensure_ascii=False, indent=2)
+        print(f"      ✓ {chunks_file.name} ({len(chunks_to_save)} chunks)")
     except Exception as e:
         print(f"      ❌ Failed to save chunks: {e}")
         return False

@@ -23,7 +23,7 @@
 
 1. **BGE Reranking** ✅
    - Lazy-loaded CrossEncoder (`BAAI/bge-reranker-base`)
-   - Reranks top-k*3 candidates before final selection
+   - Reranks top-k\*3 candidates before final selection
    - `--no-rerank` flag to disable
    - Falls back gracefully if model unavailable
 
@@ -50,6 +50,7 @@
    - Works with existing code (but chunks don't have metadata yet)
 
 **New CLI parameters:**
+
 ```bash
 --no-rerank          # Disable BGE reranking
 --context-window N   # Surrounding chunks (default: 1)
@@ -58,6 +59,7 @@
 ```
 
 **Enhanced output format:**
+
 ```json
 {
   "results": [...],
@@ -86,12 +88,14 @@
 ### Issue: Missing Metadata in Existing Chunks
 
 **Problem:** All existing `.chunks.json` files lack metadata fields:
+
 - ❌ No `page` field
-- ❌ No `chapter` field  
+- ❌ No `chapter` field
 - ❌ No `paragraph` field
 - ❌ No `filetype` field
 
 **Current chunk structure (old):**
+
 ```json
 {
   "chunk_full": "text...",
@@ -105,6 +109,7 @@
 ```
 
 **Expected chunk structure (v2.0):**
+
 ```json
 {
   "chunk_full": "text...",
@@ -129,6 +134,7 @@
 ### Reranker Model Download
 
 Started downloading `BAAI/bge-reranker-base` (~670MB):
+
 - CrossEncoder for better relevance scoring
 - Loaded lazily on first use
 - Falls back gracefully if unavailable
@@ -194,10 +200,10 @@ Started downloading `BAAI/bge-reranker-base` (~670MB):
 
 ## Dependencies Status
 
-✅ `sentence-transformers` - Already installed  
-✅ `faiss` - Already installed  
-✅ `numpy` - Already installed  
-🔄 `BAAI/bge-reranker-base` - Downloading (~670MB)  
+✅ `sentence-transformers` - Already installed
+✅ `faiss` - Already installed
+✅ `numpy` - Already installed
+🔄 `BAAI/bge-reranker-base` - Downloading (~670MB)
 ✅ All other dependencies - OK
 
 ---

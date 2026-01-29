@@ -307,8 +307,14 @@ def query_library(
         }
 
     # Get embedding and search
-    # Retrieve more candidates if reranking (k*2) or deduplicating (k*3)
-    retrieve_k = k * 3 if rerank or max_per_book < k else k
+    # Retrieve more candidates if reranking or deduplicating
+    if max_per_book is not None and max_per_book < k:
+        retrieve_k = k * 3
+    elif rerank:
+        retrieve_k = k * 2
+    else:
+        retrieve_k = k
+
     query_embedding = get_embedding(expanded_query)
     distances, indices = topic_data['index'].search(
         query_embedding.reshape(1, -1),
