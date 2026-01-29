@@ -23,6 +23,7 @@ graph LR
 
     subgraph "🎯 Ready"
         V12[v1.2.0<br/>User Testing]
+        V121[v1.2.1<br/>Research Enhancement]
     end
 
     subgraph "⏳ Blocked/Waiting"
@@ -39,8 +40,9 @@ graph LR
 
     V1 --> V11
     V1 --> V12
-    V11 --> V13
-    V12 --> V13
+    V11 --> V121
+    V12 --> V121
+    V121 --> V13
     V13 --> V14
     V14 --> V15
     V15 --> V16
@@ -53,6 +55,48 @@ graph LR
 ```
 
 ---
+
+## v1.2.1
+
+### [🚧](https://github.com/nonlinear/librarian/tree/v1.2.1) Research Enhancement | [notes](epic-notes/v1.2.1/)
+
+**Improve research.py quality and capabilities using BGE model's full potential**
+
+**Problem:** Current research.py returns limited context, no reranking, duplicate results, and missing metadata (page/location always null).
+
+**Solution:** Implement 5 core improvements:
+
+1. **BGE Reranking:** Use BGE's cross-encoder capabilities to rerank results
+2. **Context Expansion:** Return neighboring chunks for better context
+3. **Result Deduplication:** Group results by book, show counts, remove duplicates
+4. **Query Enhancement:** Add query expansion/reformulation for better recall
+5. **Metadata Debugging:** Fix page/chapter/paragraph extraction and display
+
+**Tasks:**
+
+- [ ] Investigate BGE reranking API and integration
+- [ ] Implement context window expansion (±N chunks)
+- [ ] Add result grouping and deduplication logic
+- [ ] Implement query expansion strategies
+- [ ] Debug chunk metadata extraction pipeline
+- [ ] Verify `.chunks.json` schema has page/chapter fields
+- [ ] Test with `index_library.py` to ensure metadata is captured
+- [ ] Add unit tests for each improvement
+- [ ] Validate improvements with real queries
+- [ ] Document new parameters and behavior
+- [ ] Update MCP server to expose new capabilities
+
+**Success Criteria:**
+
+- Reranking improves top-3 relevance significantly
+- Context expansion provides readable passages
+- No more than 1 result per book in top-10 (unless explicitly requested)
+- Query expansion increases recall by 20%+
+- All results have valid page/chapter/location metadata
+
+---
+
+## v1.2.
 
 ## v1.2.0
 

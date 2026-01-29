@@ -290,6 +290,7 @@ def update_library_index(discovered_topics: List[Dict]) -> Dict:
     """
     Update library-index.json with newly discovered topics.
     Preserves existing topics and adds new ones.
+    Removes topics that no longer have books or subdirectories.
     """
     # Load existing or create new
     if MAIN_METADATA.exists():
@@ -307,8 +308,26 @@ def update_library_index(discovered_topics: List[Dict]) -> Dict:
             "topics": []
         }
 
+    # Build map of discovered topic IDs
+    discovered_ids = {t['id'] for t in discovered_topics}
+
+    # Remove topics that no longer exist (empty folders)
+    existing_topics = registry.get('topics', [])
+    removed_count = 0
+    active_topics = []
+
+    for topic in existing_topics:
+        if topic['id'] in discovered_ids:
+            active_topics.append(topic)
+        else:
+            # Topic no longer has books - remove it
+            removed_count += 1
+            print(f"   🗑️  Removed empty topic: {topic['path']}")
+
+    registry['topics'] = active_topics
+
     # Build map of existing topics
-    existing_ids = {t['id'] for t in registry.get('topics', [])}
+    existing_ids = {t['id'] for t in registry['topics']}
 
     # Add new topics
     new_count = 0
@@ -324,7 +343,7 @@ def update_library_index(discovered_topics: List[Dict]) -> Dict:
     with open(MAIN_METADATA, 'w') as f:
         json.dump(registry, f, indent=2)
 
-    return registry, new_count
+    return registry, new_count, removed_count
 
 
 def bootstrap_topic_metadata(topic_data: Dict) -> bool:
@@ -469,7 +488,31 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
     print(f"   Path: {topic_path.relative_to(LIBRARY_ROOT.parent)}")
     print(f"{'='*60}")
 
-    # 1. Load or create per-topic metadata
+    # 1. Clean old index files (keep only .epub/.pdf)
+    print(f"   🧹 Cleaning old index files...")
+    old_files = [
+        '.faiss.index',
+        '.chunks.json',
+        '.chunks.pkl',
+        'chunks.json',
+        'chunks.pkl',
+        'faiss.index',
+        'default__vector_store.json',
+        'docstore.json',
+        'graph_store.json',
+        'image__vector_store.json',
+        'index_store.json'
+    ]
+    cleaned_count = 0
+    for old_file in old_files:
+        file_path = topic_path / old_file
+        if file_path.exists():
+            file_path.unlink()
+            cleaned_count += 1
+    if cleaned_count > 0:
+        print(f"      ✓ Removed {cleaned_count} old file(s)")
+
+    # 2. Load or create per-topic metadata
     if not metadata_file.exists():
         # Scan for books in directory
         books = []
@@ -529,17 +572,14 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
 
     # 2. Load all raw documents
     raw_documents = []
-    failed_books = []
+    books_to_remove = []  # Track removed files
 
     for book in topic_meta['books']:
         book_path = topic_path / book['filename']
 
         if not book_path.exists():
-            print(f"      ⚠️  Not found: {book['filename']}")
-            failed_books.append({
-                'filename': book['filename'],
-                'error': 'File not found'
-            })
+            print(f"      ⚠️  Removed: {book['filename']}")
+            books_to_remove.append(book['filename'])
             continue
 
         print(f"      Loading: {book['title']}")
@@ -572,14 +612,82 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
 
         except Exception as e:
             print(f"         ❌ Error: {e}")
-            failed_books.append({
-                'filename': book['filename'],
-                'error': str(e)
-            })
+            continue
+
+    # Remove deleted books from metadata
+    if books_to_remove:
+        topic_meta['books'] = [b for b in topic_meta['books'] if b['filename'] not in books_to_remove]
+        print(f"      🗑️  Removed {len(books_to_remove)} deleted book(s) from metadata")
+
+    # Scan for new books (files that exist but aren't in metadata)
+    existing_filenames = {book['filename'] for book in topic_meta['books']}
+    new_books = []
+
+    for ext in ['*.epub', '*.pdf']:
+        for book_path in topic_path.glob(ext):
+            # Skip metadata files
+            if book_path.name.startswith('.'):
+                continue
+
+            if book_path.name not in existing_filenames:
+                book_id = book_path.stem.lower().replace(' ', '_')
+                mtime = os.path.getmtime(book_path)
+
+                new_books.append({
+                    'id': book_id,
+                    'title': book_path.stem,
+                    'filename': book_path.name,
+                    'author': 'Unknown',
+                    'tags': [],
+                    'last_modified': mtime
+                })
+                print(f"      ✨ Found new book: {book_path.name}")
+
+    if new_books:
+        topic_meta['books'].extend(new_books)
+        print(f"      ➕ Added {len(new_books)} new book(s) to metadata")
+        # Need to reload documents with new books
+        for book in new_books:
+            book_path = topic_path / book['filename']
+            print(f"      Loading: {book['title']}")
+
+            try:
+                file_ext = book_path.suffix.lower()
+                if file_ext == '.epub':
+                    docs = epub_reader.load_data(str(book_path))
+                elif file_ext == '.pdf':
+                    docs = pdf_reader.load_data(str(book_path))
+                else:
+                    continue
+
+                for doc in docs:
+                    doc.metadata = {
+                        'book_id': book['id'],
+                        'book_title': book['title'],
+                        'book_author': book.get('author', 'Unknown'),
+                        'topic_id': topic_id,
+                        'topic_folder': topic_data['path'],
+                        'tags': ','.join(book.get('tags', []))
+                    }
+
+                raw_documents.extend(docs)
+                print(f"         ✓ {len(docs)} raw docs")
+            except Exception as e:
+                print(f"         ❌ Error: {e}")
+                continue
 
     if not raw_documents:
-        print(f"   ❌ No documents loaded")
-        return False
+        if books_to_remove:
+            print(f"   ⚠️  All books removed - cleaning up index files")
+            # Save empty metadata
+            topic_meta['last_indexed_at'] = None
+            topic_meta['content_hash'] = None
+            with open(metadata_file, 'w') as f:
+                json.dump(topic_meta, f, indent=2)
+            return True
+        else:
+            print(f"   ❌ No documents loaded")
+            return False
 
     # 3. Apply chunking to raw documents
     print(f"\n   ✂️  Chunking {len(raw_documents)} raw docs...")
@@ -658,12 +766,6 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
 
     print(f"      ✓ {metadata_file.name} updated")
 
-    # 6. Report failures
-    if failed_books:
-        print(f"\n   ⚠️  {len(failed_books)} book(s) failed:")
-        for book in failed_books:
-            print(f"      • {book['filename']}: {book['error']}")
-
     print(f"\n   ✅ Topic indexed successfully")
     return True
 
@@ -706,17 +808,22 @@ def main():
 
     if not MAIN_METADATA.exists():
         print(f"   📝 Creating new library-index.json")
-        registry, new_count = update_library_index(discovered_topics)
+        registry, new_count, removed_count = update_library_index(discovered_topics)
         print(f"   ✅ Registered {len(discovered_topics)} topics")
     else:
         with open(MAIN_METADATA, 'r') as f:
             registry = json.load(f)
 
         old_count = len(registry.get('topics', []))
-        registry, new_count = update_library_index(discovered_topics)
+        registry, new_count, removed_count = update_library_index(discovered_topics)
 
-        if new_count > 0:
-            print(f"   ✅ Found {new_count} new topic(s), total: {len(registry['topics'])}")
+        if new_count > 0 or removed_count > 0:
+            changes = []
+            if new_count > 0:
+                changes.append(f"+{new_count} new")
+            if removed_count > 0:
+                changes.append(f"-{removed_count} empty")
+            print(f"   ✅ Topics updated: {', '.join(changes)} → total: {len(registry['topics'])}")
         else:
             print(f"   ✓ All {len(registry['topics'])} topics already registered")
 
@@ -742,7 +849,6 @@ def main():
     # Default to smart mode if no mode specified
     if not (args.smart or args.all or args.topic or args.topic_list or args.topics or args.metadata):
         args.smart = True
-        print(f"\n💡 No mode specified, defaulting to --smart")
 
     # Determine which topics to index
     if args.smart:
@@ -804,7 +910,7 @@ def main():
             results['failed'].append(topic['id'])
 
     # Update library-index.json with embedding model
-    if not args.bootstrap and results['success']:
+    if results['success']:
         registry['embedding_model'] = embed_model.model_name.split('/')[-1]
         with open(MAIN_METADATA, 'w') as f:
             json.dump(registry, f, indent=2)

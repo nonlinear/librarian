@@ -36,10 +36,6 @@
       "path": "anarchy/zines"
     },
     {
-      "id": "art_direction",
-      "path": "art direction"
-    },
-    {
       "id": "cooking",
       "path": "cooking"
     },
@@ -98,10 +94,6 @@
     {
       "id": "design_typography",
       "path": "design/typography"
-    },
-    {
-      "id": "design_usability",
-      "path": "design/usability"
     },
     {
       "id": "design_usability_general",
@@ -248,12 +240,12 @@
       "path": "theory/information"
     },
     {
-      "id": "theory_system",
-      "path": "theory/system"
+      "id": "theory_leftism",
+      "path": "theory/leftism"
     },
     {
-      "id": "topology",
-      "path": "topology"
+      "id": "theory_system",
+      "path": "theory/system"
     }
   ]
 }
