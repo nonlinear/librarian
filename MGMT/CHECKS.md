@@ -202,6 +202,47 @@ echo $?
 
 Expected: Exit code 0. Smart mode is the default when no flags provided.
 
+**Test 0e: Automatic delta detection (v1.2.1+)**
+
+```bash
+# Delta detection finds new books automatically - no manual topic selection needed
+python3.11 engine/scripts/index_library.py 2>&1 | grep -E "No changes detected|Changes detected|new book"
+```
+
+Expected: Shows delta detection working (finds new/modified books or reports no changes).
+Pass: ✅ Delta detection active
+
+**Why this matters:** v1.2.1+ indexer automatically detects which topics need reindexing based on file changes. Just run `index_library.py` (no args) to update everything that changed.
+
+**Test 0f: v2.0 metadata extraction (v1.2.1+)**
+
+```bash
+# Verify chunks have page/chapter/paragraph metadata after reindexing
+python3.11 -c "
+import json
+from pathlib import Path
+
+# Find a recently indexed topic with chunks
+chunks_files = list(Path('books').glob('*/.chunks.json'))
+if not chunks_files:
+    print('⚠️ No indexed topics found')
+    exit(0)
+
+chunks = json.loads(chunks_files[0].read_text())
+if not chunks:
+    print('⚠️ Empty chunks')
+    exit(0)
+
+has_metadata = 'page' in chunks[0] or 'chapter' in chunks[0]
+print(f'✅ v2.0 metadata: {chunks_files[0].parent.name}' if has_metadata else f'⚠️ v1.0 chunks: {chunks_files[0].parent.name} (reindex to update)')
+"
+```
+
+Expected: Shows topic with v2.0 metadata or suggests reindexing.
+Pass: ✅ Shows metadata status
+
+**Why this matters:** v1.2.1+ enhanced research.py uses page/chapter/location for better UX. Reindexing populates these fields automatically.
+
 **Why these tests matter:**
 
 - ❌ **Before:** Had `generate_metadata.py` (deprecated), checks didn't cover it

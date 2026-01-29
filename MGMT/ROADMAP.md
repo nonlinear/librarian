@@ -58,7 +58,7 @@ graph LR
 
 ## v1.2.1
 
-### [🚧](https://github.com/nonlinear/librarian/tree/v1.2.1) Research Enhancement | [notes](epic-notes/v1.2.1/)
+### ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)
 
 **Improve research.py quality and capabilities using BGE model's full potential**
 
