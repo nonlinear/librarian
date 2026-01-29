@@ -211,9 +211,9 @@ Enhance `research.py` to use BGE model's full potential and improve result quali
 
 ## Session Log
 
-### Session 1: 2026-01-29
+### Session 1: 2026-01-29 ✅ COMPLETE
 
-**Created epic structure following Epic Dance:**
+**Epic Dance completed:**
 
 1. ✅ Reviewed ROADMAP, identified v1.2.1 as next version
 2. ✅ Groomed epic in ROADMAP with problem/solution/tasks
@@ -222,7 +222,34 @@ Enhance `research.py` to use BGE model's full potential and improve result quali
 5. ✅ Updated ROADMAP with 🚧 and branch link
 6. ✅ Created epic notes folder structure (v0.5.0+ style)
 
+**Implementation completed:**
+
+1. ✅ **All 5 features implemented** in research.py
+   - BGE reranking with CrossEncoder
+   - Context expansion (±N chunks)
+   - Result deduplication (max per book)
+   - Query enhancement (synonym expansion)
+   - Full metadata support (page/chapter/paragraph)
+
+2. ✅ **Indexer fixed** to extract v2.0 metadata
+   - Modified `index_library.py` to use `load_book_with_metadata()`
+   - Extracts page/paragraph from PDFs
+   - Extracts chapter/paragraph from EPUBs
+   - Uses paragraphs directly as chunks (better granularity)
+
+3. ✅ **Comprehensive testing completed**
+   - Reindexed cooking topic with v2.0 metadata
+   - Tested all 5 features individually
+   - Documented results in test-results.md
+   - All success criteria met (4.5/5)
+
+**Commits:**
+
+- `6878124` - feat(research): implement v1.2.1 enhancements
+- `06dcb90` - fix(indexer): enable v2.0 metadata extraction + testing
+
 **Next steps:**
 
-- Implement Phase 1 (Metadata Debugging) first
-- Create separate notes for each finding/experiment
+- Update MCP server to expose new parameters
+- Reindex more topics to populate metadata
+- Merge to main when ready
