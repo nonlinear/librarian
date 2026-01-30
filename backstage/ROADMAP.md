@@ -272,11 +272,11 @@ Add support for multi-user environments (permissions, access control)
 
 - [ ] Permission/access error handling
 
-## v2.1.0
+### v2.1
 
-### OpenClaw Integration
+#### ⏳ OpenClaw Integration
 
-⏳ Make Librarian accessible via OpenClaw AI agent conversations.
+Make Librarian accessible via OpenClaw AI agent conversations.
 
 **Who benefits:** OpenClaw users wanting to query their book library through natural conversation
 
@@ -292,11 +292,9 @@ Add support for multi-user environments (permissions, access control)
 - [ ] Ensure citation formatting works in chat interfaces (clickable links)
 - [ ] Validate cross-platform compatibility (web chat, Discord, Telegram, etc.)
 
-**Technical notes:**
-- Uses existing `research.py` + `metadata.json` infrastructure
-- AI reads `.github/prompts/research.prompt.md` for instructions
-- No core code changes needed (already compatible)
-- Focus on documentation and UX testing
+✅ Uses existing infrastructure (research.py + metadata.json)  
+🗒️ AI reads `.github/prompts/research.prompt.md` for instructions  
+🗒️ Focus on documentation and UX testing, not core code changes  
 
 **Status:** ⏳ Paused - documented for future continuation
 
