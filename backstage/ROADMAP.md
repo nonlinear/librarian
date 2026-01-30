@@ -272,6 +272,35 @@ Add support for multi-user environments (permissions, access control)
 
 - [ ] Permission/access error handling
 
+### v2.1
+
+#### ⏳ OpenClaw Integration
+
+Make Librarian accessible via OpenClaw AI agent conversations.
+
+**Who benefits:** OpenClaw users wanting to query their book library through natural conversation
+
+**Why it matters:** Brings semantic search to conversational AI workflow, no CLI needed
+
+**Tasks:**
+
+- [ ] Test `clawdhub install librarian` end-to-end workflow
+- [ ] Verify `/research` prompt integration with OpenClaw agent
+- [ ] Document OpenClaw-specific usage patterns in README
+- [ ] Add conversation examples (user asks → agent queries librarian → cited response)
+- [ ] Test topic inference from natural language questions
+- [ ] Ensure citation formatting works in chat interfaces (clickable links)
+- [ ] Validate cross-platform compatibility (web chat, Discord, Telegram, etc.)
+
+✅ Uses existing infrastructure (research.py + metadata.json)  
+🗒️ AI reads `.github/prompts/research.prompt.md` for instructions  
+🗒️ Focus on documentation and UX testing, not core code changes  
+🗒️ **Placeholder published:** `clawdhub install librarian` reserves name (v0.0.1)
+
+**Status:** ⏳ Paused - documented for future continuation
+
+---
+
 ## v2.0.0
 
 ### Admin Generalization

@@ -62,6 +62,14 @@ graph TD
 
 ## Usage
 
+<!-- ### via [openclaw](https://openclaw.ai)
+
+```bash
+clawdhub install librarian
+```
+
+### by prompt -->
+
 **Use `/research` prompt** to consult Librarian MCP on your AI conversations (see [.github/prompts/research.prompt.md](.github/prompts/research.prompt.md))
 
 Make sure to **specify topic or book** in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
@@ -104,18 +112,7 @@ graph TD
 
 ---
 
-## AI Integration
-
-Librarian MCP is **provider-agnostic**. Use your favorite AI provider:
-
-| AI Provider        | Status                                                                                                                                                        |
-| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Terminal**       | ✅ `python3.11 engine/scripts/research.py "your question" --topic ai`                                                                                         |
-| **VS Code**        | ✅ `bash   code --install-extension https://github.com/nonlinear/librarian/raw/main/.vscode/extensions/personal-library-mcp/personal-library-mcp-latest.vsix` |
-| **Claude Desktop** | 👷 Pending                                                                                                                                                    |
-| **OpenAI API**     | 👷 Pending                                                                                                                                                    |
-| **LM Studio**      | 👷 Pending                                                                                                                                                    |
-| **OpenWebUI**      | 👷 Pending                                                                                                                                                    |
+                                               |
 
 > 🤖
 >

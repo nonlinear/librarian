@@ -183,7 +183,8 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
-        print("\n\n⏹️  Stopping watcher...")
+        print("\n\n⏹️  Stopping watcher...")t("\n\n⏹️  Stopping watcher...")
+    finally:
         observer.stop()
         observer.join()
         print("✅ Watcher stopped")

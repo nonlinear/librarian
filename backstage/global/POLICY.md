@@ -1,6 +1,6 @@
 # Global Policy
 
-> Universal workflow rules that apply across all projects using this MGMT system.
+> Universal workflow rules that apply across all projects using this backstage system.
 
 **Inspired by:** Elinor Ostrom's polycentric governance framework—multiple centers of power (global/project) with overlapping, not hierarchical, jurisdictions.
 
@@ -16,7 +16,7 @@ This file contains **universal, project-agnostic** workflow rules and convention
 
 ## Formatting Standard
 
-All status files (CHECKS, ROADMAP, CHANGELOG, POLICY) must be both **human-readable** (clear, prompt-like, easy to follow) and **machine-readable** (easy for scripts or AI to parse and execute).
+All backstage files (CHECKS, ROADMAP, CHANGELOG, POLICY) must be both **human-readable** (clear, prompt-like, easy to follow) and **machine-readable** (easy for scripts or AI to parse and execute).
 
 **How to format tests and checklists:**
 
@@ -24,7 +24,7 @@ All status files (CHECKS, ROADMAP, CHANGELOG, POLICY) must be both **human-reada
 2. **No large, monolithic scripts**—keep each check atomic and self-contained.
 3. **No markdown formatting or prose inside code blocks.**
 4. **All explanations, expected output, and pass criteria must be outside code blocks.**
-5. **Status files should be easy for both humans and automation to read, extract, and run.**
+5. **Backstage files should be easy for both humans and automation to read, extract, and run.**
 
 _Example:_
 
@@ -34,6 +34,167 @@ python3.11 -c "import llama_index.core; import sentence_transformers"
 
 Expected: No error, prints nothing.
 Pass: ✅ Dependencies OK
+
+---
+
+## Backstage Update System
+
+**backstage-update.py serves dual purpose:**
+
+### 1. Initial Scaffolding (First Install)
+
+**Run from project root:**
+
+```bash
+python backstage/global/backstage-update.py
+```
+
+**Creates complete structure:**
+
+- `backstage/ROADMAP.md` (from templates/ROADMAP-template.md)
+- `backstage/CHANGELOG.md` (from templates/CHANGELOG-template.md)
+- `backstage/POLICY.md` (from templates/POLICY-template.md)
+- `backstage/HEALTH.md` (from templates/HEALTH-template.md)
+- `backstage/global/*` (already in place from clone)
+- `.github/prompts/backstage-*.prompt.md` (all 3 workflow prompts)
+
+**Result:** Complete backstage framework ready to use. User then grooms ROADMAP, customizes POLICY/CHECKS.
+
+### 2. Framework Updates (Existing Projects)
+
+**Run from existing installation:**
+
+```bash
+python backstage/global/backstage-update.py
+```
+
+**Updates 6 files:**
+
+- `backstage/global/POLICY.md`
+- `backstage/global/HEALTH.md`
+- `backstage/global/backstage-update.py` (self-update)
+- `.github/prompts/backstage-start.prompt.md`
+- `.github/prompts/backstage-close.prompt.md`
+- `.github/prompts/backstage-update.prompt.md`
+
+**Preserves:**
+
+- `backstage/ROADMAP.md` (your epics)
+- `backstage/CHANGELOG.md` (your history)
+- `backstage/POLICY.md` (your rules)
+- `backstage/HEALTH.md` (your tests)
+
+**Workflow:** Use `/backstage-update` prompt → shows changes → user confirms → script runs → suggests `/backstage-start`
+
+---
+
+## Navigation Block & Backstage Files Index
+
+**Every backstage file must have a navigation block** (`> 🤖 ... 🤖`) with links to all backstage files.
+
+**Purpose:** Provides consistent navigation and makes backstage-start workflow aware of file locations.
+
+**Precedence:** When global and project rules conflict:
+
+- **Project POLICY.md** > global/POLICY.md
+- **Project HEALTH.md** > global/HEALTH.md
+- Local knowledge always wins (polycentric governance)
+
+### README Protection
+
+**README is special** — it's the "spine" of your project:
+
+- **Public-facing:** Outsiders read this to understand your project
+- **Vision statement:** Who you are AND who you aim to be
+- **People are watching:** Changes are visible to community
+
+**Global rule:** backstage-start can append navigation block but **NOT rewrite README content** without explicit confirmation.
+
+**What needs confirmation:**
+
+- What will change (specific sections/lines)
+- How it will change (show before/after)
+- Where it will change (exact line numbers)
+
+Only **surgical, pointed changes** allowed—no wholesale rewrites.
+
+**Project can override:** Add to your project POLICY.md if you want to allow automatic README edits (e.g., "allow auto-update of version badges").
+
+### Placement Rules
+
+**AI: The backstage-start prompt enforces these rules by appending/updating the navigation block automatically:**
+
+**README.md:**
+
+- Navigation block at **END** (before final line)
+- Includes mermaid roadmap diagram (source of truth from ROADMAP.md)
+
+**ROADMAP.md, CHANGELOG.md, HEALTH.md, POLICY.md:**
+
+- Navigation block at **TOP** (right after `# Title`)
+- Includes same mermaid roadmap diagram (copied from ROADMAP.md)
+
+### Why 🤖 Markers Exist: Future-Proof Format Changes
+
+**The markers are format-agnostic boundaries.**
+
+In the future, navigation block format may change:
+
+- Table → list
+- New diagram types
+- Different syntax entirely
+
+**How backstage-start handles this:**
+
+1. Find `> 🤖` (start marker)
+2. Find `> 🤖` (end marker)
+3. Delete everything between
+4. Insert current format from POLICY.md
+
+**Works regardless of old format** - the script doesn't need to know what the old syntax was. Markers are the stable contract, content between them evolves freely.
+
+### Format
+
+**Navigation block template (current version):**
+
+```markdown
+> 🤖
+> | Backstage files | Description |
+> | ---------------------------------------------------------------------------- | ------------------ |
+> | [README](path/to/README.md) | Our project |
+> | [CHANGELOG](path/to/CHANGELOG.md) | What we did |
+> | [ROADMAP](path/to/ROADMAP.md) | What we wanna do |
+> | POLICY: [project](path/to/POLICY.md), [global](path/to/global/POLICY.md) | How we go about it |
+> | CHECKS: [project](path/to/HEALTH.md), [global](path/to/global/HEALTH.md) | What we accept |
+> | We use **[backstage rules](https://github.com/nonlinear/backstage)**, v0.2.0 |
+> 🤖
+```
+
+### Path Adjustment
+
+**All paths in the navigation block are relative to each file's location.**
+
+The navigation block appears in multiple files across the project. The backstage-start workflow automatically calculates correct paths when updating navigation blocks based on:
+
+- **File's directory level** (root vs subdirectory)
+- **Distance to target files** (same dir, parent dir, child dir)
+- **Global file references** (POLICY/CHECKS point to both project and global versions)
+
+No manual path calculation needed—the workflow handles this automatically.
+
+### Mermaid Roadmap Diagram
+
+**Source of truth:** ROADMAP.md contains the canonical mermaid roadmap diagram showing epic status.
+
+**backstage-start workflow:**
+
+1. Reads diagram from ROADMAP.md
+2. Copies it to README.md (at end, after navigation block)
+3. Copies it to all other backstage files (at top, after navigation block)
+
+**When to update:** Any time epics are added, moved, or completed—backstage-start handles distribution automatically.
+
+**AI Note:** backstage-start workflow maintains navigation blocks and diagrams. Don't manually copy—let the workflow enforce consistency.
 
 ---
 
@@ -51,11 +212,13 @@ v0.5-third-feature (feature branch)
 
 ### Branch Naming
 
+**Format:** `v0.X.0` (version number only, no descriptive names)
+
 **Examples:**
 
-- `v0.3-delta-indexing`
-- `v0.4-provider-integration`
-- `v1.0-breaking-changes`
+- `v0.3.0`
+- `v0.4.0`
+- `v1.0.0`
 
 ### Workflow
 
@@ -72,22 +235,36 @@ v0.5-third-feature (feature branch)
 
 ### 🔍 Before Starting New Work: Review Epic Notes
 
-**CRITICAL:** Always check existing epic notes before starting similar work to avoid reinventing the wheel.
+**CRITICAL:** Always check existing documentation before starting similar work to avoid reinventing the wheel.
+
+**Read before starting epic:**
+
+1. **epic-notes/** — Session logs from previous work (what we did)
+2. **gaps/** — Failed experiments, hidden tricks, community discoveries (what we learned NOT to do, or what works that others don't know)
 
 ```bash
 # List all epic notes
-ls MGMT/epic-notes/
+ls epic-notes/
 
-# Search for relevant keywords
-grep -r "keyword" MGMT/epic-notes/
+# Search for relevant keywords in epic notes
+grep -r "keyword" epic-notes/
+
+# Check gaps for related discoveries
+ls gaps/
+grep -r "keyword" gaps/
 ```
 
-**Why epic notes matter:**
+**Why gaps/ matters:**
 
-- **Discovered blockers:** Previous epics may have hit technical limitations
-- **Tested solutions:** Multiple approaches already tried and documented
-- **Documented workarounds:** Pragmatic solutions when ideal ones don't work
-- **Deferred features:** Features intentionally postponed with reasoning
+- **Failed experiments:** Avoid repeating fruitless tasks
+- **Hidden tricks:** Apply techniques that worked but aren't documented elsewhere
+- **Community contributions:** Share novel discoveries with others
+
+**Write to gaps/ after epic:**
+
+- Found something that didn't work? Document it (save others the pain)
+- Found a trick nowhere else documents? Share it (community value)
+- Researched deeply but went nowhere? Capture it (prevent wheel reinvention)
 
 **When to check:**
 
@@ -96,7 +273,8 @@ grep -r "keyword" MGMT/epic-notes/
 - Considering a feature that "feels like it was tried before"
 - Planning technical approaches
 
-**Epic notes = knowledge base** - Treat them as first-class documentation, not just session logs.
+**epic-notes/ = session logs** — Track what we did during development
+**gaps/ = knowledge base** — Prevent mistakes, share discoveries
 
 ---
 
@@ -118,7 +296,7 @@ grep -r "keyword" MGMT/epic-notes/
    - Task checklist
 5. **Review and refine** tasks (can spend time here)
 
-> 🤖 **AI: Always update mermaid graph when adding/moving/completing epics**
+**AI Note:** Always update mermaid graph when adding/moving/completing epics
 
 **Example:**
 
@@ -172,13 +350,13 @@ Replace ⏳ with 🚧 and add branch link:
 **Structure (v0.4.0 and earlier):**
 
 ```
-MGMT/epic-notes/v0.X.0.md  # Single file for all notes
+epic-notes/v0.X.0.md  # Single file for all notes
 ```
 
 **Structure (v0.5.0+):**
 
 ```
-MGMT/epic-notes/v0.X.0/
+epic-notes/v0.X.0/
   ├── MAIN.md                      # Primary epic documentation
   ├── specific-finding.md          # Specific finding/experiment
   └── another-finding.md           # Another finding
@@ -254,16 +432,16 @@ git push --force-with-lease origin v0.X.0
 - Before creating PR
 - After major main updates
 
-### Step 9: Before Merging - Use MGMT-start Workflow
+### Step 9: Before Merging - Use backstage-start Workflow
 
 ```bash
 # Run pre-commit workflow (does steps 10-11 automatically)
-# See .github/prompts/MGMT-start.prompt.md
+# See .github/prompts/backstage-start.prompt.md
 ```
 
-**The MGMT-start workflow will:**
+**The backstage-start workflow will:**
 
-- ✅ Run all CHECKS (see MGMT/CHECKS.md)
+- ✅ Run all CHECKS (see HEALTH.md)
 - ✅ Update ROADMAP (mark completed checkboxes)
 - ✅ Move epic to CHANGELOG (if complete)
 - ✅ Bump version number (semantic versioning)
@@ -310,7 +488,7 @@ git push origin --delete v0.3.0
 
 ## Epic Format
 
-> 🤖 **AI: Use this syntax when writing epics in ROADMAP or CHANGELOG**
+**AI Note:** Use this syntax when writing epics in ROADMAP or CHANGELOG
 
 **Syntax:**
 
@@ -452,7 +630,7 @@ refactor: consolidate folder structure
 **ALWAYS run before merging to main:**
 
 1. **Use MGMT-start prompt** (see `.github/prompts/MGMT-start.prompt.md`)
-2. **Check CHECKS.md** for stability requirements
+2. **Check HEALTH.md** for stability requirements
 3. **Update ROADMAP** - mark completed checkboxes
 4. **Move to CHANGELOG** - if epic complete
 5. **Run all tests** - ensure nothing broke
@@ -462,3 +640,7 @@ refactor: consolidate folder structure
 **Last updated:** 2026-01-26
 **Version:** 1.0 (Extracted from Librarian project)
 **Source:** Elinor Ostrom's polycentric governance principles
+
+```
+
+```

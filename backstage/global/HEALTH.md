@@ -1,14 +1,14 @@
-# MGMT - Universal Validation Checks
+# Backstage - Universal Health Metrics
 
-> Validation tests that apply to ALL projects using MGMT system.
+> Health metrics that apply to ALL projects using backstage system.
 
-**Purpose:** Ensure project follows MGMT conventions and documentation stays in sync.
+**Purpose:** Define what "healthy" means for your project - validation tests, product metrics, and system wellness indicators.
 
 ---
 
-## 📐 Status File Formatting (MANDATORY)
+## 📐 Backstage File Formatting (MANDATORY)
 
-All status files (CHECKS.md, ROADMAP.md, CHANGELOG.md, POLICY.md) must be both **human-readable** and **machine-readable**.
+All backstage files (HEALTH.md, ROADMAP.md, CHANGELOG.md, POLICY.md) must be both **human-readable** and **machine-readable**.
 
 **Rules:**
 
@@ -31,7 +31,7 @@ Pass: ✅ Python 3.11+
 
 ## 🤖 Navigation Block Validation
 
-**Every status file must have 🤖 navigation block.**
+**Every backstage file must have 🤖 navigation block.**
 
 **Test: README has navigation block**
 
@@ -45,17 +45,32 @@ Pass: ✅ Navigation block exists
 **Test: All status files have navigation block**
 
 ```bash
-for file in MGMT/CHANGELOG.md MGMT/ROADMAP.md MGMT/POLICY.md MGMT/CHECKS.md; do
+for file in MGMT/CHANGELOG.md MGMT/ROADMAP.md MGMT/POLICY.md MGMT/HEALTH.md; do
   grep -q '> 🤖' "$file" || echo "❌ Missing in $file"
 done && echo '✅ All files have navigation blocks'
 ```
 
-Expected: Prints '✅ All files have navigation blocks'
+Expected: Prints '✅ All backstage files have navigation blocks'
 Pass: ✅ All navigation blocks present
 
 ---
 
-## 📊 Documentation Sync Check
+## � Knowledge Base Check (gaps/)
+
+**Purpose:** Make AI mindful of existing gaps before starting work. During epic, if relevant pattern emerges, AI can suggest reading specific gap.
+
+**Test: List existing gaps**
+
+```bash
+ls -lt gaps/ 2>/dev/null | head -10 || echo "No gaps/ directory yet"
+```
+
+Expected: Shows gap files (newest first) or message if directory doesn't exist
+Pass: ✅ AI now aware of documented gaps
+
+---
+
+## �📊 Documentation Sync Check
 
 **Changes in code must be reflected in ROADMAP/CHANGELOG.**
 
@@ -66,11 +81,11 @@ Pass: ✅ All navigation blocks present
 if git diff --quiet; then
   echo '✅ No uncommitted changes'
 else
-  echo '⚠️ Uncommitted changes - run /MGMT-start to sync docs'
+  echo '⚠️ Uncommitted changes - run /backstage-start to sync docs'
 fi
 ```
 
-Expected: Either no changes or reminder to run /MGMT-start
+Expected: Either no changes or reminder to run /backstage-start
 Pass: ✅ Clean state or acknowledged pending sync
 
 ---
@@ -84,7 +99,7 @@ test -f README.md && \
 test -f MGMT/ROADMAP.md && \
 test -f MGMT/CHANGELOG.md && \
 test -f MGMT/POLICY.md && \
-test -f MGMT/CHECKS.md && \
+test -f MGMT/HEALTH.md && \
 test -d MGMT/global && \
 echo '✅ Required MGMT files exist' || echo '❌ Missing required files'
 ```
@@ -95,15 +110,14 @@ Pass: ✅ All required files present
 **Test: Global MGMT files exist**
 
 ```bash
-test -f MGMT/global/README.md && \
 test -f MGMT/global/POLICY.md && \
-test -f MGMT/global/CHECKS.md && \
-test -f MGMT/global/update-MGMT.py && \
-echo '✅ Global MGMT files exist' || echo '❌ Missing global files'
+test -f MGMT/global/HEALTH.md && \
+test -f MGMT/global/backstage-update.py && \
+echo '✅ Global backstage files exist' || echo '❌ Missing global files'
 ```
 
 Expected: Prints '✅ Global MGMT files exist'
-Pass: ✅ Global files present
+Pass: ✅ Global files present (README.md lives at root, not in global/)
 
 ---
 
@@ -135,7 +149,7 @@ Pass: ✅ Epics follow format
 test -f MGMT/CHANGELOG.md && \
 test -f MGMT/ROADMAP.md && \
 test -f MGMT/POLICY.md && \
-test -f MGMT/CHECKS.md && \
+test -f MGMT/HEALTH.md && \
 echo '✅ README links valid' || echo '❌ Broken links in README'
 ```
 
@@ -175,7 +189,7 @@ Pass: ✅ Semantic versioning
 
 ````bash
 # From project root
-bash -c "$(grep -A 1 '^```bash' MGMT/global/CHECKS.md | grep -v '^```' | grep -v '^--$')"
+bash -c "$(grep -A 1 '^```bash' MGMT/global/HEALTH.md | grep -v '^```' | grep -v '^--$')"
 ````
 
 ---
