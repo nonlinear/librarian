@@ -140,6 +140,18 @@
       "path": "fiction/science"
     },
     {
+      "id": "finances_debt",
+      "path": "finances/debt"
+    },
+    {
+      "id": "finances_mortgage",
+      "path": "finances/mortgage"
+    },
+    {
+      "id": "finances_taxes",
+      "path": "finances/taxes"
+    },
+    {
       "id": "fitness",
       "path": "fitness"
     },
