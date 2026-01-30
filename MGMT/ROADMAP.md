@@ -96,7 +96,35 @@ graph LR
 
 ---
 
-## v1.2.
+## v1.2.2
+
+### ⏳ Home Assistant Voice Integration
+
+**Enable voice-based library research via Home Assistant**
+
+**Problem:** Can't query library hands-free while cooking, working, or away from computer.
+
+**Solution:** Integrate Librarian MCP with Home Assistant Voice for natural language research queries.
+
+**Tasks:**
+
+- [ ] Research Home Assistant Voice integration options
+- [ ] Implement MCP → Home Assistant bridge
+- [ ] Add voice query processing (speech-to-text handling)
+- [ ] Format responses for voice output (TTS-friendly)
+- [ ] Test round-trip: voice question → library search → voice answer
+- [ ] Handle multi-result scenarios (pick top result vs ask for clarification)
+- [ ] Add wake word/trigger phrase configuration
+- [ ] Document setup for Home Assistant users
+
+**Success Criteria:**
+
+- Voice query works end-to-end
+- Response time < 5 seconds
+- TTS output is clear and natural
+- Integration documented for easy setup
+
+---
 
 ## v1.2.0
 
@@ -132,25 +160,74 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
 
 ## v1.4.0
 
-### Source Granularity (Deferred from v0.4.0)
+### Reader Integration & Source Granularity | [notes](epic-notes/v1.4.0/)
 
-⏳ Add page/chapter references to citations (VS Code pill limitation workaround).
+⏳ Deep-link citations to actual reading position in EPUB/PDF reader + add paragraph/page/chapter granularity.
 
-**Problem:** VS Code pill validation breaks with URL fragments, blocking clickable navigation.
+**Problem:** Citations link to file, not reading position. User loses context jumping from research → book.
 
-**Alternative approaches:**
+**Current:** User reads in Kavita (http://192.168.1.152:5000), Librarian indexes same folder, but citations don't deep-link.
 
-- [ ] Two-link format: `[Book.pdf](path) - See page 42`
-- [ ] Text-only granularity: `[Book.pdf](path) (page 42)`
-- [ ] File VS Code issue requesting fragment support
-- [ ] Research custom extension for citation handling
-- [ ] Extract page numbers during PDF chunking
-- [ ] Extract chapters during EPUB chunking
-- [ ] Update chunks.json schema to v2.0 (add page/chapter fields)
-- [ ] Modify research.py output format
-- [ ] Testing & validation
+**Vision:** Click citation → Opens book at exact paragraph where quote lives.
 
-🗒️ Requires VS Code team response or custom extension development
+---
+
+**Solution:**
+
+1. **Choose reader** — Evaluate Kavita vs Calibre vs Readium ([comparison](epic-notes/v1.4.0/reader-comparison.md))
+2. **Extract granularity** — Paragraph IDs (EPUB), page numbers (PDF), chapters
+3. **Map positions** — Chunk metadata → Reader position IDs
+4. **Generate deep-links** — `[Book](kavita://...#para=142) (ch. 3, ¶4) | [file](path)`
+5. **Handle risks** — Reading interruption, offline fallback ([risks](epic-notes/v1.4.0/risks.md))
+
+---
+
+**Tasks:**
+
+**Phase 1: Research (2-3 days)**
+- [ ] Test Kavita URL scheme & deep-linking capabilities
+- [ ] Compare alternative readers (Calibre, Readium, Apple Books)
+- [ ] **Decision:** Choose primary reader target
+- [ ] Document URL scheme & API
+
+**Phase 2: Granularity (1 week)**
+- [ ] Extract paragraph IDs from EPUB (nav.xhtml, paragraph tags)
+- [ ] Extract page numbers from PDF (already in v2.0 schema)
+- [ ] Extract chapter markers (EPUB TOC, PDF outline)
+- [ ] Update chunks.json schema: add `paragraph_id`, `chapter`, `page`
+- [ ] Test extraction accuracy across sample books
+
+**Phase 3: Integration (1 week)**
+- [ ] Build chunk → reader position mapping
+- [ ] Generate deep-link URLs in research.py
+- [ ] Implement fallback to file links
+- [ ] Handle edge cases (book not in reader, server offline)
+
+**Phase 4: Citation UX (3 days)**
+- [ ] Design citation format (dual-link vs modal vs warning)
+- [ ] Implement "return to reading position" (if reader supports)
+- [ ] Update research.prompt.md citation rules
+- [ ] Test across clients (VS Code, Claude Desktop, terminal)
+
+**Phase 5: Validation (2 days)**
+- [ ] End-to-end test: research → deep-link → correct paragraph
+- [ ] Verify fallback behavior (offline, missing book)
+- [ ] User testing with real reading workflow
+
+---
+
+**Success Criteria:**
+- ✅ Citations link to paragraph-level (or page-level minimum)
+- ✅ Clicking opens book in reader at correct position
+- ✅ Fallback to file link when reader unavailable
+- ✅ User can return to previous reading position (or risk clearly communicated)
+
+**Open Questions:** (see [notes](epic-notes/v1.4.0/))
+- Which reader? Kavita vs alternatives
+- How to handle reading interruption UX?
+- What granularity is achievable? (paragraph ideal, page acceptable)
+
+🗒️ Merges v0.4.0 "Source Granularity" with new reader integration concept
 
 ## v1.5.0
 
