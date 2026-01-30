@@ -295,6 +295,7 @@ Make Librarian accessible via OpenClaw AI agent conversations.
 ✅ Uses existing infrastructure (research.py + metadata.json)  
 🗒️ AI reads `.github/prompts/research.prompt.md` for instructions  
 🗒️ Focus on documentation and UX testing, not core code changes  
+🗒️ **Placeholder published:** `clawdhub install librarian` reserves name (v0.0.1)
 
 **Status:** ⏳ Paused - documented for future continuation
 
