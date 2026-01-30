@@ -112,8 +112,6 @@ graph TD
 
 ---
 
-                                               |
-
 > 🤖
 >
 > - [README](./README.md) - Our project
