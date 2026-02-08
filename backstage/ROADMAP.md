@@ -246,7 +246,7 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
 
 ## v1.4.0
 
-### Reader Integration & Source Granularity | [notes](epic-notes/v1.4.0/)
+### Reader Integration & Source Precision | [notes](epic-notes/v1.4.0/)
 
 ⏳ Deep-link citations to actual reading position in EPUB/PDF reader + add paragraph/page/chapter granularity.
 
