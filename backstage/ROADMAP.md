@@ -58,7 +58,7 @@ graph LR
 
 ## v0.15.0
 
-### 🎯 Skill as Protocol | [notes](epic-notes/15-architecture.md)
+### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md)
 
 **Make librarian skill deterministic and protocol-driven**
 
