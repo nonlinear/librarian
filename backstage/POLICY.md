@@ -198,6 +198,14 @@ Diagrams = agreements (contracts of execution). Ambiguity in blueprint = wasted 
 
 **Purpose:** Build arch skill documentation while working on librarian. Future refinement happens later.
 
+**Special syntax:**
+- **arch: italic means exact copy user sees** - Text in italics = verbatim what user sees (error messages, UI copy)
+
+**Future automation:**
+- **arch: Script to replay diagram evolution** - Walk commits, screenshot each, generate video
+- Purpose: Demo/presentation of design process
+- Not implemented yet (manual process works for now)
+
 **Diagram update workflow:**
 1. **Agreement reached** → Update diagram immediately (node by node is fine)
 2. **Each save** → Auto-commit
