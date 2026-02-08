@@ -182,8 +182,29 @@ Diagrams = agreements (contracts of execution). Ambiguity in blueprint = wasted 
 - More commits = better stop motion
 - More visual = less metabolic cost (extended mind vs working memory)
 
+**Screenshot automation:**
+- Watchdog: `backstage/scripts/watch-and-commit.sh`
+- On save → `screencapture -x` (full screen) + commit
+- Simple: save → screenshot → commit, nothing more
+- Purpose: Stop motion showing what arch skill can do (demo while working on librarian)
+
 ---
 
+### arch: Prefix Rule
+
+**When Nicholas says "arch:" in conversation:**
+1. **Implement** the change/rule immediately
+2. **Document** in this POLICY.md file (Architecture Diagram Rules section)
+
+**Purpose:** Build arch skill documentation while working on librarian. Future refinement happens later.
+
+**Example:**
+- "arch: screenshot tela toda, simples" → Implement + document here
+- Regular conversation → Just implement, don't document
+
+---
+
+**Last updated:** 2026-02-08 (Added arch: prefix rule)
 **Last updated:** 2026-02-08 (Added Architecture Diagram Rules)
 **Last updated:** 2026-01-26
 **Version:** 1.1 (Decoupled from global policy)
