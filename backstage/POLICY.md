@@ -147,6 +147,44 @@ Example:
 
 ---
 
+### Architecture Diagram Rules
+
+**Location:** `backstage/epic-notes/v*.*.0-*.md` (one diagram per epic)
+
+**Auto-commit on save:**
+- Watchdog: `backstage/scripts/watch-and-commit.sh`
+- On `.md` save → screenshot Typora + git commit
+- Commit message: First line of change
+- **Purpose:** Stop motion of diagram evolution (output only, not conversation)
+
+**Manual screenshot script:**
+- Retroactive: `backstage/scripts/retroactive-screenshots.sh`
+- Walks commit history, screenshots each version
+- Generates stop motion video with ffmpeg
+
+**Color system:**
+- **Yellow (#FFFF99):** Agreement reached, can execute
+- **Pink (#FFB6C1):** Needs discussion before execution
+- **Gray (#E0E0E0):** Execution/data flow (neutral)
+
+**Blueprint sanity check (MANDATORY):**
+
+Before executing ANY architecture diagram, familiar must ask:
+1. **"Does this make sense?"** - Logic coherent?
+2. **"Do I have the tools to execute unsupervised?"** - Can I run this alone?
+
+**If ambiguous → ASK, ASK, ASK.**
+
+Diagrams = agreements (contracts of execution). Ambiguity in blueprint = wasted effort. Better to clarify NOW than debug LATER.
+
+**Commit frequency:**
+- Every meaningful change = 1 commit
+- More commits = better stop motion
+- More visual = less metabolic cost (extended mind vs working memory)
+
+---
+
+**Last updated:** 2026-02-08 (Added Architecture Diagram Rules)
 **Last updated:** 2026-01-26
 **Version:** 1.1 (Decoupled from global policy)
 **Version:** 1.0 (Initial workflow definition)
