@@ -56,6 +56,63 @@ graph LR
 
 ---
 
+## v0.16.0
+
+### 📦 Unified Indexing Pipeline | [notes](epic-notes/v0.16.0-unified-indexing.md)
+
+**Merge index_library.py + research.py metadata handling**
+
+**Problem:** Metadata lives in two places (index_library creates it, research reads it). Changes require syncing both scripts. Indexing separate from querying = opportunity for drift.
+
+**Solution:** Unified pipeline where research.py can trigger re-indexing when needed, or single script handles both.
+
+**Tasks:**
+
+- [ ] Document current metadata flow (who creates what, who reads what)
+- [ ] Design unified architecture (single script? shared module?)
+- [ ] Implement metadata sync (detect stale indexes, auto-refresh)
+- [ ] Add triggers: manual, cronjob, folder watch, pre-query check
+- [ ] Test index → query roundtrip
+- [ ] Migrate existing indexes to new format (if needed)
+- [ ] Update docs
+
+**Success Criteria:**
+
+- Single source of truth for metadata logic
+- Index freshness detectable (timestamp checks)
+- Can query immediately after adding new book (auto-indexes if needed)
+
+---
+
+## v0.17.0
+
+### 🔀 Multi-Scope Queries | [notes](epic-notes/v0.17.0-multi-scope.md)
+
+**Support querying multiple topics and/or books in single research call**
+
+**Problem:** Current research.py takes `--topics topic1,topic2` OR `--book path` but not both. Can't say "search chaos-magick + finance for mentions of debt."
+
+**Solution:** Allow flexible scope combinations: multi-topic, multi-book, topic+book hybrid.
+
+**Tasks:**
+
+- [ ] Design scope syntax (`--topics A,B --books X,Y`? Or unified `--scope`?)
+- [ ] Update research.py to merge results from multiple scopes
+- [ ] Handle ranking across scopes (which book/topic wins if same chunk appears?)
+- [ ] Add result grouping by scope (show which topic each result came from)
+- [ ] Test edge cases (overlapping books in multiple topics)
+- [ ] Update skill to support multi-scope queries
+- [ ] Document use cases
+
+**Success Criteria:**
+
+- Can query 2+ topics in one call
+- Can query 2+ books in one call
+- Can mix topics + books
+- Results clearly show source scope
+
+---
+
 ## v0.15.0
 
 ### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md)
