@@ -56,6 +56,35 @@ graph LR
 
 ---
 
+## v0.15.0
+
+### 🎯 Skill as Protocol | [notes](epic-notes/15-architecture.md)
+
+**Make librarian skill deterministic and protocol-driven**
+
+**Problem:** Skill behavior varies, intelligence split between SKILL.md and code, hard to maintain and reason about.
+
+**Solution:** Treat skill as protocol. Move intelligence to project tooling (shell wrappers, Python scripts), keep skill minimal and deterministic.
+
+**Tasks:**
+
+- [ ] List popular OpenClaw skills and extract best practices
+- [ ] Compare best practices with our current skill design
+- [ ] **Arch exercise:** Document what we WANT (not what we have) for execution ← **WIP**
+- [ ] Discuss best practices (shell wrapper vs SKILL.md intelligence)
+- [ ] Research books for theoretical foundation (metadata, protocols, design patterns)
+- [ ] Implement findings (refactor skill + wrapper + scripts)
+- [ ] Test determinism (same query = same behavior)
+
+**Success Criteria:**
+
+- Skill follows deterministic protocol (trigger → exact flow)
+- AI helps with interpretation (context) and output (formatting)
+- Same query produces same behavior every time
+- Maintenance burden reduced (change logic in one place, not SKILL.md)
+
+---
+
 ## v1.2.1
 
 ### ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)
