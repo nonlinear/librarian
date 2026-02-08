@@ -1,5 +1,5 @@
 #!/bin/bash
-# Auto-commit epic notes on save + screenshot Typora window
+# Auto-commit epic notes on save + screenshot full screen
 
 set -e
 
@@ -24,15 +24,11 @@ fswatch -0 --event Updated "$EPIC_DIR"/*.md | while read -d "" file; do
     
     echo "📝 [$(date +%H:%M:%S)] Detected change: $file"
     
-    # Screenshot Typora window
-    echo "📸 Capturing Typora window..."
-    screencapture -o -w "$OUTPUT" 2>/dev/null
+    # Screenshot full screen (Cmd+Shift+3)
+    echo "📸 Capturing full screen..."
+    screencapture -x "$OUTPUT"
     
-    if [ -f "$OUTPUT" ]; then
-        echo "✅ Screenshot saved: $(basename "$OUTPUT")"
-    else
-        echo "⚠️  Screenshot failed (Typora window not focused?)"
-    fi
+    echo "✅ Screenshot saved: $(basename "$OUTPUT")"
     
     # Git commit
     echo "🔄 Committing changes..."
