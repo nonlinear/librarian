@@ -26,3 +26,15 @@ engine/docs/FAILED.md
 
 # Runtime logs (auto-generated)
 engine/logs/*.log
+*.log
+
+# Usage tracking (local only)
+usage.jsonl
+analyze-usage.py
+
+# Deprecated scripts
+*.DEPRECATED
+
+# Index metadata (auto-generated)
+index/topics.json
+books/.library-index.json
