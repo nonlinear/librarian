@@ -198,6 +198,12 @@ Diagrams = agreements (contracts of execution). Ambiguity in blueprint = wasted 
 
 **Purpose:** Build arch skill documentation while working on librarian. Future refinement happens later.
 
+**Diagram update workflow:**
+1. **Agreement reached** → Update diagram immediately (node by node is fine)
+2. **Each save** → Auto-commit
+3. **Screenshot** → Auto-move to `backstage/epic-notes/screenshots/`
+4. **Result:** Incremental visual evolution, stop motion on every change
+
 **Example:**
 - "arch: screenshot tela toda, simples" → Implement + document here
 - Regular conversation → Just implement, don't document
