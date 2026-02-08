@@ -7,15 +7,15 @@
 > - [ROADMAP](ROADMAP.md) — What we wanna do
 > - [POLICY](POLICY.md) [project](POLICY.md) / [global](global/POLICY.md) — How we do it
 > - [CHECKS](CHECKS.md) — What we accept
-> - [/MGMT-start](../.github/prompts/MGMT-start.prompt.md) — Pre-commit validation
-> - [/MGMT-end](../.github/prompts/MGMT-end.prompt.md) — Session wrap-up
+> - [/backstage-start](../.github/prompts/backstage-start.prompt.md) — Pre-commit validation
+> - [/backstage-end](../.github/prompts/backstage-end.prompt.md) — Session wrap-up
 > - 👷 Wanna collaborate? Connect via [signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 >
 > 🤖
 
 **This file contains Librarian-specific stability checks.**
 
-**For universal MGMT validation:** See [global/CHECKS.md](global/CHECKS.md)
+**For universal backstage validation:** See [global/CHECKS.md](global/CHECKS.md)
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
@@ -83,7 +83,7 @@ graph LR
 
 - ✅ Still allowed to push
 - ⚠️ Must document failures in commit message
-- 📝 Track known issues in epic notes (`MGMT/epic-notes/v0.X.0.md`)
+- 📝 Track known issues in epic notes (`backstage/epic-notes/v0.X.0.md`)
 - 🎯 Must be fixed before merging to main
 
 **Commit message format when checks fail:**
@@ -126,15 +126,15 @@ See epic notes for full context
 **Test: Formatting compliance**
 
 ````bash
-grep -q 'Formatting Standard' MGMT/CHECKS.md && \
-grep -q 'Formatting Standard' MGMT/ROADMAP.md && \
-grep -q 'Formatting Standard' MGMT/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
+grep -q 'Formatting Standard' backstage/CHECKS.md && \
+grep -q 'Formatting Standard' backstage/ROADMAP.md && \
+grep -q 'Formatting Standard' backstage/CHECKS.md && echo '✅ Formatting standard declared in CHECKS.md' || echo '❌ Formatting standard missing in CHECKS.md'
 Expected: Prints '✅ All status files declare formatting standard'.
 ---
 
 ## 📋 Automated Test Sequence
 
-**For universal MGMT checks (formatting, navigation blocks, etc.):** See [global/CHECKS.md](global/CHECKS.md)
+**For universal backstage checks (formatting, navigation blocks, etc.):** See [global/CHECKS.md](global/CHECKS.md)
 
 **The following are Librarian-specific stability checks:**
 
@@ -818,8 +818,8 @@ echo ""
 
 # 6. Documentation check
 echo "📚 6. Documentation parity..."
-grep -q "MGMT/ROADMAP.md" README.md && echo "✅ README links to ROADMAP" || echo "⚠️  README missing ROADMAP link"
-grep -q "MGMT/CHANGELOG.md" README.md && echo "✅ README links to CHANGELOG" || echo "⚠️  README missing CHANGELOG link"
+grep -q "backstage/ROADMAP.md" README.md && echo "✅ README links to ROADMAP" || echo "⚠️  README missing ROADMAP link"
+grep -q "backstage/CHANGELOG.md" README.md && echo "✅ README links to CHANGELOG" || echo "⚠️  README missing CHANGELOG link"
 echo ""
 
 # 7. Ready to commit
