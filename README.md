@@ -80,7 +80,7 @@ Make sure to **specify topic or book** in your question. MCP will try to disambi
 
 **Example 3**: "`/research` what tarot spreads work best for decision-making under uncertainty?"
 
-**Troubleshooting:** Books that failed to index (corrupted files, unsupported formats) go silently to `MGMT/FAILED.md`
+**Troubleshooting:** Books that failed to index (corrupted files, unsupported formats) go silently to `backstage/FAILED.md`
 
 > 👉 Without `/research` your AI uses general knowledge. With it you get precise citations from your library
 
@@ -115,12 +115,12 @@ graph TD
 > 🤖
 >
 > - [README](./README.md) - Our project
-> - [CHANGELOG](./MGMT/CHANGELOG.md) — What we did
-> - [ROADMAP](./MGMT/ROADMAP.md) — What we wanna do
-> - [POLICY](./MGMT/POLICY.md) [project](./MGMT/POLICY.md) / [global](./MGMT/global/POLICY.md) — How we do it
-> - [CHECKS](./MGMT/CHECKS.md) — What we accept
-> - [/MGMT-start](.github/prompts/MGMT-start.prompt.md) — Pre-commit validation
-> - [/MGMT-end](.github/prompts/MGMT-end.prompt.md) — Session wrap-up
+> - [CHANGELOG](./backstage/CHANGELOG.md) — What we did
+> - [ROADMAP](./backstage/ROADMAP.md) — What we wanna do
+> - [POLICY](./backstage/POLICY.md) [project](./backstage/POLICY.md) / [global](./backstage/global/POLICY.md) — How we do it
+> - [CHECKS](./backstage/CHECKS.md) — What we accept
+> - [/backstage-start](.github/prompts/backstage-start.prompt.md) — Pre-commit validation
+> - [/backstage-end](.github/prompts/backstage-end.prompt.md) — Session wrap-up
 > - Wanna collaborate? Connect via [signal](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
 >
 > 🤖
