@@ -115,7 +115,7 @@ graph LR
 
 ## v0.15.0
 
-### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md)
+### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md)
 
 **Make librarian skill deterministic and protocol-driven**
 
@@ -517,3 +517,141 @@ Enhancements for later versions
   - [ ] Format: `viewer://file=path&search=query`
   - [ ] One-click navigation from citations to exact location in book
   - [ ] Integration with MCP response format
+
+
+## v0.19.0
+
+### 📚 Multi-Format Support | [notes](epic-notes/v0.19.0-multi-format.md)
+
+**Status:** 💡 PROPOSED (2026-02-10)
+
+**Expand Librarian beyond EPUB: Excel, web links, PowerPoint, Markdown**
+
+**Problem:** Knowledge locked in non-EPUB formats (spreadsheets, saved articles, presentations). Can't query across all sources.
+
+**Solution:** Format-agnostic indexing pipeline. Single search → all your knowledge.
+
+**Proposed formats:**
+- ✅ EPUB (existing)
+- ✅ PDF (improve)
+- 🆕 Excel (.xlsx) - data tables, formulas, notes
+- 🆕 Web links (HTML scrape + archive) - articles, docs
+- 🆕 PowerPoint (.pptx) - slides, speaker notes
+- 🆕 Markdown (.md) - personal notes, wikis
+
+**Tasks:**
+- [ ] Design `BaseExtractor` interface (format-agnostic)
+- [ ] Implement Excel support (`openpyxl`)
+- [ ] Implement web archive (scrape + save HTML)
+- [ ] Implement PowerPoint support (`python-pptx`)
+- [ ] Implement Markdown support
+- [ ] Enhance PDF extraction
+- [ ] Update citations (format-specific metadata)
+- [ ] Add `--format` filter to research.py
+- [ ] Test cross-format queries
+- [ ] Document all formats
+
+**Success Criteria:**
+- Single query searches books + spreadsheets + web + presentations
+- Citations show format-specific metadata (sheet name, slide number, URL)
+- Backward compatible (existing indexes work)
+
+**Dependencies:**
+- v0.16.0 (Unified Indexing) - prerequisite
+
+---
+
+## v0.18.0
+
+### Multi-Topic Search & Filters
+
+**Status:** 💡 BACKLOG (after stable + usage data)
+
+**Philosophy:** Use librarian as consumer first, identify pain points, THEN add features.
+
+**Deferred ideas:**
+- Multi-topic search (`--topic chaos-magick,occult`)
+- Author filter (`--author Graeber`)
+- Date/year filter (`--year 2024`)
+- Book-specific search (`--book "Title"`)
+
+**When to revisit:**
+1. v0.15.0 stable (refactoring done)
+2. Nicholas uses librarian regularly (usage.jsonl has data)
+3. Pain points identified ("I wish I could...")
+
+**Rule:** No features until stable + usage data.
+
+**Placeholder:** This epic exists to capture ideas, not commit to them.
+
+---
+
+
+
+## v0.17.0
+
+### Script Unification (Single CLI)
+
+**Status:** 💡 BACKLOG (after v0.15.0 + v0.16.0 stable)
+
+**Problem:** Multiple scripts for same tool (research.py, index_library.py, analyze-usage.py, librarian.sh). Could be unified.
+
+**Proposal:** Single CLI with subcommands:
+```bash
+librarian search "query" --topic chaos-magick
+librarian index --smart
+librarian analyze
+```
+
+**Options:**
+1. Wrapper script (routing logic, no changes to existing scripts)
+2. Python CLI with click/argparse (unified codebase)
+3. Keep separate (current, simplest, least risky)
+
+**Recommendation:** DEFER. Ask Nicholas after stable: "Do you want unified CLI? What's the actual pain point?"
+
+**Don't unify for sake of unifying.**
+
+---
+
+
+
+## v0.16.0
+
+### Metadata & Polish
+
+**Status:** 📋 BACKLOG (after v0.15.0 stable)
+
+**Problem:** Librarian skill missing metadata (deps, install instructions, platform requirements).
+
+**Solution:** Add frontmatter to SKILL.md:
+
+```yaml
+---
+name: librarian
+description: Research books via semantic search (EPUB/PDF library)
+homepage: ~/Documents/librarian/README.md
+metadata:
+  openclaw:
+    emoji: 📚
+    os: ["darwin", "linux"]
+    requires:
+      bins: ["python3", "jq"]
+      python: [sentence-transformers, torch, faiss-cpu]
+    install:
+      - id: pip-deps
+        kind: pip
+        package: sentence-transformers torch faiss-cpu
+---
+```
+
+**Tasks:**
+- [ ] Add frontmatter to SKILL.md
+- [ ] Document python deps
+- [ ] Add install instructions
+- [ ] Test OpenClaw dep detection
+
+**Why separate epic:** Metadata ≠ functionality. Refactoring = high risk. Mixing = hard to debug.
+
+---
+
