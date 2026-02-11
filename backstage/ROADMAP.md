@@ -115,7 +115,7 @@ graph LR
 
 ## v0.15.0
 
-### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md)
+### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md) | [best-practices](epic-notes/v0.15.0-best-practices.md)
 
 **Make librarian skill deterministic and protocol-driven**
 
@@ -125,13 +125,31 @@ graph LR
 
 **Tasks:**
 
-- [ ] List popular OpenClaw skills and extract best practices
-- [ ] Compare best practices with our current skill design
-- [ ] **Arch exercise:** Document what we WANT (not what we have) for execution ← **WIP**
-- [ ] Discuss best practices (shell wrapper vs SKILL.md intelligence)
-- [ ] Research books for theoretical foundation (metadata, protocols, design patterns)
-- [ ] Implement findings (refactor skill + wrapper + scripts)
+**Phase 1: Research & Analysis**
+- [x] List popular OpenClaw skills and extract best practices
+- [x] Compare best practices with our current skill design
+- [x] Document findings (v0.15.0-best-practices.md)
+
+**Phase 2: Architecture Design** ← **WIP**
+- [ ] **Arch exercise:** Document what we WANT (not what we have) for execution
+- [ ] Define domains (AI vs Wrapper vs Script responsibilities)
+- [ ] Review diagram against best practices
+- [ ] Validate with book research (protocols, design patterns)
+
+**Phase 3: Implementation (After Design Approval)**
+- [ ] Add metadata check (system requirements validation)
+- [ ] Add frontmatter to SKILL.md (emoji, deps, install instructions)
+- [ ] Pre-trigger flow design (how other users configure triggers)
+- [ ] AGENTS.md integration (how to incorporate for other users - instruction?)
+- [ ] Trigger as frontmatter? (vs AGENTS.md)
+- [ ] Suggestion as frontmatter? (auto-detect patterns)
+- [ ] Expand SKILL.md examples (check history for real usage patterns)
+- [ ] Refactor skill + wrapper + scripts (based on approved architecture)
+
+**Phase 4: Validation**
 - [ ] Test determinism (same query = same behavior)
+- [ ] Test with real data (Nicholas reindexes and queries)
+- [ ] Document edge cases and solutions
 
 **Success Criteria:**
 

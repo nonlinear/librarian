@@ -757,7 +757,7 @@ def index_topic(topic_data: Dict, registry: Dict, force: bool = False) -> bool:
 
         # Use configured embedding model from Settings
         model_name = Settings.embed_model.model_name
-        model = SentenceTransformer(model_name, cache_folder=str(MODELS_DIR))
+        model = SentenceTransformer(model_name, cache_folder=str(MODELS_DIR), local_files_only=True)
 
         texts = [node.text for node in nodes]
         embeddings_list = model.encode(texts, show_progress_bar=True, batch_size=32)

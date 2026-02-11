@@ -267,6 +267,16 @@ def query_library(
         print(f"🔍 Expanded query: {expanded_query}", file=sys.stderr)
 
     # Find topic
+    # --topic OR --book is REQUIRED (never optional)
+    if not topic and not book:
+        return {
+            'results': [],
+            'metadata': {
+                'query': query,
+                'error': 'Must specify --topic or --book\nUsage: research.py "query" --topic TOPIC_ID\n   or: research.py "query" --book FILENAME'
+            }
+        }
+
     topic_id = None
     if topic:
         for t in metadata['topics']:
@@ -275,15 +285,7 @@ def query_library(
                 topic_id = t['id']
                 break
 
-    if not topic_id:
-        # Default to first topic with data
-        for t in metadata['topics']:
-            topic_dir = BOOKS_DIR / t['id']
-            if (topic_dir / ".faiss.index").exists():
-                topic_id = t['id']
-                break
-
-    if not topic_id:
+    if topic and not topic_id:
         return {
             'results': [],
             'metadata': {
@@ -291,7 +293,7 @@ def query_library(
                 'expanded_query': expanded_query if expand_query_flag else None,
                 'reranked': rerank,
                 'context_window': context_window,
-                'error': 'No indexed topics found'
+                'error': f'Topic "{topic}" not found in library index'
             }
         }
 
