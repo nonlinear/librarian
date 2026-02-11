@@ -147,6 +147,42 @@ Example:
 
 ---
 
+### Epic Announcement Policy
+
+**When epic is merged to main:**
+1. **Document completion** in CHANGELOG.md
+2. **Announce publicly** via nonlinear article/blog post
+   - What we built
+   - Why it matters
+   - How to use it
+   - Learnings/insights
+
+**Purpose:**
+- Share knowledge with community
+- Show progress (portfolio visibility)
+- Document journey (not just results)
+- Help others solve similar problems
+
+**Article location:** `~/Documents/nonlinear/content/` (or appropriate blog)
+
+**Template TBD:** Need to define standard announcement structure:
+- Epic name + version
+- Problem statement
+- Solution overview
+- Key learnings
+- Screenshots/demos
+- Links to code/docs
+
+**Status:** 🔴 **NOT YET IMPLEMENTED** - We need to define:
+- Article structure/template
+- Publishing workflow (write → review → publish)
+- Distribution channels (blog, Signal, Discord, etc.)
+- Timing (merge → announce within X days?)
+
+**Next step:** Create announcement template + publishing workflow
+
+---
+
 ### Architecture Diagram Rules
 
 **Location:** `backstage/epic-notes/v*.*.0-*.md` (one diagram per epic)
