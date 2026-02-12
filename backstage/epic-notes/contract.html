@@ -269,8 +269,15 @@
         // Wait for Mermaid to be ready, then initialize
         function initMermaid() {
           if (window.mermaidReady && window.mermaid) {
-            window.mermaid.run();
-            console.log('Mermaid initialized!');
+            window.mermaid.run().then(() => {
+              console.log('Mermaid initialized!');
+              
+              // Strip all inline styles from Mermaid SVG
+              document.querySelectorAll('.mermaid svg *[style]').forEach(el => {
+                el.removeAttribute('style');
+              });
+              console.log('Mermaid inline styles stripped');
+            });
           } else {
             setTimeout(initMermaid, 50);
           }
