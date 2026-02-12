@@ -8,7 +8,9 @@
   <!-- Mermaid -->
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
+    mermaid.initialize({ startOnLoad: false });
+    window.mermaid = mermaid;
+    window.mermaidReady = true;
   </script>
   
   <!-- Marked.js for Markdown -->
@@ -177,6 +179,44 @@
       margin: 2em 0;
       text-align: center;
     }
+    
+    /* Mermaid node colors from markdown CSS vars */
+    :root {
+      --node-bg: #f5f5f5;
+      --node-border: #666;
+      --approved-bg: #FFF9C4;
+      --approved-border: #F9A825;
+      --blocker-bg: #FFCDD2;
+      --blocker-border: #D32F2F;
+      --developed-bg: #BBDEFB;
+      --developed-border: #1976D2;
+    }
+    
+    .node rect, .node polygon, .node circle, .node path {
+      fill: var(--node-bg) !important;
+      stroke: var(--node-border) !important;
+      stroke-width: 2px !important;
+    }
+    
+    .default rect, .default polygon, .default circle, .default path {
+      fill: var(--node-bg) !important;
+      stroke: var(--node-border) !important;
+    }
+    
+    .approved rect, .approved polygon, .approved circle, .approved path {
+      fill: var(--approved-bg) !important;
+      stroke: var(--approved-border) !important;
+    }
+    
+    .blocker rect, .blocker polygon, .blocker circle, .blocker path {
+      fill: var(--blocker-bg) !important;
+      stroke: var(--blocker-border) !important;
+    }
+    
+    .developed rect, .developed polygon, .developed circle, .developed path {
+      fill: var(--developed-bg) !important;
+      stroke: var(--developed-border) !important;
+    }
   </style>
 </head>
 <body>
@@ -199,19 +239,36 @@
       .then(markdown => {
         console.log('Markdown loaded, length:', markdown.length);
         
-        // Manual parsing: extract ```mermaid blocks and convert to <pre class="mermaid">
-        const mermaidRegex = /```mermaid\n([\s\S]*?)```/g;
-        let processedMd = markdown.replace(mermaidRegex, (match, code) => {
-          return '<pre class="mermaid">\n' + code + '\n</pre>';
+        // Render markdown FIRST
+        const htmlContent = marked.parse(markdown);
+        document.getElementById('content').innerHTML = htmlContent;
+        
+        console.log('Markdown rendered');
+        
+        // THEN convert code blocks to mermaid
+        document.querySelectorAll('code.language-mermaid').forEach(codeBlock => {
+          const pre = codeBlock.parentElement;
+          const mermaidCode = codeBlock.textContent;
+          
+          // Replace <pre><code class="language-mermaid"> with <pre class="mermaid">
+          const newPre = document.createElement('pre');
+          newPre.className = 'mermaid';
+          newPre.textContent = mermaidCode;
+          pre.replaceWith(newPre);
         });
         
         console.log('Mermaid blocks converted');
         
-        // Render markdown
-        const htmlContent = marked.parse(processedMd);
-        document.getElementById('content').innerHTML = htmlContent;
-        
-        console.log('Markdown rendered!');
+        // Wait for Mermaid to be ready, then initialize
+        function initMermaid() {
+          if (window.mermaidReady && window.mermaid) {
+            window.mermaid.run();
+            console.log('Mermaid initialized!');
+          } else {
+            setTimeout(initMermaid, 50);
+          }
+        }
+        initMermaid();
       })
       .catch(error => {
         console.error('Error:', error);
@@ -225,6 +282,33 @@ python3 -m http.server 8765</pre>
           <p><strong>Debug:</strong> Check browser console (F12) for details.</p>
         `;
       });
+    
+    // Hot reload (connects to watch-reload.py WebSocket server)
+    function connectHotReload() {
+      const ws = new WebSocket('ws://localhost:8767');
+      
+      ws.onopen = () => {
+        console.log('🔥 Hot reload connected');
+      };
+      
+      ws.onmessage = (event) => {
+        if (event.data === 'reload') {
+          console.log('📝 File changed, reloading...');
+          location.reload();
+        }
+      };
+      
+      ws.onclose = () => {
+        console.log('❌ Hot reload disconnected, retrying in 2s...');
+        setTimeout(connectHotReload, 2000);
+      };
+      
+      ws.onerror = (error) => {
+        console.log('⚠️ Hot reload not available (run watch-reload.py to enable)');
+      };
+    }
+    
+    connectHotReload();
   </script>
 </body>
 </html>
