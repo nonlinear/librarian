@@ -131,10 +131,14 @@ graph LR
 - [x] Document findings (v0.15.0-best-practices.md)
 
 **Phase 2: Architecture Design** ← **WIP**
+- [ ] **Domain definition:** Review each diagram node, assign domain (skill/py/sh)
+- [ ] **Fix `--book` flag** → Refactor during implementation (diagram = contract)
 - [ ] **Arch exercise:** Document what we WANT (not what we have) for execution
 - [ ] Define domains (AI vs Wrapper vs Script responsibilities)
 - [ ] Review diagram against best practices
-- [ ] Validate with book research (protocols, design patterns)
+- [ ] Validate with book research (Agentic Design Patterns = industry standard)
+- [ ] Document pattern alignment in SKILL.md (References section)
+- [ ] Update SKILL.md with architecture decisions
 
 **Phase 3: Implementation (After Design Approval)**
 - [ ] Add metadata check (system requirements validation)
@@ -476,6 +480,39 @@ Make Librarian accessible via OpenClaw AI agent conversations.
 - ✅ Clear separation: admin commands vs domain commands
 
 🗒️ This IS the meta-workflow becoming a product
+
+## v0.20.0
+
+### 📊 Usage Analytics | [notes](epic-notes/v0.20.0-usage-analytics.md)
+
+**Rank topics by usage, success rate, and recency**
+
+**Problem:** We log all queries to `usage.jsonl` but have no way to analyze them. Don't know which topics are most useful, which queries succeed/fail, or usage patterns over time.
+
+**Solution:** Build analytics on top of existing usage.jsonl data. Rank topics, detect patterns, identify gaps.
+
+**Tasks:**
+
+- [ ] Design analytics commands (`analyze-usage.py --rank-topics`)
+- [ ] Implement topic ranking (by volume, success rate, recency)
+- [ ] Add query pattern detection (common phrases, multi-word vs single-word)
+- [ ] Visualize results (markdown table? JSON for programmatic use?)
+- [ ] Integrate with research workflow (show "top topics" in help?)
+- [ ] Document analytics patterns (what metrics matter?)
+
+**Success Criteria:**
+
+- Can rank topics by: total queries, success rate (exit_code 0), last used
+- Can see query patterns (most common searches per topic)
+- Output formats: human-readable (markdown) + machine-readable (JSON)
+- Low metabolic cost (fast analysis, no external deps)
+
+**Future enhancements:**
+- Topic correlation (which topics appear together in same session?)
+- Time-based analysis (usage trends over weeks/months)
+- Query success prediction (which queries likely to find results?)
+
+---
 
 ## v1.8.0
 
