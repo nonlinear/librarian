@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <div id="output"></div>
+  <script>
+    const testMd = `
+# Test
+\`\`\`mermaid
+flowchart LR
+  A --> B
+\`\`\`
+`;
+    
+    marked.setOptions({
+      highlight: function(code, lang) {
+        if (lang === 'mermaid') {
+          return '<div class="mermaid">' + code + '</div>';
+        }
+        return code;
+      }
+    });
+    
+    document.getElementById('output').innerHTML = marked.parse(testMd);
+    console.log('Rendered HTML:', document.getElementById('output').innerHTML);
+    
+    setTimeout(() => {
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    }, 100);
+  </script>
+</body>
+</html>
