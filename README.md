@@ -126,42 +126,14 @@ graph TD
 > 🤖
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'14px'}}}%%
 graph LR
-    subgraph "✅ Done"
-        V1[v1.0.0<br/>Renaming<br/><small>Personal Library → Librarian</small>]
-        V11[v1.1.0<br/>Hygiene]
-    end
-
-    subgraph "🎯 Ready"
-        V12[v1.2.0<br/>User Testing]
-    end
-
-    subgraph "⏳ Blocked/Waiting"
-        V14[v1.4.0<br/>Citation Expression<br/><small>VS Code limitation</small>]
-        V13[v1.3.0<br/>Better Feedback]
-    end
-
-    subgraph "📅 Future"
-        V15[v1.5.0<br/>FAILED→REPORT]
-        V16[v1.6.0<br/>Error Handling]
-        V17[v1.7.0<br/>Multi-User]
-        V2[v2.0.0<br/>Admin Generalization<br/><small>Status files repo</small>]
-    end
-
-    V1 --> V11
-
-    V1 --> V12
-    V11 --> V13
-    V12 --> V13
-    V13 --> V14
-    V14 --> V15
-    V15 --> V16
-    V16 --> V17
-    V17 --> V2
-
-    style V1 fill:#90EE90
-    style V13 fill:#FFE4B5
-    style V2 fill:#E6E6FA
-
+    A[📋 v0.16.0 📦 Unified Indexing Pipeline | [notes](epic-notes/v0.16.0-unified-indexing.md)]
+    B[📋 v0.17.0 🔀 Multi-Scope Queries | [notes](epic-notes/v0.17.0-multi-scope.md)]
+    A --> B
+    C[📋 v0.15.0 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md) | [best-practices](epic-notes/v0.15.0-best-practices.md)]
+    B --> C
+    D[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
+    C --> D
 ```
+
+
