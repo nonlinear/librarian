@@ -4,15 +4,10 @@
 
 ## Auto-commit on Save
 
-**Watchdog:** `backstage/scripts/watch-and-commit.sh`
-- On `.md` save → screenshot Typora + git commit
-- Commit message: First line of change
+**Concept:** Save .md → auto-commit with diagram screenshot
 - **Purpose:** Stop motion of diagram evolution
-
-**Manual screenshot:**
-- Script: `backstage/scripts/retroactive-screenshots.sh`
-- Walks commit history, screenshots each version
-- Generates stop motion video with ffmpeg
+- **Status:** Not implemented (manual git workflow for now)
+- **Future:** fswatch + screencapture automation
 
 ## Color System
 
