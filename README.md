@@ -112,18 +112,19 @@ graph TD
 
 ---
 
+
+
+
 > 🤖
 >
-> - [README](./README.md) - Our project
-> - [CHANGELOG](./backstage/CHANGELOG.md) — What we did
-> - [ROADMAP](./backstage/ROADMAP.md) — What we wanna do
-> - [POLICY](./backstage/POLICY.md) [project](./backstage/POLICY.md) / [global](./backstage/global/POLICY.md) — How we do it
-> - [CHECKS](./backstage/CHECKS.md) — What we accept
-> - [/backstage-start](.github/prompts/backstage-start.prompt.md) — Pre-commit validation
-> - [/backstage-end](.github/prompts/backstage-end.prompt.md) — Session wrap-up
-> - Wanna collaborate? Connect via [signal](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
+> This project follows [backstage protocol](https://github.com/nonlinear/backstage) v0.3.4
+>
+> [README](README.md) 👏 [ROADMAP](backstage/ROADMAP.md) 👏 [CHANGELOG](backstage/CHANGELOG.md) 👏 checks: [local](backstage/checks/local/) <sup>4</sup>, [global](backstage/checks/global/) <sup>28</sup>
 >
 > 🤖
+
+
+
 
 ```mermaid
 graph LR

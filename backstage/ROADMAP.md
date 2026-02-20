@@ -1,16 +1,17 @@
 >
 
+
+
+
 > 🤖
-> | Backstage files | Description |
-> | ---------------------------------------------------------------------------- | ------------------ |
-> | [README](../README.md) | Our project |
-> | [CHANGELOG](CHANGELOG.md) | What we did |
-> | [ROADMAP](ROADMAP.md) | What we wanna do |
-> | POLICY: [project](POLICY.md), [global](global/POLICY.md) | How we go about it |
-> | [CHECKS](CHECKS.md) | What we accept |
+> This project follows [backstage protocol](https://github.com/nonlinear/backstage) v0.3.4
 >
-> We use **[backstage protocol](https://github.com/nonlinear/backstage)**, v0.3.5
+> - [README](../README.md) 👏 [ROADMAP](ROADMAP.md) 👏 [CHANGELOG](CHANGELOG.md) 👏 checks: [local](checks/local/) <sup>4</sup>, [global](checks/global/) <sup>28</sup>
+>
 > 🤖
+
+
+
 
 ```mermaid
 graph LR
@@ -55,7 +56,7 @@ graph LR
 
 ---
 
-## v0.17.0
+## v0.17.0 | [notes](epic-notes/v0.17.0-indexing-bug-subfolders.md)
 
 ### 🔀 Multi-Scope Queries | [notes](epic-notes/v0.17.0-multi-scope.md)
 
@@ -84,7 +85,7 @@ graph LR
 
 ---
 
-## v0.15.0
+## v0.15.0 | [notes](epic-notes/v0.15.0-skill-protocol.md.bak)
 
 ### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md) | [best-practices](epic-notes/v0.15.0-best-practices.md)
 
@@ -135,7 +136,7 @@ graph LR
 
 ---
 
-## v1.2.1
+## v1.2.1 | [notes](epic-notes/v1.2.1/)
 
 ### ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)
 
@@ -237,7 +238,7 @@ Improve feedback and interaction for users and contributors (includes VS Code Ex
   - [ ] Alternative: workspace-level `.vscode/settings.json`
   - [ ] Test instructions for verifying MCP connection
 
-## v1.4.0
+## v1.4.0 | [notes](epic-notes/v1.4.0/)
 
 ### Reader Integration & Source Precision | [notes](epic-notes/v1.4.0/)
 
@@ -452,7 +453,7 @@ Make Librarian accessible via OpenClaw AI agent conversations.
 
 🗒️ This IS the meta-workflow becoming a product
 
-## v0.20.0
+## v0.20.0 | [notes](epic-notes/v0.20.0-usage-analytics.md)
 
 ### 📊 Usage Analytics | [notes](epic-notes/v0.20.0-usage-analytics.md)
 
@@ -545,7 +546,7 @@ Enhancements for later versions
   - [ ] Integration with MCP response format
 
 
-## v0.19.0
+## v0.19.0 | [notes](epic-notes/v0.19.0-multi-format.md)
 
 ### 📚 Multi-Format Support | [notes](epic-notes/v0.19.0-multi-format.md)
 
@@ -614,7 +615,7 @@ Enhancements for later versions
 
 
 
-## v0.17.0
+## v0.17.0 | [notes](epic-notes/v0.17.0-indexing-bug-subfolders.md)
 
 ### Script Unification (Single CLI)
 

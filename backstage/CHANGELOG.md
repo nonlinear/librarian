@@ -1,16 +1,17 @@
 >
 
+
+
+
 > 🤖
-> | Backstage files | Description |
-> | ---------------------------------------------------------------------------- | ------------------ |
-> | [README](../README.md) | Our project |
-> | [CHANGELOG](CHANGELOG.md) | What we did |
-> | [ROADMAP](ROADMAP.md) | What we wanna do |
-> | POLICY: [project](POLICY.md), [global](global/POLICY.md) | How we go about it |
-> | [CHECKS](CHECKS.md) | What we accept |
+> This project follows [backstage protocol](https://github.com/nonlinear/backstage) v0.3.4
 >
-> We use **[backstage protocol](https://github.com/nonlinear/backstage)**, v0.3.5
+> - [README](../README.md) 👏 [ROADMAP](ROADMAP.md) 👏 [CHANGELOG](CHANGELOG.md) 👏 checks: [local](checks/local/) <sup>4</sup>, [global](checks/global/) <sup>28</sup>
+>
 > 🤖
+
+
+
 
 ```mermaid
 graph LR
@@ -504,14 +505,4 @@ python3.11 engine/scripts/reindex_topic.py <topic-name>
 
 ---
 
-> 🤖
->
-> - [README](../../README.md) - Our project
-> - [CHANGELOG](CHANGELOG.md) — What we did
-> - [ROADMAP](ROADMAP.md) — What we wanna do
-> - [CONTRIBUTING](CONTRIBUTING.md) — How we do it
-> - [CHECKS](CHECKS.md) — What we accept
-> - 👷 Wanna collaborate? Connect via [signal group](https://signal.group/#CjQKIKD7zJjxP9sryI9vE5ATQZVqYsWGN_3yYURA5giGogh3EhAWfvK2Fw_kaFtt-MQ6Jlp8)
->
-> 🤖
 
