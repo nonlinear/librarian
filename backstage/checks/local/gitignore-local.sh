@@ -8,11 +8,16 @@ if [ ! -f "$EXCLUDE_FILE" ]; then
     exit 1
 fi
 
-# Check for BYOB entries
-if ! grep -q "books/\*\*/\*.epub" "$EXCLUDE_FILE" || \
-   ! grep -q "engine/models/" "$EXCLUDE_FILE"; then
-    echo "❌ .git/info/exclude missing BYOB entries"
-    echo "Expected: books/**/*.epub, books/**/*.pkl, etc."
+# Check for BYOB entries (books + models)
+if ! grep -qE "books/.*\.epub" "$EXCLUDE_FILE"; then
+    echo "❌ .git/info/exclude missing books BYOB entry"
+    echo "Expected: books/**/*.epub (or similar pattern)"
+    exit 1
+fi
+
+if ! grep -qE "(engine/)?models/" "$EXCLUDE_FILE"; then
+    echo "❌ .git/info/exclude missing models entry"
+    echo "Expected: models/ or engine/models/"
     exit 1
 fi
 
