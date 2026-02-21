@@ -16,48 +16,58 @@ Search your book library using natural language. Ask questions like "What does G
 
 ```mermaid
 flowchart TB
-    TRIGGER["🎤 Trigger + context"]:::orange
-    TRIGGER --> METADATA["👷 Load metadata"]:::green
-    METADATA --> CHECK{"👷 Metadata exists?"}:::green
+    TRIGGER["🎤 Trigger + context"]:::ready
+    TRIGGER --> METADATA["👷 Load metadata 1️⃣"]:::ready
+    METADATA --> CHECK{"👷 Metadata exists?"}:::ready
     
-    CHECK -->|No| ERROR["🎤 🤚 No metadata found:<br>Run librarian index"]:::green
-    CHECK -->|Yes| INFER{"🎤 Infer scope?"}:::orange
+    CHECK -->|No| ERROR["🎤 🤚 No metadata found:<br>Run librarian index 5️⃣"]:::ready
+    CHECK -->|Yes| INFER{"🎤 Infer scope? 2️⃣"}:::ready
     
-    INFER -->|confidence < 75%| CLARIFY["🎤 🤚 Say it again?"]:::orange
-    INFER -->|confidence ≥ 75%| BUILD["👷 Build command"]:::red
+    INFER -->|confidence lower than 75%| CLARIFY["🎤 🤚 Say it again? 5️⃣"]:::ready
+    INFER -->|confidence higher than 75%| BUILD["👷 Build command 3️⃣"]:::ready
     
-    BUILD --> CHECK_SYSTEM{"⚙️ System working?"}:::green
+    BUILD --> CHECK_SYSTEM{"⚙️ System working?"}:::ready
     
-    CHECK_SYSTEM -->|No| BROKEN["🎤 🤚 System is broken"]:::orange
-    CHECK_SYSTEM -->|Yes| EXEC["⚙️ Run research.py"]:::green
+    CHECK_SYSTEM -->|No| BROKEN["🎤 🤚 System is broken 5️⃣"]:::ready
+    CHECK_SYSTEM -->|Yes| EXEC["⚙️ Run python script with flags"]:::ready
     
-    EXEC --> JSON["⚙️ Return JSON"]:::green
-    JSON --> CHECK_RESULTS{"👷 Results found?"}:::green
+    EXEC --> JSON["⚙️ Return JSON"]:::ready
+    JSON --> CHECK_RESULTS{"👷 Results found?"}:::ready
     
-    CHECK_RESULTS -->|No| EMPTY["🎤 🤚 No results found"]:::orange
-    CHECK_RESULTS -->|Yes| FORMAT["🎤 Format output"]:::orange
+    CHECK_RESULTS -->|No| EMPTY["🎤 🤚 No results found 5️⃣"]:::ready
+    CHECK_RESULTS -->|Yes| FORMAT["🎤 Format output 4️⃣"]:::ready
     
-    FORMAT --> RESPONSE["🎤 Librarian response"]:::orange
-    
-    classDef green fill:#4caf50,stroke:#2e7d32,color:#fff
-    classDef orange fill:#ff9800,stroke:#e65100,color:#fff
-    classDef red fill:#f44336,stroke:#c62828,color:#fff
+    FORMAT --> RESPONSE["🎤 Librarian response"]:::ready
+
+    classDef ready fill:#c8e6c9,stroke:#81c784,color:#2e7d32
 ```
 
-**Legend:**
-- 🟢 Green = Implemented, tested, WORKING
-- 🟠 Orange = Implemented, needs AI session to test
-- 🔴 Red = Implemented, tested, BROKEN (see notes below)
+**Status:** ✅ All nodes ready (v0.15.0 complete)
+
+**Protocol Nodes:**
+
+1. **Load Metadata:** Reads `.library-index.json` + `.topic-index.json` files
+2. **Infer Scope:** Confidence >75% → proceed | <75% → ask clarification
+3. **Build Command:** `python3 research.py "QUERY" --topic TOPIC_ID`
+4. **Format Output:** Synthesized answer + emoji citations + sources
+5. **🤚 Hard Stop:** Honest failure > invented answer (VISION.md principle)
+
+**Sandwich Architecture:**
+
+**Flow:** 🎤 Skill → 👷 Sh → ⚙️ Py → 👷 Sh → 🎤 Skill
+
+**Why this pattern:**
+1. **🎤 Skill** interprets user intent (conversational, flexible, handles ambiguity)
+2. **👷 Sh** builds correct command syntax (skill errs often, sh hardens protocol)
+3. **⚙️ Py** executes deterministic work (search, embeddings, JSON output)
+4. **👷 Sh** formats py output to structured syntax (protocol compliance)
+5. **🎤 Skill** presents to human (natural language, citations, formatting)
 
 **Symbols:**
 - 🎤 = Skill (you, AI conversational layer)
 - 👷 = Wrapper (librarian.sh, protocol enforcement)
 - ⚙️ = Python (research.py, heavy lifting)
 - 🤚 = Hard stop (honest failure > invented answer)
-
-**🔴 BUILD node (RED):** --book flag bug in research.py (requires --topic even with --book)  
-**🟠 ORANGE nodes:** Need live AI session testing (Phase 4)  
-**🟢 GREEN nodes:** Wrapper + Python tested and working
 
 ---
 
@@ -84,6 +94,50 @@ You didn't create the problem. You're just telling the truth:
 - "Não tem resultados." ← Reality, not failure.
 
 **Reporting hard stops IS your job done.** ✅
+
+---
+
+## Metadata Structure (Subway Map)
+
+**How metadata is organized:**
+
+```
+.library-index.json (BIG PICTURE)
+├─ 73 topics total
+├─ Each topic: {id, path}
+└─ NO book list (prevents JSON explosion)
+
+Each topic folder:
+└─ .topic-index.json (NARROW)
+   └─ books: [{id, title, filename, author, tags, filetype}, ...]
+```
+
+**Navigation:**
+- **Topic scope** = 1 step (scan `.library-index.json` only)
+- **Book scope** = 2 steps (`.library-index.json` → infer topics → scan `.topic-index.json` files)
+
+**🔴 CRITICAL: Extension Handling**
+
+**User NEVER mentions file extensions.**
+
+**Examples:**
+- ✅ User says: "I Ching hexagram"
+- ✅ User says: "Condensed Chaos"
+- ❌ User NEVER says: "I Ching.epub"
+
+**Why:** Extension = metadata detail (epub vs pdf), irrelevant to user.
+
+**Your job:**
+1. Match query → book `title` (NO extension)
+2. Pass `filename` to wrapper (WITH extension: "I Ching.epub")
+3. Results show title only (NO extension in output)
+
+**Metadata fields:**
+- `.library-index.json` → topics list (big picture)
+- `.topic-index.json` → books list per topic (narrow view)
+- Book metadata: `title` (user-facing, no ext) + `filename` (internal, with ext)
+
+**Full taxonomy:** See `backstage/epic-notes/metadata-taxonomy.md`
 
 ---
 
