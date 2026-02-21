@@ -116,21 +116,47 @@ Activate when user query matches ANY of these patterns:
 
 Determine WHAT to search (topic or book) from user intent.
 
-### Confidence Threshold
+**AI = router.** Intelligence is in the index (embeddings). You just match query → scope.
 
-- **≥75%**: Proceed to BUILD
-- **<75%**: Stop and CLARIFY
+### Confidence Logic (Binary)
+
+**Read metadata** (`.library-index.json`):
+```json
+{
+  "books": ["Debt - The First 5000 Years.epub", "I Ching of the Cosmic Way.epub"],
+  "topics": ["chaos-magick", "finance", "anarchy"]
+}
+```
+
+**Fuzzy match query against metadata:**
+
+| Match book? | Match topic? | → Action |
+|------------|-------------|----------|
+| ✅ | ✅ | **TOPIC** (tiebreaker: future mixed searches) |
+| ✅ | ❌ | **BOOK** |
+| ❌ | ✅ | **TOPIC** |
+| ❌ | ❌ | **CLARIFY** (hard stop) |
+
+**Match rules:**
+- Book: Query contains book title substring OR author name (case-insensitive)
+- Topic: Query contains topic keyword (case-insensitive)
 
 ### Examples
 
-**High confidence (proceed):**
-- "Graeber debt" → book: "Debt - The First 5000 Years.epub"
-- "chaos magick sigils" → topic: chaos-magick
-- "I Ching hexagram 23" → book: "I Ching of the Cosmic Way.epub"
+**TOPIC wins (tiebreaker):**
+- "Graeber debt finance" → matches both "Debt.epub" + "finance" → **TOPIC: finance**
 
-**Low confidence (clarify):**
-- "tell me about debt" → CLARIFY: "Search in finance topic or Graeber's book?"
-- "sigils" → CLARIFY: "Chaos magick topic or specific book?"
+**BOOK only:**
+- "Graeber hexagram 23" → matches "Debt.epub" only → **BOOK: Debt.epub**
+- "I Ching moving lines" → matches "I Ching.epub" only → **BOOK: I Ching.epub**
+
+**TOPIC only:**
+- "chaos magick sigils" → matches "chaos-magick" only → **TOPIC: chaos-magick**
+- "mutual aid commons" → matches "anarchy" only → **TOPIC: anarchy**
+
+**CLARIFY (no match):**
+- "philosophy" → no match → **CLARIFY: "Search which topic or book?"**
+- "systems" → no match → **CLARIFY: "Need more context - which area?"**
 
 ### Scope Types
 
