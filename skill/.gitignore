@@ -26,3 +26,5 @@ engine/docs/FAILED.md
 
 # Runtime logs (auto-generated)
 engine/logs/*.log
+# Downloaded models (user runs setup to download)
+models/
