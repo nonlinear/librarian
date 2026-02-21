@@ -494,6 +494,51 @@ Make Librarian accessible via OpenClaw AI agent conversations.
 
 ---
 
+## v0.21.0 | [notes](epic-notes/v0.21.0-generalizing-librarian.md)
+
+### 🔧 Generalizing Librarian (Skill Portability) | [notes](epic-notes/v0.21.0-generalizing-librarian.md)
+
+**Make librarian skill portable and self-contained**
+
+**Problem:** Hardcoded paths, no onboarding, manual indexing, bespoke setup per user.
+
+**Solution:** Interactive setup, embedded indexing, per-instance configuration.
+
+**Tasks:**
+
+**1. Onboarding Skill ("setup librarian")**
+- [ ] Create `setup.sh` (interactive prompts: books path, indexes path, model)
+- [ ] Generate `.librarian-config.json` (per-instance config)
+- [ ] Validate paths and settings
+- [ ] Handle reconfiguration (overwrite existing)
+
+**2. Embed Indexing ("update librarian")**
+- [ ] Wrap `index_library.py` in skill
+- [ ] Smart detection (only new/changed files)
+- [ ] Progress feedback
+- [ ] Error handling (corrupt books, missing models)
+- [ ] Commands: `update librarian`, `update librarian --full`, `update librarian --topic X`
+
+**3. Per-Instance Variables**
+- [ ] **DECIDE:** Approach (env vars vs named instances vs path-based)
+- [ ] Implement instance selection logic
+- [ ] Test multiple instances (no conflicts)
+- [ ] Document multi-instance workflow
+
+**Success Criteria:**
+
+- New user runs `setup librarian` → working config
+- `update librarian` → auto-indexes new books
+- Multiple instances supported (work, personal, research libraries)
+- No hardcoded paths (portable across machines)
+
+**Design Questions:**
+- Where to store config? (global vs per-instance)
+- How to handle multiple instances? (selection mechanism)
+- Backward compatibility? (migration path for existing users)
+
+---
+
 ## v1.8.0
 
 ### Future Ideas
