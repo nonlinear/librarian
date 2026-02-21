@@ -1,0 +1,28 @@
+# DEFLATED .gitignore (2026-01-25)
+# Most patterns moved to .git/info/exclude per gaps/gitignore-vs-autocomplete.md
+# Only shared metadata/indices here to avoid autocomplete blocking
+
+# Books folder - ignore everything inside except .gitkeep and hidden db files
+books/*
+!books/.gitkeep
+!books/.library-index.json
+!books/**/.chunks.json
+!books/**/.faiss.index
+!books/**/.topic-index.json
+
+# GitHub configs - only allow specific prompts
+.github/chatmodes/**
+.github/scripts/**
+.github/prompts/*
+!.github/prompts/research*
+!.github/prompts/whatsup*
+!.github/prompts/wrap-it-up*
+
+# VS Code settings - ignore all
+.vscode/**
+
+# Failed books log (contains PII)
+engine/docs/FAILED.md
+
+# Runtime logs (auto-generated)
+engine/logs/*.log

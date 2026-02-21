@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "window.title": "📚 Librarian",
+    "github.copilot.chat.codeGeneration.instructions": [
+      {
+        "text": "🤖 CRITICAL: Always look for '🤖:' markers in markdown files - they contain navigation instructions to status files (ROADMAP, CHANGELOG, CHECKS, whatsup.prompt.md). When you see '🤖:', treat it as a direct command to check that file before proceeding."
+      }
+    ],
+    "files.exclude": {
+      "**/*.pkl": true,
+      "**/*.index": true,
+      "books/metadata.json": true,
+      "books/**/*.pkl": true,
+      "books/**/*.index": true,
+      "models/": true,
+      "**/__pycache__": true,
+      "**/.DS_Store": true,
+      "engine/docs/FAILED.md": true
+    },
+    "files.watcherExclude": {
+      "**/*.pkl": true,
+      "**/*.index": true,
+      "books/**/*.epub": true
+    },
+    "search.exclude": {
+      "**/*.pkl": true,
+      "**/*.index": true,
+      "models/": true,
+      "**/__pycache__": true
+    }
+  },
+  "folders": [
+    {
+      "path": "./"
+    }
+  ]
+}

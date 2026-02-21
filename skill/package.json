@@ -1,0 +1,26 @@
+{
+  "name": "@openclaw/skill-librarian",
+  "version": "1.0.0",
+  "description": "Search indexed personal book library with semantic search",
+  "keywords": ["research", "library", "books", "semantic-search", "faiss"],
+  "author": "Nicholas Frota",
+  "license": "MIT",
+  "openclaw": {
+    "triggers": [
+      "pesquisa",
+      "research",
+      "procura",
+      "no meu livro",
+      "in my library",
+      "tarot",
+      "i ching",
+      "graeber",
+      "debt",
+      "finances"
+    ],
+    "tools": [
+      "research-tracked.sh",
+      "analyze-usage.py"
+    ]
+  }
+}

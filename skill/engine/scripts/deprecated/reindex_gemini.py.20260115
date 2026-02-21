@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+"""
+Reindex books using Gemini embeddings (fast startup, 768 dims)
+"""
+
+import os
+import sys
+from pathlib import Path
+import json
+import faiss
+import numpy as np
+from dotenv import load_dotenv
+import google.generativeai as genai
+
+# Load environment
+ENV_PATH = Path(__file__).parent.parent / ".env"
+load_dotenv(dotenv_path=ENV_PATH)
+
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+if not GOOGLE_API_KEY:
+    print("❌ GOOGLE_API_KEY not found in .env")
+    sys.exit(1)
+
+genai.configure(api_key=GOOGLE_API_KEY)
+
+# Paths
+STORAGE_DIR = Path(__file__).parent.parent / "storage"
+DOCSTORE_FILE = STORAGE_DIR / "docstore.json"
+INDEX_FILE = STORAGE_DIR / "faiss.index"
+
+print("🔄 Reindexing with Gemini embeddings...")
+print(f"   API Key: {GOOGLE_API_KEY[:20]}...")
+
+# Load docstore
+print("\n1. Loading docstore...")
+with open(DOCSTORE_FILE, 'r') as f:
+    docstore = {int(k): v for k, v in json.load(f).items()}
+
+print(f"   Found {len(docstore)} chunks")
+
+# Generate embeddings
+print("\n2. Generating embeddings with Gemini...")
+print("   This will take ~2-3 minutes for 11,764 chunks")
+
+texts = [doc['chunk_text'] for doc in docstore.values()]
+embeddings = []
+
+# Batch process (Gemini supports up to 100 per request)
+batch_size = 100
+total_batches = (len(texts) + batch_size - 1) // batch_size
+
+for i in range(0, len(texts), batch_size):
+    batch = texts[i:i+batch_size]
+    batch_num = i // batch_size + 1
+
+    print(f"   Batch {batch_num}/{total_batches}...", end='\r')
+
+    result = genai.embed_content(
+        model="models/embedding-001",
+        content=batch,
+        task_type="retrieval_document"
+    )
+
+    embeddings.extend(result['embedding'])
+
+print(f"\n   ✅ Generated {len(embeddings)} embeddings")
+
+# Create FAISS index
+print("\n3. Building FAISS index...")
+embedding_matrix = np.array(embeddings, dtype='float32')
+print(f"   Embedding dimensions: {embedding_matrix.shape[1]}")
+
+index = faiss.IndexFlatL2(embedding_matrix.shape[1])
+index.add(embedding_matrix)
+
+print(f"   ✅ Index built with {index.ntotal:,} vectors")
+
+# Save index
+print("\n4. Saving index...")
+faiss.write_index(index, str(INDEX_FILE))
+print(f"   ✅ Saved to {INDEX_FILE}")
+
+print("\n🎉 Reindexing complete!")
+print(f"   Vectors: {index.ntotal:,}")
+print(f"   Dimensions: {embedding_matrix.shape[1]}")

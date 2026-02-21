@@ -1,0 +1,720 @@
+# Librarian Skill
+
+Search and research your personal book library using semantic search.
+
+## Overview
+
+The librarian skill gives you access to a curated library of books organized by topic (finances, anarchy, design, AI, cooking, magick, etc.). It uses BGE embeddings + cross-encoder reranking for precise semantic search.
+
+**Location:** `~/Documents/librarian/`
+
+## When to Use
+
+**MANDATORY: Use this skill when the user asks to:**
+- "Research [topic]" / "Pesquisar [conceito]"
+- "What do my books say about [topic]?"
+- "What does [author/theory] say about [concept]?"
+- "Do I have books about [subject]?"
+- Research questions that might be in their books
+- **ANY question about topics that exist in the library** (finances, anarchy, design, AI, magick, theory, cooking, etc.)
+
+**Trigger keywords:**
+- "research", "pesquisar", "pesquisa"
+- "my books", "my library", "what do books say"
+- Author names (James C. Scott, David Graeber, etc.)
+- Theory domains (anarchy, leftism, feminism, etc.)
+
+**Examples:**
+- "Pesquisa o que anarquistas dizem sobre legibilidade" → use topic `anarchy/james_scott`
+- "Research the concept of dead labor in leftist theory" → use topic `theory/leftism` OR `anarchy/david_graeber`
+- "What does my mortgage book say about prepayment?" → use topic `finances/mortgage`
+- "Pesquisar chaos magick" → use topic `magick/chaos`
+
+## ⚠️ CRITICAL: No Research, No Answer
+
+**If research.py cannot be run, the ONLY valid response is to inform the user of the error and STOP.**
+
+Never attempt to answer, summarize, or speculate. Any answer not directly grounded in research.py output is misleading and strictly forbidden.
+
+**The ONLY valid responses are:**
+
+1. **Context error:** Ask the user for clarification if topic/book cannot be determined
+2. **Engine error:** Inform the user of a technical/library failure. Do NOT answer from general knowledge
+3. **Success:** Return grounded results from research.py (even if "no relevant info found"), with proper citations
+
+**It is always better to say "error" and stop than to provide an ungrounded answer.**
+
+## Library Structure (v2.0)
+
+**Index hierarchy:**
+```
+~/Documents/librarian/books/
+├── library-index.json           # Root index (list of topics)
+├── anarchy/
+│   ├── james scott/
+│   │   ├── .faiss.index         # Vector index
+│   │   ├── .chunks.json         # Extracted chunks
+│   │   └── *.pdf / *.epub       # Books
+│   └── david graeber/
+│       └── ...
+└── finances/
+    └── ...
+```
+
+**⚠️ CRITICAL: Topic ID vs Path**
+- **Topic ID** (used in `--topic`): Underscores (e.g., `magick_i_ching`)
+- **Folder path** (shown in results): Forward slashes (e.g., `magick/i ching`)
+- **ALWAYS use Topic ID for search**, not folder path!
+
+**Check available topics:**
+```bash
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+```
+
+**Common topics:**
+- `finances_debt`, `finances_mortgage`, `finances_taxes`
+- `anarchy_james_c_scott`, `anarchy_david_graeber`, `anarchy_hakim_bey`
+- `ai_policy`, `ai_prompt_engineering`, `ai_theory`
+- `magick_i_ching`, `magick_tarot`, `magick_chaos`
+- `design_*`, `drawing_*`, `theory_*`
+- 63+ topics total
+
+## Research Workflow
+
+### Step 1: Validate Library Access
+
+**Before answering ANY research question, verify library is accessible:**
+
+**Execute this exact command:**
+
+```bash
+test -f "/Users/nfrota/Documents/librarian/books/library-index.json" && echo "LIBRARY_FOUND" || echo "LIBRARY_NOT_FOUND"
+```
+
+**Decision logic:**
+- ✅ **Output = "LIBRARY_FOUND"**: Proceed to Step 2
+- ❌ **Output = "LIBRARY_NOT_FOUND"**: STOP IMMEDIATELY
+
+**If LIBRARY_NOT_FOUND, respond EXACTLY:**
+
+```markdown
+❌ Librarian not accessible or research pipeline unavailable.
+
+Expected location: /Users/nfrota/Documents/librarian/books/library-index.json
+
+Possible fixes:
+1. Verify the library exists at the expected path
+2. Update the library path in this prompt's configuration section
+3. Run `bash ./engine/scripts/setup.sh` to set up your environment
+
+I cannot answer research questions without access to your library and a working research pipeline. No general knowledge or fallback answers will be provided.
+```
+
+**DO NOT:**
+- Answer from general knowledge
+- Provide fallback, memory, or architectural suggestions
+- Give alternative solutions
+- Continue with the research workflow
+
+---
+
+### Step 2: Get Library Path
+
+**Get library path from metadata**
+
+**Execute this exact command:**
+
+```bash
+python3.11 -c "import json; print(json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['library_path'])"
+```
+
+Store result as `LIBRARY_PATH` variable.
+
+---
+
+### Step 3: Check Topics & Match Query
+
+**List all topic IDs**
+
+**Execute this exact command:**
+
+```bash
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+```
+
+---
+
+### Step 4: Infer Scope (Topic/Book) & Execute Search
+
+**If topic unclear, infer from metadata:**
+
+- Read `/Users/nfrota/Documents/librarian/books/library-index.json` for topic tags
+- Match query keywords against topic IDs, book titles, tags
+- Weighted scoring: tags 50%, topic ID 30%, labels 20%
+- ✅ Confidence ≥ 60%: Auto-select topic
+- ⚠️ Confidence < 60%: Ask user to clarify from top 3 candidates
+- ❌ No matches: List all available topics
+
+**Execute the search command (use LIBRARY_PATH from Step 2):**
+
+```bash
+python3.11 "{LIBRARY_PATH}/engine/scripts/research.py" "{query}" --topic {topic_id} --top-k {k}
+```
+
+**Example:**
+
+```bash
+python3.11 "/Users/nfrota/Documents/librarian/engine/scripts/research.py" "hexagram 53 relationships" --topic magick_i_ching --top-k 5
+```
+
+**Parameters:**
+
+- `{query}`: User's question (required, in quotes)
+- `{topic_id}`: Topic ID like `magick_i_ching`, `anarchy_james_c_scott` (required, UNDERSCORES!)
+- `{k}`: Number of results, default 5 (optional)
+
+**⚠️ CRITICAL: Topic ID Format**
+- **Topic IDs use UNDERSCORES**: `magick_i_ching`, `anarchy_james_c_scott`, `finances_mortgage`
+- **Folder paths use SLASHES**: `magick/i ching`, `anarchy/james c scott`, `finances/mortgage`
+- **ALWAYS pass TOPIC_ID (underscores) to `--topic`**, NOT folder path with slashes!
+
+**Common Bug Alert 🐛**
+- Passing `--topic "magick/i ching"` (slash) → ❌ Falls back to first indexed topic (often `cooking`!)
+- Passing `--topic magick_i_ching` (underscore) → ✅ Correct!
+
+**Why?** The code matches topic ID internally, not the folder path. IDs always use underscores.
+
+---
+
+**Additional Parameters:**
+
+- `--book FILENAME` - Book filter (exact filename with extension)
+- `--top-k N` - Number of results (default: 5)
+- `--context-window N` - Surrounding chunks (default: 1)
+- `--max-per-book N` - Max results per book (default: 2)
+- `--no-rerank` - Disable BGE reranking (faster, less accurate)
+
+**Examples:**
+
+```bash
+# Topic only (general concept search)
+python3.11 "/Users/nfrota/Documents/librarian/engine/scripts/research.py" "hexagram 53 line 3" --topic magick_i_ching --top-k 5
+
+# Book only (specific book search)
+python3.11 "/Users/nfrota/Documents/librarian/engine/scripts/research.py" "Mars utopia" --book "Molecular Red.epub" --top-k 3
+
+# Both (narrow to specific book within topic)
+python3.11 "/Users/nfrota/Documents/librarian/engine/scripts/research.py" "legibility" --topic anarchy_james_c_scott --book "Seeing Like a State.pdf" --top-k 3
+```
+
+**Expected JSON response:**
+
+```json
+{
+  "results": [
+    {
+      "text": "...chunk text...",
+      "book_title": "Book Title",
+      "topic": "topic_id",
+      "folder_path": "anarchy/david graeber",
+      "filename": "Book.epub",
+      "relative_path": "../librarian/books/anarchy/david%20graeber/Book.epub",
+      "similarity": 0.85
+    }
+  ],
+  "metadata": {
+    "query": "your query",
+    "topic": "anarchy_david_graeber",
+    "total_retrieved": 10,
+    "returned": 5
+  }
+}
+```
+
+**If execution fails:**
+
+- Check if Python 3.11+ is installed
+- Verify `LIBRARY_PATH` from Step 2 exists
+- Confirm `{LIBRARY_PATH}/engine/scripts/research.py` exists
+- Confirm topic exists in `library-index.json`
+- Report error to user and STOP (do not guess)
+
+---
+
+### Step 5: Parse Results
+- "What does Bogdanov say about Mars?" → `--book "Molecular Red.epub"`
+- "In Seeing Like a State, what is legibility?" → `--book "Seeing Like a State.pdf"`
+- "Wilhelm's interpretation of hexagram 53" → `--book "I Ching Wilhelm.pdf" --topic magick/i_ching`
+
+#### B. Is it a GENERAL CONCEPT (no specific book)?
+
+**Use `--topic` when:**
+- Query is about general concept: "hexagram 53", "mortgage prepayment"
+- No author/book mentioned
+- User wants overview from multiple books
+
+**Topic paths use forward slashes** (e.g., `anarchy/james_scott`, `finances/mortgage`)
+
+**Decision sub-tree:**
+
+1. **Is there a SPECIFIC domain/author implied?** → Use their topic
+   - "legibility" → James C. Scott → `anarchy/james_scott`
+   - "debt anthropology" → David Graeber → `anarchy/david_graeber`
+   - "hexagram" → I Ching → `magick/i_ching`
+
+2. **Is it a general domain question?**
+   - "leftist theory" → `theory/leftism`
+   - "finance advice" → `finances/mortgage` OR `finances/debt`
+   - "tarot spreads" → `magick/tarot`
+
+3. **Multiple plausible topics?**
+   - Try MOST SPECIFIC first
+   - If no results, try BROADER
+   - Combine results if both relevant
+
+#### C. Check Available Topics/Books
+
+**List all topics (IDs only, for --topic usage):**
+```bash
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['topics']; print('\n'.join(t['id'] for t in topics))"
+```
+
+**List all topics (with paths, for reference):**
+```bash
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['topics']; [print(f\"{t['id']} → {t['path']}\") for t in topics]"
+```
+
+**Search for keyword in topics:**
+```bash
+python3.11 -c "import json; topics = json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['topics']; [print(t['id']) for t in topics if 'KEYWORD' in t['path'].lower()]"
+```
+
+**List books in a topic:**
+```bash
+python3.11 -c "import json; topic = next(t for t in json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['topics'] if t['id'] == 'TOPIC_ID'); [print(b['title']) for b in topic.get('books', [])]"
+```
+
+#### D. Inference Confidence
+
+**✅ High confidence (≥60%):** Auto-select topic/book
+**⚠️ Medium confidence (<60%):** Ask user to clarify from top 2-3 candidates
+**❌ No match:** List available topics and ask which to search
+
+**Weighted scoring for topic inference:**
+- Query keywords match topic tags: 50%
+- Query keywords match topic ID: 30%
+- Query keywords match topic label: 20%
+
+**If ambiguous:** Ask user to clarify which topic/book to search.
+
+---
+
+### Step 3: Execute Search
+
+**Run research.py with inferred scope (topic/book/both):**
+
+```bash
+cd ~/Documents/librarian/engine/scripts
+
+# Topic only (general concept search)
+python3 research.py "your query here" --topic TOPIC_PATH --top-k 5
+
+# Book only (specific book search)
+python3 research.py "your query here" --book "Book Title.pdf" --top-k 5
+
+# Both (narrow to specific book within topic)
+python3 research.py "your query here" --topic TOPIC_PATH --book "Book Title.pdf" --top-k 5
+```
+
+**Parameters:**
+- `--topic TOPIC_ID` - Topic filter (use underscore format: `finances_mortgage`, `magick_i_ching`)
+- `--book FILENAME` - Book filter (exact filename with extension)
+- `--top-k N` - Number of results (default: 5)
+- `--context-window N` - Surrounding chunks (default: 1)
+- `--max-per-book N` - Max results per book (default: 2)
+- `--no-rerank` - Disable BGE reranking (faster, less accurate)
+
+**⚠️ CRITICAL: Topic ID Format**
+- **Topic IDs use UNDERSCORES**: `magick_i_ching`, `anarchy_james_c_scott`, `finances_mortgage`
+- **Folder paths use SLASHES**: `magick/i ching`, `anarchy/james c scott`, `finances/mortgage`
+- **ALWAYS pass TOPIC_ID (underscores) to `--topic`**, NOT folder path with slashes!
+- **Get Topic IDs from library-index.json** (see Step 2C)
+
+**⚠️ CRITICAL: ALWAYS specify --topic OR --book (or both)**
+- Do NOT rely on automatic topic inference from research.py
+- It is unreliable and may return wrong results (defaults to first indexed topic!)
+- If you're unsure, check `library-index.json` first or ask user
+
+**Examples:**
+
+```bash
+# General concept (no author) → topic only (UNDERSCORE format!)
+python3 research.py "hexagram 53 line 3" --topic magick_i_ching --top-k 5
+
+# Specific author → book filter
+python3 research.py "Mars utopia" --book "Molecular Red.epub" --top-k 3
+
+# Author + domain → both filters (UNDERSCORE format!)
+python3 research.py "legibility" --topic anarchy_james_c_scott --book "Seeing Like a State.pdf" --top-k 3
+```
+
+**Common Bug Alert 🐛**
+- Passing `--topic "magick/i ching"` (slash) → ❌ Falls back to first indexed topic (often `cooking`!)
+- Passing `--topic magick_i_ching` (underscore) → ✅ Correct!
+
+**Why?** The code matches topic ID internally, not the folder path. IDs always use underscores.
+
+**Expected JSON output:**
+
+```json
+{
+  "results": [
+    {
+      "text": "...chunk text...",
+      "book_title": "Book Title",
+      "topic": "topic_id",
+      "folder_path": "anarchy/david graeber",
+      "filename": "Debt The First 5000 Years.epub",
+      "relative_path": "../librarian/books/anarchy/david%20graeber/Debt%20The%20First%205000%20Years.epub",
+      "page": 42,
+      "similarity": 0.85
+    }
+  ],
+  "metadata": {
+    "query": "your query",
+    "topic": "anarchy/david_graeber",
+    "total_retrieved": 10,
+    "returned": 5
+  }
+}
+```
+
+**If execution fails:**
+- Check if Python 3.11+ is installed
+- Verify `~/Documents/librarian/engine/scripts/research.py` exists
+- Confirm topic exists in `.library-index.json`
+- Report error to user and STOP (do not guess)
+
+---
+
+### Step 4: Parse Results
+
+**From the JSON response, extract:**
+- `results[].text` - Book chunk content
+- `results[].book_title` - Source book
+- `results[].folder_path` - Folder path (e.g., "anarchy/david graeber")
+- `results[].filename` - Exact filename with extension
+- `results[].relative_path` - Workspace-relative path (URL-encoded)
+- `results[].similarity` - Relevance score
+
+**Generate answer by:**
+1. **Synthesize** information from results
+2. **Ground** every claim in specific chunks
+3. **Cite** sources inline with emoji numbers: 1️⃣ 2️⃣ 3️⃣ etc.
+4. **Show folder_path** (not topic ID) above citations
+5. **Acknowledge gaps** if incomplete
+
+---
+
+### Step 5: Format Answer
+
+## CRITICAL: Citation Format
+
+**MANDATORY format:**
+
+```markdown
+[Synthesized answer with inline citations using 1️⃣2️⃣3️⃣]
+
+---
+
+**Topic:** {folder_path}
+
+---
+
+1️⃣ [filename.ext](workspace_relative_path)
+
+    exact 4-word snippet from chunk
+
+2️⃣ [filename.ext](workspace_relative_path)
+
+    exact 4-word snippet from chunk
+```
+
+**Rules:**
+- Use `folder_path` field (e.g., "anarchy/james scott") for "Topic:" label
+- Citations use `filename` + `relative_path` from research.py output
+- Snippet must be EXACTLY 4 consecutive words from the chunk, indented with 4 spaces
+- Paths are URL-encoded (spaces become `%20`)
+- **NEVER** reconstruct or guess paths — only use what research.py returns
+
+**Example:**
+
+```markdown
+According to DeLanda 1️⃣, gradients drive morphogenesis. This connects to Deleuze's concept 2️⃣.
+
+---
+
+**Topic:** anthropocene/theory
+
+---
+
+1️⃣ [Molecular Red.epub](../librarian/books/anthropocene/Molecular%20Red.epub)
+
+    gradients drive morphogenesis matter
+
+2️⃣ [A Thousand Plateaus.epub](../librarian/books/anthropocene/A%20Thousand%20Plateaus.epub)
+
+    intensive differences create forms
+```
+
+**If NO Results Found:**
+
+```markdown
+**📚 Library Search: No Results**
+
+I searched for "{query}" in topic: {topic_path}
+
+**No relevant passages found.**
+
+Possible reasons:
+- Topic not covered in your collection
+- Different terminology used (try rephrasing?)
+- Books not indexed yet
+
+Would you like me to:
+1. Try a different topic/search term?
+2. Search the web instead?
+3. List available topics?
+```
+
+**NEVER:**
+- ❌ Answer from general knowledge without searching first
+- ❌ Pretend you found something when you didn't
+- ❌ Skip the search and guess
+- ❌ Use book_title or other fields for citations
+
+**ALWAYS:**
+- ✅ Run research.py FIRST
+- ✅ Be explicit about what you found (or didn't)
+- ✅ Use EXACT citation format from research.py output
+
+---
+
+## Examples
+
+### Example 1: Single Topic (Specific Author)
+
+**User:** "What's the concept of legibility in anarchy?"
+
+**Steps:**
+1. List topics to find Scott: `python3.11 -c "import json; [print(t['id']) for t in json.load(open('/Users/nfrota/Documents/librarian/books/library-index.json'))['topics'] if 'scott' in t['path'].lower()]"`
+2. Output: `anarchy_james_c_scott`
+3. Run: `python3 research.py "legibility concept" --topic anarchy_james_c_scott --top-k 3`
+4. Parse JSON results
+5. Synthesize answer with emoji citations
+
+**Response:**
+
+```markdown
+Legibility is the state's attempt to simplify complex society to make it governable 1️⃣. Scott argues modern states use censuses, maps, and standardized measurements to transform messy reality into neat categories 2️⃣.
+
+---
+
+**Topic:** anarchy/james scott
+
+---
+
+1️⃣ [Seeing Like a State.pdf](../librarian/books/anarchy/james%20scott/Seeing%20Like%20a%20State.pdf)
+
+    simplify complex society governable
+
+2️⃣ [Seeing Like a State.pdf](../librarian/books/anarchy/james%20scott/Seeing%20Like%20a%20State.pdf)
+
+    censuses maps standardized measurements
+```
+
+---
+
+### Example 2: Multi-Topic Research
+
+**User:** "Pesquisa o conceito de dead labor em teoria esquerdista"
+
+**Steps:**
+1. Try SPECIFIC: `python3 research.py "dead labor" --topic anarchy_david_graeber --top-k 3`
+2. If no results, try BROADER: `python3 research.py "dead labor" --topic theory_leftism --top-k 3`
+3. Parse JSON + synthesize
+
+**Response (if found in Graeber):**
+
+```markdown
+Dead labor refers to embodied labor in commodities 1️⃣ — the accumulated work that becomes "frozen" in objects 2️⃣.
+
+---
+
+**Topic:** anarchy/david graeber
+
+---
+
+1️⃣ [Debt: The First 5000 Years.epub](../librarian/books/anarchy/david%20graeber/Debt%20The%20First%205000%20Years.epub)
+
+    embodied labor in commodities
+
+2️⃣ [Debt: The First 5000 Years.epub](../librarian/books/anarchy/david%20graeber/Debt%20The%20First%205000%20Years.epub)
+
+    accumulated work frozen objects
+
+I also searched `theory_leftism` but found more specific results in Graeber.
+```
+
+**Response (if NOT found):**
+
+```markdown
+**📚 Library Search: No Results**
+
+I searched for "dead labor" in:
+- `anarchy_david_graeber` (Graeber's work on debt/value)
+- `theory_leftism` (general leftist theory)
+
+**No relevant passages found.**
+
+The term might use different terminology (e.g., "alienated labor", "embodied labor"). Would you like me to:
+1. Try searching for related terms?
+2. Search the web for academic definitions?
+```
+
+---
+
+### Example 3: Finance Advice
+
+**User:** "Should I prepay my mortgage or invest?"
+
+**Steps:**
+1. Identify topics: `finances_mortgage`, `finances_debt`
+2. Run: `python3 research.py "mortgage prepayment vs investing" --topic finances_mortgage --top-k 5`
+3. Parse + synthesize
+
+**Response:**
+
+```markdown
+Prepayment saves guaranteed interest 1️⃣, while investing offers higher but uncertain returns 2️⃣.
+
+Math: $10K @ 3.5% mortgage = $350/year saved (guaranteed)
+      $10K @ 8% market average = $800/year (historical, not guaranteed)
+
+---
+
+**Topic:** finances/mortgage
+
+---
+
+1️⃣ [Mortgage Prepayment Guide.pdf](../librarian/books/finances/mortgage/Mortgage%20Prepayment%20Guide.pdf)
+
+    saves guaranteed interest rate
+
+2️⃣ [Mortgage Prepayment Guide.pdf](../librarian/books/finances/mortgage/Mortgage%20Prepayment%20Guide.pdf)
+
+    higher but uncertain returns
+```
+
+---
+
+## Configuration
+
+**Config file:** `~/Documents/librarian/engine/config.json`
+
+```json
+{
+  "library_root": "/Users/nfrota/Documents/librarian/books",
+  "index_path": "/Users/nfrota/Documents/librarian/books/.library-index.json",
+  "chunks_dir": "/Users/nfrota/Documents/librarian/books/.chunks"
+}
+```
+
+**If research.py fails:**
+1. Check config exists: `cat ~/Documents/librarian/engine/config.json`
+2. Verify paths are absolute
+3. Check index exists: `ls -la ~/Documents/librarian/books/.library-index.json`
+
+## Maintenance
+
+**Daily auto-indexing:**
+- Cron job runs at 3:00 AM daily
+- Command: `cd ~/Documents/librarian/engine/scripts && python3 index_library.py --smart`
+- Logs: `~/Documents/librarian/logs/cron-index.log`
+
+**Manual indexing:**
+```bash
+cd ~/Documents/librarian/engine/scripts
+
+# Smart delta detection (recommended)
+python3 index_library.py --smart
+
+# Force full reindex
+python3 index_library.py --all --force
+
+# Index specific topic (use TOPIC_ID with underscores!)
+python3 index_library.py --topics finances_debt finances_mortgage
+```
+
+**Index structure (v2.0):**
+- `library-index.json` (root, no dot) → topic catalog with paths and IDs
+- `.faiss.index` (per folder) → vector embeddings
+- `.chunks.json` (per folder) → extracted text chunks
+
+**Topic ID vs Path:**
+- Index stores both `id` (underscores) and `path` (slashes)
+- `--topic` flag expects `id` format (underscores)
+- Results return `folder_path` format (slashes) for display
+
+**What gets indexed:**
+- PDF: text extraction + page numbers
+- EPUB: chapter extraction + paragraph numbers
+- Chunks: ~500 chars with overlap, embedded with BGE-small
+
+## Troubleshooting
+
+### "No results found"
+- Check if topic exists in `library-index.json`
+- Verify you used TOPIC_ID (underscores), not folder path (slashes)
+- Try broader search terms
+- Try related topics (e.g., `theory_leftism` if `anarchy_*` fails)
+
+### "Wrong topic returned" / "Got cooking results for I Ching query"
+- **CRITICAL:** You passed folder path instead of topic ID!
+- Always use Topic ID with underscores: `magick_i_ching` not `"magick/i ching"`
+- Check `library-index.json` first to get correct Topic ID
+- When in doubt, list all topics first (see Step 2C commands)
+
+### "Config file not found"
+- Verify: `~/Documents/librarian/engine/config.json` exists
+- Copy from: `~/Documents/librarian/engine/config.example.json`
+- Use absolute paths, not `~` or `$HOME`
+
+### "Library not accessible"
+- Run Step 1 validation (`test -f library-index.json`)
+- Verify library path in config.json
+- Check it's `library-index.json` (no dot prefix!)
+- Run setup: `bash ~/Documents/librarian/engine/scripts/setup.sh`
+
+## Constraints
+
+**Privacy:**
+- This is the user's PERSONAL library
+- Content is private, curated by them
+- Don't share specific quotes externally without asking
+
+**Accuracy:**
+- Always cite with emoji numbers + exact snippets
+- If uncertain, say "According to [book], but I'm paraphrasing..."
+- Research results are snippets - context may be limited
+
+**Scope:**
+- Only searches indexed books in `~/Documents/librarian/books/`
+- Not a general knowledge base - it's THEIR collection
+- If books don't cover topic, say so and offer web search
+
+---
+
+**Last updated:** 2026-01-30  
+**Version:** 0.1.0  
+**Repo:** https://github.com/nonlinear/librarian
