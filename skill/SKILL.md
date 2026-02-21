@@ -16,35 +16,48 @@ Search your book library using natural language. Ask questions like "What does G
 
 ```mermaid
 flowchart TB
-    TRIGGER["🎤 Trigger + context"]
-    TRIGGER --> METADATA["👷 Load metadata"]
-    METADATA --> CHECK{"👷 Metadata exists?"}
+    TRIGGER["🎤 Trigger + context"]:::orange
+    TRIGGER --> METADATA["👷 Load metadata"]:::green
+    METADATA --> CHECK{"👷 Metadata exists?"}:::green
     
-    CHECK -->|No| ERROR["🎤 🤚 No metadata found:<br>Run librarian index"]
-    CHECK -->|Yes| INFER{"🎤 Infer scope?"}
+    CHECK -->|No| ERROR["🎤 🤚 No metadata found:<br>Run librarian index"]:::green
+    CHECK -->|Yes| INFER{"🎤 Infer scope?"}:::orange
     
-    INFER -->|confidence < 75%| CLARIFY["🎤 🤚 Say it again?"]
-    INFER -->|confidence ≥ 75%| BUILD["👷 Build command"]
+    INFER -->|confidence < 75%| CLARIFY["🎤 🤚 Say it again?"]:::orange
+    INFER -->|confidence ≥ 75%| BUILD["👷 Build command"]:::red
     
-    BUILD --> CHECK_SYSTEM{"⚙️ System working?"}
+    BUILD --> CHECK_SYSTEM{"⚙️ System working?"}:::green
     
-    CHECK_SYSTEM -->|No| BROKEN["🎤 🤚 System is broken"]
-    CHECK_SYSTEM -->|Yes| EXEC["⚙️ Run research.py"]
+    CHECK_SYSTEM -->|No| BROKEN["🎤 🤚 System is broken"]:::orange
+    CHECK_SYSTEM -->|Yes| EXEC["⚙️ Run research.py"]:::green
     
-    EXEC --> JSON["⚙️ Return JSON"]
-    JSON --> CHECK_RESULTS{"👷 Results found?"}
+    EXEC --> JSON["⚙️ Return JSON"]:::green
+    JSON --> CHECK_RESULTS{"👷 Results found?"}:::green
     
-    CHECK_RESULTS -->|No| EMPTY["🎤 🤚 No results found"]
-    CHECK_RESULTS -->|Yes| FORMAT["🎤 Format output"]
+    CHECK_RESULTS -->|No| EMPTY["🎤 🤚 No results found"]:::orange
+    CHECK_RESULTS -->|Yes| FORMAT["🎤 Format output"]:::orange
     
-    FORMAT --> RESPONSE["🎤 Librarian response"]
+    FORMAT --> RESPONSE["🎤 Librarian response"]:::orange
+    
+    classDef green fill:#4caf50,stroke:#2e7d32,color:#fff
+    classDef orange fill:#ff9800,stroke:#e65100,color:#fff
+    classDef red fill:#f44336,stroke:#c62828,color:#fff
 ```
+
+**Legend:**
+- 🟢 Green = Implemented, tested, WORKING
+- 🟠 Orange = Implemented, needs AI session to test
+- 🔴 Red = Implemented, tested, BROKEN (see notes below)
 
 **Symbols:**
 - 🎤 = Skill (you, AI conversational layer)
 - 👷 = Wrapper (librarian.sh, protocol enforcement)
 - ⚙️ = Python (research.py, heavy lifting)
 - 🤚 = Hard stop (honest failure > invented answer)
+
+**🔴 BUILD node (RED):** --book flag bug in research.py (requires --topic even with --book)  
+**🟠 ORANGE nodes:** Need live AI session testing (Phase 4)  
+**🟢 GREEN nodes:** Wrapper + Python tested and working
 
 ---
 
