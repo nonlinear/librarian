@@ -26,8 +26,10 @@ graph LR
     A --> B
     C[📋 v0.15.0 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md) | [best-practices](epic-notes/v0.15.0-best-practices.md)]
     B --> C
-    D[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
+    D[📋 v0.18.0 🧪 Skill Validation & AI Testing | [notes](epic-notes/v0.18.0-skill-validation.md)]
     C --> D
+    E[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
+    D --> E
 ```
 
 
@@ -687,4 +689,42 @@ metadata:
 **Why separate epic:** Metadata ≠ functionality. Refactoring = high risk. Mixing = hard to debug.
 
 ---
+
+
+---
+
+## v0.18.0
+
+### 🧪 Skill Validation & AI Testing | [notes](epic-notes/v0.18.0-skill-validation.md)
+
+**End-to-end conversational testing of librarian skill**
+
+**Problem:** Wrapper (👷) + Python (⚙️) work, but conversational layer (🎤) untested. Need real AI session to validate trigger detection, scope inference, formatting, and response quality.
+
+**Solution:** Systematic testing of all 🟠 ORANGE nodes from v0.15.0 protocol diagram.
+
+**Tasks:**
+
+- [ ] Test TRIGGER detection (conversational activation patterns)
+- [ ] Test INFER scope (confidence >75% threshold, book vs topic)
+- [ ] Test CLARIFY hard stop (low confidence, ambiguous queries)
+- [ ] Test FORMAT output (emoji citations, synthesis, readability)
+- [ ] Test RESPONSE quality (helpful, accurate, cites sources)
+- [ ] Test BROKEN hard stop (system failure messages)
+- [ ] Test EMPTY hard stop (no results found messages)
+- [ ] Document edge cases discovered during testing
+- [ ] Update SKILL.md with learnings
+- [ ] Record test queries + expected outputs (regression suite)
+
+**Success Criteria:**
+
+- All 15 nodes 🟢 GREEN (100% protocol coverage)
+- Triggers activate reliably (>90% accuracy)
+- Scope inference correct (>85% confidence)
+- User-facing responses helpful and accurate
+- Hard stops honest and actionable
+
+**Blocked by:**
+- v0.15.0 Phase 2 complete (--book flag fixed)
+- v0.15.0 Phase 3 complete (frontmatter, install, config)
 
