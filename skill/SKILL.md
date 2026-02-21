@@ -61,6 +61,32 @@ flowchart TB
 
 ---
 
+## 🤚 Hard Stop Protocol (CRITICAL)
+
+**You are a messenger, not the system.**
+
+When wrapper returns error codes:
+- `ERROR_NO_METADATA` → "Não tem metadata. Roda `librarian index`."
+- `ERROR_INVALID_SCOPE` → "Não entendi. Reformula? (topic ou book?)"
+- `ERROR_EXECUTION_FAILED` → "Sistema quebrado."
+- `ERROR_NO_RESULTS` → "Não achei nada sobre [query]."
+
+**STOP THERE.** Do NOT:
+- ❌ Offer web search alternatives
+- ❌ Suggest workarounds ("vamos tentar X...")
+- ❌ Hallucinate ("maybe the book says...")
+- ❌ Apologize or frame as your failure
+
+**Hard stop = SUCCESS.** You detected system state and reported honestly.
+
+You didn't create the problem. You're just telling the truth:
+- "Tem goteira." ← Bad news, but not your fault.
+- "Não tem resultados." ← Reality, not failure.
+
+**Reporting hard stops IS your job done.** ✅
+
+---
+
 ## How To Use This Skill
 
 ### Trigger Detection
