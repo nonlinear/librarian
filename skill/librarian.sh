@@ -16,16 +16,14 @@ EXIT_NO_RESULTS=3
 
 # 👷 Node 1: Load Metadata
 load_metadata() {
-    local topic_index="${BOOKS_DIR}/.topic-index.json"
-    local lib_index="${BOOKS_DIR}/.librarian-index.json"
+    local lib_index="${BOOKS_DIR}/.library-index.json"
     
-    if [[ ! -f "$topic_index" ]] || [[ ! -f "$lib_index" ]]; then
+    if [[ ! -f "$lib_index" ]]; then
         echo "ERROR_NO_METADATA"
         return $EXIT_NO_METADATA
     fi
     
     # Export for downstream use
-    export TOPIC_INDEX="$topic_index"
     export LIB_INDEX="$lib_index"
     
     echo "METADATA_OK"
@@ -60,17 +58,17 @@ build_command() {
 
 # 👷 Node 4: Validate JSON Output
 validate_json() {
-    local json="$1"
+    local json_file="$1"
     
     # Check if valid JSON
-    if ! echo "$json" | jq empty 2>/dev/null; then
+    if ! jq empty "$json_file" 2>/dev/null; then
         echo "ERROR_INVALID_JSON"
         return $EXIT_BROKEN
     fi
     
     # Check if results exist
     local result_count
-    result_count=$(echo "$json" | jq '.results | length' 2>/dev/null || echo 0)
+    result_count=$(jq '.results | length' "$json_file" 2>/dev/null || echo 0)
     
     if [[ "$result_count" -eq 0 ]]; then
         echo "ERROR_NO_RESULTS"
@@ -107,23 +105,27 @@ main() {
     fi
     
     # Execute research.py (Node: ⚙️ EXEC)
-    local json_output
-    if ! json_output=$(eval "$cmd" 2>&1); then
+    # Redirect stderr to suppress warnings/logs
+    local tmp_json="/tmp/librarian-$$.json"
+    if ! eval "$cmd" 2>/dev/null > "$tmp_json"; then
         echo "ERROR_EXECUTION_FAILED"
+        rm -f "$tmp_json"
         exit $EXIT_BROKEN
     fi
     
     # Node 4: Validate JSON
     local validation_status
-    validation_status=$(validate_json "$json_output")
+    validation_status=$(validate_json "$tmp_json")
     
     if [[ "$validation_status" != "JSON_VALID" ]]; then
         echo "$validation_status"
+        rm -f "$tmp_json"
         exit $?
     fi
     
     # Success: return JSON to skill for formatting
-    echo "$json_output"
+    cat "$tmp_json"
+    rm -f "$tmp_json"
     exit $EXIT_SUCCESS
 }
 
