@@ -297,7 +297,137 @@ def query_library(
             }
         }
 
-    # Load topic data
+    # Determine retrieve_k (candidates to fetch before filtering/reranking)
+    if max_per_book is not None and max_per_book < k:
+        retrieve_k = k * 3
+    elif rerank:
+        retrieve_k = k * 2
+    else:
+        retrieve_k = k
+
+    query_embedding = get_embedding(expanded_query)
+    
+    # BOOK-ONLY SEARCH: Search all topics if no topic specified
+    if not topic_id and book:
+        print(f"📚 Book-only search: scanning all topics for '{book}'...", file=sys.stderr)
+        all_results = []
+        
+        for t in metadata['topics']:
+            tid = t['id']
+            topic_data = load_topic(tid)
+            if not topic_data:
+                continue  # Skip topics without index
+            
+            # Search this topic's index
+            distances, indices = topic_data['index'].search(
+                query_embedding.reshape(1, -1),
+                retrieve_k
+            )
+            
+            chunks = topic_data['chunks']
+            book_metadata = topic_data.get('book_metadata', {})
+            topic_path = topic_data.get('topic_path', tid)
+            
+            # Collect results from this topic
+            for idx, dist in zip(indices[0], distances[0]):
+                if idx < len(chunks):
+                    chunk = chunks[idx]
+                    # Only keep if matches book filename
+                    chunk_filename = chunk.get('filename', '')
+                    if chunk_filename == book:
+                        similarity = float(1 - dist)
+                        all_results.append({
+                            'idx': int(idx),
+                            'similarity': similarity,
+                            'chunk': chunk,
+                            'topic_id': tid,
+                            'topic_path': topic_path,
+                            'book_metadata': book_metadata,
+                            'chunks': chunks
+                        })
+        
+        # Sort all results by similarity
+        all_results = sorted(all_results, key=lambda x: x['similarity'], reverse=True)
+        
+        # Apply reranking if requested
+        if rerank:
+            # Rerank needs (idx, similarity, chunk) tuples
+            rerank_input = [(r['idx'], r['similarity'], r['chunk']) for r in all_results]
+            reranked = rerank_results(query, rerank_input)
+            # Update all_results with reranked scores
+            for i, (idx, score, chunk) in enumerate(reranked):
+                if i < len(all_results):
+                    all_results[i]['similarity'] = score
+            all_results = sorted(all_results, key=lambda x: x['similarity'], reverse=True)
+            print(f"✓ Reranked {len(all_results)} cross-topic results", file=sys.stderr)
+        
+        # Format results (similar to single-topic flow below)
+        formatted_results = []
+        for r in all_results[:k]:  # Limit to k results
+            chunk = r['chunk']
+            topic_id = r['topic_id']
+            topic_path = r['topic_path']
+            book_metadata = r['book_metadata']
+            chunks = r['chunks']
+            idx = r['idx']
+            score = r['similarity']
+            
+            book_id = chunk.get('book_id')
+            book_info = book_metadata.get(book_id, {})
+            filename = book_info.get('filename', chunk.get('filename', ''))
+            rel_path = os.path.join('../librarian/books', topic_path, filename) if filename and topic_path else ''
+            
+            page = chunk.get('page')
+            chapter = chunk.get('chapter')
+            paragraph = chunk.get('paragraph')
+            filetype = chunk.get('filetype', 'unknown')
+            
+            location = None
+            if filetype == 'pdf' and page:
+                location = f"p.{page}, ¶{paragraph}" if paragraph else f"p.{page}"
+            elif filetype == 'epub' and chapter:
+                location = f"{chapter}, ¶{paragraph}" if paragraph else chapter
+            
+            before_text, current_text, after_text = get_context_window(chunks, idx, context_window)
+            
+            result = {
+                'text': current_text,
+                'book_title': chunk.get('book_title', ''),
+                'topic': topic_id,
+                'similarity': score,
+                'filename': filename,
+                'folder_path': topic_path,
+                'relative_path': rel_path,
+                'location': location,
+                'page': page,
+                'chapter': chapter,
+                'paragraph': paragraph,
+                'filetype': filetype
+            }
+            
+            if context_window > 0:
+                result['context'] = {
+                    'before': before_text if before_text else None,
+                    'after': after_text if after_text else None
+                }
+            
+            formatted_results.append(result)
+        
+        # Return book-only search results
+        return {
+            'results': formatted_results,
+            'metadata': {
+                'query': query,
+                'expanded_query': expanded_query if expand_query_flag else None,
+                'k': k,
+                'book': book,
+                'topics_searched': len([t for t in metadata['topics']]),
+                'reranked': rerank,
+                'context_window': context_window
+            }
+        }
+    
+    # TOPIC SEARCH (with or without book filter)
     topic_data = load_topic(topic_id)
     if not topic_data:
         return {
@@ -308,16 +438,6 @@ def query_library(
             }
         }
 
-    # Get embedding and search
-    # Retrieve more candidates if reranking or deduplicating
-    if max_per_book is not None and max_per_book < k:
-        retrieve_k = k * 3
-    elif rerank:
-        retrieve_k = k * 2
-    else:
-        retrieve_k = k
-
-    query_embedding = get_embedding(expanded_query)
     distances, indices = topic_data['index'].search(
         query_embedding.reshape(1, -1),
         retrieve_k
