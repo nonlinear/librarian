@@ -1,8 +1,0 @@
-{
-  "library_path": "/Users/nfrota/Documents/librarian",
-  "embedding_model": "bge-small-en-v1.5",
-  "chunk_size": 1024,
-  "chunk_overlap": 200,
-  "default_top_k": 5,
-  "confidence_threshold": 0.6
-}
