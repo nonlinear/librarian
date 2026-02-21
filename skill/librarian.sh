@@ -5,8 +5,8 @@
 set -euo pipefail
 
 SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BOOKS_DIR="${SKILL_DIR}/books"
-RESEARCH_PY="${SKILL_DIR}/engine/scripts/research.py"
+BOOKS_DIR="${SKILL_DIR}/../books"
+RESEARCH_PY="${SKILL_DIR}/../engine/scripts/research.py"
 
 # Exit codes
 EXIT_SUCCESS=0
