@@ -1,0 +1,26 @@
+# Librarian MCP - Python Dependencies
+
+# LlamaIndex core and readers
+llama-index-core>=0.10.0
+llama-index-readers-file>=0.1.0
+llama-index-embeddings-huggingface>=0.2.0
+
+# Document processing
+PyMuPDF>=1.23.0  # PDF reader
+EbookLib>=0.18   # EPUB reader
+
+# Embeddings
+sentence-transformers>=2.2.0
+torch>=2.0.0
+
+# File watching
+watchdog>=3.0.0
+
+# MCP server
+mcp>=0.1.0
+
+# Vector storage
+faiss-cpu>=1.7.4
+
+# Utilities
+numpy>=1.24.0

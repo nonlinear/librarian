@@ -21,11 +21,34 @@ import os
 from typing import List, Dict, Optional, Tuple
 from collections import defaultdict
 
-# Paths
+# Paths - Smart detection for skill/ (standalone) vs engine/scripts/ (parent)
 SCRIPT_DIR = Path(__file__).parent
-PROJECT_DIR = SCRIPT_DIR.parent.parent  # engine/scripts/ -> engine/ -> project root
-BOOKS_DIR = PROJECT_DIR / "books"
-MODELS_DIR = SCRIPT_DIR.parent / "models"  # engine/models/
+
+# Detect if we're in skill/ folder (standalone) or engine/scripts/ (parent)
+if SCRIPT_DIR.name == "skill":
+    # Running from skill/ - check if parent project exists
+    PARENT_DIR = SCRIPT_DIR.parent
+    if (PARENT_DIR / "engine" / "scripts").exists() and (PARENT_DIR / "books").exists():
+        # Parent project exists - use it
+        PROJECT_DIR = PARENT_DIR
+        BOOKS_DIR = PROJECT_DIR / "books"
+        MODELS_DIR = PROJECT_DIR / "engine" / "models"
+    else:
+        # Standalone skill - use local paths
+        PROJECT_DIR = SCRIPT_DIR
+        BOOKS_DIR = SCRIPT_DIR / "books"
+        MODELS_DIR = SCRIPT_DIR / "models"
+elif SCRIPT_DIR.name == "scripts" and SCRIPT_DIR.parent.name == "engine":
+    # Running from engine/scripts/ - standard parent setup
+    PROJECT_DIR = SCRIPT_DIR.parent.parent
+    BOOKS_DIR = PROJECT_DIR / "books"
+    MODELS_DIR = SCRIPT_DIR.parent / "models"
+else:
+    # Fallback - assume current directory
+    PROJECT_DIR = SCRIPT_DIR
+    BOOKS_DIR = SCRIPT_DIR / "books"
+    MODELS_DIR = SCRIPT_DIR / "models"
+
 METADATA_FILE = BOOKS_DIR / ".library-index.json"
 
 # Set model cache to local engine/models/ directory

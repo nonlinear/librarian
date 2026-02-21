@@ -5,8 +5,18 @@
 set -euo pipefail
 
 SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BOOKS_DIR="${SKILL_DIR}/../books"
-RESEARCH_PY="${SKILL_DIR}/../engine/scripts/research.py"
+
+# Smart path detection: try local research.py first, fallback to parent
+if [[ -f "${SKILL_DIR}/research.py" ]]; then
+    RESEARCH_PY="${SKILL_DIR}/research.py"
+    BOOKS_DIR="${SKILL_DIR}/books"
+elif [[ -f "${SKILL_DIR}/../engine/scripts/research.py" ]]; then
+    RESEARCH_PY="${SKILL_DIR}/../engine/scripts/research.py"
+    BOOKS_DIR="${SKILL_DIR}/../books"
+else
+    echo "ERROR_NO_RESEARCH_PY"
+    exit 2
+fi
 
 # Exit codes
 EXIT_SUCCESS=0
