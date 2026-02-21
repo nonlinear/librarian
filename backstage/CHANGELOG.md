@@ -32,6 +32,31 @@ graph LR
 
 
 
+## v0.15.0
+
+### 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md)
+
+**Completed:** 2026-02-21
+
+**What changed:**
+- ✅ Confidence engine (binary match, topic wins tiebreaker)
+- ✅ --book flag fixed (search all topics when scope not specified)
+- ✅ Hard stop protocol (AI = messenger, honest failure > invented answers)
+- ✅ Metadata taxonomy documented (subway map, 1-step vs 2-step navigation)
+- ✅ Extension handling (user never mentions .epub/.pdf)
+- ✅ Protocol diagram (all nodes green, ready for validation)
+- ✅ SKILL.md documentation (protocol + metadata structure)
+
+**Why it matters:**
+- Skill behavior now deterministic (same query = same flow)
+- AI role clarified (router + formatter, not intelligence)
+- Hard stops build trust (system reports truth, never invents)
+- Foundation for generalizing librarian (v0.21.0)
+
+**Next:** Real-world validation (use skill daily, surface edge cases)
+
+---
+
 ## v1.1.0
 
 ### ✅ Hygiene + MGMT Generalization | [notes](epic-notes/v1.1.0.md)
