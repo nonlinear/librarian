@@ -1,3 +1,29 @@
+---
+name: librarian
+description: Conversational interface for semantic book search (companion skill for Librarian project)
+version: 0.15.0
+author: Nicholas Frota
+homepage: https://github.com/nonlinear/librarian
+emoji: 📚
+requires:
+  - librarian (parent project)
+  - python3 (>=3.11)
+dependencies:
+  python:
+    - sentence-transformers
+    - torch
+    - faiss-cpu
+triggers:
+  - "pesquisa"
+  - "pesquisa por"
+  - "research"
+  - "research for"
+  - "procura"
+  - "can you check it against"
+  - "pergunta a"
+  - "ask (topic/book) about"
+---
+
 # Librarian - Semantic Research Skill
 
 **Version:** 2.0.0 (Protocol-driven)  

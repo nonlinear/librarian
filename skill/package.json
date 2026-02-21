@@ -1,26 +1,17 @@
 {
   "name": "@openclaw/skill-librarian",
-  "version": "1.0.0",
-  "description": "Search indexed personal book library with semantic search",
-  "keywords": ["research", "library", "books", "semantic-search", "faiss"],
+  "version": "0.15.0",
+  "description": "Conversational interface for semantic book search (companion skill)",
+  "keywords": ["research", "library", "books", "semantic-search", "openclaw-skill"],
   "author": "Nicholas Frota",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nonlinear/librarian"
+  },
+  "homepage": "https://github.com/nonlinear/librarian",
   "openclaw": {
-    "triggers": [
-      "pesquisa",
-      "research",
-      "procura",
-      "no meu livro",
-      "in my library",
-      "tarot",
-      "i ching",
-      "graeber",
-      "debt",
-      "finances"
-    ],
-    "tools": [
-      "research-tracked.sh",
-      "analyze-usage.py"
-    ]
+    "companion": "librarian",
+    "emoji": "📚"
   }
 }
