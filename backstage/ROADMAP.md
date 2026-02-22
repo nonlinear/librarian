@@ -641,6 +641,62 @@ Enhancements for later versions
 
 ---
 
+## v0.20.0
+
+### Parity with Reader Apps (Kavita/Komga Integration)
+
+**Status:** 💡 PROPOSED (2026-02-21)
+
+**Goal:** Deep integration with reader apps for granular citations and seamless reading workflow
+
+**Problem:**
+- Librarian citations stop at book level (`book.epub`)
+- Need granular source (paragraph, page, chapter)
+- Can't jump directly to cited passage in reader app
+- User flow: search → find passage → manually open book → manually find page
+
+**Ideal workflow:**
+1. Librarian search returns result
+2. Citation shows: Book, Chapter, Page, Paragraph
+3. Click link → opens Kavita/Komga ON EXACT PAGE
+4. User reads context immediately (no manual hunting)
+
+**Reader Apps to Support:**
+- **Kavita** (comics/manga focus, but supports EPUB)
+- **Komga** (comics/BD focus, CBZ/CBR primary)
+- **Who else?** (Calibre-web? Audiobookshelf? Others?)
+
+**Tasks:**
+- [ ] Research reader app APIs (Kavita, Komga, Calibre-web)
+- [ ] Can we deep-link to specific page/chapter? (API support? URL params?)
+- [ ] Granular indexing (paragraph-level metadata, page numbers if available)
+- [ ] Citation format: `Book > Chapter > Page X > Para Y` + deep-link URL
+- [ ] Test: Click citation → opens reader app on exact page
+- [ ] Handle formats: EPUB (pages?), PDF (native pages), CBZ (image sequence)
+- [ ] Fallback: If no deep-link → open book, show page number
+- [ ] Document setup (how to connect Librarian → reader app)
+
+**Research Questions:**
+- **Kavita:** Does API support `?page=42` deep-links?
+- **Komga:** Can we open comic on specific page via URL?
+- **EPUB pagination:** EPUBs don't have fixed pages (reflow text). How to reference granularly? (chapter + paragraph? anchor IDs?)
+- **PDF:** Native page numbers exist. Easy.
+- **CBZ/CBR:** Image sequence = page numbers straightforward.
+
+**Success Criteria:**
+- Citation shows granular source (book, chapter, page, paragraph)
+- Click citation → reader app opens on exact page (when supported)
+- Works for: EPUB (best effort), PDF (exact page), CBZ (exact page)
+- Documented limitations (EPUB pagination challenges)
+
+**Dependencies:**
+- v0.16.0 Unified Indexing (metadata pipeline must support granular refs)
+- v0.19.0 Multi-Format Support (PDF/EPUB enhancements needed)
+
+**Details:** [v0.20.0-reader-app-parity.md](epic-notes/v0.20.0-reader-app-parity.md)
+
+---
+
 ## v0.18.0
 
 ### Multi-Topic Search & Filters
