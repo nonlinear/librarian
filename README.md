@@ -60,29 +60,25 @@ graph TD
 
 ---
 
-## Usage
-
-<!-- ### via [openclaw](https://openclaw.ai)
+## Usage via [openclaw](https://openclaw.ai)
 
 ```bash
 openclaw skill install nonlinear/librarian
 ```
 
-### by prompt -->
+### by prompt
 
-**Use `/research` prompt** to consult Librarian MCP on your AI conversations (see [.github/prompts/research.prompt.md](.github/prompts/research.prompt.md))
+**Use `research` trigger** to consult Librarian on your AI conversations (see [clawdhub skill](https://clawhub.ai/nonlinear/librarian))
 
-Make sure to **specify topic or book** in your question. MCP will try to disambiguate based on metadata tags but the more focused the search, the better the results
+Make sure to **specify topic or book** in your question. Librarian will try to disambiguate based on metadata tags but the more focused the search, the better the results
 
-**Example 1**: "`/research` what does Bogdanov say about Mars in Molecular Red?"
+**Example 1**: "`research` what does Bogdanov say about Mars in Molecular Red?"
 
-**Example 2**: "`/research` in my anthropocene books, what are the main critiques of geoengineering?"
+**Example 2**: "`research` in my anthropocene books, what are the main critiques of geoengineering?"
 
-**Example 3**: "`/research` what tarot spreads work best for decision-making under uncertainty?"
+**Example 3**: "`research` what tarot spreads work best for decision-making under uncertainty?"
 
-**Troubleshooting:** Books that failed to index (corrupted files, unsupported formats) go silently to `backstage/FAILED.md`
-
-> 👉 Without `/research` your AI uses general knowledge. With it you get precise citations from your library
+> 👉 Without librarian skill your AI uses general knowledge. With it you get precise citations from your library
 
 ---
 
@@ -142,5 +138,4 @@ graph LR
     D[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
     C --> D
 ```
-
 
