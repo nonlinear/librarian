@@ -38,6 +38,7 @@
    - Per-topic: `python3.11 engine/scripts/reindex_topic.py <topic-id>`
 7. **Test**: `python3.11 engine/scripts/research.py "AI ethics?" --topic ai`
 
+```mermaid
 graph TD
     A[books/] --> B[topic1/]
     A --> C[topic2/]
@@ -55,6 +56,7 @@ graph TD
     
     J --> L[book6.epub]
     K --> M[book7.epub]
+```
 
 ---
 
