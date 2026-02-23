@@ -65,7 +65,7 @@ graph TD
 <!-- ### via [openclaw](https://openclaw.ai)
 
 ```bash
-clawdhub install librarian
+openclaw skill install nonlinear/librarian
 ```
 
 ### by prompt -->
