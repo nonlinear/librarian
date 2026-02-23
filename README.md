@@ -45,14 +45,14 @@ graph TD
 
     B --> D[book1.epub]
     B --> E[book2.pdf]
-
+    
     C --> F[book3.epub]
     C --> G[book4.pdf]
-
+    
     H[topic3/<br/>root books] --> I[book5.epub]
     H --> J[subfolder1/<br/>topic3_subfolder1]
     H --> K[subfolder2/<br/>topic3_subfolder2]
-
+    
     J --> L[book6.epub]
     K --> M[book7.epub]
 
@@ -77,13 +77,6 @@ Make sure to **specify topic or book** in your question. Librarian will try to d
 ---
 
 
-```mermaid
-graph TD
-    QUERY([research prompt+<br>specific book query]) --> MAP[Read metadata.json]
-    MAP --> SIM[Semantic Similarity]
-
-    SIM --> T1[Topic: philosophy<br/>Score: 0.89]
-    SIM --> T2[Topic: AI<br/>Score: 0.32]
 ```mermaid
 flowchart TB
     TRIGGER["🎤 Trigger + context"]:::ready
@@ -131,16 +124,4 @@ flowchart TB
 
 
 
-
-
-
-
-graph LR
-    A[📋 v0.16.0 📦 Unified Indexing Pipeline | [notes](epic-notes/v0.16.0-unified-indexing.md)]
-    B[📋 v0.17.0 🔀 Multi-Scope Queries | [notes](epic-notes/v0.17.0-multi-scope.md)]
-    A --> B
-    C[📋 v0.15.0 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md) | [best-practices](epic-notes/v0.15.0-best-practices.md)]
-    B --> C
-    D[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
-    C --> D
 
