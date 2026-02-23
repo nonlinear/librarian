@@ -38,7 +38,6 @@
    - Per-topic: `python3.11 engine/scripts/reindex_topic.py <topic-id>`
 7. **Test**: `python3.11 engine/scripts/research.py "AI ethics?" --topic ai`
 
-```mermaid
 graph TD
     A[books/] --> B[topic1/]
     A --> C[topic2/]
@@ -56,19 +55,14 @@ graph TD
 
     J --> L[book6.epub]
     K --> M[book7.epub]
-```
 
 ---
 
 ## Usage via [openclaw](https://openclaw.ai)
 
-```bash
 openclaw skill install nonlinear/librarian
-```
 
-### by prompt
-
-**Use `research` trigger** to consult Librarian on your AI conversations (see [clawdhub skill](https://clawhub.ai/nonlinear/librarian))
+Use `research` trigger to consult Librarian on your AI conversations (see [clawdhub skill](https://clawhub.ai/nonlinear/librarian))
 
 Make sure to **specify topic or book** in your question. Librarian will try to disambiguate based on metadata tags but the more focused the search, the better the results
 
@@ -82,7 +76,6 @@ Make sure to **specify topic or book** in your question. Librarian will try to d
 
 ---
 
-## How it works
 
 ```mermaid
 graph TD
@@ -91,20 +84,34 @@ graph TD
 
     SIM --> T1[Topic: philosophy<br/>Score: 0.89]
     SIM --> T2[Topic: AI<br/>Score: 0.32]
+```mermaid
+flowchart TB
+    TRIGGER["🎤 Trigger + context"]:::ready
+    TRIGGER --> METADATA["👷 Load metadata 1️⃣"]:::ready
+    METADATA --> CHECK{"👷 Metadata exists?"}:::ready
+    
+    CHECK -->|No| ERROR["🎤 🤚 No metadata found:<br>Run librarian index 5️⃣"]:::ready
+    CHECK -->|Yes| INFER{"🎤 Infer scope? 2️⃣"}:::ready
+    
+    INFER -->|confidence lower than 75%| CLARIFY["🎤 🤚 Say it again? 5️⃣"]:::ready
+    INFER -->|confidence higher than 75%| BUILD["👷 Build command 3️⃣"]:::ready
+    
+    BUILD --> CHECK_SYSTEM{"⚙️ System working?"}:::ready
+    
+    CHECK_SYSTEM -->|No| BROKEN["🎤 🤚 System is broken 5️⃣"]:::ready
+    CHECK_SYSTEM -->|Yes| EXEC["⚙️ Run python script with flags"]:::ready
+    
+    EXEC --> JSON["⚙️ Return JSON"]:::ready
+    JSON --> CHECK_RESULTS{"👷 Results found?"}:::ready
+    
+    CHECK_RESULTS -->|No| EMPTY["🎤 🤚 No results found 5️⃣"]:::ready
+    CHECK_RESULTS -->|Yes| FORMAT["🎤 Format output 4️⃣"]:::ready
+    
+    FORMAT --> RESPONSE["🎤 Librarian response"]:::ready
 
-    T1 --> B1[Book: Psychopolitics<br/>Tags: power, discipline<br/>Score: 0.91]
-
-    B1 --> DECISION1{Confident match?}
-    T2 --> DECISION2{Confident match?}
-
-    DECISION1 -->|Yes| VEC[Query Vector Store<br/>Scope: philosophy/Psychopolitics]
-    DECISION2 -->|No| ASK[System asks for clarification]
-
-    ASK --> CLARIFY[Clarification query]
-    CLARIFY --> MAP
-
-    VEC --> ANSWER([Precise answer from<br>relevant book chunks])
+    classDef ready fill:#c8e6c9,stroke:#81c784,color:#2e7d32
 ```
+
 
 ---
 
@@ -128,7 +135,6 @@ graph TD
 
 
 
-```mermaid
 graph LR
     A[📋 v0.16.0 📦 Unified Indexing Pipeline | [notes](epic-notes/v0.16.0-unified-indexing.md)]
     B[📋 v0.17.0 🔀 Multi-Scope Queries | [notes](epic-notes/v0.17.0-multi-scope.md)]
@@ -137,5 +143,4 @@ graph LR
     B --> C
     D[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
     C --> D
-```
 
