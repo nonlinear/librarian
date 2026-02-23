@@ -120,4 +120,18 @@ flowchart TB
 
 
 
+```mermaid
+graph LR
+    A[📋 v0.16.0 📦 Unified Indexing Pipeline | [notes](backstage/epic-notes/v0.16.0-unified-indexing.md)]
+    B[📋 v0.17.0 🔀 Multi-Scope Queries | [notes](backstage/epic-notes/v0.17.0-multi-scope.md)]
+    A --> B
+    C[📋 v0.15.0 🎯 Skill as Protocol | [notes](backstage/epic-notes/v0.15.0-skill-protocol.md) | [translation](backstage/epic-notes/v0.15.0-skill-translation.md) | [best-practices](backstage/epic-notes/v0.15.0-best-practices.md)]
+    B --> C
+    D[📋 v0.18.0 🧪 Skill Validation & AI Testing | [notes](backstage/epic-notes/v0.18.0-skill-validation.md)]
+    C --> D
+    E[📋 v1.2.1 ✅ Research Enhancement | [notes](backstage/epic-notes/v1.2.1/)]
+    D --> E
+```
+
+
 
