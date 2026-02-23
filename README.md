@@ -110,10 +110,6 @@ flowchart TB
 
 
 
-
-
-
-
 > 🤖
 >
 > This project follows [backstage protocol](https://github.com/nonlinear/backstage) v0.3.4
