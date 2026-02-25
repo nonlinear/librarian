@@ -15,13 +15,10 @@ dependencies:
     - faiss-cpu
 triggers:
   - "pesquisa"
-  - "pesquisa por"
   - "research"
-  - "research for"
   - "procura"
-  - "can you check it against"
-  - "pergunta a"
-  - "ask (topic/book) about"
+  - "pergunta"
+  - "ask"
 ---
 
 # Librarian - Semantic Research Skill
