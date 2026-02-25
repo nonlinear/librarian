@@ -14,12 +14,9 @@ dependencies:
     - torch
     - faiss-cpu
 triggers:
-  - "pesquisa livro"
-  - "pesquisa biblioteca"
-  - "consulta livro"
-  - "pergunta livro"
-  - "research book"
-  - "ask book"
+  - "pesquisa"
+  - "pesquisar"
+  - "research"
 ---
 
 # Librarian - Semantic Research Skill
