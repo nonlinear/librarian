@@ -21,18 +21,48 @@
 
 ```mermaid
 graph LR
-    A[📋 v0.16.0 📦 Unified Indexing Pipeline | [notes](epic-notes/v0.16.0-unified-indexing.md)]
-    B[📋 v0.17.0 🔀 Multi-Scope Queries | [notes](epic-notes/v0.17.0-multi-scope.md)]
+    A[📋 v0.19.0 🔗 Kavita Deep Linking | [notes](epic-notes/v0.19.0-kavita-deep-linking.md)]
+    B[📋 v0.16.0 📦 Unified Indexing Pipeline | [notes](epic-notes/v0.16.0-unified-indexing.md)]
     A --> B
-    C[📋 v0.15.0 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md) | [best-practices](epic-notes/v0.15.0-best-practices.md)]
+    C[📋 v0.17.0 🔀 Multi-Scope Queries | [notes](epic-notes/v0.17.0-multi-scope.md)]
     B --> C
-    D[📋 v0.18.0 🧪 Skill Validation & AI Testing | [notes](epic-notes/v0.18.0-skill-validation.md)]
+    D[📋 v0.15.0 🎯 Skill as Protocol | [notes](epic-notes/v0.15.0-skill-protocol.md) | [translation](epic-notes/v0.15.0-skill-translation.md) | [best-practices](epic-notes/v0.15.0-best-practices.md)]
     C --> D
-    E[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
+    E[📋 v0.18.0 🧪 Skill Validation & AI Testing | [notes](epic-notes/v0.18.0-skill-validation.md)]
     D --> E
+    F[📋 v1.2.1 ✅ Research Enhancement | [notes](epic-notes/v1.2.1/)]
+    E --> F
 ```
 
 
+
+---
+
+## v0.19.0
+
+### 🔗 Kavita Deep Linking | [notes](epic-notes/v0.19.0-kavita-deep-linking.md)
+
+**Add clickable links from research results to exact location in Kavita reader**
+
+**Problem:** Research returns relevant chunks, but no way to jump to source. User must manually find book + navigate to chapter/page.
+
+**Solution:** Generate Kavita URLs with deep-linking (if supported) to open exact location.
+
+**Tasks:**
+
+- [ ] Map filename → Kavita seriesId (index Kavita library metadata)
+- [ ] Investigate Kavita deep-linking support (URL parameters for page/chapter)
+- [ ] Add Kavita link to research.py output (new field: `kavita_url`)
+- [ ] Test deep-linking with EPUB (chapter-based) and PDF (page-based)
+- [ ] Fallback if no deep-linking (link to book root)
+- [ ] Update VS Code extension to make links clickable
+- [ ] Document Kavita URL structure
+
+**Success Criteria:**
+
+- Click research result → opens Kavita at exact chapter/page
+- Works for EPUB (chapter navigation) and PDF (page navigation)
+- Graceful degradation if deep-linking unavailable
 
 ---
 
