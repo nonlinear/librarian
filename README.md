@@ -189,7 +189,11 @@ MIT License - see [LICENSE](LICENSE)
 
 ## Credits
 
-- **FAISS:** Meta AI (vector search)
-- **Sentence Transformers:** HuggingFace (embeddings)
-- **epub.js:** FuturePress (EPUB rendering)
-- **FastAPI:** Sebastián Ramírez (web framework)
+- **[FAISS](https://github.com/facebookresearch/faiss):** Meta AI (vector search)
+- **[Sentence Transformers](https://www.sbert.net/):** HuggingFace (embeddings)
+- **[epub.js](https://github.com/futurepress/epub.js/):** FuturePress (EPUB rendering)
+- **[FastAPI](https://fastapi.tiangolo.com/):** Sebastián Ramírez (web framework)
+
+---
+
+**Built by [Nonlinear Studio](https://nonlinear.nyc)**
