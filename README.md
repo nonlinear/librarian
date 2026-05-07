@@ -25,9 +25,11 @@
 - **Docker** & **Docker Compose** ([install here](https://docs.docker.com/get-docker/))
 - **Docker Desktop Settings:**
   - Memory: **16GB minimum** (Settings → Resources → Memory)
-  - Default 7.6GB is insufficient for indexing
+  - ⚠️ **Critical:** Default 7.6GB will cause indexing to crash
 - **Disk space:** ~2GB (dependencies + models)
 - **macOS/Linux** (Windows: use WSL2)
+
+> **Tested on:** M4 Max (macOS), Docker Desktop 4.x
 
 ### Quick Start
 
@@ -74,16 +76,25 @@ Found 5 results:
 1. **Docker build** (~5-10 min)
    - Installs Python 3.11
    - Installs dependencies (torch, sentence-transformers, FAISS, etc.)
-   - Downloads ~1GB of libraries
+   - Downloads ~1-2GB of libraries
+   - ✅ Tested and working
 
-2. **Model download** (~1 min)
+2. **Model download** (~1-2 min)
    - Downloads BAAI/bge-small-en-v1.5 embedding model (~130MB)
    - Cached in `engine/models/` for future runs
+   - ✅ Tested and working
 
-3. **Indexing** (~2-5 min per 100 books)
+3. **Container starts** (~5 sec)
+   - File watcher activates (auto-detects new books)
+   - EPUB reader starts (http://localhost:8088)
+   - MCP server ready
+   - ✅ Tested and working
+
+4. **Indexing** (~2-5 min per 100 books)
    - Extracts text from EPUB/PDF
    - Generates embeddings
    - Builds FAISS index
+   - ⚠️ **Requires 16GB Docker memory**
 
 **After first run:** Adding new books takes <10s (incremental indexing).
 
