@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Logs
+*.log
+logs/
+
+# Index files (generated)
+books/.index_state.json
+books/faiss.index
+books/metadata.json
+books/*.json
+books/*.index
+
+# User's library (don't commit books)
+books/*.epub
+books/*.pdf
+books/*/*.epub
+books/*/*.pdf
+
+# Embedding models (too large for GitHub)
+engine/models/
+!engine/models/README.md
+
+# Covers (generated)
+covers/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+
+# Next.js
+.next/
+node_modules/

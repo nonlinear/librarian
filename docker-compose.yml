@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  librarian:
+    build: .
+    container_name: librarian
+    ports:
+      - "8088:8088"  # Reader: host 8088 -> container 8088
+    volumes:
+      - ./books:/app/books
+      - ./engine/models:/app/engine/models  # Cache embedding model
+    environment:
+      - SENTENCE_TRANSFORMERS_HOME=/app/engine/models
+      - HF_DATASETS_OFFLINE=1
+      - TRANSFORMERS_OFFLINE=1
+      - READER_PORT=8088
+    stdin_open: true
+    tty: true
+    restart: unless-stopped

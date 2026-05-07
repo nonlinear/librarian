@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librarian Reader</title>
+    <script src="https://cdn.jsdelivr.net/npm/epubjs/dist/epub.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        #app { height: 100vh; display: flex; flex-direction: column; }
+        #header {
+            padding: 16px 24px;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #viewer {
+            flex: 1;
+            background: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #666;
+            display: none;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #222;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #333; }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="header">
+            <h1 id="book-title" style="font-size: 18px; font-weight: 600; color: #000;">📚 Librarian Reader</h1>
+        </div>
+        <div id="viewer">
+            <div id="loading">Loading...</div>
+        </div>
+        <div class="controls">
+            <button id="prev">← Previous</button>
+            <button id="next">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let book = null;
+        let rendition = null;
+
+        /**
+         * Navigate to structural location (EPUB).
+         * Uses epub.js rendered event (no timeout hacks).
+         * 
+         * @param {Object} location - {href, para, element_id}
+         * @returns {Promise}
+         */
+        async function goToLocation({ href, para, element_id }) {
+            return new Promise(async (resolve, reject) => {
+                const handler = (section) => {
+                    // Normalize href (some EPUBs use "text/chapter1.xhtml")
+                    const sectionHref = section.href.split('/').pop();
+                    const targetHref = href.split('/').pop();
+                    
+                    if (sectionHref !== targetHref) return;
+                    
+                    const iframe = document.querySelector("iframe");
+                    const doc = iframe?.contentDocument;
+                    
+                    if (!doc) {
+                        console.warn("No iframe document");
+                        return;
+                    }
+                    
+                    let target = null;
+                    
+                    // 🔥 PRIORITY 1: Element ID (if exists)
+                    if (element_id) {
+                        target = doc.getElementById(element_id);
+                    }
+                    
+                    // 🔥 PRIORITY 2: Paragraph index
+                    if (!target && para !== undefined) {
+                        // ⚠️ Must match backend selector!
+                        const elements = doc.querySelectorAll(
+                            "p, li, blockquote, h1, h2, h3"
+                        );
+                        
+                        // Bounds check
+                        if (para < elements.length) {
+                            target = elements[para];
+                        } else {
+                            console.warn(`Paragraph ${para} out of range (${elements.length} total)`);
+                            target = elements[0]; // Fallback to first
+                        }
+                    }
+                    
+                    // 🔥 FALLBACK: If no <p>, try <div>
+                    if (!target) {
+                        const divs = doc.querySelectorAll("div");
+                        if (divs.length > 0) {
+                            target = divs[0];
+                            console.warn("Fallback to <div> (no structured paragraphs)");
+                        }
+                    }
+                    
+                    if (target) {
+                        // Generate REAL CFI (epub.js knows the spec)
+                        try {
+                            const cfi = book.cfiFromElement(target);
+                            rendition.display(cfi);
+                        } catch (e) {
+                            console.error("CFI generation failed:", e);
+                            // Fallback: at least we're on the right chapter
+                        }
+                    }
+                    
+                    // Clean up listener
+                    rendition.off("rendered", handler);
+                    resolve();
+                };
+                
+                // Register listener BEFORE display
+                rendition.on("rendered", handler);
+                
+                // Trigger display
+                try {
+                    await rendition.display(href);
+                } catch (e) {
+                    rendition.off("rendered", handler);
+                    reject(e);
+                }
+            });
+        }
+
+        /**
+         * Load book and optionally navigate to location.
+         */
+        async function loadBook(bookId, location = null) {
+            // Clear previous book
+            if (rendition) rendition.destroy();
+            
+            document.getElementById('loading').style.display = 'block';
+
+            // Load EPUB
+            book = ePub(`/books/${bookId}.epub`);
+            rendition = book.renderTo('viewer', {
+                width: '100%',
+                height: '100%',
+                spread: 'none'
+            });
+
+            // Update title with metadata
+            book.loaded.metadata.then(metadata => {
+                const title = metadata.title || 'Unknown Title';
+                const author = metadata.creator || 'Unknown Author';
+                document.getElementById('book-title').textContent = `${title} — ${author}`;
+            });
+
+            // Display book
+            if (location && location.href) {
+                // Navigate to specific location
+                await goToLocation(location);
+            } else {
+                // Start at beginning
+                await rendition.display();
+            }
+            
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // Navigation controls
+        document.getElementById('prev').addEventListener('click', () => {
+            if (rendition) rendition.prev();
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            if (rendition) rendition.next();
+        });
+
+        // Auto-load from URL params
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const bookId = params.get('book_id') || params.get('book'); // Accept both
+            
+            console.log('[DEBUG] DOMContentLoaded');
+            console.log('[DEBUG] bookId:', bookId);
+            
+            if (!bookId) {
+                console.log("[DEBUG] No book specified in URL");
+                return;
+            }
+            
+            // Parse location params
+            const location = {
+                href: params.get('href'),
+                para: params.get('para') ? parseInt(params.get('para')) : undefined,
+                element_id: params.get('element_id')
+            };
+            
+            console.log('[DEBUG] location:', location);
+            console.log('[DEBUG] Calling loadBook...');
+            
+            // Load book (with optional navigation)
+            loadBook(bookId, location.href ? location : null).catch(err => {
+                console.error('[DEBUG] loadBook failed:', err);
+            });
+        });
+    </script>
+</body>
+</html>

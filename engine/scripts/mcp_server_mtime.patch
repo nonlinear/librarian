@@ -1,0 +1,89 @@
+--- a/engine/scripts/mcp_server.py
++++ b/engine/scripts/mcp_server.py
+@@ -40,7 +40,6 @@ app = Server("librarian-v3")
+ # Library root
+ LIBRARY_ROOT = Path(__file__).parent.parent.parent / "books"
+ INDEX_PATH = LIBRARY_ROOT / ".global-index-v5.json"
+-SIGNAL_FILE = Path("/tmp/librarian_index_updated")
+ 
+ 
+ # ============================================================
+@@ -49,27 +48,34 @@ SIGNAL_FILE = Path("/tmp/librarian_index_updated")
+ 
+ class IndexReloader:
+     """
+-    Hot-reload index when watcher signals update.
++    Hot-reload index when file changes (mtime-based).
+     
+-    Watcher creates signal file after indexing.
+-    Background thread checks signal and reloads index.
++    Background thread polls mtime every 2s.
++    On change: reload index atomically.
+     
+     Zero downtime, always fresh index.
+     """
+     
+     def __init__(self):
+         self.index = None
+         self.lock = Lock()
++        self.last_mtime = 0
+         self.load_index()
+         
+         # Start background reload thread
+         self.thread = Thread(target=self.watch_loop, daemon=True)
+         self.thread.start()
+-        logger.info("[IndexReloader] Hot-reload enabled (signal-based)")
++        logger.info("[IndexReloader] Hot-reload enabled (mtime-based, 2s poll)")
+     
+     def load_index(self):
+         """Load index from disk (thread-safe)."""
+         with self.lock:
+             try:
+                 with open(INDEX_PATH) as f:
+                     self.index = json.load(f)
+-                logger.info(f"[IndexReloader] Loaded index: {self.index.get('total_books', 0)} books, {self.index.get('total_chunks', 0)} chunks")
++                self.last_mtime = INDEX_PATH.stat().st_mtime
++                total_books = self.index.get('total_books', 0)
++                total_chunks = self.index.get('total_chunks', 0)
++                logger.info(f"[IndexReloader] Loaded index: {total_books} books, {total_chunks} chunks")
+             except Exception as e:
+                 logger.error(f"[IndexReloader] Failed to load index: {e}")
+                 self.index = {"books": [], "total_books": 0, "total_chunks": 0}
++                self.last_mtime = 0
+     
+     def get_index(self):
+         """Get current index (thread-safe)."""
+         with self.lock:
+             return self.index
+     
+     def watch_loop(self):
+-        """Background thread watching for reload signal."""
++        """Background thread polling for mtime changes."""
+         while True:
+-            time.sleep(1)  # Check every second
++            time.sleep(2)  # Poll every 2 seconds
+             
+-            if SIGNAL_FILE.exists():
+-                logger.info("[IndexReloader] Reload signal detected, reloading index...")
+-                self.load_index()
+-                
+-                # Remove signal file
+-                try:
+-                    SIGNAL_FILE.unlink()
+-                except:
+-                    pass
++            try:
++                current_mtime = INDEX_PATH.stat().st_mtime
++                if current_mtime > self.last_mtime:
++                    logger.info("[IndexReloader] Index file changed, reloading...")
++                    old_count = self.index.get('total_books', 0) if self.index else 0
++                    self.load_index()
++                    new_count = self.index.get('total_books', 0)
++                    delta = new_count - old_count
++                    if delta != 0:
++                        logger.info(f"[IndexReloader] Book count delta: {delta:+d} (now {new_count})")
++            except FileNotFoundError:
++                pass  # Index not created yet
++            except Exception as e:
++                logger.error(f"[IndexReloader] Watch error: {e}")
+ 
