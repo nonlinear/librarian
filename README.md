@@ -23,7 +23,10 @@
 
 ### Prerequisites
 - **Docker** & **Docker Compose** ([install here](https://docs.docker.com/get-docker/))
-- **2GB RAM** minimum (4GB recommended)
+- **Docker Desktop Settings:**
+  - Memory: **16GB minimum** (Settings → Resources → Memory)
+  - Default 7.6GB is insufficient for indexing
+- **Disk space:** ~2GB (dependencies + models)
 - **macOS/Linux** (Windows: use WSL2)
 
 ### Quick Start
@@ -183,6 +186,18 @@ All public domain (Project Gutenberg).
 ## Troubleshooting
 
 ### First Install Issues
+
+#### Container crashes during indexing (code 137)
+**Cause:** Docker out of memory (OOM)
+
+**Fix:**
+1. Open **Docker Desktop**
+2. Go to **Settings → Resources**
+3. Increase **Memory** to **16GB** (minimum)
+4. Click **Apply & Restart**
+5. Try again: `docker-compose up -d`
+
+**Why:** Embedding model + torch + indexing uses ~8-12GB during first run
 
 #### Docker build taking too long
 **Normal:** First build downloads ~1-2GB of dependencies (torch, CUDA libs, etc.)
