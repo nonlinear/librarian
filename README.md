@@ -22,33 +22,67 @@
 ## Installation
 
 ### Prerequisites
-- Docker & Docker Compose
-- 2GB RAM minimum
-- macOS/Linux (Windows: use WSL2)
+- **Docker** & **Docker Compose** ([install here](https://docs.docker.com/get-docker/))
+- **2GB RAM** minimum (4GB recommended)
+- **macOS/Linux** (Windows: use WSL2)
 
 ### Quick Start
 
 ```bash
-# 1. Clone this repo
+# 1. Clone the repo
 git clone https://github.com/nonlinear/librarian.git
 cd librarian
 
-# 2. BYOB: Bring Your Own Books
-# Add .epub and .pdf files to books/ folder
-# (or use test books from test-books/)
+# 2. Add your books
+# Copy EPUB/PDF files to books/ folder
+cp ~/Downloads/*.epub books/
+
+# OR use the included test books
 cp test-books/*.epub books/
 
-# 3. Start (downloads embedding model automatically on first run)
+# 3. Start the container
 docker-compose up -d
 
-# 4. Test
-docker exec librarian python3 /app/engine/scripts/faiss_search.py "your query here"
+# This will:
+# - Build Docker image (~5-10 min first time)
+# - Download embedding model (~130MB, cached for future runs)
+# - Index your books (~2-5 min per 100 books)
+
+# 4. Check logs (optional - see indexing progress)
+docker logs librarian -f
+# Press Ctrl+C to exit logs
+
+# 5. Test a query
+docker exec librarian python3 /app/engine/scripts/faiss_search.py "wonderland rabbit"
 ```
 
-**First run:** 
-- Downloads embedding model (~130MB, BAAI/bge-small-en-v1.5)
-- Indexing takes ~2-5 min per 100 books (one-time only)
-- After that, adding books takes <10s (incremental indexing)
+**Expected output:**
+```
+Found 5 results:
+1. Alice's Adventures in Wonderland (Lewis Carroll) - Score: 0.89
+   "The rabbit-hole went straight on like a tunnel for some way..."
+
+2. Alice's Adventures in Wonderland (Lewis Carroll) - Score: 0.85
+   "...White Rabbit with pink eyes ran close by her..."
+```
+
+### What Happens on First Run
+
+1. **Docker build** (~5-10 min)
+   - Installs Python 3.11
+   - Installs dependencies (torch, sentence-transformers, FAISS, etc.)
+   - Downloads ~1GB of libraries
+
+2. **Model download** (~1 min)
+   - Downloads BAAI/bge-small-en-v1.5 embedding model (~130MB)
+   - Cached in `engine/models/` for future runs
+
+3. **Indexing** (~2-5 min per 100 books)
+   - Extracts text from EPUB/PDF
+   - Generates embeddings
+   - Builds FAISS index
+
+**After first run:** Adding new books takes <10s (incremental indexing).
 
 ---
 
@@ -148,7 +182,37 @@ All public domain (Project Gutenberg).
 
 ## Troubleshooting
 
-### Indexing stuck
+### First Install Issues
+
+#### Docker build taking too long
+**Normal:** First build downloads ~1-2GB of dependencies (torch, CUDA libs, etc.)
+**Time:** 5-15 minutes depending on internet speed
+**Fix:** Be patient, it's cached for future runs
+
+#### Container exits immediately
+```bash
+# Check logs
+docker logs librarian
+
+# Common causes:
+# 1. Port 8088 already in use → change in docker-compose.yml
+# 2. Out of memory → close other apps or increase Docker RAM
+```
+
+#### Model download fails
+```bash
+# Manual download inside container
+docker exec -it librarian bash
+python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-small-en-v1.5', cache_folder='/app/engine/models')"
+exit
+
+# Restart container
+docker-compose restart
+```
+
+### Usage Issues
+
+#### Indexing stuck
 ```bash
 # Restart container
 docker-compose restart
