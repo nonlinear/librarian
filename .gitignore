@@ -25,6 +25,11 @@ books/*.pdf
 books/*/*.epub
 books/*/*.pdf
 
+# Exception: test books should be committed
+!books/alice.epub
+!books/frankenstein.epub
+!books/moby-dick.epub
+
 # Embedding models (too large for GitHub)
 engine/models/
 !engine/models/README.md

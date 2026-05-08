@@ -22,8 +22,7 @@
 ## Installation
 
 ### Prerequisites
-- **Docker** & **Docker Compose** ([install here](https://docs.docker.com/get-docker/))
-- **Docker Desktop Settings:**
+- **Docker Desktop** ([install here](https://docs.docker.com/get-docker/))
   - Memory: **16GB minimum** (Settings → Resources → Memory)
   - ⚠️ **Critical:** Default 7.6GB will cause indexing to crash
 - **Disk space:** ~2GB (dependencies + models)
@@ -38,27 +37,27 @@
 git clone https://github.com/nonlinear/librarian.git
 cd librarian
 
-# 2. Add your books
-# Copy EPUB/PDF files to books/ folder
-cp ~/Downloads/*.epub books/
+# 2. Books are ready!
+# The repo includes 3 test books (Alice, Frankenstein, Moby Dick)
+# Add your own: cp ~/Downloads/*.epub books/
 
-# OR use the included test books
-cp test-books/*.epub books/
+# 3. Start Docker Desktop and increase memory to 16GB
+# (Settings → Resources → Memory → 16GB → Apply & Restart)
 
-# 3. Start the container
+# 4. Start the container
 docker-compose up -d
 
 # This will:
 # - Build Docker image (~5-10 min first time)
 # - Download embedding model (~130MB, cached for future runs)
-# - Index your books (~2-5 min per 100 books)
+# - Index your books (~2-5 min for 3 test books)
 
-# 4. Check logs (optional - see indexing progress)
+# 5. Check logs (optional - see indexing progress)
 docker logs librarian -f
 # Press Ctrl+C to exit logs
 
-# 5. Test a query
-docker exec librarian python3 /app/engine/scripts/faiss_search.py "wonderland rabbit"
+# 6. Try the first query!
+docker exec librarian python3 /app/engine/scripts/faiss_search.py "white rabbit wonderland"
 ```
 
 **Expected output:**
@@ -69,6 +68,12 @@ Found 5 results:
 
 2. Alice's Adventures in Wonderland (Lewis Carroll) - Score: 0.85
    "...White Rabbit with pink eyes ran close by her..."
+```
+
+**Try another:**
+```bash
+docker exec librarian python3 /app/engine/scripts/faiss_search.py "monster creator regret"
+# Should find Frankenstein passages about Victor's remorse
 ```
 
 ### What Happens on First Run
