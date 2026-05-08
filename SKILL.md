@@ -8,7 +8,7 @@ triggers:
   - "find books about"
   - "what do I have on"
   - "research"
-  - "semantic search"
+  - "consult"
 ---
 
 **Version:** v3.0.0 (Adaptive Knowledge Organization)  
