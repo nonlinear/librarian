@@ -30,27 +30,38 @@
 
 > **Tested on:** M4 Max (macOS), Docker Desktop 4.x
 
-### Quick Start
+### Install
+
+### Clone the repo
+
+```
+cd ~/Documents
+git clone https://github.com/nonlinear/librarian.git librarian
+cd librarian
+```
+
+### Start Docker Desktop and increase memory to 16GB
+
+Settings → Resources → Memory → 16GB → Apply & Restart
+
+### Start the container
+
+```
+docker-compose up -d
+```
+
+This will: 
+
+- Build Docker image (~5-10 min first time)
+- Download embedding model (~130MB, cached for future runs)
+- Index any book on `librarian/books` folder (~2-5 min for 3 test books)
+
+```
+
+```
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/nonlinear/librarian.git
-cd librarian
 
-# 2. Books are ready!
-# The repo includes 3 test books (Alice, Frankenstein, Moby Dick)
-# Add your own: cp ~/Downloads/*.epub books/
-
-# 3. Start Docker Desktop and increase memory to 16GB
-# (Settings → Resources → Memory → 16GB → Apply & Restart)
-
-# 4. Start the container
-docker-compose up -d
-
-# This will:
-# - Build Docker image (~5-10 min first time)
-# - Download embedding model (~130MB, cached for future runs)
-# - Index your books (~2-5 min for 3 test books)
 
 # 5. Check logs (optional - see indexing progress)
 docker logs librarian -f
@@ -113,26 +124,85 @@ docker exec librarian python3 /app/engine/scripts/faiss_search.py "monster creat
 docker exec librarian python3 /app/engine/scripts/faiss_search.py "design systems"
 ```
 
-### AI Assistant Integration
+### MCP Connection
 
-**Two options:**
+**For Claude Desktop and OpenClaw** (same config for both):
 
-1. **Full MCP integration** → See [SKILL.md](SKILL.md)
-   - Claude Desktop / OpenClaw
-   - Complete setup guide
-   - Output format rules
+1. **Ensure container is running:**
+   ```bash
+   docker ps | grep librarian
+   # Should show librarian container running
+   ```
 
-2. **Quick prompt** → See [skill-prompt.md](skill-prompt.md)
-   - Copy-paste into custom instructions
-   - No installation needed
-   - Works with any AI assistant
+2. **Add to MCP config:**
 
-**Example queries:**
+   **Claude Desktop:** Edit `~/Library/Application Support/Claude/claude_desktop_config.json`
+   
+   **OpenClaw:** Already configured if you installed the Librarian skill
+
+   ```json
+   {
+     "mcpServers": {
+       "librarian": {
+         "command": "docker",
+         "args": [
+           "exec",
+           "-i",
+           "librarian",
+           "python3",
+           "/app/engine/scripts/mcp_server_faiss.py"
+         ]
+       }
+     }
+   }
+   ```
+
+3. **Restart Claude Desktop / OpenClaw**
+
+4. **Test the connection:**
+   - Ask: "Search my library for books about design systems"
+   - Should return results from your indexed books
+
+**Notes:**
+- MCP uses **stdio** (stdin/stdout), not a TCP port
+- Container must be running (`docker-compose up -d`)
+- EPUB reader UI is on **port 8088** (optional, for browsing books)
+
+---
+
+### Quick Prompt (No MCP)
+
+If you don't want MCP integration, use the copy-paste prompt:
+
+**See:** [skill-prompt.md](skill-prompt.md)
+- Copy into custom instructions
+- Works with any AI assistant
+- Manually run queries via command line
+
+**Example workflow:**
+1. Ask AI: "Find books about mutual aid"
+2. AI tells you the command to run
+3. You run: `docker exec librarian python3 /app/engine/scripts/faiss_search.py "mutual aid"`
+4. Paste results back to AI
+5. AI formats and explains
+
+---
+
+### Example Queries
+
+**With MCP (automatic):**
 - "What do I have about design systems?"
 - "Find books on mutual aid and care"
 - "How do taxonomies differ from folksonomies?"
 
-> 👉 Without MCP/prompt your AI uses general knowledge. With it you get precise citations from your library
+**Command line (manual):**
+```bash
+docker exec librarian python3 /app/engine/scripts/faiss_search.py "design patterns"
+docker exec librarian python3 /app/engine/scripts/faiss_search.py "monster creator regret"
+```
+
+> 👉 **With MCP:** AI automatically searches your library and cites sources  
+> 👉 **Without MCP:** AI uses general knowledge unless you manually run queries
 
 ---
 
