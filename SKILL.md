@@ -1,12 +1,11 @@
 ---
 title: "Librarian"
 date: 2026-04-24
-description: "Semantic book search via MCP (v3: entropy-based clustering, context-aware search)"
+description: "A BYOB (Bring Your Own Books) semantic search over your personal library"
 service: mcp
 triggers:
   - "search my library"
   - "find books about"
-  - "what do I have on"
   - "research"
   - "consult"
 ---
@@ -15,6 +14,60 @@ triggers:
 **Status:** Production  
 **MCP Server:** `librarian-mcp` (Docker)  
 **Port:** 8766 (UI), stdio (MCP)
+
+---
+
+## Query Flow Example
+
+```mermaid
+sequenceDiagram
+    participant U as 👤 User
+    participant A as 🤖 AI Assistant
+    participant S as 🎯 Skill
+    participant M as 🔌 MCP Server
+    participant L as 📚 Librarian<br/>(Docker)
+    participant F as 🔍 FAISS Index
+    
+    U->>A: "What do chaos magic books say<br/>about empowering agents?"
+    A->>S: Detects trigger: "chaos magic", "books"
+    S->>M: search_library(<br/>query="chaos magic empower agents",<br/>k=5<br/>)
+    M->>L: Docker exec python3<br/>mcp_server_faiss.py
+    L->>L: Generate embedding<br/>(BAAI/bge-small-en-v1.5)
+    L->>F: Vector search<br/>(cosine similarity)
+    F-->>L: Top 5 chunks ranked<br/>(scores: 0.75-0.72)
+    L->>L: Extract metadata<br/>(book, author, page, excerpt)
+    L-->>M: Return results JSON
+    M-->>S: MCP response
+    S-->>A: Formatted results with scores
+    A->>A: Format with Skill rules:<br/>📚 emoji, bold titles,<br/>italic excerpts
+    A-->>U: **Condensed Chaos** (Phil Hine)<br/>Score: 0.75<br/>_"A Servitor is an entity<br/>consciously created..."_
+    
+    Note over U,F: Total time: ~300-500ms
+    Note over L,F: 542 books, 230K+ chunks indexed
+```
+
+**Real example flow:**
+
+1. **User asks:** "What do chaos magic books say about empowering agents?"
+2. **Skill triggers** on keywords: "chaos magic", "books"
+3. **MCP call:** `search_library(query="chaos magic empower agents", k=5)`
+4. **Librarian processes:**
+   - Generates 384-dim embedding vector
+   - Searches 230,487 indexed chunks via FAISS
+   - Ranks by cosine similarity (scores 0-1)
+   - Returns top 5 with metadata
+5. **Response formatted** per Skill rules:
+   - 📚 emoji markers
+   - **Bold book titles**
+   - _Italic excerpts_
+   - Scores shown (0.75, 0.74, etc)
+6. **User receives** grounded answer with exact sources
+
+**Key technical details:**
+- MCP uses **stdio** (not TCP port)
+- Container: `docker exec -i librarian python3 /app/engine/scripts/mcp_server_faiss.py`
+- Search: **semantic** (not keyword matching)
+- Speed: <500ms typical query time
 
 ---
 
