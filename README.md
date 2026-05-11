@@ -56,7 +56,7 @@ flowchart LR
 
 2. macOS/Linux (Windows: use WSL2)
 
-3. Any AI system with access to local files and MCP capabilities
+3. Any AI system with access to local files + MCP capabilities
 
 ---
 
