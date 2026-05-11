@@ -26,13 +26,13 @@ flowchart LR
 
 ## Features
 
-🏠 **All local** (no API calls, works offline)  
-🧠 **Semantic search** (not just keywords)  
-👁️ **File watcher** (drop book in folder → indexed automatically)  
-⚡ **Incremental indexing** (add books → auto-reindex in <10s)  
-🔌 **MCP server** (Claude Desktop / OpenClaw integration)  
-📖 **EPUB reader (soon)** (deep linking to exact paragraphs)  
-🔒 **Stable IDs** (content-addressed, survives renames)  
+🏠 **All local:** No API calls, works offline  
+🧠 **Semantic search:** Not just keywords  
+👁️ **File watcher:** Drop book in folder → indexed automatically  
+⚡ **Incremental indexing:** Add books → auto-reindex in <10s  
+🔌 **MCP server:** Claude Desktop / OpenClaw integration  
+📖 **EPUB reader (soon):** Deep linking to exact paragraphs  
+🔒 **Stable IDs:** Content-addressed, survives renames  
 
 ---
 
