@@ -24,6 +24,18 @@ flowchart LR
 | 💼&nbsp;**Professional**    | Legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations                                                        |
 | 💪&nbsp;**Fitness**         | Training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes                                                          |
 
+## Features
+
+🏠 **All local** (no API calls, works offline)  
+🧠 **Semantic search** (not just keywords)  
+👁️ **File watcher** (drop book in folder → indexed automatically)  
+⚡ **Incremental indexing** (add books → auto-reindex in <10s)  
+🔌 **MCP server** (Claude Desktop / OpenClaw integration)  
+📖 **EPUB reader (soon)** (deep linking to exact paragraphs)  
+🔒 **Stable IDs** (content-addressed, survives renames)  
+
+---
+
 ## Example Queries
 
 - "Research on what do I have about design systems?"
@@ -106,18 +118,6 @@ graph TD
     RESULTS --> FORMAT[Format with citations]
     FORMAT --> ANSWER([Answer with book excerpts])
 ```
-
----
-
-## Features
-
-✅ **Semantic search** (not just keywords)  
-✅ **Incremental indexing** (add books → auto-reindex in <10s)  
-✅ **File watcher** (drop book in folder → indexed automatically)  
-✅ **MCP server** (Claude Desktop / OpenClaw integration)  
-✅ **EPUB reader** (deep linking to exact paragraphs)  
-✅ **Stable IDs** (content-addressed, survives renames)  
-✅ **All local** (no API calls, works offline)
 
 ---
 
