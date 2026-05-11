@@ -1,8 +1,15 @@
 # Librarian
 
-> A BYOB (Bring Your Own Books) semantic search over your personal library.
+> A BYOB (Bring Your Own Books) semantic search for your personal library.
 
 > All local (books, embedding models, database). Connect with your favorite AI provider and ask away.
+
+```mermaid
+flowchart LR
+    USER["👨‍🔬 Adds book to folder"] --> WATCHER["🤖 Watches, auto-index"]
+    WATCHER --> MCP["🤖 Updates MCP"]
+    MCP --> QUERY["👨‍🔬 Consults AI"]
+```
 
 ---
 
@@ -17,22 +24,33 @@
 | 💼&nbsp;**Professional**    | Legal texts, industry whitepapers, case studies—cite exact sources during audits or client presentations                                                        |
 | 💪&nbsp;**Fitness**         | Training programs, nutrition guides, sports science—get grounded advice without influence rabbit holes                                                          |
 
+## Example Queries
+
+- "Research on what do I have about design systems?"
+- "Consult books on mutual aid and care"
+- "Consult on how do taxonomies differ from folksonomies?"
+
 ---
 
-## Installation
+## Requirements
 
-### Prerequisites
-- **Docker Desktop** ([install here](https://docs.docker.com/get-docker/))
-  - Memory: **16GB minimum** (Settings → Resources → Memory)
-  - ⚠️ **Critical:** Default 7.6GB will cause indexing to crash
-- **Disk space:** ~2GB (dependencies + models)
-- **macOS/Linux** (Windows: use WSL2)
+1. Docker Desktop
 
-> **Tested on:** M4 Max (macOS), Docker Desktop 4.x
+   - Memory: **16GB minimum** (Settings → Resources → Memory)
 
-### Install
+   - ⚠️ **Critical:** Default 7.6GB will cause indexing to crash
 
-### Clone the repo
+   - Disk space:** ~2GB (dependencies + models)
+
+2. macOS/Linux (Windows: use WSL2)
+
+3. Any AI system with MCP capabilities
+
+---
+
+### Installation
+
+#### Clone the repo
 
 ```
 cd ~/Documents
@@ -40,13 +58,14 @@ git clone https://github.com/nonlinear/librarian.git librarian
 cd librarian
 ```
 
-### Start Docker Desktop and increase memory to 16GB
+#### Start Docker Desktop and increase memory
 
 Settings → Resources → Memory → 16GB → Apply & Restart
 
-### Start the container
+#### Start the container
 
 ```
+cd ~/Documents/librarian
 docker-compose up -d
 ```
 
@@ -56,153 +75,24 @@ This will:
 - Download embedding model (~130MB, cached for future runs)
 - Index any book on `librarian/books` folder (~2-5 min for 3 test books)
 
-```
+#### Install skill/prompt
+
+- [SKILL.md](SKILL.md) (triggers: "consult" "librarian" "research")
+- [librarian.prompt.md](librarian.prompt.md)
+
+#### Optional: check logs
 
 ```
-
-```bash
-
-
-# 5. Check logs (optional - see indexing progress)
 docker logs librarian -f
-# Press Ctrl+C to exit logs
-
-# 6. Try the first query!
-docker exec librarian python3 /app/engine/scripts/faiss_search.py "white rabbit wonderland"
 ```
 
-**Expected output:**
-```
-Found 5 results:
-1. Alice's Adventures in Wonderland (Lewis Carroll) - Score: 0.89
-   "The rabbit-hole went straight on like a tunnel for some way..."
+#### Try your first query
 
-2. Alice's Adventures in Wonderland (Lewis Carroll) - Score: 0.85
-   "...White Rabbit with pink eyes ran close by her..."
-```
+> Consult books on white rabbit, wonderland
 
-**Try another:**
-```bash
-docker exec librarian python3 /app/engine/scripts/faiss_search.py "monster creator regret"
-# Should find Frankenstein passages about Victor's remorse
-```
+> Research monster creator regret
 
-### What Happens on First Run
-
-1. **Docker build** (~5-10 min)
-   - Installs Python 3.11
-   - Installs dependencies (torch, sentence-transformers, FAISS, etc.)
-   - Downloads ~1-2GB of libraries
-   - ✅ Tested and working
-
-2. **Model download** (~1-2 min)
-   - Downloads BAAI/bge-small-en-v1.5 embedding model (~130MB)
-   - Cached in `engine/models/` for future runs
-   - ✅ Tested and working
-
-3. **Container starts** (~5 sec)
-   - File watcher activates (auto-detects new books)
-   - EPUB reader starts (http://localhost:8088)
-   - MCP server ready
-   - ✅ Tested and working
-
-4. **Indexing** (~2-5 min per 100 books)
-   - Extracts text from EPUB/PDF
-   - Generates embeddings
-   - Builds FAISS index
-   - ⚠️ **Requires 16GB Docker memory**
-
-**After first run:** Adding new books takes <10s (incremental indexing).
-
----
-
-## Usage
-
-### Command Line
-
-```bash
-docker exec librarian python3 /app/engine/scripts/faiss_search.py "design systems"
-```
-
-### MCP Connection
-
-**For Claude Desktop and OpenClaw** (same config for both):
-
-1. **Ensure container is running:**
-   ```bash
-   docker ps | grep librarian
-   # Should show librarian container running
-   ```
-
-2. **Add to MCP config:**
-
-   **Claude Desktop:** Edit `~/Library/Application Support/Claude/claude_desktop_config.json`
-   
-   **OpenClaw:** Already configured if you installed the Librarian skill
-
-   ```json
-   {
-     "mcpServers": {
-       "librarian": {
-         "command": "docker",
-         "args": [
-           "exec",
-           "-i",
-           "librarian",
-           "python3",
-           "/app/engine/scripts/mcp_server_faiss.py"
-         ]
-       }
-     }
-   }
-   ```
-
-3. **Restart Claude Desktop / OpenClaw**
-
-4. **Test the connection:**
-   - Ask: "Search my library for books about design systems"
-   - Should return results from your indexed books
-
-**Notes:**
-- MCP uses **stdio** (stdin/stdout), not a TCP port
-- Container must be running (`docker-compose up -d`)
-- EPUB reader UI is on **port 8088** (optional, for browsing books)
-
----
-
-### Quick Prompt (No MCP)
-
-If you don't want MCP integration, use the copy-paste prompt:
-
-**See:** [skill-prompt.md](skill-prompt.md)
-- Copy into custom instructions
-- Works with any AI assistant
-- Manually run queries via command line
-
-**Example workflow:**
-1. Ask AI: "Find books about mutual aid"
-2. AI tells you the command to run
-3. You run: `docker exec librarian python3 /app/engine/scripts/faiss_search.py "mutual aid"`
-4. Paste results back to AI
-5. AI formats and explains
-
----
-
-### Example Queries
-
-**With MCP (automatic):**
-- "What do I have about design systems?"
-- "Find books on mutual aid and care"
-- "How do taxonomies differ from folksonomies?"
-
-**Command line (manual):**
-```bash
-docker exec librarian python3 /app/engine/scripts/faiss_search.py "design patterns"
-docker exec librarian python3 /app/engine/scripts/faiss_search.py "monster creator regret"
-```
-
-> 👉 **With MCP:** AI automatically searches your library and cites sources  
-> 👉 **Without MCP:** AI uses general knowledge unless you manually run queries
+CLI query: `docker exec librarian python3 ~/Documents/librarian/app/engine/scripts/faiss_search.py "query"`
 
 ---
 
@@ -216,13 +106,6 @@ graph TD
     RESULTS --> FORMAT[Format with citations]
     FORMAT --> ANSWER([Answer with book excerpts])
 ```
-
-**Architecture:**
-- **Indexer:** Extracts text from EPUB/PDF → chunks → embeddings
-- **FAISS:** Vector similarity search (BAAI/bge-small-en-v1.5, 384-dim)
-- **Incremental:** Only processes new/changed books (O(Δ))
-- **Watcher:** Auto-detects new files (<10s reindex)
-- **MCP:** Claude Desktop / OpenClaw integration
 
 ---
 
@@ -250,105 +133,7 @@ graph TD
 
 ---
 
-## Test Books
-
-Included in `test-books/`:
-- Alice in Wonderland (Lewis Carroll)
-- Frankenstein (Mary Shelley)
-- Moby Dick (Herman Melville)
-
-All public domain (Project Gutenberg).
-
----
-
-## Utilities
-
-### AI Assistant Integration
-- **[SKILL.md](SKILL.md)** - Full MCP integration guide
-- **[skill-prompt.md](skill-prompt.md)** - Quick copy-paste prompt
-
----
-
-## Troubleshooting
-
-### First Install Issues
-
-#### Container crashes during indexing (code 137)
-**Cause:** Docker out of memory (OOM)
-
-**Fix:**
-1. Open **Docker Desktop**
-2. Go to **Settings → Resources**
-3. Increase **Memory** to **16GB** (minimum)
-4. Click **Apply & Restart**
-5. Try again: `docker-compose up -d`
-
-**Why:** Embedding model + torch + indexing uses ~8-12GB during first run
-
-#### Docker build taking too long
-**Normal:** First build downloads ~1-2GB of dependencies (torch, CUDA libs, etc.)
-**Time:** 5-15 minutes depending on internet speed
-**Fix:** Be patient, it's cached for future runs
-
-#### Container exits immediately
-```bash
-# Check logs
-docker logs librarian
-
-# Common causes:
-# 1. Port 8088 already in use → change in docker-compose.yml
-# 2. Out of memory → close other apps or increase Docker RAM
-```
-
-#### Model download fails
-```bash
-# Manual download inside container
-docker exec -it librarian bash
-python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-small-en-v1.5', cache_folder='/app/engine/models')"
-exit
-
-# Restart container
-docker-compose restart
-```
-
-### Usage Issues
-
-#### Indexing stuck
-```bash
-# Restart container
-docker-compose restart
-
-# Force reindex
-docker exec librarian python3 /app/engine/scripts/indexer_v6.py
-```
-
-### No results for query
-1. Check books indexed: `docker exec librarian cat /app/books/.index_state.json | jq .total_books`
-2. Check FAISS loaded: `docker logs librarian | grep "FAISS loaded"`
-3. Try broader terms
-
-### Watcher not detecting new books
-```bash
-# Check watcher is running
-docker logs librarian | grep "Watcher active"
-
-# Restart watcher
-docker-compose restart
-```
-
----
-
-## Community
-
-Join the discussion:
-- **Matrix:** [#librarian:matrix.org](https://matrix.to/#/#librarian:matrix.org) *(coming soon)*
-- **Issues:** [GitHub Issues](https://github.com/nonlinear/librarian/issues)
-
----
-
-## License
-
-MIT License - see [LICENSE](LICENSE)
+**See [specifications.md](specifications.md) for first-run details, MCP connection, and troubleshooting.**
 
 ---
 
