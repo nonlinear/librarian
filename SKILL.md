@@ -1,7 +1,7 @@
 ---
-title: "Librarian - Semantic Research Skill"
+title: "Librarian - Semantic Research Skill
 name: librarian
-description: Conversational interface for semantic book search
+description: 'Semantic book search with context-aware clustering. Use this skill when user says: pesquisa, pesquisar, research, consult, Librarian, Consulte.'
 version: 3.1.0
 author: Nicholas Frota
 homepage: https://github.com/nonlinear/librarian
@@ -13,13 +13,6 @@ dependencies:
     - sentence-transformers
     - torch
     - faiss-cpu
-triggers:
-  - "pesquisa"
-  - "pesquisar"
-  - "research"
-  - "consult"
-  - "Librarian"
-  - "Consulte"
 status: production
 type:
   - research
@@ -27,6 +20,19 @@ type:
 ---
 
 # Librarian: Semantic Book Search
+
+## 🔥 MANDATORY ACTIVATION CONDITIONS
+
+**This skill MUST be used when:**
+- Message contains: "pesquisa", "pesquisar", "research", "consult
+- Message contains: "Librarian", "Consulte", "biblioteca
+- User asks about books, papers, or library content
+- User wants to search or find information in the book collection
+
+**Trigger tokens (HIGH PRIORITY):**
+- #librarian
+- `@research
+- [[SEARCH_BOOKS]]
 
 Search 290+ indexed books using natural language. Returns citations with chapter/page locations.
 
@@ -76,7 +82,7 @@ flowchart TB
  classDef format fill:#fce4ec,stroke:#e91e63,color:#c2185b
  classDef stop fill:#ffebee,stroke:#f44336,color:#c62828
  classDef output fill:#e0f2f1,stroke:#009688,color:#00695c
-```
+``
 
 **Timing:** ~1-2s total (sub-second search + synthesis)
 
@@ -130,7 +136,7 @@ flowchart TB
  classDef mcp fill:#ffe0b2,stroke:#ff6f00,color:#e65100
  classDef ready fill:#c8e6c9,stroke:#81c784,color:#2e7d32
  classDef skip fill:#e0e0e0,stroke:#9e9e9e,color:#424242
-```
+``
 
 **Timing:** 
 - Cached (moved file): <1s
@@ -144,15 +150,57 @@ flowchart TB
 Activate when user query matches:
 
 **Explicit:**
-- "pesquisa [QUERY]" / "search [QUERY]"
-- "consult books about [TOPIC]"
-- "Librarian: [QUERY]"
-- "Consulte livros sobre [CONCEPT]"
+- "pesquisa [QUERY]" / "search [QUERY]
+- "consult books about [TOPIC]
+- "Librarian: [QUERY]
+- "Consulte livros sobre [CONCEPT]
 
 **Implicit:**
-- "What does [AUTHOR] say about [TOPIC]?"
-- "Find references to [CONCEPT]"
-- "O que [LIVRO] diz sobre [ASSUNTO]?"
+- "What does [AUTHOR] say about [TOPIC]?
+- "Find references to [CONCEPT]
+- "O que [LIVRO] diz sobre [ASSUNTO]?
+
+---
+
+## Assemble Query (MANDATORY before MCP call)
+
+**The MCP is stateless. The agent holds the conversation. Bridge them here.**
+
+Before calling `search_library`, enrich the literal user query with conversation context.
+
+### Steps
+
+1. **Scan last 2–3 user turns** in the active conversation
+2. **Extract named entities:** authors, book titles, key concepts, technical terms
+3. **Classify the current question:**
+   - **Follow-up** — contains pronouns, comparatives, deixis (`e o X`, `and what about`, `is it like`, `same for Y`) → **enrich**
+   - **Standalone** — introduces a new topic with no anaphora → **pass literal**
+4. **Compose enriched query:**
+   - Template: `[explicit query] [entities from context]`
+   - Or, when comparing: `[explicit query] (in comparison with [prior entities])`
+5. **Cap context:** ~150–200 chars of entities. Never inject full transcripts.
+
+### Example
+
+**Conversation:**
+
+```
+turn N-2: "fale sobre Baudrillard e simulacra"
+turn N-1: [discussion of hyperreality, Disneyland, sign-as-real]
+turn N:   "e a magia do caos?"
+```
+
+**❌ Without assembly:**  
+`search_library("magia do caos")` — loses Baudrillard frame.
+
+**✅ With assembly:**  
+`search_library("chaos magick belief reality construction (in comparison with Baudrillard simulacra hyperreality)")`
+
+Results now bridge both topics, surfacing chunks that map onto the live conversation.
+
+### When in doubt
+
+If entity extraction is uncertain, run **two** calls: literal query AND enriched query. Merge results, dedupe by `chunk_id`, prefer chunks that appear in both (signal of true relevance).
 
 ---
 
@@ -164,7 +212,7 @@ search_library(
     k: int = 10,        # Number of results
     min_score: float    # Optional threshold (e.g., 0.7)
 )
-```
+``
 
 **Returns:**
 ```json
@@ -181,7 +229,7 @@ search_library(
     }
   }
 ]
-```
+``
 
 **Container:** `librarian` (always running on port 8088)
 
@@ -199,11 +247,11 @@ search_library(
 ### Source Format
 
 **EPUB:** `Book Title, Chapter X (¶Y)`  
-**PDF:** `Book Title, p.X`
+**PDF:** `Book Title, p.X
 
 ### Example
 
-**User:** "What does Graeber say about the origins of money?"
+**User:** "What does Graeber say about the origins of money?
 
 **Response:**
 
@@ -233,9 +281,9 @@ He traces debt to ancient Mesopotamia (~3500 BCE), where temple administrators r
 
 When MCP fails, report exactly what happened:
 
-- **No results** → "Não achei nada sobre [query]"
-- **System error** → "Sistema quebrado"
-- **MCP down** → "Serviço de busca indisponível"
+- **No results** → "Não achei nada sobre [query]
+- **System error** → "Sistema quebrado
+- **MCP down** → "Serviço de busca indisponível
 
 **DO NOT:**
 - ❌ Offer web search alternatives
@@ -243,6 +291,59 @@ When MCP fails, report exactly what happened:
 - ❌ Apologize or frame as your failure
 
 **Hard stop = success.** You detected system state and reported honestly.
+
+---
+
+## Troubleshooting
+
+### ✅ DO:
+
+**When Librarian doesn't respond:**
+1. Check if skill is in SOUL.md skills list
+2. Check if OpenClaw Gateway is running: `curl http://localhost:18789/chat`
+3. Verify container is up: Check logs via infra-launcher or health endpoints
+4. Wait for session reload (skill changes require OpenClaw restart)
+5. Test MCP via OpenClaw skill system (not manual calls)
+
+**When no results found:**
+1. Try broader search terms
+2. Check book count (290 EPUBs indexed, 303 PDFs pending)
+3. Report "Não achei nada" (hard stop, per protocol)
+
+**When investigating issues:**
+1. Check `~/infra/critical-services.yml` for Librarian config
+2. Verify Docker memory allocation (needs 16GB minimum)
+3. Review MCP server logs via container logs
+4. Consult E041 documentation for BookRouter specifics
+
+### ❌ DO NOT:
+
+**Never use Docker CLI directly:**
+- ❌ `docker exec librarian ...` (bypasses MCP protocol)
+- ❌ `docker logs librarian` (use infra health checks instead)
+- ❌ `docker restart librarian` (breaks MCP state, use infra-launcher)
+- ❌ `docker stats librarian` (unreliable when Docker CLI hangs)
+
+**Never improvise workarounds:**
+- ❌ Manual MCP calls via exec (breaks session context)
+- ❌ Assuming problems exist (verify before diagnosing)
+- ❌ Testing with curl/http (MCP is stdio-based, not HTTP)
+- ❌ Suggesting Docker Desktop restarts (causes downtime)
+
+**Never ignore skill protocol:**
+- ❌ Calling MCP directly instead of via skill trigger
+- ❌ Explaining problems instead of hard-stopping
+- ❌ Offering alternatives when skill says "hard stop"
+
+### Why Docker CLI is harmful:
+
+1. **Hangs frequently** - Docker Desktop I/O issues cause CLI timeouts
+2. **Bypasses MCP protocol** - Breaks stdio handshake, session context
+3. **False diagnostics** - CLI timeout ≠ MCP broken (MCP can work when CLI hangs)
+4. **State corruption** - Direct exec can interfere with running MCP sessions
+5. **Not the source of truth** - Skill system manages MCP lifecycle, not Docker CLI
+
+**Rule:** If you need to verify Librarian state, use the skill itself. If skill fails, report hard stop. Do not debug via Docker CLI.
 
 ---
 
@@ -257,7 +358,7 @@ When MCP fails, report exactly what happened:
 docker ps | grep librarian
 docker restart librarian
 docker logs librarian --tail 50
-```
+``
 
 ---
 
@@ -276,11 +377,11 @@ docker logs librarian --tail 50
 ## References
 
 **Principle:**
-```
+``
 SKILL = SOURCE OF TRUTH
 Agent reads skill → follows instructions → accesses MCP
 Never call MCP directly
-```
+``
 
 **Related:**
 - E027: Librarian MVP
@@ -330,7 +431,7 @@ flowchart TD
  classDef v4 fill:#e8f5e9,stroke:#4caf50
  classDef v5 fill:#fce4ec,stroke:#e91e63
  classDef v6 fill:#e0f2f1,stroke:#009688
-```
+``
 
 **Key Evolution:**
 - **v1-v2:** Topic-based semantic search
@@ -346,3 +447,11 @@ flowchart TD
 
 **Last updated:** 2026-05-06  
 **Status:** ✅ Production (MCP v5 operational)
+
+<!-- Test edit 2026-05-11 -->
+
+<!-- Test watcher 2026-05-11 22:36 -->
+
+<!-- Test with fswatch 2026-05-11 22:37 -->
+
+<!-- Final test 22:37 -->
