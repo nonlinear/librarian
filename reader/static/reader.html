@@ -64,28 +64,73 @@
       }
     });
 
-    // Parse hash → target location
+    // Parse hash → { cfi, href, t }
     // Supports:
-    //   #epubcfi(...)                → paragraph-level (E032+)
-    //   #href=path/to/chapter.xhtml  → chapter-level (Phase 1)
-    //   (empty)                      → book start
+    //   #epubcfi(...)              → paragraph-level (E032+)
+    //   #href=path&t=textfragment  → chapter + text-fragment scroll
+    //   #href=path                 → chapter-level
+    //   #p=N                       → PDF page (Phase 2)
+    //   (empty)                    → book start
     function parseHash() {
       const h = window.location.hash.slice(1);
-      if (!h) return null;
-      if (h.startsWith("epubcfi")) return h;
-      if (h.startsWith("href=")) return decodeURIComponent(h.slice(5));
-      return h; // try as-is
+      if (!h) return { target: null, t: null };
+      if (h.startsWith("epubcfi")) return { target: h, t: null };
+      // Parse k=v pairs separated by &
+      const out = {};
+      h.split("&").forEach(part => {
+        const eq = part.indexOf("=");
+        if (eq < 0) return;
+        out[part.slice(0, eq)] = decodeURIComponent(part.slice(eq + 1));
+      });
+      return { target: out.href || null, t: out.t || null };
+    }
+
+    // Highlight + scroll to first match of `text` inside current iframe.
+    function locateText(text) {
+      const iframe = document.querySelector("#viewer iframe");
+      if (!iframe || !iframe.contentDocument) return false;
+      const doc = iframe.contentDocument;
+      const needle = text.toLowerCase().trim();
+      if (!needle) return false;
+
+      // Walk text nodes for the first occurrence.
+      const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null);
+      let node;
+      while ((node = walker.nextNode())) {
+        const hay = node.nodeValue.toLowerCase();
+        const idx = hay.indexOf(needle.slice(0, Math.min(needle.length, 40)));
+        if (idx >= 0) {
+          // Wrap match in a <mark> for yellow highlight.
+          const range = doc.createRange();
+          range.setStart(node, idx);
+          range.setEnd(node, Math.min(node.nodeValue.length, idx + needle.length));
+          const mark = doc.createElement("mark");
+          mark.style.background = "#fff2a8";
+          mark.style.padding = "0.1em 0";
+          try {
+            range.surroundContents(mark);
+          } catch (e) {
+            // Range spans multiple nodes — skip wrapping, just scroll.
+          }
+          mark.scrollIntoView({ block: "center", behavior: "instant" });
+          return true;
+        }
+      }
+      return false;
     }
 
     // Display book once ready
+    const parsed = parseHash();
     book.opened.then(() => {
-      const target = parseHash();
-      return rendition.display(target || undefined);
+      return rendition.display(parsed.target || undefined);
     }).then(() => {
+      if (parsed.t) {
+        // Give epub.js a tick to lay out the iframe.
+        setTimeout(() => locateText(parsed.t), 250);
+      }
       console.log("[reader] displayed");
     }).catch((err) => {
       console.error("[reader] display failed:", err);
-      // Show error in viewer
       document.getElementById("viewer").innerHTML =
         '<div style="padding:2rem;color:#900;font-family:monospace">' +
         'Reader error: ' + (err && err.message ? err.message : String(err)) +

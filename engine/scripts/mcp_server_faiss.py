@@ -187,37 +187,58 @@ async def handle_search(args: dict) -> List[TextContent]:
     
     output = f"# Search Results: {query}\n\n"
     output += f"Found {len(results)} relevant chunks:\n\n"
-    
+
+    import urllib.parse as _u
+
     for i, result in enumerate(results, 1):
         score = result["score"]
         book_title = result.get("book_title", "Unknown")
         book_author = result.get("book_author", "Unknown")
         text = result["text"]
         chunk_id = result["chunk_id"]
-        
+        book_id = result.get("book_id") or result.get("book_hash") or ""
+
         # Source metadata
         source = result.get("source", {})
         source_type = source.get("type", "unknown")
-        
-        # EPUB: spine_index + href
+
+        # Build reader deep-link
+        # Use first ~60 chars of chunk text as locator (urlencoded).
+        # Strip leading whitespace/newlines from preview.
+        preview = text.strip().split("\n")[0][:60].strip()
+        t_param = _u.quote(preview)
+
         if source_type == "epub":
             spine_idx = source.get("spine_index", "?")
-            href = source.get("href", "?")
+            href = source.get("href", "")
             location = f"spine {spine_idx}, {href}"
-        # PDF: page number
+            href_param = _u.quote(href)
+            reader_url = (
+                f"https://8088.nonlinear.nyc/book/{book_id}"
+                f"#href={href_param}&t={t_param}"
+            ) if book_id and href else (
+                f"https://8088.nonlinear.nyc/book/{book_id}" if book_id else ""
+            )
         elif source_type == "pdf":
             page = source.get("page", "?")
             location = f"page {page}"
+            reader_url = (
+                f"https://8088.nonlinear.nyc/book/{book_id}#p={page}"
+            ) if book_id else ""
         else:
             location = "unknown location"
-        
+            reader_url = f"https://8088.nonlinear.nyc/book/{book_id}" if book_id else ""
+
         output += f"## {i}. {book_title} [{score:.3f}]\n\n"
         output += f"**Author:** {book_author}  \n"
         output += f"**Location:** {location}  \n"
-        output += f"**Chunk ID:** `{chunk_id}`\n\n"
+        output += f"**Chunk ID:** `{chunk_id}`  \n"
+        if reader_url:
+            output += f"**Reader:** {reader_url}  \n"
+        output += "\n"
         output += f"> {text[:300]}{'...' if len(text) > 300 else ''}\n\n"
         output += "---\n\n"
-    
+
     return [TextContent(type="text", text=output)]
 
 
