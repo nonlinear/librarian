@@ -36,6 +36,14 @@
       allowScriptedContent: true
     });
 
+    // Global typography — left-aligned, never justified.
+    rendition.themes.default({
+      "body, p, div": {
+        "text-align": "left !important",
+        "hyphens": "none !important"
+      }
+    });
+
     // Parse hash → target location
     // Supports:
     //   #epubcfi(...)                → paragraph-level (E032+)
