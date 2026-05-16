@@ -1,5 +1,7 @@
 # Librarian
 
+> **⚠️ FLAGSHIP REPO:** For public release testing only. Active development happens in `~/Documents/librarian/`
+
 > A BYOB (Bring Your Own Books) semantic search for your personal library.
 
 > All local (books, embedding models, database). Connect with your favorite AI provider and ask away.

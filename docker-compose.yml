@@ -14,4 +14,4 @@ services:
       - READER_PORT=8088
     stdin_open: true
     tty: true
-    restart: unless-stopped
+    restart: "no"  # Flagship is for release testing only, not always-on
