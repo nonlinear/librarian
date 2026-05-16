@@ -13,6 +13,7 @@ Not a library app. Not a catalog. Just the page.
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 import json
 import os
@@ -22,6 +23,8 @@ app = FastAPI(title="Librarian Reader")
 BOOKS_DIR = Path("/app/books")
 STATIC_DIR = Path("/app/reader/static")
 INDEX_STATE_PATH = BOOKS_DIR / ".index_state.json"
+
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
 def load_books():

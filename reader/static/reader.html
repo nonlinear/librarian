@@ -36,9 +36,28 @@
       allowScriptedContent: true
     });
 
-    // Global typography — left-aligned, never justified.
+    // Global typography — left-aligned, never justified, Miller Display.
     rendition.themes.default({
-      "body, p, div": {
+      "@font-face": {
+        "font-family": "'Miller Display'",
+        "font-weight": "300",
+        "font-style": "normal",
+        "src": "url('" + window.location.origin + "/static/fonts/MillerDisplay-Light.woff2') format('woff2')"
+      },
+      "body": {
+        "font-family": "'Miller Display', Georgia, serif !important",
+        "font-weight": "300 !important",
+        "line-height": "1.3 !important",
+        "text-align": "left !important",
+        "hyphens": "none !important"
+      },
+      "p": {
+        "text-align": "left !important",
+        "hyphens": "none !important",
+        "margin": "0 0 1.3em 0 !important",
+        "text-indent": "0 !important"
+      },
+      "div": {
         "text-align": "left !important",
         "hyphens": "none !important"
       }
