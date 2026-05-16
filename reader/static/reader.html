@@ -91,11 +91,14 @@
         '</div>';
     });
 
-    // Keyboard navigation
-    document.addEventListener("keyup", (e) => {
+    // Keyboard navigation — parent window AND iframe contents.
+    // epub.js renders into an <iframe> which captures keystrokes when focused.
+    function handleKey(e) {
       if (e.key === "ArrowLeft") rendition.prev();
       if (e.key === "ArrowRight") rendition.next();
-    });
+    }
+    document.addEventListener("keyup", handleKey);
+    rendition.on("keyup", handleKey);
 
     // Edge clicks
     document.getElementById("prev").onclick = () => rendition.prev();
