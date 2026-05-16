@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{BOOK_TITLE}}</title>
+  <meta name="robots" content="noindex,nofollow">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #fafafa; }
+    #viewer { width: 100vw; height: 100vh; }
+    /* Navigation edges — invisible, only hover hint */
+    .edge {
+      position: fixed; top: 0; bottom: 0; width: 15vw;
+      cursor: pointer; z-index: 10;
+    }
+    .edge.left { left: 0; }
+    .edge.right { right: 0; }
+    .edge:hover { background: rgba(0,0,0,0.02); }
+  </style>
+</head>
+<body>
+  <div id="viewer"></div>
+  <div class="edge left" id="prev"></div>
+  <div class="edge right" id="next"></div>
+
+  <script>
+    const BOOK_ID = "{{BOOK_ID}}";
+    const book = ePub("/books/" + BOOK_ID + ".epub", { openAs: "epub" });
+    const rendition = book.renderTo("viewer", {
+      width: "100%",
+      height: "100%",
+      spread: "none",
+      flow: "paginated",
+      allowScriptedContent: true
+    });
+
+    // Parse hash → target location
+    // Supports:
+    //   #epubcfi(...)                → paragraph-level (E032+)
+    //   #href=path/to/chapter.xhtml  → chapter-level (Phase 1)
+    //   (empty)                      → book start
+    function parseHash() {
+      const h = window.location.hash.slice(1);
+      if (!h) return null;
+      if (h.startsWith("epubcfi")) return h;
+      if (h.startsWith("href=")) return decodeURIComponent(h.slice(5));
+      return h; // try as-is
+    }
+
+    // Display book once ready
+    book.opened.then(() => {
+      const target = parseHash();
+      return rendition.display(target || undefined);
+    }).then(() => {
+      console.log("[reader] displayed");
+    }).catch((err) => {
+      console.error("[reader] display failed:", err);
+      // Show error in viewer
+      document.getElementById("viewer").innerHTML =
+        '<div style="padding:2rem;color:#900;font-family:monospace">' +
+        'Reader error: ' + (err && err.message ? err.message : String(err)) +
+        '</div>';
+    });
+
+    // Keyboard navigation
+    document.addEventListener("keyup", (e) => {
+      if (e.key === "ArrowLeft") rendition.prev();
+      if (e.key === "ArrowRight") rendition.next();
+    });
+
+    // Edge clicks
+    document.getElementById("prev").onclick = () => rendition.prev();
+    document.getElementById("next").onclick = () => rendition.next();
+
+    // Update hash as user navigates (so refresh returns to spot)
+    rendition.on("relocated", (location) => {
+      const cfi = location.start.cfi;
+      history.replaceState(null, "", "#" + cfi);
+    });
+  </script>
+</body>
+</html>
