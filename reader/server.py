@@ -13,14 +13,24 @@ import os
 app = FastAPI(title="Librarian Reader")
 
 BOOKS_DIR = Path("/app/books")
-INDEX_PATH = BOOKS_DIR / ".global-index-v5.1.json"
+INDEX_STATE_PATH = BOOKS_DIR / ".index_state.json"
 
-# Load book index
+# Load book index from canonical .index_state.json
 def load_index():
-    if INDEX_PATH.exists():
-        with open(INDEX_PATH) as f:
-            return json.load(f)
-    return {"books": []}
+    if not INDEX_STATE_PATH.exists():
+        return {"books": []}
+    with open(INDEX_STATE_PATH) as f:
+        state = json.load(f)
+    books = []
+    for book_hash, book in state.get("books", {}).items():
+        books.append({
+            "id": book_hash,
+            "title": book.get("title") or Path(book["path"]).stem,
+            "author": book.get("author", "Unknown"),
+            "path": book["path"],
+            "chunk_count": book.get("chunk_count", 0),
+        })
+    return {"books": books}
 
 @app.get("/")
 async def root():
