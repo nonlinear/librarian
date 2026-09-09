@@ -1,0 +1,12 @@
+# Books folder - ignore everything except .gitkeep
+books/*
+!books/.gitkeep
+
+# Reading state — runtime data, not committed
+engine/reading_state/*
+!engine/reading_state/.gitkeep
+
+# Instance-only operational artifacts — NOT part of the publishable/generic product.
+# Kept on disk (dev repo) but never tracked → never in a release candidate.
+DO_NOT.md
+quarantine.jsonl

@@ -1,0 +1,32 @@
+# Librarian MCP - Python Dependencies
+
+# LlamaIndex core and readers
+llama-index-core>=0.10.0
+llama-index-readers-file>=0.1.0
+llama-index-embeddings-huggingface>=0.2.0
+
+# Document processing
+PyMuPDF>=1.23.0  # PDF reader
+EbookLib>=0.18   # EPUB reader
+
+# Embeddings
+sentence-transformers>=2.2.0
+torch>=2.0.0
+
+# File watching (T019)
+watchdog>=3.0.0
+
+# MCP server
+# MCP server — SDK pinned to the v1 API that mcp_server_faiss.py targets.
+# mcp_server_faiss.py uses Server(...)/@app.list_tools()/stdio_server, which is
+# the pre-2.0 SDK API. Unpinned '>=0.1.0' resolved to mcp 2.x (FastMCP renamed
+# to MCPServer, Server has no list_tools) -> the stdio server failed at import
+# (PV-5). mcp<2 keeps the v1 API the code targets. Contract: Librarian consumes
+# MCP over stdio via the v1 SDK; do not float into 2.x without migrating this file.
+mcp>=1.0,<2.0
+
+# Vector storage
+faiss-cpu>=1.7.4
+
+# Utilities
+numpy>=1.24.0

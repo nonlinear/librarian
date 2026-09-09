@@ -1,0 +1,43 @@
+version: '3.8'
+
+# Generic Librarian container — BYOBook.
+# Mount your own corpus at $LIBRARY_ROOT (default: ./books relative to compose file).
+# All instance paths are injected via env; the engine knows nothing about a specific instance.
+
+services:
+  librarian:
+    build: .
+    # No fixed container_name: the compose project name (derived from the compose
+    # directory) names the container (<project>_librarian_1), so two instances of
+    # this product can coexist on one machine without sharing identity, volumes or
+    # data — each project dir gets its own container. Reference a specific instance
+    # by its computed name or `docker compose exec`. (Owner invariant 2026-09-03.)
+    ports:
+      # Host port and container-internal port are the SAME var: when you
+      # override LIBRARIAN_READER_PORT, both the host mapping and the server's
+      # internal listen port change together. (READER_PORT is injected as the
+      # uvicorn listen port; if we pinned only the internal side to 8088, an
+      # override would leave host->container pointing at a dead 8088.)
+      - "${LIBRARIAN_READER_PORT:-8088}:${LIBRARIAN_READER_PORT:-8088}"  # Reader UI / HTTP
+    volumes:
+      # The only mandatory mount: your corpus + index. Point LIBRARY_ROOT at it.
+      - ${LIBRARY_ROOT:-./books}:/app/books
+      # Optional: embedding model cache (persist across rebuilds)
+      - ${LIBRARIAN_MODELS_DIR:-./models}:/app/engine/models
+    environment:
+      - LIBRARIAN_BOOKS=/app/books
+      - LIBRARIAN_MODELS=/app/engine/models
+      - SENTENCE_TRANSFORMERS_HOME=/app/engine/models
+      - HF_DATASETS_OFFLINE=1
+      - TRANSFORMERS_OFFLINE=1
+      - READER_PORT=${LIBRARIAN_READER_PORT:-8088}
+      - READER_PUBLIC_URL=${LIBRARIAN_READER_URL:-http://localhost:${LIBRARIAN_READER_PORT:-8088}}
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import os,urllib.request; p=os.environ.get('READER_PORT','8088'); urllib.request.urlopen(f'http://localhost:{p}/stats', timeout=5)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    stdin_open: true
+    tty: true
+    restart: unless-stopped

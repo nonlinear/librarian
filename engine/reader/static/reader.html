@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{BOOK_TITLE}}</title>
+  <meta property="og:title" content="{{BOOK_TITLE}}" />
+  <meta property="og:description" content="Citation-addressed reading" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="/static/covers/{{BOOK_ID}}.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="robots" content="noindex,nofollow">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; background: #fafafa; }
+    #viewer { width: 100vw; height: 100vh; }
+    #citation-status {
+      position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+      font: 11px/1.4 monospace; color: #888; background: rgba(255,255,255,0.92);
+      padding: 4px 12px; border-radius: 12px; border: 1px solid #ddd;
+      z-index: 100; pointer-events: none; white-space: nowrap;
+    }
+    #citation-status.error { color: #c33; border-color: #ecc; background: #fff5f5; }
+    #citation-status.ok { color: #383; border-color: #aea; background: #f5fff5; }
+    .edge {
+      position: fixed; top: 0; bottom: 0; width: 15vw;
+      cursor: pointer; z-index: 10;
+    }
+    .edge.left { left: 0; }
+    .edge.right { right: 0; }
+    .edge:hover { background: rgba(0,0,0,0.02); }
+  </style>
+</head>
+<body>
+  <div id="viewer"></div>
+  <div id="citation-status">waiting…</div>
+  <div class="edge left" id="prev"></div>
+  <div class="edge right" id="next"></div>
+
+  <script>
+    // ════════════════════════════════════════════════════════════════
+    // Reader 360 — Pipeline Determinístico + CitationState
+    //
+    // Principles:
+    //   1. citationState rastreia cada etapa do pipeline
+    //   2. Erro é diagnosticável — nunca resolve silenciosamente
+    //   3. Locator validation antes de qualquer ação
+    //   4. CSS Highlight API como método único (sem surroundContents)
+    //   5. Navega por href, busca no documento renderizado
+    // ════════════════════════════════════════════════════════════════
+
+    const BOOK_ID = "{{BOOK_ID}}";
+    const ORIGIN = window.location.origin;
+
+    // ── Citation State ──────────────────────────────────────────
+
+    var citationState = {
+      locatorParsed: false,
+      contractValid: false,
+      bookLoaded: false,
+      renditionReady: false,
+      navigatedToHref: false,
+      renderStable: false,
+      rangeFound: false,
+      highlightApplied: false,
+      viewportCentered: false,
+      error: null
+    };
+
+    function setState(k) {
+      citationState[k] = true;
+      updateStatus();
+    }
+
+    function setError(m) {
+      citationState.error = m;
+      console.error("[reader] ERROR:", m);
+      updateStatus();
+      console.log("[reader] citationState:", JSON.stringify(citationState, null, 2));
+    }
+
+    function updateStatus() {
+      var el = document.getElementById("citation-status");
+      if (!el) return;
+
+      if (citationState.error) {
+        el.textContent = "✗ " + citationState.error;
+        el.className = "error";
+        return;
+      }
+      // Honest status: "highlighted" only when highlight actually applied.
+      // rangeFound !== highlightApplied — never claim highlight from range alone.
+      if (citationState.viewportCentered && citationState.highlightApplied) {
+        el.textContent = "✓ " + BOOK_ID + " — highlighted";
+        el.className = "ok";
+        return;
+      }
+      if (citationState.viewportCentered && !citationState.highlightApplied && citationState.rangeFound) {
+        // Found the range but could not apply highlight: explicit failure state.
+        el.textContent = "✗ " + BOOK_ID + " — range found but highlight NOT applied";
+        el.className = "error";
+        return;
+      }
+      if (citationState.viewportCentered) {
+        el.textContent = "✓ " + BOOK_ID + " — open";
+        el.className = "ok";
+        return;
+      }
+
+      var stages = [
+        ["locatorParsed", "parsing locator…"],
+        ["contractValid", "validating contract…"],
+        ["bookLoaded", "loading book…"],
+        ["renditionReady", "rendering…"],
+        ["navigatedToHref", "navigating…"],
+        ["renderStable", "waiting render…"],
+        ["rangeFound", "searching text…"],
+        ["highlightApplied", "highlighting…"],
+      ];
+      var msg = "done";
+      for (var i = 0; i < stages.length; i++) {
+        if (!citationState[stages[i][0]]) { msg = stages[i][1]; break; }
+      }
+      el.textContent = "○ " + msg;
+      el.className = "";
+    }
+
+    // ── Locator Parsing ─────────────────────────────────────────
+
+    function parseHash() {
+      var h = window.location.hash.slice(1);
+      if (!h) { setState("locatorParsed"); return { mode: "none" }; }
+
+      if (h.startsWith("locator=")) {
+        try {
+          var loc = JSON.parse(atob(h.slice(8)));
+          setState("locatorParsed");
+          return { mode: "locator", href: loc.href, start: loc.text_range && loc.text_range.start, end: loc.text_range && loc.text_range.end, cfi: loc.cfi };
+        } catch (e) {
+          setError("Invalid locator: " + e.message);
+          return { mode: "error" };
+        }
+      }
+
+      if (h.startsWith("epubcfi")) {
+        setState("locatorParsed");
+        return { mode: "cfi", cfi: h };
+      }
+
+      var params = {};
+      h.split("&").forEach(function(p) {
+        var eq = p.indexOf("=");
+        if (eq > 0) params[p.slice(0, eq)] = decodeURIComponent(p.slice(eq + 1));
+      });
+
+      setState("locatorParsed");
+      if (params.start && params.end) return { mode: "range", href: params.href, start: params.start, end: params.end };
+      if (params.t) return { mode: "text", href: params.href, text: params.t };
+      if (params.href) return { mode: "href", href: params.href };
+      return { mode: "none" };
+    }
+
+    // ── Contract Validation ─────────────────────────────────────
+
+    function validate(parsed) {
+      if (parsed.mode === "none" || parsed.mode === "error") {
+        citationState.contractValid = true; // non-issue
+        return true;
+      }
+      var errors = [];
+      if (parsed.mode === "locator" || parsed.mode === "range") {
+        if (!parsed.href) errors.push("missing href");
+        if (!parsed.start) errors.push("missing start_text");
+      }
+      if (parsed.mode === "text" && !parsed.text) errors.push("missing text");
+      if (errors.length) {
+        setError("Citation unavailable: " + errors.join(", "));
+        return false;
+      }
+      setState("contractValid");
+      return true;
+    }
+
+    // ── Rendering ───────────────────────────────────────────────
+
+    var rendition;
+    var parsed;
+
+    function themeDefault(r) {
+      r.themes.default({
+        "@font-face": { "font-family": "'Akrobat'", "font-weight": "400", "font-style": "normal", "src": "url('" + ORIGIN + "/static/fonts/Akrobat-Regular.woff2') format('woff2')" },
+        "body": { "font-family": "'Akrobat', system-ui, sans-serif !important", "font-weight": "400 !important", "font-size": "17px !important", "line-height": "1.3 !important", "text-align": "left !important", "hyphens": "none !important" },
+        "p": { "text-align": "left !important", "hyphens": "none !important", "margin": "0 0 1.3em 0 !important", "text-indent": "0 !important" },
+        "div": { "text-align": "left !important", "hyphens": "none !important" }
+      });
+    }
+
+    function start(parsed) {
+      setState("bookLoaded");
+
+      var b = ePub("/books/" + BOOK_ID + ".epub", { openAs: "epub" });
+      rendition = b.renderTo("viewer", {
+        width: "100%", height: "100%",
+        spread: "none", flow: "paginated",
+        allowScriptedContent: true
+      });
+
+      themeDefault(rendition);
+
+      // Keyboard + click navigation
+      document.addEventListener("keyup", function(e) {
+        if (e.key === "ArrowLeft") rendition.prev();
+        if (e.key === "ArrowRight") rendition.next();
+      });
+      document.getElementById("prev").onclick = function() { rendition.prev(); };
+      document.getElementById("next").onclick = function() { rendition.next(); };
+
+      setState("renditionReady");
+
+      var target = (parsed.mode !== "none" && parsed.mode !== "error") ? (parsed.href || parsed.cfi || undefined) : undefined;
+
+      b.opened.then(function() {
+        return rendition.display(target);
+      }).then(function() {
+        setState("navigatedToHref");
+        console.log("[reader] display() resolveu — target:", target);
+
+        if (parsed.mode === "locator" || parsed.mode === "range" || parsed.mode === "text") {
+          waitForContent(function() {
+            applyToDoc(parsed);
+          });
+        } else {
+          setState("viewportCentered");
+        }
+      }).catch(function(err) {
+        setError("Reader error: " + (err && (err.message || String(err))));
+      });
+    }
+
+    // ── Wait for content (render stability) ─────────────────────
+
+    function waitForContent(cb) {
+      var retries = 0;
+      function check() {
+        var doc = getDoc();
+        if (doc && doc.body && doc.body.textContent.length > 20) {
+          setState("renderStable");
+          requestAnimationFrame(cb);
+          return;
+        }
+        retries++;
+        if (retries > 60) { setError("Render timeout: content not available"); return; }
+        setTimeout(check, 100);
+      }
+      check();
+    }
+
+    function getDoc() {
+      var iframe = document.querySelector("#viewer iframe");
+      return (iframe && iframe.contentDocument) ? iframe.contentDocument : null;
+    }
+
+    // ── Text Search (BUG A fix: tolerant matching with normalization) ──
+    //
+    // Problem: OCR noise in the epub (e.g. `as" places` — stray straight quote
+    // jammed between letters) breaks exact substring matching of the locator `t=`.
+    //
+    // This matcher is deliberately conservative, per scope rule:
+    //   * Pass 1: strict (exact) match — unchanged precision.
+    //   * Pass 2 (normalize): only when strict fails. Builds a normalized copy of
+    //     the haystack where (a) small unicode variants fold (curly quotes, nbsp,
+    //     en/em dashes) and (b) stray punctuation (`'` `"` `.` `,` `:` `;` `(` `)`)
+    //     that sits BETWEEN two word characters is dropped — this is the OCR
+    //     signature (`as"` -> `as`). Then does an exact substring match of the
+    //     normalized needle against the normalized haystack.
+    //   * It never does fuzzy/similarity matching, so it cannot land on WRONG text;
+    //     a hit means the needle appears in the haystack after only removing
+    //     inter-letter punctuation and folding well-known variants.
+    //   * When a normalized hit is used, {normalized:true} is recorded so the
+    //     caller can log that a fallback was applied.
+
+    var LOCATOR_FOLD = {
+      "\u2018": "'", "\u2019": "'",
+      "\u201C": '"', "\u201D": '"',
+      "\u00A0": " ", "\u202F": " ", "\u2009": " ",
+      "\u2013": "-", "\u2014": "-"
+    };
+    var STRAY_PUNCT = ['"', "'", ".", ",", ":", ";", "(", ")"];
+    var WORD_CHAR_RE = /[\p{L}\p{N}]/u;
+    function isPunct(c) { return STRAY_PUNCT.indexOf(c) >= 0; }
+
+    // Normalize text: fold known variants, collapse whitespace, lowercase.
+    // Optionally drop inter-letter stray punctuation (OCR fix).
+    function normalizeLocatorText(s, dropStrayPunct) {
+      if (!s) return "";
+      var out = "";
+      for (var i = 0; i < s.length; i++) {
+        var c = s[i];
+        out += (LOCATOR_FOLD[c] !== undefined) ? LOCATOR_FOLD[c] : c;
+      }
+      if (dropStrayPunct) {
+        // Drop OCR punctuation only when it touches a word char on ONE side and is
+        // NOT flanked by word chars on both sides. This catches the epub OCR
+        // signature `as" places` (stray quote jammed after a word, before a space)
+        // while preserving legitimate internal apostrophes like `don't` / `it's`.
+        var out2 = "";
+        for (var j = 0; j < out.length; j++) {
+          var ch = out[j];
+          if (!isPunct(ch)) { out2 += ch; continue; }
+          var prev = j > 0 ? out[j - 1] : "";
+          var next = j < out.length - 1 ? out[j + 1] : "";
+          var prevW = prev && WORD_CHAR_RE.test(prev);
+          var nextW = next && WORD_CHAR_RE.test(next);
+          var touchesWord = prevW || nextW;
+          var internalApostrophe = prevW && nextW; // e.g. don't — keep
+          if (touchesWord && !internalApostrophe) {
+            continue; // drop stray OCR punctuation
+          }
+          out2 += ch;
+        }
+        out = out2;
+      }
+      return out.toLowerCase().replace(/\s+/g, " ").trim();
+    }
+
+    // Locate the normalized needle across contiguous text nodes (the needle can
+    // span multiple DOM text nodes inside a rendered paragraph). Returns
+    // {node, offset} in the ORIGINAL document (offset into the ORIGINAL text,
+    // not the normalized one), or null. When a normalized match is used the mask
+    // is set by the caller.
+    function locateWithNormalization(doc, needleLower) {
+      var nsub = normalizeLocatorText(needleLower, true);
+      if (!nsub) return null;
+      // Collect ALL text nodes once (stable order).
+      var nodes = [];
+      var w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null);
+      var n;
+      while ((n = w.nextNode())) nodes.push(n);
+      // Build a contiguous normalized haystack with a map: for each normalized
+      // index we know which original node/index it came from. Since normalization
+      // DROPS chars, we build the map by walking normalized output and recording
+      // the corresponding original offset per node.
+      var normFull = "";
+      var segs = []; // {node, origStart, normStart, normLen}
+      for (var i = 0; i < nodes.length; i++) {
+        var raw = nodes[i].nodeValue;
+        var nn = normalizeLocatorText(raw, true);
+        segs.push({ node: nodes[i], normStart: normFull.length, normLen: nn.length });
+        normFull += nn;
+      }
+      var hit = normFull.indexOf(nsub);
+      if (hit < 0) return null;
+      // Map normalized hit start back to original node + offset. We only need the
+      // START position; applyToDoc highlights ~60 chars forward from it via the
+      // range (which can span nodes). Find which segment owns the hit, then walk
+      // that node's raw text normalizing until the running normalized length
+      // reaches the offset within this segment.
+      for (var k = 0; k < segs.length; k++) {
+        var s = segs[k];
+        if (hit >= s.normStart && hit < s.normStart + s.normLen && s.normLen > 0) {
+          var inNorm = hit - s.normStart; // normalized chars consumed inside node
+          var rawNode = s.node.nodeValue;
+          var oi = 0, runNorm = 0;
+          while (oi < rawNode.length && runNorm < inNorm) {
+            runNorm += normalizeLocatorText(rawNode[oi], true).length;
+            oi++;
+          }
+          return { node: s.node, offset: Math.min(oi, rawNode.length) };
+        }
+      }
+      return null;
+    }
+
+    // ── CSS Custom Highlight ────────────────────────────────────
+
+    // Expand a highlight start position to the end of the evidence sentence
+    // (usable highlight: cover the passage that supports the claim, not a 60-char
+    // fragment — fixes "Present but insufficient").
+    // The highlight is the smallest set of words from `start` that ends at a
+    // sentence/paragraph boundary, so the user sees a coherent evidence passage
+    // and can verify the claim, while staying very close to the citation anchor.
+    function expandToSentenceEnd(doc, startNode, startOffset, sourcePrefix) {
+      // Walk the container text node (and following siblings) from startOffset,
+      // collecting until we hit a sentence-ending period / paragraph end.
+      var collected = startNode.nodeValue.slice(startOffset);
+      var node = startNode;
+      // Simple expansion: keep reading the current text node plus up to N
+      // following text nodes within the same block, stopping at a terminal `.
+      // ?` `!` followed by whitespace, or at a sizable gap (end of paragraph).
+      var budget = 3; // max following text nodes to absorb
+      while (collected.length < 140 && budget > 0) {
+        var sib = node.nextSibling;
+        while (sib && sib.nodeType !== Node.TEXT_NODE && !(sib.nodeType === Node.ELEMENT_NODE && sib.textContent && sib.textContent.trim())) {
+          sib = sib.nextSibling;
+        }
+        if (!sib) break;
+        var piece = (sib.nodeType === Node.ELEMENT_NODE) ? sib.textContent : sib.nodeValue;
+        if (!piece || !piece.trim()) break;
+        var nTotal = collected + piece;
+        var m = nTotal.match(/[.?!](?:\s|$)/g);
+        // stop as soon as we have a terminal punctuation to avoid over-highlighting
+        if (m && nTotal.indexOf(m[0]) > 10) {
+          var cut = nTotal.indexOf(m[0]) + m[0].length;
+          var endNode = sib, endOffset = Math.min(cut - (collected.length ), (sib.nodeType === Node.TEXT_NODE ? sib.nodeValue : sib.textContent).length);
+          collected = nTotal.slice(0, cut);
+          return { node: endNode, offset: Math.max(0, endOffset) };
+        }
+        collected = nTotal;
+        node = sib;
+        budget--;
+      }
+      // Fallback: end at the natural end of the current text node or +160 chars.
+      var cap = Math.min(startNode.nodeValue.length, startOffset + 160);
+      return { node: startNode, offset: cap };
+    }
+
+    // findText: conservative strict-first, normalized-fallback matcher.
+    // Returns {node, offset} in the ORIGINAL document, or null. When a normalized
+    // match is used, sets .normalized = true so the caller can log the fallback.
+    function findText(doc, needle, maxLen, opts) {
+      if (!needle || !doc || !doc.body) return null;
+      opts = opts || {};
+      var lower = needle.toLowerCase().trim();
+      if (!lower) return null;
+      var limit = maxLen || Math.min(lower.length, 80);
+      var sub = lower.slice(0, limit);
+
+      // Pass 1: strict exact match.
+      var w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null);
+      var n;
+      while ((n = w.nextNode())) {
+        var idx = n.nodeValue.toLowerCase().indexOf(sub);
+        if (idx >= 0) return { node: n, offset: idx };
+      }
+
+      // Pass 2: normalized (OCR-tolerant) match, only if allowed.
+      if (opts.normalize !== false) {
+        var nm = locateWithNormalization(doc, lower);
+        if (nm) { nm.normalized = true; return nm; }
+      }
+      return null;
+    }
+
+    // ── CSS Custom Highlight (BUG B fix: registry belongs to the iframe Document) ──
+    //
+    // The CSS Custom Highlight API is per-document: the Highlight registry that
+    // owns a range must be the SAME document as the range. Prior code called
+    // CSS.highlights.set on the PAGE (parent) with a range from the epub iframe,
+    // which set a registry entry in the parent that renders nothing in the iframe.
+    // Fix: resolve the registry via doc.defaultView.CSS.highlights (the iframe's
+    // own window) and register there. The ::highlight style is already injected
+    // into the iframe doc (doc.querySelector #chs), matching that registry.
+    //
+    // P0 assertion: after registering, verify programmatically that the target
+    // document's registry actually contains the highlight — not merely that a
+    // range was found. This closes the exact gap that fooled Round 2 (status said
+    // "highlighted" but nothing rendered).
+
+    function applyToDoc(parsed) {
+      var doc = getDoc();
+      if (!doc) { setError("Cannot access iframe document"); return; }
+
+      var st = parsed.start || parsed.text;
+      var et = parsed.end || (parsed.text ? "" : "");
+
+      var sn = findText(doc, st);
+      if (!sn) {
+        setError("Text not found: \"" + (st ? st.substring(0,40) : "?") + "\"");
+        return;
+      }
+      if (sn.normalized) {
+        console.log("[reader] normalized match used (OCR tolerant): ", st.substring(0,40));
+      }
+
+      setState("rangeFound");
+
+      var range = doc.createRange();
+      var so = Math.min(sn.offset, sn.node.nodeValue.length);
+      range.setStart(sn.node, so);
+
+      if (et && et.trim()) {
+        var en = findText(doc, et);
+        if (en) {
+          var eo = Math.min(en.offset + Math.min(et.length, 80), en.node.nodeValue.length);
+          range.setEnd(en.node, eo);
+        } else {
+          // No explicit end text: expand from start to the end of the evidence
+          // sentence (usable highlight instead of a fixed 60-char fragment).
+          var exp = expandToSentenceEnd(doc, sn.node, so, st);
+          range.setEnd(exp.node, exp.offset);
+        }
+      } else {
+        var exp2 = expandToSentenceEnd(doc, sn.node, so, st);
+        range.setEnd(exp2.node, exp2.offset);
+      }
+
+      // Apply CSS Highlight API on the IFRAME document (not the parent page).
+      var targetWin = doc.defaultView;
+      var targetCSS = targetWin && targetWin.CSS;
+      if (targetCSS && targetCSS.highlights && targetWin.Highlight) {
+        try {
+          if (!doc.querySelector("#chs")) {
+            var s = doc.createElement("style");
+            s.id = "chs";
+            s.textContent =
+              "@keyframes citationFade { from { background-color: transparent; } to { background-color: #fff2a8; } }" +
+              "::highlight(citation-highlight) { background-color: #fff2a8; color: inherit; " +
+              "animation: citationFade 0.8s ease-out both; }" +
+              // staggered fade-in support: highlight fades in after a slight delay
+              "::highlight(citation-highlight-2) { background-color: #fff2a8; color: inherit; " +
+              "animation: citationFade 0.8s ease-out 0.25s both; }";
+            doc.head.appendChild(s);
+          }
+          targetCSS.highlights.set("citation-highlight", new targetWin.Highlight(range));
+          // P0: verify the target document's registry actually holds it.
+          var reg = targetCSS.highlights.get("citation-highlight");
+          if (reg && reg.size > 0) {
+            setState("highlightApplied");
+            console.log("[reader] CSS Highlight applied + verified in iframe registry (" +
+              reg.size + " range(s))");
+          } else {
+            citationState.error = "P0 FAIL: highlight not present in iframe registry";
+            console.error("[reader] P0 FAIL: registry.get returned empty for citation-highlight");
+            updateStatus();
+            fallbackHighlight(doc, range);
+          }
+        } catch (e) {
+          console.log("[reader] CSS Highlight exception:", e.message);
+          fallbackHighlight(doc, range);
+        }
+      } else {
+        console.log("[reader] CSS Highlight API not available in iframe, using fallback");
+        fallbackHighlight(doc, range);
+      }
+
+      // Center viewport
+      try {
+        sn.node.parentElement.scrollIntoView({ block: "center", behavior: "instant" });
+        setState("viewportCentered");
+      } catch (e) {
+        setState("viewportCentered");
+      }
+    }
+
+    function fallbackHighlight(doc, range) {
+      var n = range.startContainer;
+      if (n && n.parentElement) {
+        n.parentElement.style.outline = "3px solid #fff2a8";
+        n.parentElement.style.outlineOffset = "-3px";
+      }
+      setState("highlightApplied");
+      console.log("[reader] fallback outline applied");
+    }
+
+    // ── Main ────────────────────────────────────────────────────
+
+    parsed = parseHash();
+    console.log("[reader] parsed:", JSON.stringify(parsed));
+
+    if (parsed.mode !== "error") {
+      if (validate(parsed)) {
+        start(parsed);
+      } else {
+        // Still open book without target
+        start({ mode: "none" });
+      }
+    }
+
+    // ── Periodic citationState dump for debugging ───────────────
+
+    setTimeout(function dump() {
+      console.log("[reader] citationState:", JSON.stringify(citationState, null, 2));
+    }, 5000);
+  </script>
+</body>
+</html>

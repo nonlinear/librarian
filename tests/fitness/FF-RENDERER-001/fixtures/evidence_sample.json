@@ -1,0 +1,23 @@
+{
+  "evidence_id": "ev_test_001",
+  "source": {
+    "book_id": "book_test_001",
+    "chunk_id": "ch_test_001"
+  },
+  "text": "Knowledge fragment that represents a meaningful piece of information extracted from a source.",
+  "locator": {
+    "href": "chapter03.xhtml",
+    "text_range": {
+      "start": "Knowledge fragment that represents",
+      "end": "extracted from a source."
+    },
+    "cfi": null
+  },
+  "citation": {
+    "label": "Example Book — Author Name",
+    "target": {
+      "url": "/reader/book_test_001#locator=eyJocmVmIjoiY2hhcHRlcjAzLnhodG1sIiwidGV4dF9yYW5nZSI6eyJzdGFydCI6Iktub3dsZWRnZSBmcmFnbWVudCB0aGF0IHJlcHJlc2VudHMiLCJlbmQiOiJleHRyYWN0ZWQgZnJvbSBhIHNvdXJjZS4ifX0"
+    }
+  },
+  "score": 0.91
+}

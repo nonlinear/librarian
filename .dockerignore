@@ -1,0 +1,11 @@
+books/
+venv/
+logs/
+quarantine/
+test_books/
+tests/
+legacy/
+.git/
+.DS_Store
+*.md
+*.log
