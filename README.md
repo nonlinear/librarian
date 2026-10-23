@@ -309,7 +309,9 @@ The shipped skill is written against a **specific production instance** and a **
 this repo. It is honest to say so:
 
 1. **It contains instance-specific URLs.** Examples reference `https://8088.nonlinear.nyc/reader/...`
-   and "1100+ EPUBs". Replace those with your own host and corpus size.
+   and "1100+ EPUBs", and its worked example links to a real `book_id` in the author's own corpus.
+   Replace the host and the example with your own. Treat the example as a **shape to copy**, not a
+   link to follow — the book it points at is not in this repo.
 2. **It expects a memory-aware build.** The skill passes `agent`, `epic`, and `session_id` to
    `search_library`. **A container built from this repo does not define those arguments** — the
    published `mcp_server_faiss.py` on `main` has `query`, `k`, and `min_score` only. They are
