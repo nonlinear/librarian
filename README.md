@@ -88,32 +88,16 @@ What works today, stated plainly so nobody builds on an assumption:
 
 ## How
 
-### 0. Detect your compose command
-
-```sh
-docker compose version >/dev/null 2>&1 && echo "USE: docker compose" || echo "USE: docker-compose"
-```
-
-Use whichever it prints for every command below. Commands here write `docker compose`; if yours
-printed `docker-compose`, substitute it — including in the MCP config where it becomes
-`"docker-compose", "exec"` instead of `"docker", "compose", "exec"`.
-
-> ⚠️ Some Docker Desktop installs ship only the legacy binary and error with
-> `docker: unknown command: docker compose`.
-
 ### 1. Requirements
 
-| Requirement | Detail | Why |
-|---|---|---|
-| **Docker** | Docker Desktop (macOS/Windows) or Docker Engine (Linux) | Everything runs in one container. |
-| **Compose** | `docker compose` (v2) **or** `docker-compose` (v1) | Either works — see Step 0. |
-| **Memory** | **16 GB allocated to Docker** | ⚠️ The 7.6 GB default makes first indexing crash (OOM). |
-| **Disk** | ~2 GB + your books | Dependencies, model (~130 MB), index. |
-| **OS** | macOS / Linux / Windows via WSL2 | |
-| **Network** | Outbound HTTPS on **first start only** | Downloads the embedding model. Then fully offline. |
-| **Books** | `.epub` and `.pdf` only | Other extensions are ignored — silently. |
+- **Docker** (Desktop or Engine, any recent version) with Compose.
+- **16 GB of memory** available to Docker. Below that, the first index can die.
+- **Disk:** ~2 GB plus your books.
+- **Books** in `.epub` or `.pdf`. Other formats are ignored.
 
-You do **not** need Python on the host. You do **not** need an API key.
+Nothing else. No Python on the host, no API key, no account.
+
+> Use `docker compose` or `docker-compose` — whichever your install provides.
 
 ### 2. Clone
 
@@ -225,9 +209,8 @@ docker compose exec librarian python3 /app/engine/scripts/faiss_search.py "mutua
 
 ### 7. Install as MCP
 
-MCP is already installed. The image builds it (`pip install mcp`, `mcp_server_faiss.py` made
-executable) — **there is nothing to install and no port to open.** You give your agent a command; it
-launches the server as a subprocess over stdio.
+MCP ships inside the image. There is nothing to install and no port to open — point your MCP client
+at this server and it launches it:
 
 ```json
 {
@@ -244,11 +227,10 @@ launches the server as a subprocess over stdio.
 }
 ```
 
-> **`cwd` must be the absolute path to your clone** — otherwise `docker compose exec` runs in the
-> wrong project and finds no `librarian` service. This is the #1 setup failure.
-> `-T` disables TTY allocation, required for stdio.
+> **`cwd` must be the absolute path to your clone**, or the command runs in the wrong Compose project.
+> `-T` disables TTY allocation, which the client needs.
 
-**Tools** (verify on your own instance — the answer depends on your build):
+**Tools** (verify on your own instance — it depends on your build):
 
 | Tool | Args |
 |---|---|
@@ -259,14 +241,6 @@ launches the server as a subprocess over stdio.
 > ⚠️ **If you call `agent` / `epic` / `session_id`, expect them to be ignored.** Those exist in an
 > older prebuilt image and were removed from the source on `main`. A fresh `docker compose up --build`
 > gives you the version without them. Run `tools/list` to see what your instance actually exposes.
-
-**Test without a client:**
-
-```sh
-docker compose exec -T librarian python3 /app/engine/scripts/mcp_server_faiss.py
-```
-
-If that handshakes, the server is fine and the problem is your client config — usually `cwd`.
 
 **Optional — the agent skill.** The MCP connection gives your agent a tool; the skill gives it the
 discipline to use it (when to consult, how to assemble a query, what an answer must contain). It
