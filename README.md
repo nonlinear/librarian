@@ -44,6 +44,31 @@ see [Status](#status) before you build on them.
 
 ---
 
+## How it works
+
+```mermaid
+flowchart LR
+    BOOK[You add a book] --> WATCH[Folder watcher]
+    WATCH --> INDEX[Incremental index]
+    INDEX --> MCP[MCP stdio / HTTP ready]
+    MCP --> AGENT[Your agent asks]
+    AGENT --> CITATION[Hit + address]
+    CITATION --> READER[You open the book]
+```
+
+One container. A watcher indexes whatever lands in the corpus folder into a FAISS vector index; the
+HTTP server and the MCP stdio server read that index. Adding a book is incremental — no rebuild.
+
+| Library size | First index | Query | Disk |
+|---|---|---|---|
+| 100 books | 2–5 min | <0.3 s | ~100 MB |
+| 500 books | 10–15 min | <0.5 s | ~400 MB |
+| 1000 books | 20–30 min | <0.7 s | ~800 MB |
+
+After the first index, adding one book is <10 s.
+
+---
+
 ## Status
 
 What works today, stated plainly so nobody builds on an assumption:
@@ -117,7 +142,19 @@ export LIBRARY_ROOT=/absolute/path/to/my/library
 > The repo ships `books/` empty on purpose. It never distributes a corpus (BYOBook).
 
 > **`config.example.json` is optional** — the container reads environment variables and works out
-> of the box. See [`about/configuration.md`](about/configuration.md).
+> of the box.
+
+**That is the whole configuration.** Everything else has a default:
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `LIBRARY_ROOT` | `./books` | Host path mounted as the corpus |
+| `LIBRARIAN_READER_PORT` | `8088` | Host **and** container port for HTTP / reader |
+| `LIBRARIAN_MODELS_DIR` | `./models` | Embedding model cache (persists across rebuilds) |
+| `LIBRARIAN_MODEL` | `BAAI/bge-small-en-v1.5` | Embedding model |
+
+Resolution order (highest wins): `config.json` → environment variables → defaults derived from
+`library_root`. Details in [`about/configuration.md`](about/configuration.md).
 
 ### 4. Start
 
@@ -231,53 +268,12 @@ docker compose exec -T librarian python3 /app/engine/scripts/mcp_server_faiss.py
 
 If that handshakes, the server is fine and the problem is your client config — usually `cwd`.
 
-### 8. Install the Librarian skill
-
-The MCP connection gives your agent a tool. The **skill** gives it the discipline to use the tool
-well — when to consult, how to assemble a query, and what an answer must contain.
-
-**Installed at** `~/.openclaw/skills/librarian/SKILL.md`. **This repo carries a copy at**
-[`skills/librarian/SKILL.md`](skills/librarian/SKILL.md), published automatically by a `pre-push`
-hook — so a clone includes the protocol without an OpenClaw environment.
-
-| | |
-|---|---|
-| **Source of truth** | `~/.openclaw/skills/librarian/` (the installed copy) |
-| **In this repo** | `skills/librarian/` — a copy, refreshed on every `git push` |
-| **Direction** | always installed → repo. The repo is downstream, never upstream. |
-
-> ⚠️ **Do not edit `skills/librarian/SKILL.md` in this repo.** The next push overwrites it.
-
-The skill is an operating protocol, not a prompt snippet: a fail-closed activation gate, query
-assembly before the call, 8 research rules (including *absence of evidence is not evidence of
-absence*), a mandatory output format with source links, and locator-integrity hard stops.
-
-Two caveats before adopting it as-is:
-
-1. **It contains instance-specific URLs** — `8088.nonlinear.nyc` in examples, and a worked example
-   linking a real `book_id` in the author's corpus. Copy the **shape**, not the link.
-2. **It passes `agent`/`epic`/`session_id`** to `search_library`. A build from this repo ignores them;
-   the protocol still works, you just lose memory tagging.
-
-### 9. Acceptance check (definition of done)
-
-```sh
-# 1. server live
-curl -s localhost:8088/health
-
-# 2. corpus indexed — books > 0
-curl -s localhost:8088/stats
-
-# 3. a query returns hits
-curl -s -X POST localhost:8088/search -H 'Content-Type: application/json' \
-  -d '{"query":"a phrase you know is in your book","limit":3}'
-
-# 4. a hit resolves to a reader link that opens
-curl -s localhost:8088/resolve/<chunk_id from step 3>
-```
-
-Steps 1–3 must return data. For step 4, **check the status code — do not assume the URL works** (see
-[Reader](#reader)). Report what the four checks returned, not "container started".
+**Optional — the agent skill.** The MCP connection gives your agent a tool; the skill gives it the
+discipline to use it (when to consult, how to assemble a query, what an answer must contain). It
+lives at `~/.openclaw/skills/librarian/SKILL.md`, and this repo carries a copy at
+[`skills/librarian/SKILL.md`](skills/librarian/SKILL.md), kept in sync by a `pre-push` hook. The
+installed copy is the source of truth; **do not edit the copy in this repo** — the next push
+overwrites it.
 
 ### Reader
 
@@ -301,19 +297,10 @@ http://localhost:8088/wall                 # library wall
 
 ### Troubleshooting
 
-| Symptom | Cause | Fix |
-|---|---|---|
-| `/health` never answers | Model downloading, or first index running | `docker compose logs -f`; wait |
-| Container restarts in a loop | Docker memory < 16 GB → OOM on first index | Raise to 16 GB, then `up -d` |
-| Model download fails | No outbound HTTPS on first start | Retry with network; only first start needs it |
-| `chunks:0` forever | Corpus empty, or mounted elsewhere | `docker compose exec librarian ls /app/books` |
-| A book never indexes | Wrong extension, or inside `no-indexing/` | `.epub`/`.pdf` only; move it out |
-| `docker compose` not found | Only legacy Compose installed | Use `docker-compose` |
-| Port 8088 in use | Another service on 8088 | `LIBRARIAN_READER_PORT=8090 docker compose up -d` |
-| MCP client shows no tools | Client pointed at a URL instead of launching stdio | Use the config in [Step 7](#7-install-as-mcp) |
-| MCP client errors on exec | Wrong `cwd` — wrong compose project | `cwd` = absolute path to your clone |
-| First query very slow | FAISS index (~1 GB) loads lazily | Expected once; then fast |
-| `reader_url` returns 404 | `book_id` is a uuid, reader keyed by hash | See [Reader](#reader) |
+Symptom → cause → fix for the common failures (first-index OOM, `/health` silent, `chunks:0`, a book
+that never indexes, MCP client not connecting, port 8088 in use):
+
+**[`about/troubleshooting.md`](about/troubleshooting.md)**
 
 ---
 
@@ -335,68 +322,6 @@ http://localhost:8088/wall                 # library wall
 - "What does my library say about design systems?"
 - "Consult on mutual aid and care."
 - "How do taxonomies differ from folksonomies?"
-
----
-
-## Configuration
-
-Resolution order (highest wins): `config.json` → environment variables → defaults derived from
-`library_root`. Details in [`about/configuration.md`](about/configuration.md).
-
-| Variable | Default | Meaning |
-|---|---|---|
-| `LIBRARY_ROOT` | `./books` | Host path mounted as the corpus |
-| `LIBRARIAN_BOOKS` | `/app/books` | Corpus path **inside** the container |
-| `LIBRARIAN_READER_PORT` | `8088` | Host **and** container port for HTTP / reader |
-| `LIBRARIAN_MODELS_DIR` | `./models` | Embedding model cache (persists across rebuilds) |
-| `LIBRARIAN_MODEL` | `BAAI/bge-small-en-v1.5` | Embedding model |
-
----
-
-## Documentation
-
-| Doc | Purpose |
-|-----|---------|
-| [`skills/librarian/SKILL.md`](skills/librarian/SKILL.md) | **The agent skill** — activation gate, query assembly, 8 research rules, output format |
-| [`about/README.md`](about/README.md) | Overview + use cases |
-| [`about/install.md`](about/install.md) | Install from zero (BYOBook) |
-| [`about/configuration.md`](about/configuration.md) | How config is resolved (env / config.json / defaults) |
-| [`about/features.md`](about/features.md) | Official capabilities, verified against code |
-| [`about/usage.md`](about/usage.md) | How to consume: MCP, HTTP, reader, CLI |
-| [`about/troubleshooting.md`](about/troubleshooting.md) | Problem → diagnosis → fix |
-
----
-
-## How it works
-
-```mermaid
-flowchart LR
-    BOOK[You add a book] --> WATCH[Folder watcher]
-    WATCH --> INDEX[Incremental index]
-    INDEX --> MCP[MCP stdio / HTTP ready]
-    MCP --> AGENT[Your agent asks]
-    AGENT --> CITATION[Hit + address]
-    CITATION --> READER[You open the book]
-```
-
-| Library size | First index | Query | Disk |
-|---|---|---|---|
-| 100 books | 2–5 min | <0.3 s | ~100 MB |
-| 500 books | 10–15 min | <0.5 s | ~400 MB |
-| 1000 books | 20–30 min | <0.7 s | ~800 MB |
-
-After the first index, adding one book is <10 s.
-
----
-
-## Tech stack
-
-- **`engine/scripts`** — indexing, retrieval, FAISS search, watcher, HTTP/MCP servers
-- **`engine/reader`** — EPUB reader shell (deep-links + highlight)
-- **`engine/shared`** — shared response/evidence models (single source of truth)
-- **`engine/evidence_renderer`** — renders evidence with citation targets
-
-Python 3.11 · FAISS · sentence-transformers · FastAPI · epub.js
 
 ---
 
