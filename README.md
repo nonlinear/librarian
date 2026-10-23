@@ -311,10 +311,10 @@ this repo. It is honest to say so:
 1. **It contains instance-specific URLs.** Examples reference `https://8088.nonlinear.nyc/reader/...`
    and "1100+ EPUBs". Replace those with your own host and corpus size.
 2. **It expects a memory-aware build.** The skill passes `agent`, `epic`, and `session_id` to
-   `search_library`. The container that ships with this repo **does** accept them; the published
-   source on `main` **does not** (see the pinning note in [Step 6](#6-connect-it-to-your-ai-agent)).
-   If you run a build without them, the extra arguments are ignored — the protocol still works, you
-   just lose per-agent/epic memory tagging.
+   `search_library`. **A container built from this repo does not define those arguments** — the
+   published `mcp_server_faiss.py` on `main` has `query`, `k`, and `min_score` only. They are
+   ignored, so the protocol still works; you just do not get per-agent/epic memory tagging. That
+   feature exists in a newer build that is not in this repo.
 
 Neither caveat breaks the retrieval loop. Both matter if you are publishing this skill to your own
 users.
