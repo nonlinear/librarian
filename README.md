@@ -4,7 +4,12 @@
 > All local — books, embedding model, index. Works offline. No account, no API key.
 
 Put EPUBs or PDFs in a folder. Librarian indexes them locally and answers questions from them,
-with citations that open the exact paragraph so you can verify instead of trust.
+with citations that carry a `book_id`, a chunk address, and a reader link — so an answer can be
+checked against the book instead of trusted.
+
+> ⚠️ **Citation verification is partially working in this release** — `/resolve` hands back a reader
+> URL that 404s. See the status table below and the [known defect](#reader--check-a-citation-yourself)
+> before you promise anyone "open the exact paragraph".
 
 ---
 
