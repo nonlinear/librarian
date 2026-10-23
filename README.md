@@ -266,6 +266,61 @@ Search without resolve gives answers with **no verifiable source**. That is the 
 
 ---
 
+## 🧠 The Librarian skill — ready to use, and where it lives
+
+Writing that trigger from scratch is unnecessary: a production-tested skill already exists and is the
+recommended way to use this product.
+
+**The canonical copy is installed at:**
+
+```
+~/.openclaw/skills/librarian/SKILL.md
+```
+
+**This repo carries a read-only copy at `skills/librarian/SKILL.md`**, published automatically by a
+`pre-push` git hook — so anyone who clones gets the protocol without an OpenClaw environment.
+
+| | |
+|---|---|
+| **Source of truth** | `~/.openclaw/skills/librarian/` (the installed copy) |
+| **In this repo** | `skills/librarian/` — a copy, refreshed on every `git push` |
+| **Direction** | always installed → repo. The repo is downstream, never upstream. |
+
+> ⚠️ **Do not edit `skills/librarian/SKILL.md` in this repo.** The next push overwrites it from the
+> installed copy. Change the installed skill, then push.
+
+### What the skill gives you
+
+It is not a prompt snippet — it is an operating protocol (v3.5, 427 lines) covering:
+
+- a **fail-closed activation gate** — the agent must open the skill that turn, or it may not answer;
+- **query assembly before the call** (expansion, primary source first, structure-aware navigation);
+- **8 research rules**, including *Rule 4 — absence of evidence is not evidence of absence* and
+  *Rule 8 — cite or it did not happen*;
+- a **mandatory output format** with source links and similarity scores;
+- **locator-integrity checks** and hard stops.
+
+The practical difference: without the skill, an agent calls `search_library` and summarizes. With it,
+the agent must show sources or decline to answer.
+
+### Two caveats before you adopt it as-is
+
+The shipped skill is written against a **specific production instance** and a **newer build** than
+this repo. It is honest to say so:
+
+1. **It contains instance-specific URLs.** Examples reference `https://8088.nonlinear.nyc/reader/...`
+   and "1100+ EPUBs". Replace those with your own host and corpus size.
+2. **It expects a memory-aware build.** The skill passes `agent`, `epic`, and `session_id` to
+   `search_library`. The container that ships with this repo **does** accept them; the published
+   source on `main` **does not** (see the pinning note in [Step 6](#6-connect-it-to-your-ai-agent)).
+   If you run a build without them, the extra arguments are ignored — the protocol still works, you
+   just lose per-agent/epic memory tagging.
+
+Neither caveat breaks the retrieval loop. Both matter if you are publishing this skill to your own
+users.
+
+---
+
 ## 7. Use it without an agent
 
 ### HTTP REST
@@ -418,12 +473,17 @@ Resolution order (highest wins): `config.json` → environment variables → def
 
 | Doc | Purpose |
 |-----|---------|
+| [`skills/librarian/SKILL.md`](skills/librarian/SKILL.md) | **The agent skill** — activation gate, query assembly, 8 research rules, output format |
 | [`about/README.md`](about/README.md) | Overview + use cases |
 | [`about/install.md`](about/install.md) | Install from zero (BYOBook) |
 | [`about/configuration.md`](about/configuration.md) | How config is resolved (env / config.json / defaults) |
 | [`about/features.md`](about/features.md) | Official capabilities, verified against code |
 | [`about/usage.md`](about/usage.md) | How to consume: MCP, HTTP, reader, CLI |
 | [`about/troubleshooting.md`](about/troubleshooting.md) | Problem → diagnosis → fix |
+
+> The skill is the recommended entry point for agents. If you only read one file besides this README,
+> read [`skills/librarian/SKILL.md`](skills/librarian/SKILL.md) — it is the difference between an
+> agent that searches and an agent that cites.
 
 > ⚠️ `about/install.md` still says "MCP (recommended): point your client at the container's HTTP
 > server **or** the stdio process". Only **stdio** gives you all three tools. Trust this README over
