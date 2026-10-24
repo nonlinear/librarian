@@ -108,13 +108,13 @@ git clone https://github.com/nonlinear/librarian.git
 cd librarian
 ```
 
-The repo ships five public-domain books in `books/starter/` — enough to boot into a working library
+The repo ships five public-domain books in `books/sample/` — enough to boot into a working library
 immediately. Nothing else in `books/` is ever committed: your own corpus stays local.
 
 ### 3. Point it at your books
 
 The container mounts `${LIBRARY_ROOT:-./books}` → `/app/books`. On a fresh clone that folder already
-contains `books/starter/`, so the first boot indexes five books instead of nothing.
+contains `books/sample/`, so the first boot indexes five books instead of nothing.
 
 Pick one:
 
@@ -124,7 +124,7 @@ Pick one:
 cp ~/Downloads/*.epub ./books/
 ```
 
-`books/starter/` can stay or go — your choice.
+`books/sample/` can stay or go — your choice.
 
 **B — keep your library where it already is.** Export an absolute path before starting:
 
@@ -133,7 +133,7 @@ export LIBRARY_ROOT=/absolute/path/to/my/library
 ```
 
 > The folder **must already exist** — Docker fails to mount a missing host path.
-> With option B you point at your own folder, so `books/starter/` is simply not mounted.
+> With option B you point at your own folder, so `books/sample/` is simply not mounted.
 
 > **`config.example.json` is optional** — the container reads environment variables and works out
 > of the box.
@@ -144,8 +144,14 @@ export LIBRARY_ROOT=/absolute/path/to/my/library
 |---|---|---|
 | `LIBRARY_ROOT` | `./books` | Host path mounted as the corpus |
 | `LIBRARIAN_READER_PORT` | `8088` | Host **and** container port for HTTP / reader |
-| `LIBRARIAN_MODELS_DIR` | `./models` | Embedding model cache (persists across rebuilds) |
-| `LIBRARIAN_MODEL` | `BAAI/bge-small-en-v1.5` | Embedding model |
+| `LIBRARIAN_MODELS_DIR` | `./models` | Where the embedding model is cached (persists across rebuilds) |
+
+Set `LIBRARIAN_MODELS_DIR` to move the cache.
+
+The embedding model is **fixed**: `BAAI/bge-small-en-v1.5`, 384 dimensions. It is not configurable,
+because the index dimension is fixed too — swapping the model without rebuilding the index produces
+an index that searches wrong and fails at query time, not at build time. Keeping it fixed is the
+protection.
 
 Resolution order (highest wins): `config.json` → environment variables → defaults derived from
 `library_root`. Details in [`about/configuration.md`](about/configuration.md).
@@ -162,7 +168,7 @@ The first start downloads the embedding model. It is the only network access Lib
 | **Size** | ~128 MB, once. Reused across restarts and rebuilds — never re-downloaded. |
 | **Not in** | Not in the git repo, not in the Docker image, not bundled with the clone. It is downloaded on *your* machine and stays there. |
 
-Set `LIBRARIAN_MODEL` to change the model and `LIBRARIAN_MODELS_DIR` to change where it is cached.
+Set `LIBRARIAN_MODELS_DIR` to change where the model is cached.
 
 **Download the model first, on purpose.** You do not have to wait for `up` — this fetches it
 beforehand, shows progress, and fails loudly if the network is wrong:

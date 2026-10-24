@@ -1,12 +1,12 @@
-# Books folder — YOUR corpus is never committed. Only the starter corpus ships.
+# Books folder — YOUR corpus is never committed. Only books/sample/ ships.
 #
 # `books/` is the corpus mount. Everything in it is your library and must stay
-# local. The one exception is `books/starter/`: five public-domain works that
+# local. The one exception is `books/sample/`: five public-domain works that
 # ship with the repo so the first boot indexes something instead of nothing.
 books/*
 !books/.gitkeep
-!books/starter/
-books/starter/*.DS_Store
+!books/sample/
+books/sample/*.DS_Store
 
 # Index / state artifacts — derived, never published (P4: no corpus state in the
 # package). Rebuilt in seconds by the entrypoint on first boot.
