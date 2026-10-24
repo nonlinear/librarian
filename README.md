@@ -35,9 +35,9 @@ the MCP server, so the only thing you configure in your agent is a command to la
 ## Who this is for
 
 - **You**, if you have a folder of EPUBs/PDFs and want to ask questions across all of them.
-- **Your AI agent** (Claude Code, Cursor, Codex, OpenClaw, or any harness with shell access).
-  This README is written to be **handed to an agent** and executed top to bottom. A human can
-  follow it identically — the commands are the same.
+- **Your AI agent** (Claude Code, Codex, Cursor, OpenClaw, Hermes, or any harness that can launch a
+  local stdio MCP server). This README is written to be **handed to an agent** and executed top to
+  bottom. A human can follow it identically — the commands are the same.
 
 Not for you if: you want a hosted endpoint, a login, or cross-session memory. None of those exist —
 see [Status](#status) before you build on them.
@@ -94,6 +94,8 @@ What works today, stated plainly so nobody builds on an assumption:
 - **16 GB of memory** available to Docker. Below that, the first index can die.
 - **Disk:** ~2 GB plus your books.
 - **Books** in `.epub` or `.pdf`. Other formats are ignored.
+- **An MCP-capable harness** if you want to query from an agent — Claude Code, Codex, Cursor, OpenClaw,
+  Hermes, or anything that can launch a local stdio MCP server. Not needed for HTTP/CLI use.
 
 Nothing else. No Python on the host, no API key, no account.
 
@@ -210,7 +212,13 @@ docker compose exec librarian python3 /app/engine/scripts/faiss_search.py "mutua
 ### 7. Install as MCP
 
 MCP ships inside the image. There is nothing to install and no port to open — point your MCP client
-at this server and it launches it:
+at this server and it launches it.
+
+> **MCP here is local and process-based, not a service.** The server speaks stdio: your harness
+> spawns it, and neither of you is on a network. That means **an agent cannot discover it from the
+> outside** — there is no endpoint to probe. The only way to know what this server offers is to read
+> the code in [`engine/scripts/mcp_server_faiss.py`](engine/scripts/mcp_server_faiss.py), or to run it
+> yourself and ask (see the command below).
 
 ```json
 {
@@ -229,6 +237,12 @@ at this server and it launches it:
 
 > **`cwd` must be the absolute path to your clone**, or the command runs in the wrong Compose project.
 > `-T` disables TTY allocation, which the client needs.
+
+Run it yourself to see what it exposes:
+
+```sh
+docker compose exec -T librarian python3 /app/engine/scripts/mcp_server_faiss.py
+```
 
 **Tools** (verify on your own instance — it depends on your build):
 
