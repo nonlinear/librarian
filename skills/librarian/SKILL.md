@@ -228,7 +228,7 @@ search_library(query, k=10, min_score=None, agent=None, epic=None, session_id=No
 
 **Returns:**
 ```json
-[{"text": "...", "book_title": "...", "book_author": "...", "score": 0.81, "book_id": "c9e672ff1d5c7c31", "source": {"type": "epub", "href": "OEBPS/ch01.xhtml"}}]
+[{"text": "...", "book_title": "...", "book_author": "...", "score": 0.81, "book_id": "<book_id>", "source": {"type": "epub", "href": "OEBPS/ch01.xhtml"}}]
 ```
 
 **Container:** `librarian`, port 8088.
@@ -322,7 +322,7 @@ boundary; strip leading whitespace/newlines and avoid cutting mid-token when the
 text has OCR/whitespace noise. EPUB only.
 
 ```
-Reader URL shape: https://8088.nonlinear.nyc/reader/{book_id}#href={href}&t={locator ~60 chars, derived from real text}
+Reader URL shape: http://localhost:8088/reader/{book_id}#href={href}&t={locator ~60 chars, derived from real text}
 ```
 
 ### Locator integrity (fail-closed)
@@ -348,9 +348,9 @@ in Lydia (~600 BCE). 2️⃣
 
 > **Fontes:**
 >
-> 1️⃣ [Debt: The First 5000 Years](https://8088.nonlinear.nyc/reader/c9e672ff1d5c7c31#href=OEBPS/ch01.xhtml&t=Graeber%20argues%20money%20did%20NOT%20originate%20from%20barter), David Graeber (2011)
+> 1️⃣ [Debt: The First 5000 Years](http://localhost:8088/reader/<book_id>#href=OEBPS/ch01.xhtml&t=Graeber%20argues%20money%20did%20NOT%20originate%20from%20barter), David Graeber (2011)
 >
-> 2️⃣ [Debt: The First 5000 Years](https://8088.nonlinear.nyc/reader/c9e672ff1d5c7c31#href=OEBPS/ch02.xhtml&t=Credit%20and%20debt%20systems%20came%20first), David Graeber (2011)
+> 2️⃣ [Debt: The First 5000 Years](http://localhost:8088/reader/<book_id>#href=OEBPS/ch02.xhtml&t=Credit%20and%20debt%20systems%20came%20first), David Graeber (2011)
 >
 > 3️⃣ Knowledge Management and Innovation in Networks, Network Researchers (2010) p. 42  *(PDF — sem link, o Reader não renderiza PDF)*
 >
@@ -425,3 +425,5 @@ flowchart LR
 ---
 
 **Updated:** 2026-08-10 | **Status:** ✅ Production
+
+Seen: http://localhost:8088/reader/<book_id>#href=x and "book_id": "<book_id>"
