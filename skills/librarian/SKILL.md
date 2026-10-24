@@ -425,5 +425,3 @@ flowchart LR
 ---
 
 **Updated:** 2026-08-10 | **Status:** ✅ Production
-
-Seen: http://localhost:8088/reader/<book_id>#href=x and "book_id": "<book_id>"
