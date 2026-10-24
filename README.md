@@ -108,15 +108,23 @@ git clone https://github.com/nonlinear/librarian.git
 cd librarian
 ```
 
+The repo ships five public-domain books in `books/starter/` — enough to boot into a working library
+immediately. Nothing else in `books/` is ever committed: your own corpus stays local.
+
 ### 3. Point it at your books
 
-The container mounts `${LIBRARY_ROOT:-./books}` → `/app/books`. Pick one:
+The container mounts `${LIBRARY_ROOT:-./books}` → `/app/books`. On a fresh clone that folder already
+contains `books/starter/`, so the first boot indexes five books instead of nothing.
 
-**A — bundled folder (simplest).** Copy your books into the repo's `books/`:
+Pick one:
+
+**A — add your books to the repo folder (simplest).** Copy them into `books/`:
 
 ```sh
 cp ~/Downloads/*.epub ./books/
 ```
+
+`books/starter/` can stay or go — your choice.
 
 **B — keep your library where it already is.** Export an absolute path before starting:
 
@@ -125,7 +133,7 @@ export LIBRARY_ROOT=/absolute/path/to/my/library
 ```
 
 > The folder **must already exist** — Docker fails to mount a missing host path.
-> The repo ships `books/` empty on purpose. It never distributes a corpus (BYOBook).
+> With option B you point at your own folder, so `books/starter/` is simply not mounted.
 
 > **`config.example.json` is optional** — the container reads environment variables and works out
 > of the box.

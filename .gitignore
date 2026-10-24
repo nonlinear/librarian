@@ -1,6 +1,28 @@
-# Books folder - ignore everything except .gitkeep
+# Books folder — YOUR corpus is never committed. Only the starter corpus ships.
+#
+# `books/` is the corpus mount. Everything in it is your library and must stay
+# local. The one exception is `books/starter/`: five public-domain works that
+# ship with the repo so the first boot indexes something instead of nothing.
 books/*
 !books/.gitkeep
+!books/starter/
+books/starter/*.DS_Store
+
+# Index / state artifacts — derived, never published (P4: no corpus state in the
+# package). Rebuilt in seconds by the entrypoint on first boot.
+books/*.index
+books/*.db
+books/book_registry.json*
+books/.index_state.json*
+books/.faiss_rebuild_ckpt.json
+books/.global-index*
+books/.index-*
+books/.index-text/
+books/.archive/
+
+# Embedding model — downloaded on first boot, never committed (~128 MB).
+models/
+models/.locks/
 
 # Reading state — runtime data, not committed
 engine/reading_state/*
@@ -10,3 +32,21 @@ engine/reading_state/*
 # Kept on disk (dev repo) but never tracked → never in a release candidate.
 DO_NOT.md
 quarantine.jsonl
+
+# Local instance dirs (never in a release candidate)
+backup/
+covers/
+flagship/
+staging/
+quarantine/
+reading_log/
+memory/
+logs/
+testing/
+EPIC.md
+staging/
+*.bak-*
+*.bak.*
+log-rebuild-*.txt
+log-reindex-*.log
+.DS_Store
