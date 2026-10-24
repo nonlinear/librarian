@@ -164,6 +164,25 @@ The first start downloads the embedding model. It is the only network access Lib
 
 Set `LIBRARIAN_MODEL` to change the model and `LIBRARIAN_MODELS_DIR` to change where it is cached.
 
+**Download the model first, on purpose.** You do not have to wait for `up` — this fetches it
+beforehand, shows progress, and fails loudly if the network is wrong:
+
+```sh
+mkdir -p models
+HF_HUB_OFFLINE=0 python3 -c "from sentence_transformers import SentenceTransformer; \
+  SentenceTransformer('BAAI/bge-small-en-v1.5', cache_folder='models')"
+```
+
+Run it inside the container if you have no Python on the host, which is the normal case:
+
+```sh
+docker compose run --rm librarian python3 -c "from sentence_transformers import SentenceTransformer; \
+  SentenceTransformer('BAAI/bge-small-en-v1.5', cache_folder='/app/engine/models')"
+```
+
+Either way the result is the same directory — `./models/models--BAAI--bge-small-en-v1.5/` — and
+`up` then starts without downloading anything. If you skip this, `up` does it for you.
+
 ```sh
 docker compose up -d
 ```
