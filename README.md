@@ -152,6 +152,18 @@ Resolution order (highest wins): `config.json` → environment variables → def
 
 ### 4. Start
 
+The first start downloads the embedding model. It is the only network access Librarian ever needs.
+
+| | |
+|---|---|
+| **What** | `BAAI/bge-small-en-v1.5` — 384 dimensions, sentence-transformers |
+| **From** | Hugging Face Hub (`huggingface.co/BAAI/bge-small-en-v1.5`) |
+| **To** | `./models/models--BAAI--bge-small-en-v1.5/` on your machine, mounted at `/app/engine/models` in the container |
+| **Size** | ~128 MB, once. Reused across restarts and rebuilds — never re-downloaded. |
+| **Not in** | Not in the git repo, not in the Docker image, not bundled with the clone. It is downloaded on *your* machine and stays there. |
+
+Set `LIBRARIAN_MODEL` to change the model and `LIBRARIAN_MODELS_DIR` to change where it is cached.
+
 ```sh
 docker compose up -d
 ```
@@ -166,7 +178,16 @@ docker compose logs -f
 
 Expected order: model download → index check/rebuild → `Starting file watcher...` → HTTP server up.
 
+You can confirm the model landed before the server is ready:
+
+```sh
+ls models/models--BAAI--bge-small-en-v1.5/snapshots/
+```
+
 ### 5. Prove it is alive — do not skip
+
+By definition, a completed installation means **the MCP/HTTP server is running**. This step is how you
+know you finished, not a suggestion.
 
 "Container is Up" is **not** proof. The container is Up while still downloading the model.
 
